@@ -1,0 +1,169 @@
+html,
+body {
+    padding: 0px;
+    margin: 0px;
+    background: white;
+    height: 100%;
+    font-family: 'Maven Pro', sans-serif;
+}
+
+#login-container {
+    min-height: 300px;
+    max-width: 250px;
+    margin: 40px auto;
+    background: #FFF;
+    border-radius: 2px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: hi 0.5s;
+    padding: 20px 15px;
+    background: linear-gradient(to left, #955DFF, #6FAAFF);
+}
+
+input {
+    margin-bottom: 20px;
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    height: 25px;
+}
+
+label {
+    color: white;
+}
+
+input[type=submit] {
+    background: rgba(0, 0, 0, 0.5);
+    color: #F6F7F9;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Maven Pro', sans-serif;
+}
+
+#full-screen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+svg {
+    background-color: #c0c0c0;
+    display: block;
+    min-width: 100px;
+    min-height: 100px;
+    width: 800;
+    height: 800;
+}
+
+.zoom {
+    fill: none;
+    stroke-width: 1;
+    stroke: #000000;
+}
+
+#all-menus {
+    color: white;
+    width: 100%;
+    display: flex;
+    height: 20%;
+    margin-top: 0px;
+    padding: 0px;
+    position: absolute;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+#menus {
+    color: white;
+    width: 100%;
+    display: flex;
+    height: 40% !important;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#top-menus {
+    height: 40%;
+    background-color: cornflowerblue;
+    color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#zoomButtons {
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    height: 10%;
+    width: auto;
+    display: flex;
+    border-radius: 10px;
+    justify-content: flex-end;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+    color: transparent;
+}
+
+#fileButtons {
+    color: transparent;
+    display: flex;
+    width: 50%;
+    border-radius: 10px;
+    width: auto;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+#editButtons {
+    color: transparent;
+    display: flex;
+    border-radius: 10px;
+    width: auto;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+#undoButtons {
+    color: transparent;
+    display: flex;
+    border-radius: 10px;
+    width: auto;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+#modeButtons {
+    color: white;
+    background-color: cornflowerblue;
+    display: flex;
+    width: 30%;
+    border-radius: 10px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+#state-editor {
+    width: 100%;
+    height: 100%;
+}
+
+#b-logout {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border: none;
+    color: transparent;
+    background-image: url(/static/images/sign-out-white.svg);
+}
+
+#machine-info {
+    padding: 20px;
+}
+
+#machine-info span {
+    padding: 10px;
+}

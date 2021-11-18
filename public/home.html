@@ -1,0 +1,39 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RAMSES</title>
+    <script type="module" src="static/js/button-array.js"></script>
+    <script type="module" src="static/js/state-editor.js"></script>
+    <link rel="stylesheet" href="static/css/styles.css" type="text/css" />
+
+
+    <style>
+
+    </style>
+
+</head>
+
+<body>
+    <div id="full-screen">
+        <!--fg-dxf-dialogs  id="menu" app='state-editor'></fg-dxf-dialogs-->
+        <div id="all-menus">
+            <div id="top-menus">
+                <button-array id='modeButtons'></button-array>
+                <div id="machine-info"></div>
+                <button id="b-logout" type="click" onclick="window.location='/logout';">Logout</button>
+            </div>
+            <div id="menus">
+                <button-array id='executeButtons'></button-array>
+                <button-array id='zoomButtons'></button-array>
+                <button-array id='editButtons'></button-array>
+                <button-array id='undoButtons'></button-array>
+                <button-array id='fileButtons'></button-array>
+            </div>
+        </div>
+        <state-editor id='state-editor'></state-editor>
+    </div>
+</body>
+
+</html>

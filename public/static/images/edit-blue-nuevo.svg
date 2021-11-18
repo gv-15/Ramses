@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20,4a2.09,2.09,0,0,0-2.95.12L8.17,13,7,17l4-1.17L19.88,7A2.09,2.09,0,0,0,20,4Z" style="fill: none; stroke: rgb(66, 139, 231); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/>
+  <line x1="17.62" y1="21" x2="3.196" y2="21" style="fill: none; stroke: rgb(66, 139, 231); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/>
+  <line x1="16.3" y1="3.424" x2="3.339" y2="3.385" style="fill: none; stroke: rgb(66, 139, 231); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;" transform="matrix(0.999992, -0.003907, 0.003907, 0.999992, -0.013226, 0.038391)"/>
+  <line x1="3.301" y1="3.668" x2="3.004" y2="20.724" style="fill: none; stroke: rgb(66, 139, 231); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;" transform="matrix(0.999992, -0.003907, 0.003907, 0.999992, -0.040737, 0.012807)"/>
+  <line x1="17.791" y1="20.627" x2="17.719" y2="10.181" style="fill: none; stroke: rgb(66, 139, 231); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;" transform="matrix(-0.999992, 0.003907, -0.003907, -0.999992, 35.570049, 30.738514)"/>
+</svg>

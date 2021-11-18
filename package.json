@@ -1,0 +1,17 @@
+{
+    "name": "ramses",
+    "version": "1.0.0",
+    "description": "Entorno de simulación de máquinas abstractas",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "author": "Estibaliz Rodriguez de Yurre",
+    "dependencies": {
+        "dom-to-image": "^2.6.0",
+        "express": "^4.17.1",
+        "express-session": "^1.17.1",
+        "html2canvas": "^1.0.0-rc.7",
+        "mysql": "^2.18.1"
+    }
+}
