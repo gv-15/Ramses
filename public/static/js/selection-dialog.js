@@ -117,10 +117,14 @@ export default class SelectionDialog extends HTMLElement {
                             <label for="AFD">AFD</label>
                             <input type="radio" name="machine" id="AFND" value="AFND"/>
                             <label for="AFND">AFND</label>
-                            <input type="radio" name="machine"id="PILA"  value="PILA"/>
-                            <label for="PILA">PILA</label>
-                            <input type="radio" name="machine" id="TURING"  value="TURING"/>      
-                            <label for="TURING">TURING</label>
+                            <input type="radio" name="machine"id="APN"  value="APN"/>
+                            <label for="APN">APN</label>
+                            <input type="radio" name="machine" id="APD"  value="APD"/>      
+                            <label for="APD">APD</label>
+                            <input type="radio" name="machine" id="MTR"  value="MTR"/>
+                            <label for="MTR">MTR</label>
+                            <input type="radio" name="machine" id="MTC"  value="MTC"/>      
+                            <label for="MTC">MTC</label>
                         </div>
                         <div id="text-input-container">
                             <label id="sigma-label">&#931<input type="text"  name="machine" id="alphabet-input" placeholder="p.ej: ab, 01"/></label></br>

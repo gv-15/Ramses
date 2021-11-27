@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 var mysql = require('mysql');
 
 const app = express();
-const PORT = 667; // Funciona con el 3000 lo hemos cambiado para el compose
+const PORT = 3000;
 app.listen(PORT, () => console.log(`Express server currently running on port ${PORT}`));
 
 var connection = mysql.createConnection({
