@@ -40,9 +40,17 @@ export default class StateChart {
                     return (trs.map(tr => tr.to));
                 }
                 break;
-            case 'PILA': //todo
+            case 'APN': //todo Automata con pila No-Determinista
+
                     break;
-            case 'TURING': //todo
+            case 'APD': //todo Automata con pila Determinista
+
+                    break;
+            case 'MTR': //todo Maquinas de turing Reconocedoras, siempre son deterministas
+
+                    break;
+            case 'MTC': //todo Maquinas de Turing Calculadoras, siempre son deterministas
+            
                     break;
         }
 

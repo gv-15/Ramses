@@ -113,7 +113,7 @@ const undoButtonsData = {
             id: 'b-redo'
         },
         {
-            value: "Minimizar", //Esta creado el boton pero falta toda la implementacionb
+            value: "Minimizar", //Esta creado el boton pero falta toda la implementacion, LO DEJO AQUI??
             action: 'start_minimize_node',
             class: 'minimize',
             id: 'b-minimize'
