@@ -10,10 +10,10 @@ const PORT = 3000;
 app.listen(PORT, () => console.log(`Express server currently running on port ${PORT}`));
 
 var connection = mysql.createConnection({
-    host: 'localhost',
+    host: 'ramses-sql',
     database: 'todoapp',
-    user: 'root',
-    password: 'root',
+    user: 'user',
+    password: 'user',
 });
 
 connection.connect(function(err) {
@@ -42,7 +42,7 @@ app.post('/auth', function(request, response) {
             if (results.length > 0) {
                 request.session.loggedin = true;
                 request.session.username = username;
-                response.redirect('/home');
+                response.redirect('/ramses/home');
             } else {
                 response.send('Incorrect Username and/or Password!');
             }
