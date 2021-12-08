@@ -64,10 +64,10 @@ app.get(`/`, (request, response) => {
     response.sendFile('login.html', { root: `${__dirname}/public` });
 });
 
-app.get('/logout', function(req, res) {
+app.get('/ramses/', function(req, res) {
     req.session.destroy();
     connection.end();
-    res.redirect('/');
+    res.redirect('/ramses/');
 });
 
 app.get(`/`, (request, response) => {
