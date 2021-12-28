@@ -35,7 +35,7 @@ export default class SelectionDialog extends HTMLElement {
         .section {
             display:flex;
             flex-direction: column;
-            width: 50%;
+            width: 70%;
         }
         input[type=text]{
             padding:4px;
@@ -71,7 +71,7 @@ export default class SelectionDialog extends HTMLElement {
             transform: scale(1.1);
             color: yellow;
         }
-        #sigma-label, #filename-label {
+        #sigma-label, #filename-label ,#stack-label {
             border-style: none;
             text-align: start;
         }
@@ -97,7 +97,7 @@ export default class SelectionDialog extends HTMLElement {
 
         .headerDivider {
             margin-right: 8px;
-            margin-left: 8px;
+            margin-left: 8spx;
             border-left: 1px solid #38546d;
             border-right: 1px solid #16222c;
             height: auto;
@@ -106,7 +106,7 @@ export default class SelectionDialog extends HTMLElement {
       </style>
       `);
     }
-    template() {
+        template() {
             return (
                 `<dialog id="selection-dialog">
                 <div id="sections-container">
@@ -126,9 +126,13 @@ export default class SelectionDialog extends HTMLElement {
                             <input type="radio" name="machine" id="MTC"  value="MTC"/>      
                             <label for="MTC">MTC</label>
                         </div>
+                      
                         <div id="text-input-container">
+            
                             <label id="sigma-label">&#931<input type="text"  name="machine" id="alphabet-input" placeholder="p.ej: ab, 01"/></label></br>
+                            <label id="stack-label">Pila <input type="text"  name="stack-machine" id="stack-alphabet-input" placeholder="p.ej: gv, 15"/></label></br>
                             <label id="filename-label">Nombre <input type="text"  name="filename" id="filename-input" placeholder="afd-01"/></label>
+
                         </div>
                     </div>
                     <div class="headerDivider"></div>
@@ -144,6 +148,7 @@ export default class SelectionDialog extends HTMLElement {
         }
         //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
     connectedCallback() {
+
         this.dom.innerHTML = this.style() + this.template();
         this.dialog = this.dom.querySelector('#selection-dialog');
         this.data = { type: '', sigma: '', states: [] };

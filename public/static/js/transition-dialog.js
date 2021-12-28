@@ -1,7 +1,9 @@
 'use strict'
 
+import StateChart from "./state-chart.js";
 //Este lo registramos en código en javascript y el constructor NO se deja pasar parámetros
 //Pasamos las cosas en atributos a ver.
+
 export default class TransitionDialog extends HTMLElement {
     constructor() {
         super();
@@ -50,19 +52,19 @@ export default class TransitionDialog extends HTMLElement {
       `);
     }
     template() {
-            return (
-                `<dialog id="transition-dialog">
+        return (
+        `<dialog id="transition-dialog">
         <select id='select-transition'></select>
         <input type="button" id="add" value=" Añadir "/>
         <input type="button" id="del" value=" Borrar "/></br>
         <span id='name' ></span></br>
         <span id='optional-text'></span></br>
         <div id="buttons">
-          <input type="button" id="esc" value="Salir"/>
-          <input type="button" id="end" value="Enviar"/>
+         <input type="button" id="esc" value="Salir"/>
+         <input type="button" id="end" value="Enviar"/>
         </div>
         </dialog>`
-            );
+        );
         }
         //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
     connectedCallback() {

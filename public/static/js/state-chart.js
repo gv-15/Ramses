@@ -33,7 +33,7 @@ export default class StateChart {
                     if (name.length === 0) return false;
                     if ((name.length === 1) && (this.sigmaExtended.indexOf(name) !== -1)) return true; //1 carácter admite epsilon
                     return (name.split(',').every(s => (this.sigma.indexOf(s) !== -1))); //aquí tiene que ser un caracter normal
-                }
+                } 
                 this.siblings = (states) => { //busca los enlazados mediante epsilon
                     let trs = [];
                     states.forEach(st => trs.push(...st.transitions.filter(tr => tr.accepts('\u03F5'))));
@@ -41,10 +41,22 @@ export default class StateChart {
                 }
                 break;
             case 'APN': //todo Automata con pila No-Determinista
-
-                    break;
+            this.isValidTransitionName = (name) => {
+                if (name.length === 0) return false;
+                if ((name.length === 1) && (this.sigmaExtended.indexOf(name) !== -1)) return true; //1 carácter admite epsilon
+                return (name.split(',').every(s => (this.sigma.indexOf(s) !== -1))); //aquí tiene que ser un caracter normal
+                } 
+            this.siblings = (states) => { //busca los enlazados mediante epsilon
+                let trs = [];
+                states.forEach(st => trs.push(...st.transitions.filter(tr => tr.accepts('\u03F5'))));
+                return (trs.map(tr => tr.to));
+                }
+               break;
             case 'APD': //todo Automata con pila Determinista
-
+                 this.isValidTransitionName = (name) => ((name.length === 1) && (this.sigma.indexOf(name) !== -1));
+                this.siblings = () => {
+                return [];
+                }
                     break;
             case 'MTR': //todo Maquinas de turing Reconocedoras, siempre son deterministas
 
@@ -57,6 +69,10 @@ export default class StateChart {
         this.init();
 
     }
+
+    getType(){ //Para recuperar el tipo de automata que es el que hemos creado
+        return this.type;
+    } 
     toDownload() { //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
         let states = [];
         this.states.forEach(st => states.push(st.toSave()));
