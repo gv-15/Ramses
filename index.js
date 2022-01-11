@@ -11,7 +11,7 @@ app.listen(PORT, () => console.log(`Express server currently running on port ${P
 
 var connection = mysql.createConnection({
     host: 'localhost',
-    database: 'todoapp',
+    database: 'todoapp2',
     user: 'root',
     password: 'root',
 });
@@ -38,7 +38,7 @@ app.post('/auth', function(request, response) {
     var username = request.body.username;
     var password = request.body.password;
     if (username && password) {
-        connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+        connection.query('SELECT * FROM usuarios WHERE nombre_usuario = ? AND password_usuario = ?', [username, password], function(error, results, fields) {
             if (results.length > 0) {
                 request.session.loggedin = true;
                 request.session.username = username;
