@@ -486,7 +486,8 @@ class StateEditor extends HTMLElement {
                 let trId = this.chart.insertTransition(data.from.id, data.to.id)
                     //Aquí podríamos chequear si hubo problema en la creación. 
                     //Lanzo automáticamente el diálogo de editar la transición,
-                this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended);
+                 
+                this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
                 break;
             case 'delete_state': //NO puede haber más de una conexión de un estado a otro o a sí mismo
                 this.chart.deleteState(data.stateId);
@@ -522,7 +523,7 @@ class StateEditor extends HTMLElement {
                 this.stateDialog.open(data.state.toSave());
                 break;
             case 'edit_transition': //aquí viene si, en modo edit, pincha en conexión
-                this.transitionDialog.open(data.transition.toSave(), this.chart.sigmaExtended);
+                this.transitionDialog.open(data.transition.toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
                 break;
             default:
                 break;
@@ -569,7 +570,7 @@ class StateEditor extends HTMLElement {
                     if (err !== '') {
                         let trData = this.chart.getTransition(trId).toSave();
                         trData.text = err;
-                        this.transitionDialog.open(trData, this.chart.sigmaExtended);
+                        this.transitionDialog.open(trData, this.chart.sigmaExtended, this.chart.stackExtended);
                     }
                     break;
                 case 'input_data': //Aquí se podría chequear la entrada antes de cambiar de botones
@@ -595,13 +596,24 @@ class StateEditor extends HTMLElement {
                         this._redraw();
                         //rellenamos el span de info
                         let machineInfo = document.querySelector('#machine-info');
+                        if(data.type == "AFND" || data.type == "AFD")
+                        {
                         machineInfo.innerHTML = `
                         <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename} </span>
                         <span> Tipo: ${data.type} </span>
                         <span> &#931: ${data.sigma} </span>`;
+                        }
+                        else
+                        {
+                        machineInfo.innerHTML = `
+                        <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename} </span>
+                        <span> Tipo: ${data.type} </span>
+                        <span> &#931: ${data.sigma} </span>
+                        <span> &#931 Pila: ${data.stack} </span>`;
+                        }
                     }
                     //console.log("pintar lo que me han mandao");
-                    this.chart = new StateChart(data.type, data.sigma, 'q');
+                    this.chart = new StateChart(data.type, data.sigma, data.stack, 'q');
                     //this.inputDialog.setAttribute('alphabet', data.sigma);
                     this.history = [];
                     this.redo = [];
@@ -609,10 +621,23 @@ class StateEditor extends HTMLElement {
                     this.chart.fromModal(data.states);
                     this._redraw();
                     let machineInfo = document.querySelector('#machine-info');
-                    machineInfo.innerHTML = `
-                    <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename}</span>
-                    <span> Tipo: ${data.type}</span>
-                    <span> &#931: ${data.sigma} </span>`;
+                    if(data.type == "AFND" || data.type == "AFD")
+                        {
+                        machineInfo.innerHTML = `
+                        <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename} </span>
+                        <span> Tipo: ${data.type} </span>
+                        <span> &#931: ${data.sigma} </span>`;
+                        }
+                        else
+                        {
+                            machineInfo.innerHTML = `
+                            <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename}</span>
+                            <span> Tipo: ${data.type}</span>
+                            <span> &#931: ${data.sigma} </span>
+                            <span> &#931 Pila: ${data.stack} </span>`
+                        }
+                    
+                    ;
                     break;
                 default:
                     break;

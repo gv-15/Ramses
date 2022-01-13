@@ -66,8 +66,9 @@ app.get(`/`, (request, response) => {
 
 app.get('/logout', function(req, res) {
     req.session.destroy();
-    connection.end();
+    connection.end(); //Si pones esta linea despues del logout no hace nada
     res.redirect('/');
+   
 });
 
 app.get(`/`, (request, response) => {
