@@ -186,6 +186,7 @@ export default class SelectionDialog extends HTMLElement {
                     this.data.type = stored[0].type;
                     this.data.sigma = stored[0].sigma;
                     this.data.states = stored[0].states;
+                    this.data.stack = stored[0].stack;
                     this.data.button = button;
                     let res = filename.split(".");
                     this.data.filename = res[0];

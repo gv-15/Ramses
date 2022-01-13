@@ -13,9 +13,11 @@ import StateElement from './state-element.js';
 import TransitionElement from './transition-element.js';
 
 export default class StateChart {
-    constructor(type = 'AFD', sigma = 'ab', stateNaming = 'q') {
+    constructor(type = 'AFD', sigma = 'ab', stack = 'mp' , stateNaming = 'q') {
         this.type = type;
         this.sigma = sigma;
+        this.stack = stack;
+        this.stackExtended = (this.type === 'AFD' ? this.stack : '\u03F5' + this.stack);
         this.sigmaExtended = (this.type === 'AFD' ? this.sigma : '\u03F5' + this.sigma);
         this.defaultName = stateNaming; //No se cheque demasiado , es q o q
         //esto virtualiza isValid y next. Genera sendas funciones ligadas a transiciones que pueden llamarse

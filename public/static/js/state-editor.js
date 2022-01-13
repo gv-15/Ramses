@@ -486,7 +486,8 @@ class StateEditor extends HTMLElement {
                 let trId = this.chart.insertTransition(data.from.id, data.to.id)
                     //Aquí podríamos chequear si hubo problema en la creación. 
                     //Lanzo automáticamente el diálogo de editar la transición,
-                this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended);
+                 
+                this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
                 break;
             case 'delete_state': //NO puede haber más de una conexión de un estado a otro o a sí mismo
                 this.chart.deleteState(data.stateId);
