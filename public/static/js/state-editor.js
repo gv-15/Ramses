@@ -523,7 +523,7 @@ class StateEditor extends HTMLElement {
                 this.stateDialog.open(data.state.toSave());
                 break;
             case 'edit_transition': //aquí viene si, en modo edit, pincha en conexión
-                this.transitionDialog.open(data.transition.toSave(), this.chart.sigmaExtended);
+                this.transitionDialog.open(data.transition.toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
                 break;
             default:
                 break;
@@ -570,7 +570,7 @@ class StateEditor extends HTMLElement {
                     if (err !== '') {
                         let trData = this.chart.getTransition(trId).toSave();
                         trData.text = err;
-                        this.transitionDialog.open(trData, this.chart.sigmaExtended);
+                        this.transitionDialog.open(trData, this.chart.sigmaExtended, this.chart.stackExtended);
                     }
                     break;
                 case 'input_data': //Aquí se podría chequear la entrada antes de cambiar de botones
