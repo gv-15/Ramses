@@ -15,15 +15,19 @@ const fileButtonsData = {
     appName: 'file', //gestiono en el mismo switch
     type: 'once',
     buttons: [{
-            value: "Descargar",
-            action: 'download',
-            id: 'b-download'
+            value: "Descargar json",
+            action: 'json',
+            id: 'b-json'
         },
         {
             value: "Capturar",
             action: 'screenshot',
             id: 'b-screenshot'
-
+        },
+        {
+            value: "Descargar xml",
+            action: 'xml',
+            id: 'b-xml'
         }
     ]
 }
@@ -658,7 +662,7 @@ class StateEditor extends HTMLElement {
     file(command, datos) {
         let err = ''; //texto de error o ''
         switch (command) {
-            case 'download':
+            case 'json':
                 //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
                 let filename = document.querySelector('#saved-name').getAttribute('value');
                 //descarga automática de un fichero json
@@ -708,6 +712,29 @@ class StateEditor extends HTMLElement {
                 break;
             default:
                 break;
+            case 'xml':
+
+
+                        //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
+                        let filename2 = document.querySelector('#saved-name').getAttribute('value');
+                        //var xml2json = new XMLtoJSON();
+                        //descarga automática de un fichero json
+                       // xml2obj(filename2);
+                      // OBJtoXML(filename2);
+
+                      // var InputJSON = "";
+                       //var output = eval("OBJtoXML("+InputJSON+");")
+
+                        var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
+                        var downloadAnchorNode = document.createElement('a');
+                        downloadAnchorNode.setAttribute("href", dataStr);
+                        downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
+                        document.body.appendChild(downloadAnchorNode);
+                        downloadAnchorNode.click();
+                        downloadAnchorNode.remove();
+                        break;
+        
+           
         }
     }
     _showOutput() {
