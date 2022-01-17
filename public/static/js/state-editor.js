@@ -714,21 +714,25 @@ class StateEditor extends HTMLElement {
                 break;
             case 'xml':
 
+                    //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
+                    let filename2 = document.querySelector('#saved-name').getAttribute('value');
+                    
 
-                        //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
-                        let filename2 = document.querySelector('#saved-name').getAttribute('value');
-                        //var xml2json = new XMLtoJSON();
-                        //descarga automática de un fichero json
-                       // xml2obj(filename2);
-                      // OBJtoXML(filename2);
+                    //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": "1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
+                    var InputJSON1 = filename2.valueOf();
+                    InputJSON1.replaceAll("'", '"');
+                    var InputJSON2 = JSON.parse(InputJSON1);
 
-                      // var InputJSON = "";
-                       //var output = eval("OBJtoXML("+InputJSON+");")
+
+                    // Now execute the 'OBJtoXML' function
+                    var output = OBJtoXML(InputJSON2);
+
+
 
                         var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
-                        var downloadAnchorNode = document.createElement('a');
+                        var downloadAnchorNode = document.createElement('b');
                         downloadAnchorNode.setAttribute("href", dataStr);
-                        downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
+                        downloadAnchorNode.setAttribute("download", output.concat(".xml"));
                         document.body.appendChild(downloadAnchorNode);
                         downloadAnchorNode.click();
                         downloadAnchorNode.remove();
@@ -828,3 +832,25 @@ class StateEditor extends HTMLElement {
 
 //esto ta fuera de la clase
 customElements.define('state-editor', StateEditor);
+
+//------------
+function OBJtoXML(obj) {
+    var xml = '';
+    for (var prop in obj) {
+      xml += obj[prop] instanceof Array ? '' : "<" + prop + ">";
+      if (obj[prop] instanceof Array) {
+        for (var array in obj[prop]) {
+          xml += "<" + prop + ">";
+          xml += OBJtoXML(new Object(obj[prop][array]));
+          xml += "</" + prop + ">";
+        }
+      } else if (typeof obj[prop] == "object") {
+        xml += OBJtoXML(new Object(obj[prop]));
+      } else {
+        xml += obj[prop];
+      }
+      xml += obj[prop] instanceof Array ? '' : "</" + prop + ">";
+    }
+    var xml = xml.replace(/<\/?[0-9]{1,}>/g, '');
+    return xml
+  }
