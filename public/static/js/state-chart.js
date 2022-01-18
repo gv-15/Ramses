@@ -16,7 +16,7 @@ export default class StateChart {
     constructor(type = 'AFD', sigma = 'ab', stack = 'mp' , stateNaming = 'q') {
         this.type = type;
         this.sigma = sigma;
-        this.stack = stack;
+        this.stack = stack + 'Z';
         this.stackExtended = (this.type === 'AFD' ? this.stack : '\u03F5' + this.stack);
         this.sigmaExtended = (this.type === 'AFD' ? this.sigma : '\u03F5' + this.sigma);
         this.defaultName = stateNaming; //No se cheque demasiado , es q o q
