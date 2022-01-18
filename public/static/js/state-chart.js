@@ -139,7 +139,8 @@ export default class StateChart {
         let from = this.states.find(el => el.name === idFrom);
         let to = this.states.find(el => el.name === idTo);
         let trId = idFrom + '_' + idTo;
-        from.transitions.push(new TransitionElement(trId, from, to, '', this.type)); //le decimos el tipo de transición permitida (DFA, NFA)
+        console.log(this.type);
+        from.transitions.push(new TransitionElement(trId, from, to, '', '', '', this.type)); //le decimos el tipo de transición permitida (DFA, NFA)
         return (trId);
     }
     modifyTransitionData(id, data) {
