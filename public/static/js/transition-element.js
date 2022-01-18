@@ -2,7 +2,7 @@
 import StateElement from './state-element.js';
 
 export default class TransitionElement {
-    constructor( trId, from, to, name, stack, stack2, type) {
+    constructor( trId, from, to, name, name2, name3, type) {
         if (!(from instanceof StateElement) || !(from instanceof StateElement)) {
             console.log('error : se conectan estados');
             this.error = true; //Los constructores siempre deben terminar y devolver el objeto
@@ -13,15 +13,29 @@ export default class TransitionElement {
         this.to = to;
         this.id = trId;
         this.tsize = 20;
-        this.stack = stack;
-        this.stack2 = stack2;
         this.type = type;
         this.setName(name);
+        this.setName2(name2);
+        this.setName3(name3);
         
     }
     setName(name){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
         this.name = name;
+      
         this.accepts = (input)=>(this.name.split(',').some(ch=>ch === input));
+        console.log(this.name);
+    }
+    setName2(name2){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
+        
+        this.name2 = name2;
+        console.log(this.name2);
+        //this.accepts = (input)=>(this.name2.split(',').some(ch=>ch === input));
+    }
+    setName3(name3){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
+        
+        this.name3 = name3;
+        console.log(this.name3);
+        //this.accepts = (input)=>(this.name3.split(',').some(ch=>ch === input));
     }
     //Divido en SVG text y su inclusión en el dom
     toSVG(scale) {
@@ -79,7 +93,7 @@ export default class TransitionElement {
             <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
                 <path class='transition' id="path_${this.id}"  d=${path}></path>
                 <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy='-2'>
-                <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name},${this.stack};${this.stack2}</textPath>
+                <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name},${this.name2};${this.name3}</textPath>
                 </text>                                                                 //Esta en proceso traer aqui lo que seleccionas y cambiar los string de prueba por eso
             </g>`;
        }

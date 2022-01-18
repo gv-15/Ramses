@@ -2,6 +2,8 @@
 
 import StateChart from './state-chart.js';
 
+
+
 export default class SelectionDialog extends HTMLElement {
     constructor() {
         super();
@@ -255,6 +257,8 @@ export default class SelectionDialog extends HTMLElement {
                 break;
         }
     }
+
 }
+
 //esto ta fuera de la clase
 customElements.define('selection-dialog', SelectionDialog);
