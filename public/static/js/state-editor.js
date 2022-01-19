@@ -601,8 +601,8 @@ class StateEditor extends HTMLElement {
                         let machineInfo = document.querySelector('#machine-info');
                         machineInfo.innerHTML = `
                         <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename} </span>
-                        <span> Tipo: ${data.type} </span>
-                        <span> &#931: ${data.sigma} </span>`;
+                        <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
+                        <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>`;
                     }
                     //console.log("pintar lo que me han mandao");
                     this.chart = new StateChart(data.type, data.sigma, 'q');
@@ -615,8 +615,8 @@ class StateEditor extends HTMLElement {
                     let machineInfo = document.querySelector('#machine-info');
                     machineInfo.innerHTML = `
                     <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename}</span>
-                    <span> Tipo: ${data.type}</span>
-                    <span> &#931: ${data.sigma} </span>`;
+                    <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
+                    <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>`;
                     break;
                 default:
                     break;
@@ -716,13 +716,20 @@ class StateEditor extends HTMLElement {
 
                     //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
                     let filename2 = document.querySelector('#saved-name').getAttribute('value');
-                    
+                    let type = document.querySelector('#type').getAttribute('value');
+                    let sigma = document.querySelector('#sigma').getAttribute('value');
+                    console.log("el contenido es " + filename2 + type + sigma);
+                   
+                    console.log("/////////////////////////////////////////////////////////");
+                     let a = document.textContent;
 
-                    //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": "1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
+                    //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
+                    console.log("is " + a );
                     var InputJSON1 = filename2.valueOf();
                     InputJSON1.replaceAll("'", '"');
+                    console.log("is " + InputJSON1 );
                     var InputJSON2 = JSON.parse(InputJSON1);
-
+                  
 
                     // Now execute the 'OBJtoXML' function
                     var output = OBJtoXML(InputJSON2);
