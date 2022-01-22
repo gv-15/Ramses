@@ -659,7 +659,7 @@ class StateEditor extends HTMLElement {
                 break;
         }
     }
-    file(command, datos) {
+    file(command, datos, data) {
         let err = ''; //texto de error o ''
         switch (command) {
             case 'json':
@@ -732,19 +732,20 @@ class StateEditor extends HTMLElement {
                     // Now execute the 'OBJtoXML' function
                     var output = OBJtoXML(InputJSON1);
                     console.log("uiiii " + output );*/
-
+                    let filename2 = document.querySelector('#saved-name').getAttribute('value');
                     var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
                     console.log("is " + InputJSON );
                     var InputJSON2 = JSON.parse(InputJSON);
                     // Now execute the 'OBJtoXML' function
-                    var output = OBJtoXML(InputJSON2);
+                    console.log("es" + datos);
+                    var output = OBJtoXML(datos);
                     console.log("aaaaaaaaaaaaaaa" + output);
                     console.log("fin");
                         var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
-                        var downloadAnchorNode = document.createElement('b');
+                        var downloadAnchorNode = document.createElement('a');
                         downloadAnchorNode.setAttribute("href", dataStr);
                         console.log("llega");
-                        downloadAnchorNode.setAttribute("download", output.concat(".xml"));
+                        downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
                         console.log("llega2");
                         document.body.appendChild(downloadAnchorNode);
                         downloadAnchorNode.click();
