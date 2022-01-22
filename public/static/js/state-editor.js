@@ -715,37 +715,41 @@ class StateEditor extends HTMLElement {
             case 'xml':
 
                     //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
-                    let filename2 = document.querySelector('#saved-name').getAttribute('value');
+                    /*let filename2 = document.querySelector('#saved-name').getAttribute('value');
                     let type = document.querySelector('#type').getAttribute('value');
                     let sigma = document.querySelector('#sigma').getAttribute('value');
                     console.log("el contenido es " + filename2 + type + sigma);
-                   
-                    console.log("/////////////////////////////////////////////////////////");
-                     let a = document.textContent;
-
+                    console.log("------------------------------");
+                    let states = [];
+                    let states2 = [filename2, type, sigma];
+                    var InputJSON1 = JSON.stringify([{ "type": type, "sigma": sigma, "filename": filename2, "states": states }]);
+                    console.log([{ "type": type, "sigma": sigma, "filename": filename2, "states": states }]);                 
                     //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
-                    console.log("is " + a );
-                    var InputJSON1 = filename2.valueOf();
+                    //var InputJSON1 = filename2.valueOf();
                     InputJSON1.replaceAll("'", '"');
                     console.log("is " + InputJSON1 );
-                    var InputJSON2 = JSON.parse(InputJSON1);
-                  
+                    //var InputJSON2 = JSON.parse(InputJSON1);
+                    // Now execute the 'OBJtoXML' function
+                    var output = OBJtoXML(InputJSON1);
+                    console.log("uiiii " + output );*/
 
+                    var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
+                    console.log("is " + InputJSON );
+                    var InputJSON2 = JSON.parse(InputJSON);
                     // Now execute the 'OBJtoXML' function
                     var output = OBJtoXML(InputJSON2);
-
-
-
+                    console.log("aaaaaaaaaaaaaaa" + output);
+                    console.log("fin");
                         var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
                         var downloadAnchorNode = document.createElement('b');
                         downloadAnchorNode.setAttribute("href", dataStr);
+                        console.log("llega");
                         downloadAnchorNode.setAttribute("download", output.concat(".xml"));
+                        console.log("llega2");
                         document.body.appendChild(downloadAnchorNode);
                         downloadAnchorNode.click();
                         downloadAnchorNode.remove();
-                        break;
-        
-           
+                        break;        
         }
     }
     _showOutput() {
