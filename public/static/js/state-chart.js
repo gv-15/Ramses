@@ -64,6 +64,7 @@ export default class StateChart {
         return JSON.stringify([{ "type": this.type, "sigma": this.sigma, "states": states }]);
         //return (JSON.stringify(states));
     }
+    
     toJSON() { //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
         let states = [];
         this.states.forEach(st => states.push(st.toSave()));

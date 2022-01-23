@@ -118,6 +118,8 @@ export default class ButtonArray extends HTMLElement {
         #b-json.selected {background-image: url(/static/images/json.svg);}
         #b-screenshot {background-image: url(/static/images/camera.svg);}
         #b-screenshot.selected {background-image: url(/static/images/camera.svg);}
+        #b-bd {background-image: url(/static/images/bd.svg);}
+        #b-bd.selected {background-image: url(/static/images/bd.svg);}
         #b-zoomin {background-image: url(/static/images/zoom-in.svg);}
         #b-zoomin.selected {background-image: url(/static/images/zoom-in-blue.svg);}
         #b-zoomout {background-image: url(/static/images/zoom-out.svg);}

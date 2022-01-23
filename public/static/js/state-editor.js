@@ -28,6 +28,11 @@ const fileButtonsData = {
             value: "Descargar xml",
             action: 'xml',
             id: 'b-xml'
+        },
+        {
+            value: "Guardar en BD",
+            action: 'bd',
+            id: 'b-bd'
         }
     ]
 }
@@ -732,20 +737,24 @@ class StateEditor extends HTMLElement {
                     // Now execute the 'OBJtoXML' function
                     var output = OBJtoXML(InputJSON1);
                     console.log("uiiii " + output );*/
+
+                    //--------------------------------------------
+
                     let filename2 = document.querySelector('#saved-name').getAttribute('value');
+                    let s = filename2.toString();
                     var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
                     console.log("is " + InputJSON );
                     var InputJSON2 = JSON.parse(InputJSON);
                     // Now execute the 'OBJtoXML' function
-                    console.log("es" + datos);
-                    var output = OBJtoXML(datos);
-                    console.log("aaaaaaaaaaaaaaa" + output);
-                    console.log("fin");
+                    var output = OBJtoXML(InputJSON2);
+                    console.log("1 es " + output);
+                    output.toString();
+                    //----------------------------------------------
                         var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
                         var downloadAnchorNode = document.createElement('a');
                         downloadAnchorNode.setAttribute("href", dataStr);
                         console.log("llega");
-                        downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
+                        downloadAnchorNode.setAttribute("download", output.concat(".xml"));
                         console.log("llega2");
                         document.body.appendChild(downloadAnchorNode);
                         downloadAnchorNode.click();
