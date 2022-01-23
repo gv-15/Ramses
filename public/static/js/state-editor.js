@@ -476,6 +476,9 @@ class StateEditor extends HTMLElement {
                 this.svg.classList.add(this.editButtons.buttons[data.pressed].class || ''); //gestión de radiobutton para el cursor
                 this.drawApp.init(command); //Esto se podría tal vez mandar directamente al componente
                 break;
+            case 'start_minimize_node': 
+                                    //Aqui es donde tengo que minimizar !!!!!!!!!!!!!!!!!!!!!!
+                break;
                 //Aquí los mensajes que provienen de las acciones de dibujo (insertar, drag, editar, borrar)
             case 'new_state': //cuando le dé al click debería venir aquí con la posición puesta
                 this.chart.insertState(data.pos.x, data.pos.y); //no le paso terminal, inicial ni comentarios

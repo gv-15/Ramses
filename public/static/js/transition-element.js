@@ -21,20 +21,16 @@ export default class TransitionElement {
     }
     setName(name){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
         this.name = name;
-      
         this.accepts = (input)=>(this.name.split(',').some(ch=>ch === input));
-        console.log(this.name);
     }
     setName2(name2){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
         
         this.name2 = name2;
-        console.log(this.name2);
         //this.accepts = (input)=>(this.name2.split(',').some(ch=>ch === input));
     }
     setName3(name3){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
         
         this.name3 = name3;
-        console.log(this.name3);
         //this.accepts = (input)=>(this.name3.split(',').some(ch=>ch === input));
     }
     //Divido en SVG text y su inclusión en el dom
@@ -79,7 +75,7 @@ export default class TransitionElement {
         //Y ahora el dibujo propiamente dicho, le subo 2 px al texto, lo que no sé hacer en css...
         //startOffset=50% alinea el texto con el path, que a su vez lo cogemos en la mitad (center:middle)
         let out;
-       if(this.type == "AFD" || this.type == "AFND"){
+       if(this.type == "AFD" || this.type == "AFND"){ //Aqui tengo que arreglar lo de que no se ven las transiciones una encimad de otra en caso de que se pueda hacer,  para futuro
         out = `
         <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
             <path class='transition' id="path_${this.id}"  d=${path}></path>
@@ -94,7 +90,7 @@ export default class TransitionElement {
                 <path class='transition' id="path_${this.id}"  d=${path}></path>
                 <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy='-2'>
                 <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name},${this.name2};${this.name3}</textPath>
-                </text>                                                                 //Esta en proceso traer aqui lo que seleccionas y cambiar los string de prueba por eso
+                </text>
             </g>`;
        }
       

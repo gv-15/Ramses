@@ -147,6 +147,29 @@ export default class DrawStateChart {
                 this.mouse.app(this);
             }
             break;
+            case 'start_minimize_node': { // Por hacer completamente solo esta puesto por ahora
+                this.leftClickStart = () => {};
+                this.leftClick = (pi, evt) => {
+                    if (evt.target.nodeName === 'circle') {
+                        this.app.dispatchEvent(new CustomEvent('minimize', {
+                            detail: {
+                                action: 'minimize_automaton',
+                                state: evt.target.parentNode.state
+                            }
+                        }));
+                    } else if ((evt.target.nodeName === 'path') || (evt.target.nodeName === 'textPath')) { //pincho en transición
+                        let theTransition = evt.target.nodeName === 'path' ? evt.target.parentNode : evt.target.parentNode.parentNode;
+                        this.app.dispatchEvent(new CustomEvent('minimize', {
+                            detail: {
+                                action: 'minimize_transition',
+                                transition: theTransition.transition
+                            }
+                        }));
+                    }
+                }
+                this.mouse.app(this);
+            }
+            break;
             default:
             break;
         }
