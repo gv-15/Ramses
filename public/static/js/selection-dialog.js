@@ -2,6 +2,8 @@
 
 import StateChart from './state-chart.js';
 
+
+
 export default class SelectionDialog extends HTMLElement {
     constructor() {
         super();
@@ -132,7 +134,7 @@ export default class SelectionDialog extends HTMLElement {
                             <label id="sigma-label">&#931<input type="text"  name="machine" id="alphabet-input" placeholder="p.ej: ab, 01"/></label></br>
                             <label id="stack-label">&#931 Pila <input type="text"  name="stack-machine" id="stack-alphabet-input" placeholder="p.ej: gv, 15"/></label></br>
                             <label id="filename-label">Nombre <input type="text"  name="filename" id="filename-input" placeholder="afd-01"/></label>
-
+ 
                         </div>
                     </div>
                     <div class="headerDivider"></div>
@@ -255,6 +257,8 @@ export default class SelectionDialog extends HTMLElement {
                 break;
         }
     }
+
 }
+
 //esto ta fuera de la clase
 customElements.define('selection-dialog', SelectionDialog);

@@ -16,7 +16,7 @@ export default class StateChart {
     constructor(type = 'AFD', sigma = 'ab', stack = 'mp' , stateNaming = 'q') {
         this.type = type;
         this.sigma = sigma;
-        this.stack = stack;
+        this.stack = stack + 'Z';
         this.stackExtended = (this.type === 'AFD' ? this.stack : '\u03F5' + this.stack);
         this.sigmaExtended = (this.type === 'AFD' ? this.sigma : '\u03F5' + this.sigma);
         this.defaultName = stateNaming; //No se cheque demasiado , es q o q
@@ -25,7 +25,8 @@ export default class StateChart {
             default:
                 case 'AFD':
                 this.isValidTransitionName = (name) => ((name.length === 1) && (this.sigma.indexOf(name) !== -1));
-            this.siblings = () => {
+                this.isValidTransitionName2 = (name) => true;
+                this.siblings = () => {
                 return [];
             }; //no hay epsilon
             break;
@@ -36,6 +37,7 @@ export default class StateChart {
                     if ((name.length === 1) && (this.sigmaExtended.indexOf(name) !== -1)) return true; //1 carácter admite epsilon
                     return (name.split(',').every(s => (this.sigma.indexOf(s) !== -1))); //aquí tiene que ser un caracter normal
                 } 
+                this.isValidTransitionName2 = (name) => true;
                 this.siblings = (states) => { //busca los enlazados mediante epsilon
                     let trs = [];
                     states.forEach(st => trs.push(...st.transitions.filter(tr => tr.accepts('\u03F5'))));
@@ -47,25 +49,54 @@ export default class StateChart {
                 if (name.length === 0) return false;
                 if ((name.length === 1) && (this.sigmaExtended.indexOf(name) !== -1)) return true; //1 carácter admite epsilon
                 return (name.split(',').every(s => (this.sigma.indexOf(s) !== -1))); //aquí tiene que ser un caracter normal
-                } 
+            }
+            this.isValidTransitionName2 = (name2) => {
+                if (name2.length === 0) return false;
+                if ((name2.length === 1) && (this.stackExtended.indexOf(name2) !== -1)) return true; //1 carácter admite epsilon
+                return (name2.split(',').every(s => (this.stack.indexOf(s) !== -1))); //aquí tiene que ser un caracter normal
+            } 
             this.siblings = (states) => { //busca los enlazados mediante epsilon
                 let trs = [];
                 states.forEach(st => trs.push(...st.transitions.filter(tr => tr.accepts('\u03F5'))));
                 return (trs.map(tr => tr.to));
-                }
-               break;
+            }
+            break;
+            
             case 'APD': //todo Automata con pila Determinista
-                 this.isValidTransitionName = (name) => ((name.length === 1) && (this.sigma.indexOf(name) !== -1));
-                this.siblings = () => {
+            this.isValidTransitionName = (name) => ((name.length === 1) && (this.sigma.indexOf(name) !== -1));
+            this.isValidTransitionName2 = (name2) => ((name2.length === 1) && (this.stack.indexOf(name) !== -1));
+           
+            this.siblings = () => {
                 return [];
-                }
-                    break;
+            };
+            break;
+                    
             case 'MTR': //todo Maquinas de turing Reconocedoras, siempre son deterministas
-
+            this.isValidTransitionName = (name) => ((name.length === 1) && (this.sigma.indexOf(name) !== -1));
+            this.isValidTransitionName2 = (name2) => ((name2.length === 1) && (this.stack.indexOf(name) !== -1));
+           
+            this.siblings = () => {
+                return [];
+            };
                     break;
             case 'MTC': //todo Maquinas de Turing Calculadoras, siempre son deterministas
-            
-                    break;
+            this.isValidTransitionName = (name) => {
+                if (name.length === 0) return false;
+                if ((name.length === 1) && (this.sigmaExtended.indexOf(name) !== -1)) return true; //1 carácter admite epsilon
+                return (name.split(',').every(s => (this.sigma.indexOf(s) !== -1))); //aquí tiene que ser un caracter normal
+            } 
+            this.isValidTransitionName2 = (name2) => {
+                if (name2.length === 0) return false;
+                if ((name2.length === 1) && (this.stackExtended.indexOf(name2) !== -1)) return true; //1 carácter admite epsilon
+                return (name2.split(',').every(s => (this.stack.indexOf(s) !== -1))); //aquí tiene que ser un caracter normal
+            } 
+            this.siblings = (states) => { //busca los enlazados mediante epsilon
+                let trs = [];
+                states.forEach(st => trs.push(...st.transitions.filter(tr => tr.accepts('\u03F5'))));
+                return (trs.map(tr => tr.to));
+            }
+            break;
+                  
         }
 
         this.init();
@@ -117,9 +148,11 @@ export default class StateChart {
                 if (st.transitions === undefined) {
                     return;
                 } else {
+              
                     st.transitions.forEach(tr => {
                         let to_st = this.states.find((el) => (el.name == tr.id.split('_')[1])); //to state, viene codificado qa_qb
-                        let transitionNode = new TransitionElement(tr.id, from_st, to_st, tr.name);
+                        
+                        let transitionNode = new TransitionElement(tr.id, from_st, to_st, tr.name, tr.name2, tr.name3, this.type); // Aqui hay que averiguar cosas
                         if (!transitionNode.error) {
                             tr.node = transitionNode;
                             from_st.transitions.push(transitionNode);
@@ -135,19 +168,41 @@ export default class StateChart {
         //Puesto que los estados tienen nombre UNICO y SOLO HAY 1 transición de un origen a un destino, la combinación qx_qy es UNICA
         //Y así codifico los estados de origen y destino de forma sencilla
         //Este conocimiento se debe tener básicamente aquí. Las transiciones, una vez creadas, se pueden gestionar solo con el id
+
     insertTransition(idFrom, idTo) {
         let from = this.states.find(el => el.name === idFrom);
         let to = this.states.find(el => el.name === idTo);
         let trId = idFrom + '_' + idTo;
-        from.transitions.push(new TransitionElement(trId, from, to, '', this.type)); //le decimos el tipo de transición permitida (DFA, NFA)
+        from.transitions.push(new TransitionElement(trId, from, to, '', '', '', this.type)); //le decimos el tipo de transición permitida (DFA, NFA)
         return (trId);
     }
     modifyTransitionData(id, data) {
         let st = id.split('_');
         let tr = this.getTransition(id);
+      
         if (!this.isValidTransitionName(data.name))
-            return (`error: la transición ${data.name} no es válida para máquinas de tipo ${this.type} y alfabeto ${this.sigma}`);
-        tr.setName(data.name);
+            return (`error: la transición ${data.name} no es válida para máquinas de tipo ${this.type} y alfabeto ${this.sigma}, tampoco se puede dejare vacio`);
+             tr.setName(data.name);
+
+             if(data.type != "AFD" || data.type != "AFND"){
+
+                 if (!this.isValidTransitionName2(data.name2) ){
+                    return (`error: la transición ${data.name2} no es válida para máquinas de tipo ${this.type} y alfabeto de la pila ${this.stack}, tampoco se puede dejare vacio`);
+                 }
+                  else{
+                    tr.setName2(data.name2);
+                  }   
+                
+        
+                 if (!this.isValidTransitionName2(data.name3)){
+                    return (`error: la transición ${data.name3} no es válida para máquinas de tipo ${this.type} y alfabeto de la pila ${this.stack}, tampoco se puede dejare vacio`);
+                 }
+                  else{
+                    tr.setName3(data.name3);
+                  }   
+             }
+       
+
         return ('');
     }
     getTransition(trId) {
