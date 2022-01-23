@@ -151,17 +151,17 @@ export default class DrawStateChart {
                 this.leftClickStart = () => {};
                 this.leftClick = (pi, evt) => {
                     if (evt.target.nodeName === 'circle') {
-                        this.app.dispatchEvent(new CustomEvent('edit', {
+                        this.app.dispatchEvent(new CustomEvent('minimize', {
                             detail: {
-                                action: 'edit_state',
+                                action: 'minimize_automaton',
                                 state: evt.target.parentNode.state
                             }
                         }));
                     } else if ((evt.target.nodeName === 'path') || (evt.target.nodeName === 'textPath')) { //pincho en transición
                         let theTransition = evt.target.nodeName === 'path' ? evt.target.parentNode : evt.target.parentNode.parentNode;
-                        this.app.dispatchEvent(new CustomEvent('edit', {
+                        this.app.dispatchEvent(new CustomEvent('minimize', {
                             detail: {
-                                action: 'edit_transition',
+                                action: 'minimize_transition',
                                 transition: theTransition.transition
                             }
                         }));
