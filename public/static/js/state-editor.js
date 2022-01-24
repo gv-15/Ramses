@@ -33,8 +33,8 @@ const fileButtonsData = {
         },
         {
             value: "Guardar en BD",
-            action: 'bd',
-            id: 'b-bd'
+            action: 'based',
+            id: 'b-based'
         }
     ]
 }
