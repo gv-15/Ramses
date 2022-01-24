@@ -10,6 +10,8 @@ import TransitionDialog from "./transition-dialog.js";
 import InputDialog from "./input-dialog.js";
 import StateChart from './state-chart.js';
 
+
+
 //Esto podría ser JSNO, fichero aparte...
 const fileButtonsData = {
     appName: 'file', //gestiono en el mismo switch
@@ -729,26 +731,37 @@ class StateEditor extends HTMLElement {
                     let states2 = [filename2, type, sigma];
                     var InputJSON1 = JSON.stringify([{ "type": type, "sigma": sigma, "filename": filename2, "states": states }]);
                     console.log([{ "type": type, "sigma": sigma, "filename": filename2, "states": states }]);                 
-                    //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
-                    //var InputJSON1 = filename2.valueOf();
+                    var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
+                    var InputJSON1 = filename2.valueOf();
                     InputJSON1.replaceAll("'", '"');
                     console.log("is " + InputJSON1 );
                     //var InputJSON2 = JSON.parse(InputJSON1);
                     // Now execute the 'OBJtoXML' function
                     var output = OBJtoXML(InputJSON1);
-                    console.log("uiiii " + output );*/
 
-                    //--------------------------------------------
+                //--------------------------------------------
+                  // esto es para pasar de xml a json
+                    var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
+                    var    parser = new DOMParser();
+                    var xmlDoc = parser.parseFromString(text,"text/xml");
+                    console.log(" esto es " + JSON.stringify(xmlToJson(xmlDoc)));
+                //---------------------------------------------
+                   
 
+                //esto es para pasar de json a xml
                     let filename2 = document.querySelector('#saved-name').getAttribute('value');
                     let s = filename2.toString();
                     var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
-                    console.log("is " + InputJSON );
+                    console.log("EL INPUT JSON ES " + InputJSON );
                     var InputJSON2 = JSON.parse(InputJSON);
                     // Now execute the 'OBJtoXML' function
                     var output = OBJtoXML(InputJSON2);
-                    console.log("1 es " + output);
-                    output.toString();
+                    console.log("EL XML ES  " + output);
+                   // output.toString();
+                    var output2 = XMLtoOBJ(output);
+                    console.log("el JSON de vuelta es " + output2);
+                //----------------------------------------------
+
                     //----------------------------------------------
                         var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
                         var downloadAnchorNode = document.createElement('a');
@@ -875,3 +888,42 @@ function OBJtoXML(obj) {
     var xml = xml.replace(/<\/?[0-9]{1,}>/g, '');
     return xml
   }
+  function xmlToJson(xml) {
+
+    var obj = {};
+
+    if (xml.nodeType == 1) { // element
+        // do attributes
+        if (xml.attributes.length > 0) {
+            obj["@attributes"] = {};
+            for (var j = 0; j < xml.attributes.length; j++) {
+                var attribute = xml.attributes.item(j);
+                obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+            }
+        }
+    } else if (xml.nodeType == 4) { // cdata section
+        obj = xml.nodeValue
+    }
+
+    // do children
+
+    if (xml.hasChildNodes()) {
+        for (var i = 0; i < xml.childNodes.length; i++) {
+            var item = xml.childNodes.item(i);
+            var nodeName = item.nodeName;
+            if (typeof(obj[nodeName]) == "undefined") {
+                obj[nodeName] = xmlToJson(item);
+            } else {
+                if (typeof(obj[nodeName].length) == "undefined") {
+                    var old = obj[nodeName];
+                    obj[nodeName] = [];
+                    obj[nodeName].push(old);
+                }
+                if (typeof(obj[nodeName]) === 'object') {
+                    obj[nodeName].push(xmlToJson(item));
+                }
+            }
+        }
+    }
+    return obj;
+};
