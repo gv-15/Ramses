@@ -737,14 +737,14 @@ class StateEditor extends HTMLElement {
                     console.log("is " + InputJSON1 );
                     //var InputJSON2 = JSON.parse(InputJSON1);
                     // Now execute the 'OBJtoXML' function
-                    var output = OBJtoXML(InputJSON1);
+                    var output = OBJtoXML(InputJSON1);*/
 
                 //--------------------------------------------
                   // esto es para pasar de xml a json
                     var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
                     var    parser = new DOMParser();
                     var xmlDoc = parser.parseFromString(text,"text/xml");
-                    console.log(" esto es " + JSON.stringify(xmlToJson(xmlDoc)));
+                    console.log(" DE XML A JSON " + JSON.stringify(xmlToJson(xmlDoc)));
                 //---------------------------------------------
                    
 
@@ -758,8 +758,7 @@ class StateEditor extends HTMLElement {
                     var output = OBJtoXML(InputJSON2);
                     console.log("EL XML ES  " + output);
                    // output.toString();
-                    var output2 = XMLtoOBJ(output);
-                    console.log("el JSON de vuelta es " + output2);
+                   
                 //----------------------------------------------
 
                     //----------------------------------------------
@@ -767,7 +766,7 @@ class StateEditor extends HTMLElement {
                         var downloadAnchorNode = document.createElement('a');
                         downloadAnchorNode.setAttribute("href", dataStr);
                         console.log("llega");
-                        downloadAnchorNode.setAttribute("download", output.concat(".xml"));
+                        downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
                         console.log("llega2");
                         document.body.appendChild(downloadAnchorNode);
                         downloadAnchorNode.click();
@@ -927,3 +926,4 @@ function OBJtoXML(obj) {
     }
     return obj;
 };
+Z
