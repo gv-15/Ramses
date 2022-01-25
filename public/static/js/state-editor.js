@@ -773,7 +773,10 @@ class StateEditor extends HTMLElement {
          
                         break;   
                         case based:
-                        Connection.createQuery("INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");     
+                        Connection.createQuery("INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");  
+                        //connection.query('INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');', function(error, results, fields) {
+                        
+                        //});   
         }
     }
     _showOutput() {
@@ -869,7 +872,8 @@ class StateEditor extends HTMLElement {
 customElements.define('state-editor', StateEditor);
 
 //------------
-function OBJtoXML(obj) {
+function OBJtoXML(obj) 
+{
     var xml = '';
     for (var prop in obj) {
       xml += obj[prop] instanceof Array ? '' : "<" + prop + ">";
@@ -889,12 +893,11 @@ function OBJtoXML(obj) {
     var xml = xml.replace(/<\/?[0-9]{1,}>/g, '');
     return xml
   }
-  function xmlToJson(xml) {
 
+  function xmlToJson(xml) 
+  {
     var obj = {};
-
-    if (xml.nodeType == 1) { // element
-        // do attributes
+    if (xml.nodeType == 1) { 
         if (xml.attributes.length > 0) {
             obj["@attributes"] = {};
             for (var j = 0; j < xml.attributes.length; j++) {
@@ -905,9 +908,6 @@ function OBJtoXML(obj) {
     } else if (xml.nodeType == 4) { // cdata section
         obj = xml.nodeValue
     }
-
-    // do children
-
     if (xml.hasChildNodes()) {
         for (var i = 0; i < xml.childNodes.length; i++) {
             var item = xml.childNodes.item(i);
@@ -928,4 +928,3 @@ function OBJtoXML(obj) {
     }
     return obj;
 };
-Z
