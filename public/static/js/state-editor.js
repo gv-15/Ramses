@@ -720,7 +720,6 @@ class StateEditor extends HTMLElement {
             default:
                 break;
             case 'xml':
-
                     //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
                     /*let filename2 = document.querySelector('#saved-name').getAttribute('value');
                     let type = document.querySelector('#type').getAttribute('value');
@@ -740,7 +739,7 @@ class StateEditor extends HTMLElement {
                     var output = OBJtoXML(InputJSON1);*/
 
                 //--------------------------------------------
-                  // esto es para pasar de xml a json
+                // esto es para pasar de xml a json
                     var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
                     var    parser = new DOMParser();
                     var xmlDoc = parser.parseFromString(text,"text/xml");
@@ -761,7 +760,7 @@ class StateEditor extends HTMLElement {
                    
                 //----------------------------------------------
 
-                    //----------------------------------------------
+                //----------------------------------------------
                         var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
                         var downloadAnchorNode = document.createElement('a');
                         downloadAnchorNode.setAttribute("href", dataStr);
@@ -771,7 +770,10 @@ class StateEditor extends HTMLElement {
                         document.body.appendChild(downloadAnchorNode);
                         downloadAnchorNode.click();
                         downloadAnchorNode.remove();
-                        break;        
+         
+                        break;   
+                        case based:
+                        Connection.createQuery("INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");     
         }
     }
     _showOutput() {
