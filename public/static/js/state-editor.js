@@ -728,14 +728,15 @@ class StateEditor extends HTMLElement {
                     console.log("------------------------------");
                     let states = [];
                     let states2 = [filename2, type, sigma];
+
                     var InputJSON1 = JSON.stringify([{ "type": type, "sigma": sigma, "filename": filename2, "states": states }]);
                     console.log([{ "type": type, "sigma": sigma, "filename": filename2, "states": states }]);                 
                     var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
                     var InputJSON1 = filename2.valueOf();
                     InputJSON1.replaceAll("'", '"');
                     console.log("is " + InputJSON1 );
-                    //var InputJSON2 = JSON.parse(InputJSON1);
-                    // Now execute the 'OBJtoXML' function
+                    var InputJSON2 = JSON.parse(InputJSON1);
+                    //Now execute the 'OBJtoXML' function
                     var output = OBJtoXML(InputJSON1);*/
 
                 //--------------------------------------------
@@ -755,16 +756,15 @@ class StateEditor extends HTMLElement {
                     var InputJSON2 = JSON.parse(InputJSON);
                     // Now execute the 'OBJtoXML' function
                     var output = OBJtoXML(InputJSON2);
-                    console.log("EL XML ES  " + output);
+                    console.log("PASANDO A XML ES  " + output);
                    // output.toString();
                    
-                //----------------------------------------------
 
                 //----------------------------------------------
                         var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
                         var downloadAnchorNode = document.createElement('a');
                         downloadAnchorNode.setAttribute("href", dataStr);
-                        console.log("llega");
+                        console.log("llega 1 ");
                         downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
                         console.log("llega2");
                         document.body.appendChild(downloadAnchorNode);
@@ -875,56 +875,84 @@ customElements.define('state-editor', StateEditor);
 function OBJtoXML(obj) 
 {
     var xml = '';
-    for (var prop in obj) {
+    for (var prop in obj) 
+    {
       xml += obj[prop] instanceof Array ? '' : "<" + prop + ">";
-      if (obj[prop] instanceof Array) {
-        for (var array in obj[prop]) {
+      if (obj[prop] instanceof Array) 
+      {
+        for (var array in obj[prop]) 
+        {
           xml += "<" + prop + ">";
           xml += OBJtoXML(new Object(obj[prop][array]));
           xml += "</" + prop + ">";
         }
-      } else if (typeof obj[prop] == "object") {
+      } 
+      else if (typeof obj[prop] == "object") 
+      {
         xml += OBJtoXML(new Object(obj[prop]));
-      } else {
+
+      } 
+      else 
+      {
         xml += obj[prop];
       }
+      
+      
       xml += obj[prop] instanceof Array ? '' : "</" + prop + ">";
     }
     var xml = xml.replace(/<\/?[0-9]{1,}>/g, '');
-    return xml
+    return xml;
   }
 
   function xmlToJson(xml) 
   {
     var obj = {};
-    if (xml.nodeType == 1) { 
-        if (xml.attributes.length > 0) {
+    if (xml.nodeType == 1) 
+    { 
+        if (xml.attributes.length > 0) 
+        {
             obj["@attributes"] = {};
-            for (var j = 0; j < xml.attributes.length; j++) {
+
+            for (var j = 0; j < xml.attributes.length; j++) 
+            {
                 var attribute = xml.attributes.item(j);
                 obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
             }
         }
-    } else if (xml.nodeType == 4) { // cdata section
+    } 
+    else if (xml.nodeType == 4) 
+    { 
         obj = xml.nodeValue
     }
-    if (xml.hasChildNodes()) {
-        for (var i = 0; i < xml.childNodes.length; i++) {
+    if (xml.hasChildNodes()) 
+    {
+        for (var i = 0; i < xml.childNodes.length; i++) 
+        {
             var item = xml.childNodes.item(i);
             var nodeName = item.nodeName;
-            if (typeof(obj[nodeName]) == "undefined") {
+
+            if (typeof(obj[nodeName]) == "undefined") 
+            {
                 obj[nodeName] = xmlToJson(item);
-            } else {
-                if (typeof(obj[nodeName].length) == "undefined") {
+            } 
+            
+            else 
+            {
+                if (typeof(obj[nodeName].length) == "undefined") 
+                {
                     var old = obj[nodeName];
                     obj[nodeName] = [];
                     obj[nodeName].push(old);
+
                 }
-                if (typeof(obj[nodeName]) === 'object') {
+
+                if (typeof(obj[nodeName]) === 'object') 
+                {
                     obj[nodeName].push(xmlToJson(item));
                 }
             }
         }
     }
+
     return obj;
 };
