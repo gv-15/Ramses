@@ -95,6 +95,12 @@ const editButtonsData = {
             action: 'start_edit_node',
             class: 'edit',
             id: 'b-edit'
+        },
+        {
+            value: "Minimizar", //Esta creado el boton pero falta toda la implementacion, LO DEJO AQUI??
+            action: 'start_minimize_mode',
+            class: 'minimize',
+            id: 'b-minimize'
         }
        
     ]
@@ -111,13 +117,8 @@ const undoButtonsData = {
             value: "Rehacer",
             action: 'redo',
             id: 'b-redo'
-        },
-        {
-            value: "Minimizar", //Esta creado el boton pero falta toda la implementacion, LO DEJO AQUI??
-            action: 'start_minimize_node',
-            class: 'minimize',
-            id: 'b-minimize'
         }
+      
     ]
 }
 const modeButtonsData = {
@@ -471,13 +472,11 @@ class StateEditor extends HTMLElement {
             case 'start_insert_transition':
             case 'start_drag':
             case 'start_delete_mode':
+            case 'start_minimize_mode': 
             case 'start_edit_node':
                 this.svg.classList.remove(...this.editButtons.buttons.map(b => b.class)); //quito la clase del svg que dice lo que estoy haceindo (para el cursor o fondo...)
                 this.svg.classList.add(this.editButtons.buttons[data.pressed].class || ''); //gestión de radiobutton para el cursor
                 this.drawApp.init(command); //Esto se podría tal vez mandar directamente al componente
-                break;
-            case 'start_minimize_node': 
-                                    //Aqui es donde tengo que minimizar !!!!!!!!!!!!!!!!!!!!!!
                 break;
                 //Aquí los mensajes que provienen de las acciones de dibujo (insertar, drag, editar, borrar)
             case 'new_state': //cuando le dé al click debería venir aquí con la posición puesta
@@ -497,6 +496,9 @@ class StateEditor extends HTMLElement {
                 break;
             case 'delete_transition':
                 this.chart.deleteTransition(data.transitionId);
+                break;
+            case 'minimize_automaton':
+                this.chart.deleteTransition(data.transitionId);     //Aqui supuestamente se minimiza el automata
                 break;
             case 'undo':
                 {
@@ -538,6 +540,7 @@ class StateEditor extends HTMLElement {
             case 'new_transition':
             case 'state_moved_end':
             case 'delete_state':
+            case 'minimize_automaton':
             case 'delete_transition':
                 this._saveStateChart();
                 this._redraw();
