@@ -53,13 +53,13 @@ export default class TransitionDialog2 extends HTMLElement {
       `);
     }
     template() {
-      
+       
         return (
-        `<dialog id="transition-dialog">
+        `<dialog id="transition-dialog2">
         <select id='select-transition'></select>
         <input type="button" id="add" value=" Añadir "/>
         <input type="button" id="del" value=" Borrar "/></br></br>
-        <span id='name' ></span>></span></br>
+        <span id='name' ></span></span></br>
         <span id='optional-text'></span></br>
         <div id="buttons">
          <input type="button" id="esc" value="Salir"/>
@@ -75,9 +75,9 @@ export default class TransitionDialog2 extends HTMLElement {
           
 
             this.dom.innerHTML = this.style() + this.template();
-            this.dialog = this.dom.querySelector('#transition-dialog'),
+            this.dialog = this.dom.querySelector('#transition-dialog2'),
             this.nameNode = this.dom.querySelector('#name');
-            this.selNode = this.dom.querySelector('#select-transition2');
+            this.selNode = this.dom.querySelector('#select-transition');
             this.data = { name: '' };
             
     
@@ -109,8 +109,9 @@ export default class TransitionDialog2 extends HTMLElement {
                         
                 }
             });
-         
+           
             this.dom.querySelector('#del').addEventListener('click', () => { this.nameNode.innerText = '' });
+           
             this.dom.querySelector('#end').addEventListener('click', () => this.sendData('OK'));
             this.dom.querySelector('#esc').addEventListener('click', () => this.sendData('ESC'));
         }
@@ -125,7 +126,7 @@ export default class TransitionDialog2 extends HTMLElement {
         this.dialog.close()
         this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'transition_data', data: this.data } }));
     }
-    open(data, alphabet) {
+    open(data, alphabet, stack) {
             //copia de los datos del estado
             this.oldData = JSON.parse(JSON.stringify(data)); //por si hay que recuperar? esto hace un clone sencillo
             this.type = (alphabet.indexOf('\u03f5') !== -1) ? 'NFA' : 'DFA';
@@ -133,6 +134,8 @@ export default class TransitionDialog2 extends HTMLElement {
             this.dom.querySelector('#optional-text').innerText = data.text || ''; //Aquí vendría texto de error
             this.selNode.innerHTML = alphabet.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), ""); //de donde sale este alphabet
             this.dialog.showModal();
+            
+            
                 }
         //Se supone que aquí se llama al desconectar la página, pero en las aplicaciones no parece que pase
     disconnectedCallback() {

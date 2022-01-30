@@ -240,6 +240,7 @@ class StateEditor extends HTMLElement {
         return `
       </svg>
       <transition-dialog id='transition-input' ></transition-dialog>
+      <transition-dialog2 id='transition-input2' ></transition-dialog2>
       <selection-dialog id='selection-input' ></selection-dialog>
       <state-dialog id='state-input'></state-dialog>
       <div id='data-in-out' class='hide'>
@@ -385,6 +386,8 @@ class StateEditor extends HTMLElement {
         //Así que se centraliza aquí la inicialización de las partes que componen la aplicación
         //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
     connectedCallback() {
+
+        
             this.dom.innerHTML = this.style() + this.templateHeader() + this.templateFooter();
             this.svg = this.dom.querySelector('svg');
 
@@ -412,10 +415,10 @@ class StateEditor extends HTMLElement {
             //Lo hago mediante un atributo, podría ponerse en el HTML incluso
             this.stateDialog = this.dom.querySelector('#state-input');
             this.stateDialog.setAttribute('parent', this.id);
-            this.transitionDialog = this.dom.querySelector('#transition-input');
-            this.transitionDialog.setAttribute('parent', this.id);
-            this.transitionDialog2 = this.dom.querySelector('#transition-input');
+            this.transitionDialog2 = this.dom.querySelector('#transition-input2');
             this.transitionDialog2.setAttribute('parent', this.id);
+            this.transitionDialog = this.dom.querySelector('#transition-input');
+            this.transitionDialog.setAttribute('parent', this.id); 
             this.selectionDialog = this.dom.querySelector('#selection-input');
             this.selectionDialog.setAttribute('parent', this.id);
 
@@ -492,12 +495,12 @@ class StateEditor extends HTMLElement {
                 let trId = this.chart.insertTransition(data.from.id, data.to.id)
                     //Aquí podríamos chequear si hubo problema en la creación. 
                     //Lanzo automáticamente el diálogo de editar la transición,
-                   /*  if (this.chart.type === 'AFD' || this.chart.type === 'AFND') {
-                        this.transitionDialog2.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended);
+                    if (this.chart.type === 'AFD' || this.chart.type === 'AFND') {
+                        this.transitionDialog2.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
                     }else { 
-                    }
-                        */
                         this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+                    }
+    
                     
                 break;
             case 'delete_state': //NO puede haber más de una conexión de un estado a otro o a sí mismo
@@ -537,7 +540,13 @@ class StateEditor extends HTMLElement {
                 this.stateDialog.open(data.state.toSave());
                 break;
             case 'edit_transition': //aquí viene si, en modo edit, pincha en conexión
-                this.transitionDialog.open(data.transition.toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+            if (this.chart.type === "AFD" || this.chart.type === "AFND") {
+                this.transitionDialog2.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+            }else { 
+                this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+            }
+
+              /*   this.transitionDialog.open(data.transition.toSave(), this.chart.sigmaExtended, this.chart.stackExtended); */
                 break;
             default:
                 break;
@@ -585,7 +594,13 @@ class StateEditor extends HTMLElement {
                     if (err !== '') {
                         let trData = this.chart.getTransition(trId).toSave();
                         trData.text = err;
-                        this.transitionDialog.open(trData, this.chart.sigmaExtended, this.chart.stackExtended);
+                        if (this.chart.type === "AFD" || this.chart.type === "AFND") {
+                            this.transitionDialog2.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+                        }else { 
+                            this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+                        }
+        
+                        /* this.transitionDialog.open(trData, this.chart.sigmaExtended, this.chart.stackExtended); */
                     }
                     break;
                 case 'input_data': //Aquí se podría chequear la entrada antes de cambiar de botones
