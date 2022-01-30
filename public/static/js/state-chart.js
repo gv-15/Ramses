@@ -17,7 +17,7 @@ export default class StateChart {
         this.type = type;
         this.sigma = sigma;
         this.stack = stack;
-        this.stackExtended = (this.type === 'APD' || this.type === 'APN' || this.type !== 'AFN' || this.type !== 'AFD'  ? this.stack + 'Z' + '\u03F5' :  this.stack + 'R' + 'L' + '\u25A1');
+        this.stackExtended = (this.type === 'APD' || this.type === 'APN'  ? this.stack + 'Z' + '\u03F5' :  this.stack + 'R' + 'L' + '\u25A1');
         this.sigmaExtended = (this.type === 'AFD' ? this.sigma : this.sigma + '\u03F5');
         this.defaultName = stateNaming; //No se cheque demasiado , es q o qs
         //esto virtualiza isValid y next. Genera sendas funciones ligadas a transiciones que pueden llamarse

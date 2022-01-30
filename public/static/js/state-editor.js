@@ -7,6 +7,7 @@ import FgSvgHandler from './svg-handler.js';
 import StateDialog from "./state-dialog.js";
 import SelectionDialog from "./selection-dialog.js";
 import TransitionDialog from "./transition-dialog.js";
+import TransitionDialog2 from "./transition-dialog2.js";
 import InputDialog from "./input-dialog.js";
 import StateChart from './state-chart.js';
 
@@ -235,6 +236,7 @@ class StateEditor extends HTMLElement {
         );
     }
     templateFooter() {
+       
         return `
       </svg>
       <transition-dialog id='transition-input' ></transition-dialog>
@@ -412,6 +414,8 @@ class StateEditor extends HTMLElement {
             this.stateDialog.setAttribute('parent', this.id);
             this.transitionDialog = this.dom.querySelector('#transition-input');
             this.transitionDialog.setAttribute('parent', this.id);
+            this.transitionDialog2 = this.dom.querySelector('#transition-input');
+            this.transitionDialog2.setAttribute('parent', this.id);
             this.selectionDialog = this.dom.querySelector('#selection-input');
             this.selectionDialog.setAttribute('parent', this.id);
 
@@ -488,8 +492,13 @@ class StateEditor extends HTMLElement {
                 let trId = this.chart.insertTransition(data.from.id, data.to.id)
                     //Aquí podríamos chequear si hubo problema en la creación. 
                     //Lanzo automáticamente el diálogo de editar la transición,
-                 
-                this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+                   /*  if (this.chart.type === 'AFD' || this.chart.type === 'AFND') {
+                        this.transitionDialog2.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended);
+                    }else { 
+                    }
+                        */
+                        this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+                    
                 break;
             case 'delete_state': //NO puede haber más de una conexión de un estado a otro o a sí mismo
                 this.chart.deleteState(data.stateId);
