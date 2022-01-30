@@ -7,6 +7,7 @@ import FgSvgHandler from './svg-handler.js';
 import StateDialog from "./state-dialog.js";
 import SelectionDialog from "./selection-dialog.js";
 import TransitionDialog from "./transition-dialog.js";
+import TransitionDialog2 from "./transition-dialog2.js";
 import InputDialog from "./input-dialog.js";
 import StateChart from './state-chart.js';
 
@@ -95,6 +96,12 @@ const editButtonsData = {
             action: 'start_edit_node',
             class: 'edit',
             id: 'b-edit'
+        },
+        {
+            value: "Minimizar", //Esta creado el boton pero falta toda la implementacion, LO DEJO AQUI??
+            action: 'start_minimize_mode',
+            class: 'minimize',
+            id: 'b-minimize'
         }
        
     ]
@@ -111,13 +118,8 @@ const undoButtonsData = {
             value: "Rehacer",
             action: 'redo',
             id: 'b-redo'
-        },
-        {
-            value: "Minimizar", //Esta creado el boton pero falta toda la implementacion, LO DEJO AQUI??
-            action: 'start_minimize_node',
-            class: 'minimize',
-            id: 'b-minimize'
         }
+      
     ]
 }
 const modeButtonsData = {
@@ -234,9 +236,11 @@ class StateEditor extends HTMLElement {
         );
     }
     templateFooter() {
+       
         return `
       </svg>
       <transition-dialog id='transition-input' ></transition-dialog>
+      <transition-dialog2 id='transition-input2' ></transition-dialog2>
       <selection-dialog id='selection-input' ></selection-dialog>
       <state-dialog id='state-input'></state-dialog>
       <div id='data-in-out' class='hide'>
@@ -382,6 +386,8 @@ class StateEditor extends HTMLElement {
         //Así que se centraliza aquí la inicialización de las partes que componen la aplicación
         //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
     connectedCallback() {
+
+        
             this.dom.innerHTML = this.style() + this.templateHeader() + this.templateFooter();
             this.svg = this.dom.querySelector('svg');
 
@@ -409,8 +415,10 @@ class StateEditor extends HTMLElement {
             //Lo hago mediante un atributo, podría ponerse en el HTML incluso
             this.stateDialog = this.dom.querySelector('#state-input');
             this.stateDialog.setAttribute('parent', this.id);
+            this.transitionDialog2 = this.dom.querySelector('#transition-input2');
+            this.transitionDialog2.setAttribute('parent', this.id);
             this.transitionDialog = this.dom.querySelector('#transition-input');
-            this.transitionDialog.setAttribute('parent', this.id);
+            this.transitionDialog.setAttribute('parent', this.id); 
             this.selectionDialog = this.dom.querySelector('#selection-input');
             this.selectionDialog.setAttribute('parent', this.id);
 
@@ -471,13 +479,11 @@ class StateEditor extends HTMLElement {
             case 'start_insert_transition':
             case 'start_drag':
             case 'start_delete_mode':
+            case 'start_minimize_mode': 
             case 'start_edit_node':
                 this.svg.classList.remove(...this.editButtons.buttons.map(b => b.class)); //quito la clase del svg que dice lo que estoy haceindo (para el cursor o fondo...)
                 this.svg.classList.add(this.editButtons.buttons[data.pressed].class || ''); //gestión de radiobutton para el cursor
                 this.drawApp.init(command); //Esto se podría tal vez mandar directamente al componente
-                break;
-            case 'start_minimize_node': 
-                                    //Aqui es donde tengo que minimizar !!!!!!!!!!!!!!!!!!!!!!
                 break;
                 //Aquí los mensajes que provienen de las acciones de dibujo (insertar, drag, editar, borrar)
             case 'new_state': //cuando le dé al click debería venir aquí con la posición puesta
@@ -489,14 +495,22 @@ class StateEditor extends HTMLElement {
                 let trId = this.chart.insertTransition(data.from.id, data.to.id)
                     //Aquí podríamos chequear si hubo problema en la creación. 
                     //Lanzo automáticamente el diálogo de editar la transición,
-                 
-                this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+                    if (this.chart.type === 'AFD' || this.chart.type === 'AFND') {
+                        this.transitionDialog2.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+                    }else { 
+                        this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+                    }
+    
+                    
                 break;
             case 'delete_state': //NO puede haber más de una conexión de un estado a otro o a sí mismo
                 this.chart.deleteState(data.stateId);
                 break;
             case 'delete_transition':
                 this.chart.deleteTransition(data.transitionId);
+                break;
+            case 'minimize_automaton':
+                this.chart.deleteTransition(data.transitionId);     //Aqui supuestamente se minimiza el automata
                 break;
             case 'undo':
                 {
@@ -526,7 +540,13 @@ class StateEditor extends HTMLElement {
                 this.stateDialog.open(data.state.toSave());
                 break;
             case 'edit_transition': //aquí viene si, en modo edit, pincha en conexión
-                this.transitionDialog.open(data.transition.toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+            if (this.chart.type === "AFD" || this.chart.type === "AFND") {
+                this.transitionDialog2.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+            }else { 
+                this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+            }
+
+              /*   this.transitionDialog.open(data.transition.toSave(), this.chart.sigmaExtended, this.chart.stackExtended); */
                 break;
             default:
                 break;
@@ -538,6 +558,7 @@ class StateEditor extends HTMLElement {
             case 'new_transition':
             case 'state_moved_end':
             case 'delete_state':
+            case 'minimize_automaton':
             case 'delete_transition':
                 this._saveStateChart();
                 this._redraw();
@@ -573,7 +594,13 @@ class StateEditor extends HTMLElement {
                     if (err !== '') {
                         let trData = this.chart.getTransition(trId).toSave();
                         trData.text = err;
-                        this.transitionDialog.open(trData, this.chart.sigmaExtended, this.chart.stackExtended);
+                        if (this.chart.type === "AFD" || this.chart.type === "AFND") {
+                            this.transitionDialog2.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+                        }else { 
+                            this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
+                        }
+        
+                        /* this.transitionDialog.open(trData, this.chart.sigmaExtended, this.chart.stackExtended); */
                     }
                     break;
                 case 'input_data': //Aquí se podría chequear la entrada antes de cambiar de botones

@@ -16,10 +16,10 @@ export default class StateChart {
     constructor(type = 'AFD', sigma = 'ab', stack = 'mp' , stateNaming = 'q') {
         this.type = type;
         this.sigma = sigma;
-        this.stack = stack + 'Z';
-        this.stackExtended = (this.type === 'AFD' ? this.stack : '\u03F5' + this.stack);
-        this.sigmaExtended = (this.type === 'AFD' ? this.sigma : '\u03F5' + this.sigma);
-        this.defaultName = stateNaming; //No se cheque demasiado , es q o q
+        this.stack = stack;
+        this.stackExtended = (this.type === 'APD' || this.type === 'APN'  ? this.stack + 'Z' + '\u03F5' :  this.stack + 'R' + 'L' + '\u25A1');
+        this.sigmaExtended = (this.type === 'AFD' ? this.sigma : this.sigma + '\u03F5');
+        this.defaultName = stateNaming; //No se cheque demasiado , es q o qs
         //esto virtualiza isValid y next. Genera sendas funciones ligadas a transiciones que pueden llamarse
         switch (this.type) {
             default:
@@ -73,7 +73,7 @@ export default class StateChart {
                     
             case 'MTR': //todo Maquinas de turing Reconocedoras, siempre son deterministas
             this.isValidTransitionName = (name) => ((name.length === 1) && (this.sigma.indexOf(name) !== -1));
-            this.isValidTransitionName2 = (name2) => ((name2.length === 1) && (this.stack.indexOf(name) !== -1));
+            this.isValidTransitionName2 = (name2) => ((name2.length === 1) && (this.stackExtended.indexOf(name) !== -1));
            
             this.siblings = () => {
                 return [];

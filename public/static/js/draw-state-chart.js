@@ -148,7 +148,7 @@ export default class DrawStateChart {
             }
             break;
             case 'start_minimize_node': { // Por hacer completamente solo esta puesto por ahora
-                this.leftClickStart = () => {};
+              /*   this.leftClickStart = () => {};
                 this.leftClick = (pi, evt) => {
                     if (evt.target.nodeName === 'circle') {
                         this.app.dispatchEvent(new CustomEvent('minimize', {
@@ -165,6 +165,16 @@ export default class DrawStateChart {
                                 transition: theTransition.transition
                             }
                         }));
+                    }
+                }
+                this.mouse.app(this); */
+                this.leftClickStart = () => {};
+                this.leftClick = (pi, evt) => {
+                    if (evt.target.nodeName === 'circle') {
+                        this.app.dispatchEvent(new CustomEvent('edit', {detail: {action: 'delete_state', stateId: evt.target.parentNode.id } }));
+                    } else if ((evt.target.nodeName === 'path') || (evt.target.nodeName === 'textPath')) { //pincho en transición
+                        let theTransition = evt.target.nodeName === 'path' ? evt.target.parentNode : evt.target.parentNode.parentNode;
+                        this.app.dispatchEvent(new CustomEvent('edit', { detail: { action: 'delete_transition', transitionId: theTransition.id}}));
                     }
                 }
                 this.mouse.app(this);
