@@ -760,11 +760,12 @@ class StateEditor extends HTMLElement {
                     let filename2 = document.querySelector('#saved-name').getAttribute('value');
                     let s = filename2.toString();
 
-                    let gh = data2.toString();
+                    let gh = data.toString();
 
                 //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
                 //console.log("EL INPUT JSON ES " + InputJSON );
-                    var InputJSON = JSON.parse(gh);
+                var InputJSON =  JSON.parse(JSON.stringify(gh));
+
 
                     // Now execute the 'OBJtoXML' function
                     var outputXML = OBJtoXML(InputJSON);
@@ -773,11 +774,11 @@ class StateEditor extends HTMLElement {
                    
 
                 //----------------------------------------------
-                        var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
+                        var dataStr = "data2:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
                         var downloadAnchorNode = document.createElement('a');
                         downloadAnchorNode.setAttribute("href", dataStr);
                         console.log("llega 1 ");
-                        downloadAnchorNode.setAttribute("download", data2.concat(".xml"));
+                        downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
                         console.log("llega2");
                         document.body.appendChild(downloadAnchorNode);
                         downloadAnchorNode.click();
