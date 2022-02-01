@@ -10,7 +10,7 @@ import TransitionDialog from "./transition-dialog.js";
 import InputDialog from "./input-dialog.js";
 import StateChart from './state-chart.js';
 
-
+var data2;
 
 //Esto podría ser JSNO, fichero aparte...
 const fileButtonsData = {
@@ -596,6 +596,8 @@ class StateEditor extends HTMLElement {
                     break
                 case 'selection_data':
                     console.log({ data });
+                    data2 = { data };
+                    
                     if (data.states.length == 0) {
                         //console.log("holi");
                         //si no tengo estados ni transic, me da igual cargar desde un archivo vacio que hacer un chart nuevo
@@ -668,6 +670,7 @@ class StateEditor extends HTMLElement {
     }
     file(command, datos, data) {
         let err = ''; //texto de error o ''
+
         switch (command) {
             case 'json':
                 //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
@@ -739,24 +742,33 @@ class StateEditor extends HTMLElement {
                     //Now execute the 'OBJtoXML' function
                     var output = OBJtoXML(InputJSON1);*/
 
-                //--------------------------------------------
+                    console.log("--------------");
+                    console.log(data2);
+               
+                    
+
+                //-------------------------- -----------------
                 // esto es para pasar de xml a json
-                    var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
+                  /*  var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
                     var    parser = new DOMParser();
                     var xmlDoc = parser.parseFromString(text,"text/xml");
-                    console.log(" DE XML A JSON " + JSON.stringify(xmlToJson(xmlDoc)));
+                    console.log(" DE XML A JSON " + JSON.stringify(xmlToJson(xmlDoc))); */
                 //---------------------------------------------
                    
 
                 //esto es para pasar de json a xml
                     let filename2 = document.querySelector('#saved-name').getAttribute('value');
                     let s = filename2.toString();
-                    var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
-                    console.log("EL INPUT JSON ES " + InputJSON );
-                    var InputJSON2 = JSON.parse(InputJSON);
+
+                    let gh = data2.toString();
+
+                //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
+                //console.log("EL INPUT JSON ES " + InputJSON );
+                    var InputJSON = JSON.parse(gh);
+
                     // Now execute the 'OBJtoXML' function
-                    var output = OBJtoXML(InputJSON2);
-                    console.log("PASANDO A XML ES  " + output);
+                    var outputXML = OBJtoXML(InputJSON);
+                    console.log("PASANDO A XML ES  " + outputXML);
                    // output.toString();
                    
 
@@ -765,7 +777,7 @@ class StateEditor extends HTMLElement {
                         var downloadAnchorNode = document.createElement('a');
                         downloadAnchorNode.setAttribute("href", dataStr);
                         console.log("llega 1 ");
-                        downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
+                        downloadAnchorNode.setAttribute("download", data2.concat(".xml"));
                         console.log("llega2");
                         document.body.appendChild(downloadAnchorNode);
                         downloadAnchorNode.click();
