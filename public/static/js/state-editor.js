@@ -723,69 +723,70 @@ class StateEditor extends HTMLElement {
             default:
                 break;
             case 'xml':
-                    //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
-                    /*let filename2 = document.querySelector('#saved-name').getAttribute('value');
+                    console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
+
+                    /*
+                    let filename2 = document.querySelector('#saved-name').getAttribute('value');
                     let type = document.querySelector('#type').getAttribute('value');
                     let sigma = document.querySelector('#sigma').getAttribute('value');
                     console.log("el contenido es " + filename2 + type + sigma);
                     console.log("------------------------------");
                     let states = [];
                     let states2 = [filename2, type, sigma];
-
-                    var InputJSON1 = JSON.stringify([{ "type": type, "sigma": sigma, "filename": filename2, "states": states }]);
-                    console.log([{ "type": type, "sigma": sigma, "filename": filename2, "states": states }]);                 
+                 
                     var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
                     var InputJSON1 = filename2.valueOf();
                     InputJSON1.replaceAll("'", '"');
                     console.log("is " + InputJSON1 );
                     var InputJSON2 = JSON.parse(InputJSON1);
-                    //Now execute the 'OBJtoXML' function
-                    var output = OBJtoXML(InputJSON1);*/
+                    var output = OBJtoXML(InputJSON1);
+                    */
 
                     console.log("--------------");
                     console.log(data2);
                
                     
-
                 //-------------------------- -----------------
-                // esto es para pasar de xml a json
-                  /*  var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
-                    var    parser = new DOMParser();
+                // esto es para pasar de XML a JSON
+                  /*
+                    var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
+                    var parser = new DOMParser();
                     var xmlDoc = parser.parseFromString(text,"text/xml");
                     console.log(" DE XML A JSON " + JSON.stringify(xmlToJson(xmlDoc))); */
                 //---------------------------------------------
                    
 
                 //esto es para pasar de json a xml
+
                     let filename2 = document.querySelector('#saved-name').getAttribute('value');
-                    let s = filename2.toString();
-
-                    let gh = data.toString();
-
-                //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
-                //console.log("EL INPUT JSON ES " + InputJSON );
-                var InputJSON =  JSON.parse(JSON.stringify(gh));
+                    //let gh = data.toString();
+                    //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
+                    //console.log("EL INPUT JSON ES " + InputJSON );
+                    // var InputJSON =  JSON.parse(JSON.stringify(gh));
 
 
                     // Now execute the 'OBJtoXML' function
-                    var outputXML = OBJtoXML(InputJSON);
+                    var outputXML = OBJtoXML(data2);
                     console.log("PASANDO A XML ES  " + outputXML);
+                    OBJtoXML(data);
                    // output.toString();
-                   
-
                 //----------------------------------------------
-                        var dataStr = "data2:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
+
+                // Aqui ya se descarga
+
+                        var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
                         var downloadAnchorNode = document.createElement('a');
                         downloadAnchorNode.setAttribute("href", dataStr);
-                        console.log("llega 1 ");
+                        console.log("llega aqui");
                         downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
-                        console.log("llega2");
+                        console.log("llega aqui 2");
                         document.body.appendChild(downloadAnchorNode);
                         downloadAnchorNode.click();
                         downloadAnchorNode.remove();
          
                         break;   
-                        case based:
+            case based:
+
                         Connection.createQuery("INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");  
                         //connection.query('INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');', function(error, results, fields) {
                         
