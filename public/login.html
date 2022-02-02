@@ -2,23 +2,27 @@
 <html lang="en">
 
     <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-    <script src="js/lang.js"></script>
+    <script src="main.js"></script>
+    <script src="lang/en.txt"></script>
+    <script src="lang/es.txt"></script>
+    <script src="lang/fr.txt"></script>
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RAMSES</title>
+    <title data-lang="ramsest">RAMSES</title>
     <link href="https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/css/styles.css" type="text/css" />
 </head>
 
 <body>
-    <a href="#" id="translate" data-text="English,Español" data-file="es,en" data-index="1">English</a>
+    <a href="#" id="translate" data-text="English,Español,Frances" data-file="en,es,fr" data-index="1">English</a>
     <div id="login-container">
         <div id="page">
             <form action="auth" method="POST">
-                <label data-lang="nameT" for="username">Nombre de usuario:</label><br>
+                <label data-lang="namet" for="username">Nombre de usuario:</label><br>
                 <input type="text" id="username" name="username" placeholder="username" required><br>
-                <label  data-lang="passwordT" for="password">Contraseña:</label><br>
+                <label  data-lang="passwordt" for="password">Contraseña:</label><br>
                 <input type="password" id="password" name="password" placeholder="*****" required><br>
                 <input type="submit">
             </form>
