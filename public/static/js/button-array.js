@@ -136,7 +136,7 @@ export default class ButtonArray extends HTMLElement {
         #b-delete.selected {background-image: url(/static/images/delete-blue.svg);}
         #b-edit {background-image: url(/static/images/edit-nuevo.svg);}
         #b-minimize {background-image: url(/static/images/minimize.svg);}  
-        #b-minimize.selected {background-image: url(/static/images/minimize-blue.svg);} //No implementado
+        #b-minimize.selected {background-image: url(/static/images/minimize-blue.svg);} 
         #b-edit.selected {background-image: url(/static/images/edit-blue-nuevo.svg);}
         #b-undo {background-image: url(/static/images/rotate-left.svg);}
         #b-undo.selected {background-image: url(/static/images/rotate-left-blue.svg);}
