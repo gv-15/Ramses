@@ -67,9 +67,8 @@ export default class StateChart {
     toDownload2() { //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
         let states = [];
         this.states.forEach(st => states.push(st.toSave()));
-        console.log("states es ahora " + JSON.stringify([{ "type": this.type, "sigma": this.sigma, "states": states }]));
-        var dat = JSON.stringify([{ "type": this.type, "sigma": this.sigma, "states": states }]);
-       return this.OBJtoXML2(dat);
+        var dat = ([{ "type": this.type, "sigma": this.sigma, "states": states }]);
+        return this.OBJtoXML2(dat);
         //return (JSON.stringify(states));
     }
     toJSON() { //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
@@ -205,36 +204,43 @@ export default class StateChart {
         return (direct.concat(this.siblings(direct)));
     }
    
-     OBJtoXML2(obj){
+     OBJtoXML2(obj)    {
+
         var xml = '';
         for (var prop in obj) 
         {
           xml += obj[prop] instanceof Array ? '' : "<" + prop + ">";
+    
           if (obj[prop] instanceof Array) 
           {
             for (var array in obj[prop]) 
             {
+    
               xml += "<" + prop + ">";
-              xml += OBJtoXML(new Object(obj[prop][array]));
+              xml += this.OBJtoXML2(new Object(obj[prop][array]));
               xml += "</" + prop + ">";
             }
           } 
           else if (typeof obj[prop] == "object") 
           {
-            xml += OBJtoXML(new Object(obj[prop]));
+    
+            xml += this.OBJtoXML2(new Object(obj[prop]));
     
           } 
           else 
           {
+         
             xml += obj[prop];
           }
           
-          
+        
           xml += obj[prop] instanceof Array ? '' : "</" + prop + ">";
         }
         var xml = xml.replace(/<\/?[0-9]{1,}>/g, '');
+       
         return xml;
-    }
+       
+     }
 
 
 }
