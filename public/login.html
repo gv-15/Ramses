@@ -35,11 +35,17 @@
 
 <!DOCTYPE html>
 
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script src="main.js"></script>
+    <script src="lang/en.txt"></script>
+    <script src="lang/es.txt"></script>
+    <script src="lang/fr.txt"></script>
     
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <title>Ramses Login</title>
+    <title data-lang="ramsest">RAMSES</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
 
@@ -67,20 +73,19 @@
     <link href="./loginTemplate/signin.css" rel="stylesheet">
   </head>
   <body class="text-center">
+    <a href="#" id="translate" data-text="English,Español,Frances" data-file="en,es,fr" data-index="1">English</a>
 <main class="form-signin">
   <form action="auth" method="POST">
     <img class="mb-4" src="./loginTemplate/bootstrap-logo.svg" alt="" width="72" height="57">
     <h1 class="h3 mb-3 fw-normal">Bienvenido a RAMSES</h1>
-
     <div class="form-floating">
       <input type="text" class="form-control" id="username" name="username" placeholder="username" required>
-      <label for="floatingInput">Nombre de usuario</label>
+      <label data-lang="namet" for="floatingInput">Nombre de usuario</label>
     </div>
     <div class="form-floating">
       <input type="password" class="form-control" id="password" name="password" placeholder="*******" required>
-      <label for="floatingPassword">Contraseña</label>
+      <label data-lang="passwordt" for="floatingPassword">Contraseña</label>
     </div>
-
     <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
   </form>
 </main>

@@ -11,7 +11,7 @@ app.listen(PORT, () => console.log(`Express server currently running on port ${P
 
 var connection = mysql.createConnection({
     host: 'localhost',
-    database: 'todoapp2',
+    database: 'todoapp',
     user: 'root',
     password: 'root',
 });
