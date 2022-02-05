@@ -96,7 +96,7 @@ export default class ButtonArray extends HTMLElement {
         #b-download, #b-screenshot,
         #b-zoomin, #b-zoomout, #b-home, #b-sethome, #b-fit, #b-setzoom,
         #b-state, #b-trans, #b-drag, #b-delete, #b-edit,
-        #b-undo, #b-redo, #b-minimize,
+        #b-undo, #b-redo, #b-minimize, #b-total,
         #b-play, #b-stop, #b-back, #b-fback, #b-fforward {
             background-repeat: no-repeat;
             background-position: center;
@@ -136,7 +136,7 @@ export default class ButtonArray extends HTMLElement {
         #b-delete.selected {background-image: url(/static/images/delete-blue.svg);}
         #b-edit {background-image: url(/static/images/edit-nuevo.svg);}
         #b-minimize {background-image: url(/static/images/minimize.svg);}  
-        #b-minimize.selected {background-image: url(/static/images/minimize-blue.svg);} //No implementado
+        #b-total {background-image: url(/static/images/total.svg);}  
         #b-edit.selected {background-image: url(/static/images/edit-blue-nuevo.svg);}
         #b-undo {background-image: url(/static/images/rotate-left.svg);}
         #b-undo.selected {background-image: url(/static/images/rotate-left-blue.svg);}
