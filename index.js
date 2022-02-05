@@ -11,7 +11,7 @@ app.listen(PORT, () => console.log(`Express server currently running on port ${P
 
 var connection = mysql.createConnection({
     host: 'localhost',
-    database: 'todoapp',
+    database: 'todoapp2',
     user: 'root',
     password: 'root',
 });
@@ -31,7 +31,6 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 
 app.post('/auth', function(request, response) {

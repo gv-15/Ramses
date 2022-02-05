@@ -11,20 +11,31 @@ import TransitionDialog2 from "./transition-dialog2.js";
 import InputDialog from "./input-dialog.js";
 import StateChart from './state-chart.js';
 
+var data2;
+
 //Esto podría ser JSNO, fichero aparte...
 const fileButtonsData = {
     appName: 'file', //gestiono en el mismo switch
     type: 'once',
     buttons: [{
-            value: "Descargar",
-            action: 'download',
-            id: 'b-download'
+            value: "Descargar json",
+            action: 'json',
+            id: 'b-json'
         },
         {
             value: "Capturar",
             action: 'screenshot',
             id: 'b-screenshot'
-
+        },
+        {
+            value: "Descargar xml",
+            action: 'xml',
+            id: 'b-xml'
+        },
+        {
+            value: "Guardar en BD",
+            action: 'based',
+            id: 'b-based'
         }
     ]
 }
@@ -629,6 +640,8 @@ class StateEditor extends HTMLElement {
                     break
                 case 'selection_data':
                     console.log({ data });
+                    data2 = { data };
+                    
                     if (data.states.length == 0) {
                         //console.log("holi");
                         //si no tengo estados ni transic, me da igual cargar desde un archivo vacio que hacer un chart nuevo
@@ -642,17 +655,15 @@ class StateEditor extends HTMLElement {
                         if(data.type == "AFND" || data.type == "AFD")
                         {
                         machineInfo.innerHTML = `
-                        <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename} </span>
-                        <span> Tipo: ${data.type} </span>
-                        <span> &#931: ${data.sigma} </span>`;
-                        }
-                        else
+                        <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
+                        <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>`;
+                        } else
                         {
                         machineInfo.innerHTML = `
                         <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename} </span>
-                        <span> Tipo: ${data.type} </span>
-                        <span> &#931: ${data.sigma} </span>
-                        <span> &#931 Pila: ${data.stack} </span>`;
+                        <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
+                        <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>
+                        <span id="stack" value = "${data.stack}"> &#931 Pila: ${data.stack} </span>`;
                         }
                     }
                     //console.log("pintar lo que me han mandao");
@@ -667,23 +678,24 @@ class StateEditor extends HTMLElement {
                     if(data.type == "AFND" || data.type == "AFD")
                         {
                         machineInfo.innerHTML = `
-                        <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename} </span>
-                        <span> Tipo: ${data.type} </span>
-                        <span> &#931: ${data.sigma} </span>`;
+                        <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename}</span>
+                        <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
+                        <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>`;
                         }
                         else
                         {
                             machineInfo.innerHTML = `
                             <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename}</span>
-                            <span> Tipo: ${data.type}</span>
-                            <span> &#931: ${data.sigma} </span>
-                            <span> &#931 Pila: ${data.stack} </span>`
+                            <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
+                            <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>
+                            <span id="sigma" value = "${data.stack}"> &#931 Pila: ${data.stack} </span>`;
+                        
                         }
-                    
                     ;
                     break;
                 default:
-                    break;
+
+                    break; 
             }
             //this._saveStateChart();
             this._redraw();
@@ -723,10 +735,11 @@ class StateEditor extends HTMLElement {
                 break;
         }
     }
-    file(command, datos) {
+    file(command, datos, data) {
         let err = ''; //texto de error o ''
+
         switch (command) {
-            case 'download':
+            case 'json':
                 //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
                 let filename = document.querySelector('#saved-name').getAttribute('value');
                 //descarga automática de un fichero json
@@ -776,6 +789,75 @@ class StateEditor extends HTMLElement {
                 break;
             default:
                 break;
+            case 'xml':
+                    console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
+
+                    /*
+                    let filename2 = document.querySelector('#saved-name').getAttribute('value');
+                    let type = document.querySelector('#type').getAttribute('value');
+                    let sigma = document.querySelector('#sigma').getAttribute('value');
+                    console.log("el contenido es " + filename2 + type + sigma);
+                    console.log("------------------------------");
+                    let states = [];
+                    let states2 = [filename2, type, sigma];
+                 
+                    var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
+                    var InputJSON1 = filename2.valueOf();
+                    InputJSON1.replaceAll("'", '"');
+                    console.log("is " + InputJSON1 );
+                    var InputJSON2 = JSON.parse(InputJSON1);
+                    var output = OBJtoXML(InputJSON1);
+                    */
+
+                    console.log("--------------");
+                    console.log(data2);
+               
+                    
+                //-------------------------- -----------------
+                // esto es para pasar de XML a JSON
+                  /*
+                    var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
+                    var parser = new DOMParser();
+                    var xmlDoc = parser.parseFromString(text,"text/xml");
+                    console.log(" DE XML A JSON " + JSON.stringify(xmlToJson(xmlDoc))); */
+                //---------------------------------------------
+                   
+
+                //esto es para pasar de json a xml
+
+                    let filename2 = document.querySelector('#saved-name').getAttribute('value');
+                    //let gh = data.toString();
+                    //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
+                    //console.log("EL INPUT JSON ES " + InputJSON );
+                    // var InputJSON =  JSON.parse(JSON.stringify(gh));
+
+
+                    // Now execute the 'OBJtoXML' function
+                    var outputXML = OBJtoXML(data2);
+                    console.log("PASANDO A XML ES  " + outputXML);
+                    OBJtoXML(data);
+                   // output.toString();
+                //----------------------------------------------
+
+                // Aqui ya se descarga
+
+                        var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
+                        var downloadAnchorNode = document.createElement('a');
+                        downloadAnchorNode.setAttribute("href", dataStr);
+                        console.log("llega aqui");
+                        downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
+                        console.log("llega aqui 2");
+                        document.body.appendChild(downloadAnchorNode);
+                        downloadAnchorNode.click();
+                        downloadAnchorNode.remove();
+         
+                        break;   
+            case based:
+
+                        Connection.createQuery("INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");  
+                        //connection.query('INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');', function(error, results, fields) {
+                        
+                        //});   
         }
     }
     _showOutput() {
@@ -869,3 +951,89 @@ class StateEditor extends HTMLElement {
 
 //esto ta fuera de la clase
 customElements.define('state-editor', StateEditor);
+
+//------------
+function OBJtoXML(obj) 
+{
+    var xml = '';
+    for (var prop in obj) 
+    {
+      xml += obj[prop] instanceof Array ? '' : "<" + prop + ">";
+      if (obj[prop] instanceof Array) 
+      {
+        for (var array in obj[prop]) 
+        {
+          xml += "<" + prop + ">";
+          xml += OBJtoXML(new Object(obj[prop][array]));
+          xml += "</" + prop + ">";
+        }
+      } 
+      else if (typeof obj[prop] == "object") 
+      {
+        xml += OBJtoXML(new Object(obj[prop]));
+
+      } 
+      else 
+      {
+        xml += obj[prop];
+      }
+      
+      
+      xml += obj[prop] instanceof Array ? '' : "</" + prop + ">";
+    }
+    var xml = xml.replace(/<\/?[0-9]{1,}>/g, '');
+    return xml;
+  }
+
+  function xmlToJson(xml) 
+  {
+    var obj = {};
+    if (xml.nodeType == 1) 
+    { 
+        if (xml.attributes.length > 0) 
+        {
+            obj["@attributes"] = {};
+
+            for (var j = 0; j < xml.attributes.length; j++) 
+            {
+                var attribute = xml.attributes.item(j);
+                obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+            }
+        }
+    } 
+    else if (xml.nodeType == 4) 
+    { 
+        obj = xml.nodeValue
+    }
+    if (xml.hasChildNodes()) 
+    {
+        for (var i = 0; i < xml.childNodes.length; i++) 
+        {
+            var item = xml.childNodes.item(i);
+            var nodeName = item.nodeName;
+
+            if (typeof(obj[nodeName]) == "undefined") 
+            {
+                obj[nodeName] = xmlToJson(item);
+            } 
+            
+            else 
+            {
+                if (typeof(obj[nodeName].length) == "undefined") 
+                {
+                    var old = obj[nodeName];
+                    obj[nodeName] = [];
+                    obj[nodeName].push(old);
+
+                }
+
+                if (typeof(obj[nodeName]) === 'object') 
+                {
+                    obj[nodeName].push(xmlToJson(item));
+                }
+            }
+        }
+    }
+
+    return obj;
+};
