@@ -798,15 +798,6 @@ class StateEditor extends HTMLElement {
                     let sigma = document.querySelector('#sigma').getAttribute('value');
                     console.log("el contenido es " + filename2 + type + sigma);
                     console.log("------------------------------");
-                    let states = [];
-                    let states2 = [filename2, type, sigma];
-                 
-                    var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
-                    var InputJSON1 = filename2.valueOf();
-                    InputJSON1.replaceAll("'", '"');
-                    console.log("is " + InputJSON1 );
-                    var InputJSON2 = JSON.parse(InputJSON1);
-                    var output = OBJtoXML(InputJSON1);
                     */
 
                     console.log("--------------");
@@ -826,22 +817,12 @@ class StateEditor extends HTMLElement {
                 //esto es para pasar de json a xml
 
                     let filename2 = document.querySelector('#saved-name').getAttribute('value');
-                    //let gh = data.toString();
-                    //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
-                    //console.log("EL INPUT JSON ES " + InputJSON );
-                    // var InputJSON =  JSON.parse(JSON.stringify(gh));
-
-
-                    // Now execute the 'OBJtoXML' function
-                    var outputXML = OBJtoXML(data2);
-                    console.log("PASANDO A XML ES  " + outputXML);
-                    OBJtoXML(data);
-                   // output.toString();
+ 
                 //----------------------------------------------
 
                 // Aqui ya se descarga
 
-                        var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
+                        var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload2());
                         var downloadAnchorNode = document.createElement('a');
                         downloadAnchorNode.setAttribute("href", dataStr);
                         console.log("llega aqui");
