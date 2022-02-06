@@ -839,7 +839,7 @@ class StateEditor extends HTMLElement {
 
                 // Aqui ya se descarga
 
-                        var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
+                        var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload2());
                         var downloadAnchorNode = document.createElement('a');
                         downloadAnchorNode.setAttribute("href", dataStr);
                         console.log("llega aqui");
