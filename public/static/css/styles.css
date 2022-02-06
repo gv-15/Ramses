@@ -158,6 +158,7 @@ svg {
     border: none;
     color: transparent;
     background-image: url(/static/images/sign-out-white.svg);
+    cursor: pointer;
 }
 
 #machine-info {

@@ -108,12 +108,7 @@ const editButtonsData = {
             class: 'edit',
             id: 'b-edit'
         },
-        {
-            value: "Minimizar", //Esta creado el boton pero falta toda la implementacion, LO DEJO AQUI??
-            action: 'start_minimize_mode',
-            class: 'minimize',
-            id: 'b-minimize'
-        }
+        
        
     ]
 }
@@ -129,6 +124,16 @@ const undoButtonsData = {
             value: "Rehacer",
             action: 'redo',
             id: 'b-redo'
+        },
+        {
+            value: "Minimizar", //Esta creado el boton pero falta toda la implementacion, LO DEJO AQUI??
+            action: 'minimize_mode',
+            id: 'b-minimize'
+        },
+        {
+            value: "Hacer Total", //Esta creado el boton pero falta toda la implementacion, LO DEJO AQUI??
+            action: 'total_mode',
+            id: 'b-total'
         }
       
     ]
@@ -362,7 +367,6 @@ class StateEditor extends HTMLElement {
         .hide {
             visibility:hidden;
         }
-
         #data-in-out{
           width:100%;
           heigth: 90%; 
@@ -389,7 +393,6 @@ class StateEditor extends HTMLElement {
           width:25%;
           background-color: Beige;
         }
-
       </style>
       `);
         }
@@ -489,8 +492,7 @@ class StateEditor extends HTMLElement {
             case 'start_insert_state':
             case 'start_insert_transition':
             case 'start_drag':
-            case 'start_delete_mode':
-            case 'start_minimize_mode': 
+            case 'start_delete_mode': 
             case 'start_edit_node':
                 this.svg.classList.remove(...this.editButtons.buttons.map(b => b.class)); //quito la clase del svg que dice lo que estoy haceindo (para el cursor o fondo...)
                 this.svg.classList.add(this.editButtons.buttons[data.pressed].class || ''); //gestión de radiobutton para el cursor
@@ -511,8 +513,6 @@ class StateEditor extends HTMLElement {
                     }else { 
                         this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
                     }
-    
-                    
                 break;
             case 'delete_state': //NO puede haber más de una conexión de un estado a otro o a sí mismo
                 this.chart.deleteState(data.stateId);
@@ -520,8 +520,19 @@ class StateEditor extends HTMLElement {
             case 'delete_transition':
                 this.chart.deleteTransition(data.transitionId);
                 break;
-            case 'minimize_automaton':
-                this.chart.deleteTransition(data.transitionId);     //Aqui supuestamente se minimiza el automata
+            case 'minimize_mode':
+                {
+                    console.log("estoy aqui");
+                    this.chart.minimazeAutomaton(this.chart.type);//Aqui supuestamente se minimiza el automata
+                    console.log("estoy ahi");
+                }
+                break;
+            case 'total_mode':
+                {
+                    console.log("estoy aqui total");
+                    this.chart.totalAutomaton(this.chart.type);//Aqui supuestamente se minimiza el automata
+                    console.log("estoy ahi total");
+                }
                 break;
             case 'undo':
                 {
@@ -556,7 +567,6 @@ class StateEditor extends HTMLElement {
             }else { 
                 this.transitionDialog.open(this.chart.getTransition(trId).toSave(), this.chart.sigmaExtended, this.chart.stackExtended);
             }
-
               /*   this.transitionDialog.open(data.transition.toSave(), this.chart.sigmaExtended, this.chart.stackExtended); */
                 break;
             default:
@@ -569,7 +579,8 @@ class StateEditor extends HTMLElement {
             case 'new_transition':
             case 'state_moved_end':
             case 'delete_state':
-            case 'minimize_automaton':
+            case 'minimize_mode':
+            case 'total_mode':
             case 'delete_transition':
                 this._saveStateChart();
                 this._redraw();
@@ -642,17 +653,15 @@ class StateEditor extends HTMLElement {
                         if(data.type == "AFND" || data.type == "AFD")
                         {
                         machineInfo.innerHTML = `
-                        <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename} </span>
-                        <span> Tipo: ${data.type} </span>
-                        <span> &#931: ${data.sigma} </span>`;
-                        }
-                        else
+                        <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
+                        <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>`;
+                        } else
                         {
                         machineInfo.innerHTML = `
                         <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename} </span>
-                        <span> Tipo: ${data.type} </span>
-                        <span> &#931: ${data.sigma} </span>
-                        <span> &#931 Pila: ${data.stack} </span>`;
+                        <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
+                        <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>
+                        <span id="stack" value = "${data.stack}"> &#931 Pila: ${data.stack} </span>`;
                         }
                     }
                     //console.log("pintar lo que me han mandao");
@@ -667,22 +676,24 @@ class StateEditor extends HTMLElement {
                     if(data.type == "AFND" || data.type == "AFD")
                         {
                         machineInfo.innerHTML = `
-                        <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename} </span>
-                        <span> Tipo: ${data.type} </span>
-                        <span> &#931: ${data.sigma} </span>`;
+                        <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename}</span>
+                        <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
+                        <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>`;
                         }
                         else
                         {
                             machineInfo.innerHTML = `
                             <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename}</span>
-                            <span> Tipo: ${data.type}</span>
-                            <span> &#931: ${data.sigma} </span>
-                            <span> &#931 Pila: ${data.stack} </span>`
+                            <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
+                            <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>
+                            <span id="sigma" value = "${data.stack}"> &#931 Pila: ${data.stack} </span>`;
+                        
                         }
-                    
+                    ;
                     break;
                 default:
-                    break;
+
+                    break; 
             }
             //this._saveStateChart();
             this._redraw();
@@ -811,16 +822,33 @@ class StateEditor extends HTMLElement {
                    
 
                 //esto es para pasar de json a xml
+
                     let filename2 = document.querySelector('#saved-name').getAttribute('value');
+                    //let gh = data.toString();
+                    //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
+                    //console.log("EL INPUT JSON ES " + InputJSON );
+                    // var InputJSON =  JSON.parse(JSON.stringify(gh));
+
+
+                    // Now execute the 'OBJtoXML' function
+                    var outputXML = OBJtoXML(data2);
+                    console.log("PASANDO A XML ES  " + outputXML);
+                    OBJtoXML(data);
+                   // output.toString();
+                //----------------------------------------------
+
                 // Aqui ya se descarga
 
                         var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload());
                         var downloadAnchorNode = document.createElement('a');
                         downloadAnchorNode.setAttribute("href", dataStr);
+                        console.log("llega aqui");
                         downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
+                        console.log("llega aqui 2");
                         document.body.appendChild(downloadAnchorNode);
                         downloadAnchorNode.click();
-                        downloadAnchorNode.remove();       
+                        downloadAnchorNode.remove();
+         
                         break;   
             case based:
 

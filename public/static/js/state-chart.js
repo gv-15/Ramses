@@ -226,6 +226,21 @@ export default class StateChart {
     insertState(x, y, terminal = false, initial = false, comments = '') {
             this.states.push(new StateElement(this.defaultName + this.stateIndex++, x, y, terminal, initial, comments));
         }
+
+    minimazeAutomaton(type) {
+        if (type != 'AFD') {
+        alert("Solo se puede minimizar un AFD");    
+        } else {
+            alert("GG ahora implementalo ;)");
+        }
+    }
+    totalAutomaton(type) {
+        if (type != 'AFD') {
+        alert("Solo se puede hacer total un AFD");    
+        } else {
+            alert("GG ahora implementalo brota;)");
+        }
+    }
         //voy a mirar tanbién si es iniicial
     modifyStateData(stId, data) {
         let state = this.states.find((el) => (el.name === stId));
