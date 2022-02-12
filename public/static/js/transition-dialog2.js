@@ -5,7 +5,7 @@ import StateChart from "./state-chart.js";
 //Pasamos las cosas en atributos a ver.
 
 
-export default class TransitionDialog extends HTMLElement {
+export default class TransitionDialog2 extends HTMLElement {
     constructor() {
         super();
         this.dom = this.attachShadow({
@@ -54,19 +54,12 @@ export default class TransitionDialog extends HTMLElement {
     }
     template() {
        
-      
         return (
-        `<dialog id="transition-dialog">
+        `<dialog id="transition-dialog2">
         <select id='select-transition'></select>
         <input type="button" id="add" value=" Añadir "/>
         <input type="button" id="del" value=" Borrar "/></br></br>
-        <select id='select-stack-transition'></select>
-        <input type="button" id="add2" value=" Añadir "/>
-        <input type="button" id="del2" value=" Borrar "/></br></br>
-        <select id='select-stack-transition2'></select>
-        <input type="button" id="add3" value=" Añadir "/>
-        <input type="button" id="del3" value=" Borrar "/></br></br>
-        <span id='name' ></span>,<span id='name2' ></span>;<span id='name3' ></span></br>
+        <span id='name' ></span></span></br>
         <span id='optional-text'></span></br>
         <div id="buttons">
          <input type="button" id="esc" value="Salir"/>
@@ -82,13 +75,9 @@ export default class TransitionDialog extends HTMLElement {
           
 
             this.dom.innerHTML = this.style() + this.template();
-            this.dialog = this.dom.querySelector('#transition-dialog'),
+            this.dialog = this.dom.querySelector('#transition-dialog2'),
             this.nameNode = this.dom.querySelector('#name');
-            this.nameNode2 = this.dom.querySelector('#name2');
-            this.nameNode3 = this.dom.querySelector('#name3');
             this.selNode = this.dom.querySelector('#select-transition');
-            this.selNode2 = this.dom.querySelector('#select-stack-transition');
-            this.selNode3 = this.dom.querySelector('#select-stack-transition2');
             this.data = { name: '' };
             
     
@@ -120,59 +109,9 @@ export default class TransitionDialog extends HTMLElement {
                         
                 }
             });
-            this.dom.querySelector('#add2').addEventListener('click', () => {
-                if (this.type === 'DFA'){
-
-                    this.nameNode2.innerText = this.selNode2.value;
-                  
-                }
-
-                else {
-                    if ((this.nameNode2.innerText.length === 0) ||
-                        (this.nameNode2.innerText === '\u03F5') ||
-                        (this.selNode2.value === '\u03F5')){
-
-                            this.nameNode2.innerText = this.selNode2.value;
-                
-                        } //El epsilon va solo, borra lo que haya antes o se borra al poner otra cosa
-                      
-                        
-                    else if (this.nameNode2.innerText.indexOf(this.selNode2.value)){
-
-                        this.nameNode2.innerText = this.nameNode2.innerText + ',' + this.selNode2.value;
-
-                    } //evito repes
-                        
-                }
-            });
-            this.dom.querySelector('#add3').addEventListener('click', () => {
-                if (this.type === 'DFA'){
-
-                   
-                    this.nameNode3.innerText = this.selNode3.value;
-                }
-
-                else {
-                    if ((this.nameNode3.innerText.length === 0) ||
-                        (this.nameNode3.innerText === '\u03F5') ||
-                        (this.selNode3.value === '\u03F5')){
-
-                            this.nameNode3.innerText = this.selNode3.value;
-
-                        } //El epsilon va solo, borra lo que haya antes o se borra al poner otra cosa
-                      
-                        
-                    else if (this.nameNode3.innerText.indexOf(this.selNode3.value)){
-                       
-                        this.nameNode3.innerText = this.nameNode3.innerText + ',' + this.selNode3.value;
-
-                    } //evito repes
-                        
-                }
-            });
+           
             this.dom.querySelector('#del').addEventListener('click', () => { this.nameNode.innerText = '' });
-            this.dom.querySelector('#del2').addEventListener('click', () => { this.nameNode2.innerText = '' });
-            this.dom.querySelector('#del3').addEventListener('click', () => { this.nameNode3.innerText = '' });
+           
             this.dom.querySelector('#end').addEventListener('click', () => this.sendData('OK'));
             this.dom.querySelector('#esc').addEventListener('click', () => this.sendData('ESC'));
         }
@@ -182,8 +121,6 @@ export default class TransitionDialog extends HTMLElement {
         this.data = this.oldData;
         if (button === 'OK') { //modifico campos
             this.data.name = this.nameNode.innerText;
-            this.data.name2 = this.nameNode2.innerText;
-            this.data.name3 = this.nameNode3.innerText;
         }
         this.data.button = button;
         this.dialog.close()
@@ -196,8 +133,6 @@ export default class TransitionDialog extends HTMLElement {
             this.nameNode.innerText = data.name;
             this.dom.querySelector('#optional-text').innerText = data.text || ''; //Aquí vendría texto de error
             this.selNode.innerHTML = alphabet.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), ""); //de donde sale este alphabet
-            this.selNode2.innerHTML =  stack.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), "");
-            this.selNode3.innerHTML =  stack.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), "");
             this.dialog.showModal();
             
             
@@ -220,4 +155,4 @@ export default class TransitionDialog extends HTMLElement {
     }
 }
 //esto ta fuera de la clase
-customElements.define('transition-dialog', TransitionDialog);
+customElements.define('transition-dialog2', TransitionDialog2);

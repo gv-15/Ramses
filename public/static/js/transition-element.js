@@ -2,7 +2,7 @@
 import StateElement from './state-element.js';
 
 export default class TransitionElement {
-    constructor( trId, from, to, name) {
+    constructor( trId, from, to, name, name2, name3, type) {
         if (!(from instanceof StateElement) || !(from instanceof StateElement)) {
             console.log('error : se conectan estados');
             this.error = true; //Los constructores siempre deben terminar y devolver el objeto
@@ -13,11 +13,25 @@ export default class TransitionElement {
         this.to = to;
         this.id = trId;
         this.tsize = 20;
+        this.type = type;
         this.setName(name);
+        this.setName2(name2);
+        this.setName3(name3);
+        
     }
     setName(name){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
         this.name = name;
         this.accepts = (input)=>(this.name.split(',').some(ch=>ch === input));
+    }
+    setName2(name2){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
+        
+        this.name2 = name2;
+        //this.accepts = (input)=>(this.name2.split(',').some(ch=>ch === input));
+    }
+    setName3(name3){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
+        
+        this.name3 = name3;
+        //this.accepts = (input)=>(this.name3.split(',').some(ch=>ch === input));
     }
     //Divido en SVG text y su inclusión en el dom
     toSVG(scale) {
@@ -60,16 +74,31 @@ export default class TransitionElement {
         //Usamos como origen el centro del circulo from
         //Y ahora el dibujo propiamente dicho, le subo 2 px al texto, lo que no sé hacer en css...
         //startOffset=50% alinea el texto con el path, que a su vez lo cogemos en la mitad (center:middle)
-        let out = `
+        let out;
+       if(this.type == "AFD" || this.type == "AFND"){ //Aqui tengo que arreglar lo de que no se ven las transiciones una encimad de otra en caso de que se pueda hacer,  para futuro
+        out = `
+        <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
+            <path class='transition' id="path_${this.id}"  d=${path}></path>
+            <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy='-2'>
+            <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name}</textPath>
+            </text>                                                            
+        </g>`;
+       }
+       else{
+        out = `
             <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
                 <path class='transition' id="path_${this.id}"  d=${path}></path>
                 <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy='-2'>
-                <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name}</textPath>
+                <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name},${this.name2};${this.name3}</textPath>
                 </text>
             </g>`;
+       }
+      
+       
         return (out);
     }
     toDOM(sc) {
+        
         let node = document.createElement('div');
         node.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" version="1.2" preserveAspectRatio="xMidYMid meet" style=" stroke-width:1px;">${this.toSVG(sc)}</svg>`;
         this.transitionNode = node.querySelector('g');

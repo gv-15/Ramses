@@ -96,7 +96,7 @@ export default class ButtonArray extends HTMLElement {
         #b-download, #b-screenshot,
         #b-zoomin, #b-zoomout, #b-home, #b-sethome, #b-fit, #b-setzoom,
         #b-state, #b-trans, #b-drag, #b-delete, #b-edit,
-        #b-undo, #b-redo, #b-minimize,
+        #b-undo, #b-redo, #b-minimize, #b-total,
         #b-play, #b-stop, #b-back, #b-fback, #b-fforward {
             background-repeat: no-repeat;
             background-position: center;
@@ -112,8 +112,12 @@ export default class ButtonArray extends HTMLElement {
         #b-fforward {background-image: url(/static/images/fforward.svg);}
         #b-fforward.selected {background-image: url(/static/images/fforward-blue.svg);}
 
-        #b-download {background-image: url(/static/images/download.svg);}
-        #b-download.selected {background-image: url(/static/images/download-blue.svg);}
+        #b-based {background-image: url(/static/images/bd.svg);}
+        #b-based.selected {background-image: url(/static/images/bd.svg);}
+        #b-xml {background-image: url(/static/images/xml.svg);}
+        #b-xml.selected {background-image: url(/static/images/xml.svg);}
+        #b-json {background-image: url(/static/images/json.svg);}
+        #b-json.selected {background-image: url(/static/images/json.svg);}
         #b-screenshot {background-image: url(/static/images/camera.svg);}
         #b-screenshot.selected {background-image: url(/static/images/camera.svg);}
         #b-zoomin {background-image: url(/static/images/zoom-in.svg);}
@@ -135,8 +139,8 @@ export default class ButtonArray extends HTMLElement {
         #b-delete {background-image: url(/static/images/delete.svg);}
         #b-delete.selected {background-image: url(/static/images/delete-blue.svg);}
         #b-edit {background-image: url(/static/images/edit-nuevo.svg);}
-        #b-minimize {background-image: url(/static/images/minimize.svg);}  //No ajusta
-        #b-minimize.selected {background-image: url(/static/images/minimize-blue.svg);} //No ajusta y no implementado
+        #b-minimize {background-image: url(/static/images/minimize.svg);}  
+        #b-total {background-image: url(/static/images/total.svg);}  
         #b-edit.selected {background-image: url(/static/images/edit-blue-nuevo.svg);}
         #b-undo {background-image: url(/static/images/rotate-left.svg);}
         #b-undo.selected {background-image: url(/static/images/rotate-left-blue.svg);}

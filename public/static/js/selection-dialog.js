@@ -2,6 +2,8 @@
 
 import StateChart from './state-chart.js';
 
+
+
 export default class SelectionDialog extends HTMLElement {
     constructor() {
         super();
@@ -35,7 +37,7 @@ export default class SelectionDialog extends HTMLElement {
         .section {
             display:flex;
             flex-direction: column;
-            width: 50%;
+            width: 70%;
         }
         input[type=text]{
             padding:4px;
@@ -71,7 +73,7 @@ export default class SelectionDialog extends HTMLElement {
             transform: scale(1.1);
             color: yellow;
         }
-        #sigma-label, #filename-label {
+        #sigma-label, #filename-label ,#stack-label {
             border-style: none;
             text-align: start;
         }
@@ -97,7 +99,7 @@ export default class SelectionDialog extends HTMLElement {
 
         .headerDivider {
             margin-right: 8px;
-            margin-left: 8px;
+            margin-left: 8spx;
             border-left: 1px solid #38546d;
             border-right: 1px solid #16222c;
             height: auto;
@@ -106,7 +108,7 @@ export default class SelectionDialog extends HTMLElement {
       </style>
       `);
     }
-    template() {
+        template() {
             return (
                 `<dialog id="selection-dialog">
                 <div id="sections-container">
@@ -126,9 +128,13 @@ export default class SelectionDialog extends HTMLElement {
                             <input type="radio" name="machine" id="MTC"  value="MTC"/>      
                             <label for="MTC">MTC</label>
                         </div>
+                      
                         <div id="text-input-container">
+            
                             <label id="sigma-label">&#931<input type="text"  name="machine" id="alphabet-input" placeholder="p.ej: ab, 01"/></label></br>
+                            <label id="stack-label">&#931 Pila <input type="text"  name="stack-machine" id="stack-alphabet-input" placeholder="p.ej: gv, 15"/></label></br>
                             <label id="filename-label">Nombre <input type="text"  name="filename" id="filename-input" placeholder="afd-01"/></label>
+ 
                         </div>
                     </div>
                     <div class="headerDivider"></div>
@@ -144,9 +150,10 @@ export default class SelectionDialog extends HTMLElement {
         }
         //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
     connectedCallback() {
+
         this.dom.innerHTML = this.style() + this.template();
         this.dialog = this.dom.querySelector('#selection-dialog');
-        this.data = { type: '', sigma: '', states: [] };
+        this.data = { type: '', sigma: '', stack: '', states: [] };
         this.dom.querySelector('#end').addEventListener('click', () => this.sendData('OK'));
     }
     setSigma(sigma) {
@@ -154,6 +161,12 @@ export default class SelectionDialog extends HTMLElement {
         if (sigma.search(/[^A-Z,a-z]/) !== -1) //o un try-catch que permita a y b...
             console.log('el alfabeto pasado no es válido, no debería pasar');
         this.pattern = new RegExp('[' + this.sigma + ']');
+    }
+    setStack(stack) { //Misma idea que arriba, tengo que ver si funciona
+        this.stack = stack;
+        if (stack.search(/[^A-Z,a-z]/) !== -1) //o un try-catch que permita a y b...
+            console.log('el alfabeto de la pila pasado no es válido, no debería pasar');
+        this.pattern = new RegExp('[' + this.stack + ']');
     }
     setType(type) {
         this.type = type;
@@ -175,6 +188,7 @@ export default class SelectionDialog extends HTMLElement {
                     this.data.type = stored[0].type;
                     this.data.sigma = stored[0].sigma;
                     this.data.states = stored[0].states;
+                    this.data.stack = stored[0].stack;
                     this.data.button = button;
                     let res = filename.split(".");
                     this.data.filename = res[0];
@@ -183,8 +197,11 @@ export default class SelectionDialog extends HTMLElement {
             } else {
                 this.data.type = this.dom.querySelector("input[name=machine]:checked").value;
                 this.data.sigma = this.dom.querySelector("#alphabet-input").value;
+                this.data.stack = this.dom.querySelector("#stack-alphabet-input").value;
                 this.data.filename = this.dom.querySelector("#filename-input").value;
-                if (this.data.type && this.data.sigma && this.data.filename) {
+             if(this.data.type == "AFND" || this.data.type == "AFD")
+             {
+                if (this.data.type && this.data.sigma && this.data.filename ) {
                     //console.log("hay datos suficientes");
                     this.data.states = [];
                     this.data.button = button;
@@ -194,6 +211,20 @@ export default class SelectionDialog extends HTMLElement {
                     alert("Rellena todos los campos para continuar");
                     return;
                 }
+             }
+             else{
+
+                if (this.data.type && this.data.sigma && this.data.filename && this.data.stack) {
+                    //console.log("hay datos suficientes");
+                    this.data.states = [];
+                    this.data.button = button;
+                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
+                } else {
+                    //console.log("no hay datos suficintes");
+                    alert("Rellena todos los campos para continuar");
+                    return;
+                }
+             }
                 //this.data.type = this.dom.querySelector("input[name=machine]:checked").value;
                 //this.data.sigma = this.dom.querySelector("#alphabet-input").value;
             }
@@ -206,7 +237,7 @@ export default class SelectionDialog extends HTMLElement {
     disconnectedCallback() {}
 
     static get observedAttributes() {
-        return ['parent', 'sigma', 'type']; //a dónde hay que echar los eventos
+        return ['parent', 'sigma', 'type', 'stack']; //a dónde hay que echar los eventos
     }
     attributeChangedCallback(name, oldVal, newVal) {
         switch (name) {
@@ -219,10 +250,15 @@ export default class SelectionDialog extends HTMLElement {
             case 'type':
                 this.setType(newVal);
                 break;
+            case 'stack':
+                this.setStack(newVal);
+                break;
             default:
                 break;
         }
     }
+
 }
+
 //esto ta fuera de la clase
 customElements.define('selection-dialog', SelectionDialog);
