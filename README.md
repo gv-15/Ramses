@@ -2,7 +2,7 @@
 
 ## Utilización
 ```
-git clone https://github.com/thexfirehawk/ramses.git
+git clone https://github.com/gv-15/Ramses.git
 cd ramses
 npm start
 ```
