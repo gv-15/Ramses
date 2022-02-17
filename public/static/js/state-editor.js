@@ -830,12 +830,16 @@ class StateEditor extends HTMLElement {
                         console.log("llega aqui 2");
                         document.body.appendChild(downloadAnchorNode);
                         downloadAnchorNode.click();
-                        downloadAnchorNode.remove();
-         
-                        break;   
-            case based:
+                        downloadAnchorNode.remove();        
+                        break;
 
-                        Connection.createQuery("INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");  
+            case 'based':
+               
+
+           var b = this.chart.obtainStates();
+           console.log("ojo ojito" + b);
+           
+                      //  Connection.createQuery("INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");  
                         //connection.query('INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');', function(error, results, fields) {
                         
                         //});   
