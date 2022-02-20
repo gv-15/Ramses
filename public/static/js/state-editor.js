@@ -553,8 +553,29 @@ class StateEditor extends HTMLElement {
           if (this.chart.type != "AFD") {
             alert("Solo se puede hacer total un AFD");
           } else {
+            let sigmaIndex = this.chart.sigma.length;
+            let index = this.chart.states.length;
             this.chart.totalAutomaton(); 
-            
+            for (var i = 0; i < index; i++) { // Aqui miro en todos los states menos en el trampa
+              //console.log(this.chart.states[g].transitions[0].name);
+              //console.log("El numero de transiciones es:" + this.chart.states[i].transitions.length);
+              let transitionIndex = this.chart.states[i].transitions.length;
+              for (var j = 0; j < sigmaIndex; j++) {//Aqui miro todas las letras de la gramatica
+                var compr = 0;
+                for (var z = 0; z < transitionIndex ; z++) {
+                  //console.log(this.chart.sigma[j]);
+                    if (this.chart.sigma[j] === this.chart.states[i].transitions[z].name) { //TODO: acceder a todas las transiciones y a toda la gramatica y comprobar
+                      compr++;
+                    }
+                }
+                console.log("En " + this.chart.states[i] + " Coincidencias de la letra en transiciones "+ this.chart.sigma[j] + " " + compr);
+                if (compr = 0) { //Si no tiene ninguna coindencia en ese state añado una transicion al trampa con la letra 
+                  console.log("En " + this.chart.states[i] + " NO HAY Coincidencias de la letra en transiciones "+ this.chart.sigma[j] +  " " + compr);
+                  // Añadimos aqui TODO:
+                }
+              }
+              console.log("siguiente");
+            } 
           }
         }
         break;
