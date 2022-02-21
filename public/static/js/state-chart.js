@@ -233,6 +233,18 @@ export default class StateChart {
     ); //le decimos el tipo de transición permitida (DFA, NFA)
     return trId;
   }
+  insertTransition2(idFrom, idTo, letra) {
+   /*  console.log(idFrom);
+    console.log(idTo);
+    console.log(letra); */
+    let from = this.states.find((el) => el.name === idFrom);
+    let to = this.states.find((el) => el.name === idTo);
+    let trId = idFrom + "_" + idTo +  "_" + letra;
+    from.transitions.push(
+      new TransitionElement(trId, from, to, letra, "", "", this.type)
+    ); //le decimos el tipo de transición permitida (DFA, NFA)
+    return trId;
+  }
   modifyTransitionData(id, data) {
     let st = id.split("_");
     let tr = this.getTransition(id);
@@ -282,7 +294,6 @@ export default class StateChart {
         comments
       )
     );
-    console.log(x);
   }
   minimazeAutomaton(type) {
     if (type != "AFD") {
