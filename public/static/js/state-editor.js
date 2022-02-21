@@ -555,8 +555,9 @@ class StateEditor extends HTMLElement {
           } else {
             let sigmaIndex = this.chart.sigma.length;
             let index = this.chart.states.length;
-            this.chart.totalAutomaton(); 
-            for (var i = 0; i < index; i++) { // Aqui miro en todos los states menos en el trampa
+            this.chart.totalAutomaton();
+             //console.log(this.chart.states[index]);
+             for (var i = 0; i < index; i++) { // Aqui miro en todos los states menos en el trampa
               //console.log(this.chart.states[g].transitions[0].name);
               //console.log("El numero de transiciones es:" + this.chart.states[i].transitions.length);
               let transitionIndex = this.chart.states[i].transitions.length;
@@ -568,13 +569,15 @@ class StateEditor extends HTMLElement {
                       compr++;
                     }
                 }
-                console.log("En " + this.chart.states[i] + " Coincidencias de la letra en transiciones "+ this.chart.sigma[j] + " " + compr);
-                if (compr = 0) { //Si no tiene ninguna coindencia en ese state añado una transicion al trampa con la letra 
-                  console.log("En " + this.chart.states[i] + " NO HAY Coincidencias de la letra en transiciones "+ this.chart.sigma[j] +  " " + compr);
+                //console.log("En " + this.chart.states[i] + " Coincidencias de la letra en transiciones "+ this.chart.sigma[j] + " " + compr);
+                if (compr == "0") { //Si no tiene ninguna coindencia en ese state añado una transicion al trampa con la letra 
+                  //console.log("En " + this.chart.states[i] + " NO HAY Coincidencias de la letra en transiciones "+ this.chart.sigma[j] +  " " + compr);
                   // Añadimos aqui TODO:
-                }
+                    this.chart.insertTransition2(this.chart.states[i].name, this.chart.states[index].name, this.chart.sigma[j]);
+                    //console.log("estamos aqui");
+                 }
               }
-              console.log("siguiente");
+              //console.log("siguiente");
             } 
           }
         }
@@ -866,7 +869,6 @@ class StateEditor extends HTMLElement {
                     console.log("------------------------------");
                     let states = [];
                     let states2 = [filename2, type, sigma];
-                 
                     var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
                     var InputJSON1 = filename2.valueOf();
                     InputJSON1.replaceAll("'", '"');
