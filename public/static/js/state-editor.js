@@ -796,6 +796,7 @@ class StateEditor extends HTMLElement {
                     let filename2 = document.querySelector('#saved-name').getAttribute('value');
                     let type = document.querySelector('#type').getAttribute('value');
                     let sigma = document.querySelector('#sigma').getAttribute('value');
+                    let statename = document.querySelector(#states).getAttribute('name');
                     console.log("el contenido es " + filename2 + type + sigma);
                     console.log("------------------------------");
                     */
@@ -834,11 +835,15 @@ class StateEditor extends HTMLElement {
                         break;
 
             case 'based':
-               
+           
+              
 
            var b = this.chart.obtainStates();
            console.log("ojo ojito" + b);
-           
+
+           let statename = document.querySelector('#states').getAttribute('value');
+           console.log("el name es " + statename)    
+
                       //  Connection.createQuery("INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");  
                         //connection.query('INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');', function(error, results, fields) {
                         
