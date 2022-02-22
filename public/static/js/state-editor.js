@@ -611,12 +611,12 @@ class StateEditor extends HTMLElement {
       case "edit_transition": //aquí viene si, en modo edit, pincha en conexión
         if (this.chart.type === "AFD" || this.chart.type === "AFND") {
           this.transitionDialog2.open(
-            this.chart.getTransition(trId).toSave(),
-            this.chart.sigmaExtended,
+            data.transition.toSave(),
+            this.chart.sigmaExtended
           );
         } else {
           this.transitionDialog.open(
-            this.chart.getTransition(trId).toSave(),
+            data.transition.toSave(),
             this.chart.sigmaExtended,
             this.chart.stackExtended
           );
