@@ -613,7 +613,6 @@ class StateEditor extends HTMLElement {
           this.transitionDialog2.open(
             this.chart.getTransition(trId).toSave(),
             this.chart.sigmaExtended,
-            this.chart.stackExtended
           );
         } else {
           this.transitionDialog.open(
