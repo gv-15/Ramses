@@ -549,7 +549,7 @@ class StateEditor extends HTMLElement {
         }
         break;
       case "total_mode":
-        {//TODO: Aqui supuestamente se convierte en total el automata
+        {//TODO: comprobar si es total antes de empezar
           if (this.chart.type != "AFD") {
             alert("Solo se puede hacer total un AFD");
           } else {
@@ -565,14 +565,13 @@ class StateEditor extends HTMLElement {
                 var compr = 0;
                 for (var z = 0; z < transitionIndex ; z++) {
                   //console.log(this.chart.sigma[j]);
-                    if (this.chart.sigma[j] === this.chart.states[i].transitions[z].name) { //TODO: acceder a todas las transiciones y a toda la gramatica y comprobar
+                    if (this.chart.sigma[j] === this.chart.states[i].transitions[z].name) { 
                       compr++;
                     }
                 }
                 //console.log("En " + this.chart.states[i] + " Coincidencias de la letra en transiciones "+ this.chart.sigma[j] + " " + compr);
                 if (compr == "0") { //Si no tiene ninguna coindencia en ese state añado una transicion al trampa con la letra 
                   //console.log("En " + this.chart.states[i] + " NO HAY Coincidencias de la letra en transiciones "+ this.chart.sigma[j] +  " " + compr);
-                  // Añadimos aqui TODO:
                     this.chart.insertTransition2(this.chart.states[i].name, this.chart.states[index].name, this.chart.sigma[j]);
                     //console.log("estamos aqui");
                 }
