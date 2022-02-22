@@ -279,7 +279,6 @@ export default class StateChart {
     let st = trId.split("_");
     let from = this.states.find((el) => el.name === st[0]);
     //return from.transitions.find((tr) => tr.to.name === st[1]);
-    //return from.transitions.find((tr) => tr.to.name === st[1]);
     return from.transitions.find((tr) => tr.to.name === st[1] && tr.id.split("_")[2] === st[2]);
   }
   deleteTransition(id) {
