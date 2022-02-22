@@ -11,7 +11,6 @@
 //
 import StateElement from "./state-element.js";
 import TransitionElement from "./transition-element.js";
-
 export default class StateChart {
   constructor(type = "AFD", sigma = "ab", stack = "mp", stateNaming = "q") {
     this.type = type;
@@ -179,10 +178,15 @@ export default class StateChart {
         )
       );
     });
-    if (this.states.length === 0) this.stateIndex = 0;
+    if (this.states.length === 0){
+      this.stateIndex = 0;
+      this.transitionIndex = 0;
+
+    } 
     else {
       let numbers = this.states.map((st) => parseInt(st.name.substring(1))); //quito la q y convierto a número
       this.stateIndex = Math.max(...numbers) + 1;
+      this.transitionIndex = Math.max(...numbers) + 1;
     }
     //Ahora que están creados, les añado las transiciones
     states.forEach((st) => {
@@ -228,18 +232,19 @@ export default class StateChart {
     let from = this.states.find((el) => el.name === idFrom);
     let to = this.states.find((el) => el.name === idTo);
     let trId = idFrom + "_" + idTo;
+    trId = trId + "_" + this.transitionIndex++;
     from.transitions.push(
       new TransitionElement(trId, from, to, "", "", "", this.type)
     ); //le decimos el tipo de transición permitida (DFA, NFA)
     return trId;
   }
   insertTransition2(idFrom, idTo, letra) {
-   /*  console.log(idFrom);
+  /*  console.log(idFrom);
     console.log(idTo);
     console.log(letra); */
     let from = this.states.find((el) => el.name === idFrom);
     let to = this.states.find((el) => el.name === idTo);
-    let trId = idFrom + "_" + idTo +  "_" + letra;
+    let trId = idFrom + "_" + idTo +  "_" + this.transitionIndex++;
     from.transitions.push(
       new TransitionElement(trId, from, to, letra, "", "", this.type)
     ); //le decimos el tipo de transición permitida (DFA, NFA)
@@ -272,7 +277,9 @@ export default class StateChart {
   getTransition(trId) {
     let st = trId.split("_");
     let from = this.states.find((el) => el.name === st[0]);
-    return from.transitions.find((tr) => tr.to.name === st[1]);
+    //return from.transitions.find((tr) => tr.to.name === st[1]);
+    //return from.transitions.find((tr) => tr.to.name === st[1]);
+    return from.transitions.find((tr) => tr.to.name === st[1] && tr.id.split("_")[2] === st[2]);
   }
   deleteTransition(id) {
     let states = id.split("_");
@@ -303,9 +310,7 @@ export default class StateChart {
     }
   }
   totalAutomaton() {
-    //TODO: mirar si hacerlo aqui o directamente en state-editor, por ahora lo estoy implementando alli
     this.states.push(new StateElement('Trap',717.9859619140625, 564.9700317382812, true, false, ""));
-    
   }
   //voy a mirar tanbién si es inicial
   modifyStateData(stId, data) {

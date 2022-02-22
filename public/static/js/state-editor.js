@@ -575,7 +575,7 @@ class StateEditor extends HTMLElement {
                   // Añadimos aqui TODO:
                     this.chart.insertTransition2(this.chart.states[i].name, this.chart.states[index].name, this.chart.sigma[j]);
                     //console.log("estamos aqui");
-                 }
+                }
               }
               //console.log("siguiente");
             } 
