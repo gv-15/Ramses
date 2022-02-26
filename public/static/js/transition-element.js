@@ -1,6 +1,5 @@
 'use strict'
 import StateElement from './state-element.js';
-
 export default class TransitionElement {
     constructor( trId, from, to, name, name2, name3, type) {
         if (!(from instanceof StateElement) || !(from instanceof StateElement)) {
@@ -17,7 +16,6 @@ export default class TransitionElement {
         this.setName(name);
         this.setName2(name2);
         this.setName3(name3);
-        
     }
     setName(name){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
         this.name = name;
@@ -44,7 +42,6 @@ export default class TransitionElement {
             y: transformMatrix.f
         };
         let fromR = this.from.getRadius() / scale;
-
         if (this.from !== this.to) {
             transformMatrix = this.to.node.transform.baseVal.consolidate().matrix;
             let toPos = {
@@ -66,7 +63,6 @@ export default class TransitionElement {
             //vector = { x: vector.x / d, y: vector.y / d };  //vector unitario del centro de from al de to
             //d = d - fromR - toR;    //longitud a pintar
             //path = `'M ${fromR*vector.x} ${fromR*vector.y} l ${d*vector.x} ${d*vector.y}'`;
-
             path = `'M ${xi} ${yi} A ${2*d} ${2*d} 0 0 1 ${xf} ${yf}'`;
         } else { //dibujo un arco en la parte de arriba, se puede ir mejorando...
             path = `'M ${-0.717*fromR} ${-0.717*fromR} A ${fromR*0.9} ${fromR*0.9} 0 1 1 ${0.717*fromR} ${-0.717*fromR} '`;
@@ -83,8 +79,8 @@ export default class TransitionElement {
             <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name}</textPath>
             </text>                                                            
         </g>`;
-       }
-       else{
+        }
+        else{
         out = `
             <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
                 <path class='transition' id="path_${this.id}"  d=${path}></path>
@@ -92,13 +88,10 @@ export default class TransitionElement {
                 <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name},${this.name2};${this.name3}</textPath>
                 </text>
             </g>`;
-       }
-      
-       
+        }
         return (out);
     }
     toDOM(sc) {
-        
         let node = document.createElement('div');
         node.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" version="1.2" preserveAspectRatio="xMidYMid meet" style=" stroke-width:1px;">${this.toSVG(sc)}</svg>`;
         this.transitionNode = node.querySelector('g');
