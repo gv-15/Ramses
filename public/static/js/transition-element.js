@@ -3,11 +3,11 @@ import StateElement from './state-element.js';
 export default class TransitionElement {
     constructor( trId, from, to, name, name2, name3, type) {
         if (!(from instanceof StateElement) || !(from instanceof StateElement)) {
-            console.log('error : se conectan estados');
             this.error = true; //Los constructores siempre deben terminar y devolver el objeto
             return;
         }
-        //this.name = name ; //dejo vacío si está vacío, ya miraré luego si vale   
+        //this.name = name ; //dejo vacío si está vacío, ya miraré luego si vale
+        this.position = -4;
         this.from = from;
         this.to = to;
         this.id = trId;
@@ -22,12 +22,10 @@ export default class TransitionElement {
         this.accepts = (input)=>(this.name.split(',').some(ch=>ch === input));
     }
     setName2(name2){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
-        
         this.name2 = name2;
         //this.accepts = (input)=>(this.name2.split(',').some(ch=>ch === input));
     }
     setName3(name3){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
-        
         this.name3 = name3;
         //this.accepts = (input)=>(this.name3.split(',').some(ch=>ch === input));
     }
@@ -71,20 +69,22 @@ export default class TransitionElement {
         //Y ahora el dibujo propiamente dicho, le subo 2 px al texto, lo que no sé hacer en css...
         //startOffset=50% alinea el texto con el path, que a su vez lo cogemos en la mitad (center:middle)
         let out;
-       if(this.type == "AFD" || this.type == "AFND"){ //Aqui tengo que arreglar lo de que no se ven las transiciones una encimad de otra en caso de que se pueda hacer,  para futuro
-        out = `
-        <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
+        if(this.type == "AFD" || this.type == "AFND"){//TODO: cuando van de derecha a izquierda que no se vean alreves
+            //this.position= this.position - 10;
+            out = `
+            <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
             <path class='transition' id="path_${this.id}"  d=${path}></path>
-            <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy='-2'>
+            <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${this.position= this.position - 10}>
             <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name}</textPath>
             </text>                                                            
-        </g>`;
+            </g>`;
         }
         else{
-        out = `
+            this.position= this.position - 10;
+            out = `
             <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
                 <path class='transition' id="path_${this.id}"  d=${path}></path>
-                <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy='-2'>
+                <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${this.position= this.position - 10}>
                 <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name},${this.name2};${this.name3}</textPath>
                 </text>
             </g>`;
