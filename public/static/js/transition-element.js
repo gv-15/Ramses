@@ -1,13 +1,14 @@
 'use strict'
 import StateElement from './state-element.js';
 export default class TransitionElement {
-    constructor( trId, from, to, name, name2, name3, type) {
+    constructor( trId, from, to, name, name2, name3, type, nuevo, index) {
         if (!(from instanceof StateElement) || !(from instanceof StateElement)) {
             this.error = true; //Los constructores siempre deben terminar y devolver el objeto
             return;
         }
         //this.name = name ; //dejo vacío si está vacío, ya miraré luego si vale
-        this.position = -4;
+        this.index = index;
+        this.position = 13;
         this.from = from;
         this.to = to;
         this.id = trId;
@@ -16,6 +17,10 @@ export default class TransitionElement {
         this.setName(name);
         this.setName2(name2);
         this.setName3(name3);
+        this.isNew = nuevo;
+        this.contador= 0;
+        this.contador2 = 0;
+        this.cont = 0;
     }
     setName(name){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
         this.name = name;
@@ -29,8 +34,30 @@ export default class TransitionElement {
         this.name3 = name3;
         //this.accepts = (input)=>(this.name3.split(',').some(ch=>ch === input));
     }
+    isNeww(p){
+        if(this.cont = 0 || this.isNew){
+                this.contador2 = 0;
+                this.position = 13
+                this.p = 13;
+                this.contador = 0;
+            }
+            console.log("empezamososs");
+            console.log("el contador marca " + this.contador);
+            console.log("es nuevo marca " + this.isNew);
+            console.log("el contador2 marca " + this.contador2);
+            console.log("el index marca " + this.index);
+            if(this.isNew || this.contador2 <= this.index){
+                this.contador2++;
+                this.contador = this.contador - 20;
+                p = p - 20;
+            }
+        this.position = p;
+        console.log(p);
+        this.cont++;
+        return p;
+    }
     //Divido en SVG text y su inclusión en el dom
-    toSVG(scale) {
+    toSVG(scale, es) {
         //Son estados, por tanto grupos movidos por el transform, busco los puntos de corte de la recta que une los centros
         //si son distintos, si no, pues un círculo que decido que sea de 270 grados, por ejemplo, porque es fácil
         let path = '';
@@ -69,31 +96,36 @@ export default class TransitionElement {
         //Y ahora el dibujo propiamente dicho, le subo 2 px al texto, lo que no sé hacer en css...
         //startOffset=50% alinea el texto con el path, que a su vez lo cogemos en la mitad (center:middle)
         let out;
+        //let es = this.isNeww(this.position);
         if(this.type == "AFD" || this.type == "AFND"){//TODO: cuando van de derecha a izquierda que no se vean alreves
-            //this.position= this.position - 10;
             out = `
             <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
             <path class='transition' id="path_${this.id}"  d=${path}></path>
-            <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${this.position= this.position - 10}>
+            <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${es}>
             <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name}</textPath>
             </text>                                                            
             </g>`;
+            console.log(this.isNew);
         }
         else{
-            this.position= this.position - 10;
             out = `
             <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
                 <path class='transition' id="path_${this.id}"  d=${path}></path>
-                <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${this.position= this.position - 10}>
+                <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${es}>
                 <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name},${this.name2};${this.name3}</textPath>
                 </text>
             </g>`;
         }
+        this.cont = 0;
+        this.isNew = false;
         return (out);
     }
     toDOM(sc) {
         let node = document.createElement('div');
-        node.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" version="1.2" preserveAspectRatio="xMidYMid meet" style=" stroke-width:1px;">${this.toSVG(sc)}</svg>`;
+        let es = this.isNeww(this.position);
+        node.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" version="1.2" preserveAspectRatio="xMidYMid meet" style=" stroke-width:1px;">${this.toSVG(sc, es)}</svg>`;
+        let ep = this.isNeww(this.position);
+        node.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" version="1.2" preserveAspectRatio="xMidYMid meet" style=" stroke-width:1px;">${this.toSVG(sc, ep)}</svg>`;
         this.transitionNode = node.querySelector('g');
         return (this.transitionNode); //just in case
     }
