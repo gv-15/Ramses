@@ -181,7 +181,7 @@ export default class StateChart {
     if (this.states.length === 0){
       this.stateIndex = 0;
       this.transitionIndex = 0;
-      this.total = false;
+      this.isTotal = false;
 
     } 
     else {
@@ -310,7 +310,10 @@ export default class StateChart {
     }
   }
   totalAutomaton() {
+    if(this.isTotal == false){
       this.states.push(new StateElement('Trap',717.9859619140625, 564.9700317382812, true, false, ""));
+      this.isTotal = true;
+      }
   }
   //voy a mirar tanbién si es inicial
   modifyStateData(stId, data) {

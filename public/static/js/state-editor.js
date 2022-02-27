@@ -572,8 +572,9 @@ class StateEditor extends HTMLElement {
                 //console.log("En " + this.chart.states[i] + " Coincidencias de la letra en transiciones "+ this.chart.sigma[j] + " " + compr);
                 if (compr == "0") { //Si no tiene ninguna coindencia en ese state añado una transicion al trampa con la letra 
                   //console.log("En " + this.chart.states[i] + " NO HAY Coincidencias de la letra en transiciones "+ this.chart.sigma[j] +  " " + compr);
-                    this.chart.insertTransition2(this.chart.states[i].name, this.chart.states[index].name, this.chart.sigma[j]);
+                    //this.chart.insertTransition2(this.chart.states[i].name, this.chart.states[index].name, this.chart.sigma[j]);
                     //console.log("estamos aqui");
+                    this.chart.insertTransition2(this.chart.states[i].name, this.chart.getState('Trap').name, this.chart.sigma[j]);
                 }
               }
               //console.log("siguiente");
