@@ -585,6 +585,8 @@ class StateEditor extends HTMLElement {
               //console.log("siguiente");
             } 
           }
+          this._redraw();
+          this._redraw();
         }
         break;
       case "undo":
