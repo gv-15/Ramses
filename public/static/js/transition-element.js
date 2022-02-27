@@ -41,12 +41,12 @@ export default class TransitionElement {
                 this.p = 13;
                 this.contador = 0;
             }
-          /*   console.log("empezamososs");
+            /*console.log("empezamososs");
             console.log("el contador marca " + this.contador);
             console.log("es nuevo marca " + this.isNew);
             console.log("el contador2 marca " + this.contador2);
             console.log("el index marca " + this.index); */
-            if(this.isNew || this.contador2 <= this.index){
+            if( this.contador2 <= this.index){
                 this.contador2++;
                 this.contador = this.contador - 20;
                 p = p - 20;
@@ -105,7 +105,6 @@ export default class TransitionElement {
             <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name}</textPath>
             </text>                                                            
             </g>`;
-            console.log(this.isNew);
         }
         else{
             out = `

@@ -215,6 +215,11 @@ class StateEditor extends HTMLElement {
         tr.node.transition = tr;
         this.svg.appendChild(tr.node);
       });
+      st.transitions.forEach((tr) => { //Hago dos pasadas a las transiciones porque sino la ultima se queda sin hac
+        tr.node = tr.toDOM(sc);
+        tr.node.transition = tr;
+        this.svg.appendChild(tr.node);
+      });
     });
   }
   //Al igual que redraw, esta rutina save que hay estados y transiciones... a mejorar
@@ -549,7 +554,7 @@ class StateEditor extends HTMLElement {
         }
         break;
       case "total_mode":
-        {//TODO: comprobar si es total antes de empezar
+        {
           if (this.chart.type != "AFD") {
             alert("Solo se puede hacer total un AFD");
           } else {
