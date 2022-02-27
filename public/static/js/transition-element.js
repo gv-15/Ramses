@@ -20,7 +20,6 @@ export default class TransitionElement {
         this.isNew = nuevo;
         this.contador= 0;
         this.contador2 = 0;
-        this.cont = 0;
     }
     setName(name){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
         this.name = name;
@@ -35,25 +34,23 @@ export default class TransitionElement {
         //this.accepts = (input)=>(this.name3.split(',').some(ch=>ch === input));
     }
     multipleTransition(p){ //Este metodo es el que hace que se amontonen las transiciones una encima de otra
-        if(this.cont = 0 || this.isNew){
+        if(this.isNew){
                 this.contador2 = 0;
-                this.position = 13
-                this.p = 13;
-                this.contador = 0;
+                this.position = 13;
+                p = 13;
+                this.contador = this.contador - 20;
             }
-            /*console.log("empezamososs");
+            console.log("empezamososs");
             console.log("el contador marca " + this.contador);
             console.log("es nuevo marca " + this.isNew);
             console.log("el contador2 marca " + this.contador2);
-            console.log("el index marca " + this.index); */
+            console.log("el index marca " + this.index); 
             if( this.contador2 <= this.index){
                 this.contador2++;
-                this.contador = this.contador - 20;
                 p = p - 20;
             }
         this.position = p;
-        //console.log(p);
-        this.cont++;
+        console.log(p);
         return p;
     }
     //Divido en SVG text y su inclusión en el dom
@@ -124,7 +121,7 @@ export default class TransitionElement {
         let es = this.multipleTransition(this.position);
         node.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" version="1.2" preserveAspectRatio="xMidYMid meet" style=" stroke-width:1px;">${this.toSVG(sc, es)}</svg>`;
         let ep = this.multipleTransition(this.position);
-        node.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" version="1.2" preserveAspectRatio="xMidYMid meet" style=" stroke-width:1px;">${this.toSVG(sc, ep)}</svg>`;
+        node.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" version="1.2" preserveAspectRatio="xMidYMid meet" style=" stroke-width:1px;">${this.toSVG(sc, ep)}</svg>`; 
         this.transitionNode = node.querySelector('g');
         return (this.transitionNode); //just in case
     }

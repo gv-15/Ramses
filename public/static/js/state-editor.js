@@ -580,6 +580,7 @@ class StateEditor extends HTMLElement {
                     //this.chart.insertTransition2(this.chart.states[i].name, this.chart.states[index].name, this.chart.sigma[j]);
                     //console.log("estamos aqui");
                     this.chart.insertTransition2(this.chart.states[i].name, this.chart.getState('Trap').name, this.chart.sigma[j]);
+                    this._redraw();
                 }
               }
               //console.log("siguiente");
@@ -644,7 +645,6 @@ class StateEditor extends HTMLElement {
       case "state_moved_end":
       case "delete_state":
       case "minimize_mode":
-      case "total_mode":
       case "delete_transition":
         this._saveStateChart();
         this._redraw();
