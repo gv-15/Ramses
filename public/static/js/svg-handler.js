@@ -263,7 +263,7 @@ export default class FgSvgHandler {
             let ex = Object.assign({}, this.initialExtents); //clone
             ex.w *= this.zoom;
             ex.h *= this.zoom;
-            console.log('mp:' + mp.x + ':' + mp.y);
+            //console.log('mp:' + mp.x + ':' + mp.y);
             //Unico punto de poner el tamaño de window
             this.svg.setAttribute('viewBox', (mp.x - 0.5 * ex.w) + '  ' + (mp.y - 0.5 * ex.h) + ' ' + (ex.w) + ' ' + (ex.h));
             this.svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');

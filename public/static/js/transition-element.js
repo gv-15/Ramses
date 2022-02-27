@@ -1,14 +1,14 @@
 'use strict'
 import StateElement from './state-element.js';
-
 export default class TransitionElement {
-    constructor( trId, from, to, name, name2, name3, type) {
+    constructor( trId, from, to, name, name2, name3, type, nuevo, index) {
         if (!(from instanceof StateElement) || !(from instanceof StateElement)) {
-            console.log('error : se conectan estados');
             this.error = true; //Los constructores siempre deben terminar y devolver el objeto
             return;
         }
-        //this.name = name ; //dejo vacío si está vacío, ya miraré luego si vale   
+        //this.name = name ; //dejo vacío si está vacío, ya miraré luego si vale
+        this.index = index;
+        this.position = 13;
         this.from = from;
         this.to = to;
         this.id = trId;
@@ -17,24 +17,44 @@ export default class TransitionElement {
         this.setName(name);
         this.setName2(name2);
         this.setName3(name3);
-        
+        this.isNew = nuevo;
+        this.contador= 0;
+        this.contador2 = 0;
     }
     setName(name){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
         this.name = name;
         this.accepts = (input)=>(this.name.split(',').some(ch=>ch === input));
     }
     setName2(name2){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
-        
         this.name2 = name2;
         //this.accepts = (input)=>(this.name2.split(',').some(ch=>ch === input));
     }
     setName3(name3){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
-        
         this.name3 = name3;
         //this.accepts = (input)=>(this.name3.split(',').some(ch=>ch === input));
     }
+    multipleTransition(p){ //Este metodo es el que hace que se amontonen las transiciones una encima de otra
+        if(this.isNew){
+                this.contador2 = 0;
+                this.position = 13;
+                p = 13;
+                this.contador = this.contador - 20;
+            }
+            console.log("empezamososs");
+            console.log("el contador marca " + this.contador);
+            console.log("es nuevo marca " + this.isNew);
+            console.log("el contador2 marca " + this.contador2);
+            console.log("el index marca " + this.index); 
+            if( this.contador2 <= this.index){
+                this.contador2++;
+                p = p - 20;
+            }
+        this.position = p;
+        console.log(p);
+        return p;
+    }
     //Divido en SVG text y su inclusión en el dom
-    toSVG(scale) {
+    toSVG(scale, es) {
         //Son estados, por tanto grupos movidos por el transform, busco los puntos de corte de la recta que une los centros
         //si son distintos, si no, pues un círculo que decido que sea de 270 grados, por ejemplo, porque es fácil
         let path = '';
@@ -44,7 +64,6 @@ export default class TransitionElement {
             y: transformMatrix.f
         };
         let fromR = this.from.getRadius() / scale;
-
         if (this.from !== this.to) {
             transformMatrix = this.to.node.transform.baseVal.consolidate().matrix;
             let toPos = {
@@ -66,7 +85,6 @@ export default class TransitionElement {
             //vector = { x: vector.x / d, y: vector.y / d };  //vector unitario del centro de from al de to
             //d = d - fromR - toR;    //longitud a pintar
             //path = `'M ${fromR*vector.x} ${fromR*vector.y} l ${d*vector.x} ${d*vector.y}'`;
-
             path = `'M ${xi} ${yi} A ${2*d} ${2*d} 0 0 1 ${xf} ${yf}'`;
         } else { //dibujo un arco en la parte de arriba, se puede ir mejorando...
             path = `'M ${-0.717*fromR} ${-0.717*fromR} A ${fromR*0.9} ${fromR*0.9} 0 1 1 ${0.717*fromR} ${-0.717*fromR} '`;
@@ -75,32 +93,35 @@ export default class TransitionElement {
         //Y ahora el dibujo propiamente dicho, le subo 2 px al texto, lo que no sé hacer en css...
         //startOffset=50% alinea el texto con el path, que a su vez lo cogemos en la mitad (center:middle)
         let out;
-       if(this.type == "AFD" || this.type == "AFND"){ //Aqui tengo que arreglar lo de que no se ven las transiciones una encimad de otra en caso de que se pueda hacer,  para futuro
-        out = `
-        <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
+        //let es = this.isNeww(this.position);
+        if(this.type == "AFD" || this.type == "AFND"){//TODO: cuando van de derecha a izquierda que no se vean alreves
+            out = `
+            <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
             <path class='transition' id="path_${this.id}"  d=${path}></path>
-            <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy='-2'>
+            <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${es}>
             <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name}</textPath>
             </text>                                                            
-        </g>`;
-       }
-       else{
-        out = `
+            </g>`;
+        }
+        else{
+            out = `
             <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
                 <path class='transition' id="path_${this.id}"  d=${path}></path>
-                <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy='-2'>
+                <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${es}>
                 <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name},${this.name2};${this.name3}</textPath>
                 </text>
             </g>`;
-       }
-      
-       
+        }
+        this.cont = 0;
+        this.isNew = false;
         return (out);
     }
     toDOM(sc) {
-        
         let node = document.createElement('div');
-        node.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" version="1.2" preserveAspectRatio="xMidYMid meet" style=" stroke-width:1px;">${this.toSVG(sc)}</svg>`;
+        let es = this.multipleTransition(this.position);
+        node.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" version="1.2" preserveAspectRatio="xMidYMid meet" style=" stroke-width:1px;">${this.toSVG(sc, es)}</svg>`;
+        let ep = this.multipleTransition(this.position);
+        node.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" version="1.2" preserveAspectRatio="xMidYMid meet" style=" stroke-width:1px;">${this.toSVG(sc, ep)}</svg>`; 
         this.transitionNode = node.querySelector('g');
         return (this.transitionNode); //just in case
     }

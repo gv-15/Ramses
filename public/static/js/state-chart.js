@@ -181,7 +181,7 @@ export default class StateChart {
     if (this.states.length === 0){
       this.stateIndex = 0;
       this.transitionIndex = 0;
-      this.total = false;
+      this.isTotal = false;
 
     } 
     else {
@@ -235,7 +235,7 @@ export default class StateChart {
     let trId = idFrom + "_" + idTo;
     trId = trId + "_" + this.transitionIndex++;
     from.transitions.push(
-      new TransitionElement(trId, from, to, "", "", "", this.type)
+      new TransitionElement(trId, from, to, "", "", "", this.type , true, this.transitionIndex)
     ); //le decimos el tipo de transición permitida (DFA, NFA)
     return trId;
   }
@@ -247,7 +247,7 @@ export default class StateChart {
     let to = this.states.find((el) => el.name === idTo);
     let trId = idFrom + "_" + idTo +  "_" + this.transitionIndex++;
     from.transitions.push(
-      new TransitionElement(trId, from, to, letra, "", "", this.type)
+      new TransitionElement(trId, from, to, letra, "", "", this.type, true, this.transitionIndex)
     ); //le decimos el tipo de transición permitida (DFA, NFA)
     return trId;
   }
@@ -310,7 +310,10 @@ export default class StateChart {
     }
   }
   totalAutomaton() {
+    if(this.isTotal == false){
       this.states.push(new StateElement('Trap',717.9859619140625, 564.9700317382812, true, false, ""));
+      this.isTotal = true;
+      }
   }
   //voy a mirar tanbién si es inicial
   modifyStateData(stId, data) {

@@ -215,6 +215,11 @@ class StateEditor extends HTMLElement {
         tr.node.transition = tr;
         this.svg.appendChild(tr.node);
       });
+      st.transitions.forEach((tr) => { //Hago dos pasadas a las transiciones porque sino la ultima se queda sin hac
+        tr.node = tr.toDOM(sc);
+        tr.node.transition = tr;
+        this.svg.appendChild(tr.node);
+      });
     });
   }
   //Al igual que redraw, esta rutina save que hay estados y transiciones... a mejorar
@@ -549,7 +554,7 @@ class StateEditor extends HTMLElement {
         }
         break;
       case "total_mode":
-        {//TODO: comprobar si es total antes de empezar
+        {
           if (this.chart.type != "AFD") {
             alert("Solo se puede hacer total un AFD");
           } else {
@@ -572,13 +577,17 @@ class StateEditor extends HTMLElement {
                 //console.log("En " + this.chart.states[i] + " Coincidencias de la letra en transiciones "+ this.chart.sigma[j] + " " + compr);
                 if (compr == "0") { //Si no tiene ninguna coindencia en ese state añado una transicion al trampa con la letra 
                   //console.log("En " + this.chart.states[i] + " NO HAY Coincidencias de la letra en transiciones "+ this.chart.sigma[j] +  " " + compr);
-                    this.chart.insertTransition2(this.chart.states[i].name, this.chart.states[index].name, this.chart.sigma[j]);
+                    //this.chart.insertTransition2(this.chart.states[i].name, this.chart.states[index].name, this.chart.sigma[j]);
                     //console.log("estamos aqui");
+                    this.chart.insertTransition2(this.chart.states[i].name, this.chart.getState('Trap').name, this.chart.sigma[j]);
+                    this._redraw();
                 }
               }
               //console.log("siguiente");
             } 
           }
+          this._redraw();
+          this._redraw();
         }
         break;
       case "undo":
@@ -636,7 +645,6 @@ class StateEditor extends HTMLElement {
       case "state_moved_end":
       case "delete_state":
       case "minimize_mode":
-      case "total_mode":
       case "delete_transition":
         this._saveStateChart();
         this._redraw();
