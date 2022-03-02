@@ -210,13 +210,10 @@ class StateEditor extends HTMLElement {
       this.svg.appendChild(st.node);
     });
     this.chart.states.forEach((st) => {
+      let index = 0;
       st.transitions.forEach((tr) => {
-        tr.node = tr.toDOM(sc);
-        tr.node.transition = tr;
-        this.svg.appendChild(tr.node);
-      });
-      st.transitions.forEach((tr) => { //Hago dos pasadas a las transiciones porque sino la ultima se queda sin hac
-        tr.node = tr.toDOM(sc);
+        tr.node = tr.toDOM(sc, index);
+        index++;
         tr.node.transition = tr;
         this.svg.appendChild(tr.node);
       });
