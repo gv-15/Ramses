@@ -210,8 +210,10 @@ class StateEditor extends HTMLElement {
       this.svg.appendChild(st.node);
     });
     this.chart.states.forEach((st) => {
+      let index = 0;
       st.transitions.forEach((tr) => {
-        tr.node = tr.toDOM(sc);
+        tr.node = tr.toDOM(sc, index);
+        index++;
         tr.node.transition = tr;
         this.svg.appendChild(tr.node);
       });
@@ -549,7 +551,7 @@ class StateEditor extends HTMLElement {
         }
         break;
       case "total_mode":
-        {//TODO: Aqui supuestamente se convierte en total el automata
+        {
           if (this.chart.type != "AFD") {
             alert("Solo se puede hacer total un AFD");
           } else {
@@ -565,21 +567,24 @@ class StateEditor extends HTMLElement {
                 var compr = 0;
                 for (var z = 0; z < transitionIndex ; z++) {
                   //console.log(this.chart.sigma[j]);
-                    if (this.chart.sigma[j] === this.chart.states[i].transitions[z].name) { //TODO: acceder a todas las transiciones y a toda la gramatica y comprobar
+                    if (this.chart.sigma[j] === this.chart.states[i].transitions[z].name) { 
                       compr++;
                     }
                 }
                 //console.log("En " + this.chart.states[i] + " Coincidencias de la letra en transiciones "+ this.chart.sigma[j] + " " + compr);
                 if (compr == "0") { //Si no tiene ninguna coindencia en ese state añado una transicion al trampa con la letra 
                   //console.log("En " + this.chart.states[i] + " NO HAY Coincidencias de la letra en transiciones "+ this.chart.sigma[j] +  " " + compr);
-                  // Añadimos aqui TODO:
-                    this.chart.insertTransition2(this.chart.states[i].name, this.chart.states[index].name, this.chart.sigma[j]);
+                    //this.chart.insertTransition2(this.chart.states[i].name, this.chart.states[index].name, this.chart.sigma[j]);
                     //console.log("estamos aqui");
-                 }
+                    this.chart.insertTransition2(this.chart.states[i].name, this.chart.getState('Trap').name, this.chart.sigma[j]);
+                    this._redraw();
+                }
               }
               //console.log("siguiente");
             } 
           }
+          this._redraw();
+          this._redraw();
         }
         break;
       case "undo":
@@ -612,13 +617,12 @@ class StateEditor extends HTMLElement {
       case "edit_transition": //aquí viene si, en modo edit, pincha en conexión
         if (this.chart.type === "AFD" || this.chart.type === "AFND") {
           this.transitionDialog2.open(
-            this.chart.getTransition(trId).toSave(),
-            this.chart.sigmaExtended,
-            this.chart.stackExtended
+            data.transition.toSave(),
+            this.chart.sigmaExtended
           );
         } else {
           this.transitionDialog.open(
-            this.chart.getTransition(trId).toSave(),
+            data.transition.toSave(),
             this.chart.sigmaExtended,
             this.chart.stackExtended
           );
@@ -638,7 +642,6 @@ class StateEditor extends HTMLElement {
       case "state_moved_end":
       case "delete_state":
       case "minimize_mode":
-      case "total_mode":
       case "delete_transition":
         this._saveStateChart();
         this._redraw();
