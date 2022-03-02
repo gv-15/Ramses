@@ -837,14 +837,30 @@ class StateEditor extends HTMLElement {
             case 'based':
            
               
+            // INSERT INTO BD states, Q and type of automaton, M
 
-           var b = this.chart.obtainStates();
-           console.log("ojo ojito" + b);
+             var state = this.chart.obtainStates();
+             console.log (state);
 
-           let statename = document.querySelector('#states').getAttribute('value');
-           console.log("el name es " + statename)    
+             var aut = this.chart.getType();
+             console.log(aut);
+        
 
-                      //  Connection.createQuery("INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");  
+           if (this.chart.type === 'AFD' || this.chart.type === 'AFND') 
+           
+           {
+            
+            connection2.Query("INSERT INTO transicionaf VALUES (1,2, 'X','X',' ')");
+           }
+           else if (this.chart.type === 'APN' || this.chart.type === 'APD' )
+           {
+
+           }
+           else if (this.chart.type === 'MTR' || this.chart.type === 'MTC' )
+           {
+
+           }
+           // Connection.createQuery("INSERT INTO q VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");  
                         //connection.query('INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');', function(error, results, fields) {
                         
                         //});   
