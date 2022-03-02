@@ -1,13 +1,11 @@
 'use strict'
 import StateElement from './state-element.js';
 export default class TransitionElement {
-    constructor( trId, from, to, name, name2, name3, type, nuevo, index) {
+    constructor( trId, from, to, name, name2, name3, type) {
         if (!(from instanceof StateElement) || !(from instanceof StateElement)) {
             this.error = true; //Los constructores siempre deben terminar y devolver el objeto
             return;
         }
-        //this.name = name ; //dejo vacío si está vacío, ya miraré luego si vale
-        this.index = index;
         this.position = -2;
         this.from = from;
         this.to = to;
@@ -17,7 +15,6 @@ export default class TransitionElement {
         this.setName(name);
         this.setName2(name2);
         this.setName3(name3);
-        this.isNew = nuevo;
     }
     setName(name){//se supone que lo de DFA o NFA ya se ha chequeado antes, la transición engloba los casos DFA y NFA
         this.name = name;
@@ -75,7 +72,7 @@ export default class TransitionElement {
             out = `
             <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
             <path class='transition' id="path_${this.id}"  d=${path}></path>
-            <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${this.position - (index * fyuj20)}>
+            <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${this.position - (index * 20)}>
             <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name}</textPath>
             </text>                                                            
             </g>`;
@@ -85,7 +82,7 @@ export default class TransitionElement {
             <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
                 <path class='transition' id="path_${this.id}"  d=${path}></path>
                 <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${es}>
-                <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name},${this.name2};${this.position}</textPath>
+                <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name},${this.name2};${this.position - (index * 20)}</textPath>
                 </text>
             </g>`;
         }
