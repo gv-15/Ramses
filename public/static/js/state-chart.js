@@ -123,11 +123,12 @@ export default class StateChart {
     obtainStates(){
         let states = [];
         this.states.forEach(st => states.push(st.toSave()));
-        var dat = ([{"states": states }]);
-        this.OBJtoXML2(dat);
-    return (JSON.stringify(states));
+        console.log(JSON.stringify(states));
+        return JSON.stringify([{"states": states }]);
+        
     }
 
+   
     toJSON() { //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
         let states = [];
         this.states.forEach(st => states.push(st.toSave()));
