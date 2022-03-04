@@ -865,73 +865,78 @@ class StateEditor extends HTMLElement {
         console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
 
         /*
-                    let filename2 = document.querySelector('#saved-name').getAttribute('value');
-                    let type = document.querySelector('#type').getAttribute('value');
-                    let sigma = document.querySelector('#sigma').getAttribute('value');
-                    console.log("el contenido es " + filename2 + type + sigma);
-                    console.log("------------------------------");
-                    let states = [];
-                    let states2 = [filename2, type, sigma];
-                    var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
-                    var InputJSON1 = filename2.valueOf();
-                    InputJSON1.replaceAll("'", '"');
-                    console.log("is " + InputJSON1 );
-                    var InputJSON2 = JSON.parse(InputJSON1);
-                    var output = OBJtoXML(InputJSON1);
-                    */
+        let filename2 = document.querySelector('#saved-name').getAttribute('value');
+        let type = document.querySelector('#type').getAttribute('value');
+        let sigma = document.querySelector('#sigma').getAttribute('value');
+        let statename = document.querySelector(#states).getAttribute('name');
+        console.log("el contenido es " + filename2 + type + sigma);
+        console.log("------------------------------");
+        */
 
         console.log("--------------");
         console.log(data2);
+   
+        
+    //-------------------------- -----------------
+    // esto es para pasar de XML a JSON
+      /*
+        var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(text,"text/xml");
+        console.log(" DE XML A JSON " + JSON.stringify(xmlToJson(xmlDoc))); */
+    //---------------------------------------------
+       
 
-        //-------------------------- -----------------
-        // esto es para pasar de XML a JSON
-        /*
-                    var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
-                    var parser = new DOMParser();
-                    var xmlDoc = parser.parseFromString(text,"text/xml");
-                    console.log(" DE XML A JSON " + JSON.stringify(xmlToJson(xmlDoc))); */
-        //---------------------------------------------
+    //esto es para pasar de json a xml
 
-        //esto es para pasar de json a xml
+        let filename2 = document.querySelector('#saved-name').getAttribute('value');
 
-        let filename2 = document
-          .querySelector("#saved-name")
-          .getAttribute("value");
-        //let gh = data.toString();
-        //var InputJSON = '{"body":{"entry": [{ "fullURL" : "abcd","Resource": " 1234"},{ "fullURL" : "efgh","Resource": "5678"}]}}';
-        //console.log("EL INPUT JSON ES " + InputJSON );
-        // var InputJSON =  JSON.parse(JSON.stringify(gh));
+    //----------------------------------------------
 
-        // Now execute the 'OBJtoXML' function
-        var outputXML = OBJtoXML(data2);
-        console.log("PASANDO A XML ES  " + outputXML);
-        OBJtoXML(data);
-        // output.toString();
-        //----------------------------------------------
+    // Aqui ya se descarga
 
-        // Aqui ya se descarga
+            var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload2());
+            var downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            console.log("llega aqui");
+            downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
+            console.log("llega aqui 2");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();        
+            break;
 
-        var dataStr =
-          "data:text/xml;charset=utf-8," +
-          encodeURIComponent(this.chart.toDownload2());
-        var downloadAnchorNode = document.createElement("a");
-        downloadAnchorNode.setAttribute("href", dataStr);
-        console.log("llega aqui");
-        downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
-        console.log("llega aqui 2");
-        document.body.appendChild(downloadAnchorNode);
-        downloadAnchorNode.click();
-        downloadAnchorNode.remove();
-
-        break;
       case based:
-        Connection.createQuery(
-          "INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');"
-        );
-      //connection.query('INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');', function(error, results, fields) {
+           
+            // INSERT INTO BD states, Q and type of automaton, M
 
-      //});
-    }
+            var state = this.chart.obtainStates();
+            console.log (state);
+
+            var aut = this.chart.getType();
+            console.log(aut);
+       
+
+          if (this.chart.type === 'AFD' || this.chart.type === 'AFND') 
+          
+          {
+           
+           connection2.Query("INSERT INTO transicionaf VALUES (1,2, 'X','X',' ')");
+          }
+          else if (this.chart.type === 'APN' || this.chart.type === 'APD' )
+          {
+
+          }
+          else if (this.chart.type === 'MTR' || this.chart.type === 'MTC' )
+          {
+
+          }
+          // Connection.createQuery("INSERT INTO q VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");  
+                       //connection.query('INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');', function(error, results, fields) {
+                       
+                       //});   
+       }
+    
   }
   _showOutput() {
     this.outputText.innerHTML = `<span style="color:green">${this.input.substring(
@@ -948,98 +953,64 @@ class StateEditor extends HTMLElement {
   }
   test(command, datos) {
     switch (command) {
-      case "reset":
-        this.activeStates = this.chart.executionReset();
-        console.log(this.activeStates);
-        //console.log(this.chart);
-        //console.log(this.activeStates.length);
-        if (this.activeStates.length !== 1) {
-          alert("Debe haber un estado inicial y solo uno");
-          return;
-        }
-        this.index = 0;
-        this.pause = true;
-        //Info para deshacer:
-        this.history = []; //aprovechamos el mismo array de edición
-        this._showStates(this.activeStates, []);
-        break;
-      case "back":
-        if (this.history.length > 0) {
-          let state = this.history.pop();
-          this.activeStates = state.states;
-          this.index = state.index;
-          this._showStates(this.activeStates, undefined);
-        }
-        break;
-      case "stop":
-        clearInterval(this.timer);
-        this.pause = true;
-        break;
-      case "step":
-        this.pause = true; //el resto es igual
-      case "runstep":
-        clearInterval(this.timer);
-        this.history.push({ states: this.activeStates, index: this.index });
-        this.activeTransitions = this.chart._getActiveTransitions(
-          this.activeStates,
-          this.input.charAt(this.index)
-        );
-        if (this.activeTransitions.length !== 0) {
-          this.activeStates = this.chart.executionStep(this.activeTransitions);
-          this.index++;
-          setTimeout(
-            () => this._showStates(undefined, this.activeTransitions),
-            100
-          );
-          setTimeout(() => this._showStates(this.activeStates, []), 500);
-          //Nueva especificación, actualizar la ventanilla de salida
-          //si modo run, nos autolanzamos un evento dentro de un tiempo...si no es terminal, claro
-          if (this.activeStates.some((st) => st.isTerminalState)) {
-            //Puede llegar a un terminal sin agotar la entrada
-            setTimeout(
-              () =>
-                alert(
-                  `entrada correcta ${
-                    this.index === this.input.length ? "" : "pero no agotada"
-                  }, alcanzado estado terminal`
-                ),
-              550
-            );
-          } else if (this.index >= this.input.length) {
-            //caracteres acabados y no he llegado a un terminal
-            setTimeout(
-              () =>
-                alert(
-                  `entrada correcta pero agotada sin haber alcanzado estado terminal`
-                ),
-              550
-            );
-          } else if (!this.pause)
-            this.timer = setTimeout(
-              () =>
-                this.dispatchEvent(
-                  new CustomEvent("test", { detail: { action: "runstep" } })
-                ),
-              1000
-            );
-        } else {
-          //Si Entrada incorrecta o estado final, volvemos a sacar el diálogo
-          alert(`entrada incorrecta: ${this.input.charAt(this.index)}`);
-        }
-        break;
-      case "run":
-        this.pause = false;
-        this.timer = setTimeout(
-          () =>
-            this.dispatchEvent(
-              new CustomEvent("test", { detail: { action: "runstep" } })
-            ),
-          1000
-        );
-        //this.timer = setTimeout(()=>this._runstep(),1000);  //Un rollo la sintaxis del timeout
-        break;
-      default:
-        break;
+        case 'reset':
+            this.activeStates = this.chart.executionReset();
+            console.log(this.activeStates);
+            //console.log(this.chart);
+            //console.log(this.activeStates.length);
+            if (this.activeStates.length !== 1) {
+                alert('Debe haber un estado inicial y solo uno');
+                return;
+            }
+            this.index = 0;
+            this.pause = true;
+            //Info para deshacer:
+            this.history = []; //aprovechamos el mismo array de edición 
+            this._showStates(this.activeStates, []);
+            break;
+        case 'back':
+            if (this.history.length > 0) {
+                let state = this.history.pop();
+                this.activeStates = state.states;
+                this.index = state.index;
+                this._showStates(this.activeStates, undefined);
+            }
+            break;
+        case 'stop':
+            clearInterval(this.timer);
+            this.pause = true;
+            break;
+        case 'step':
+            this.pause = true; //el resto es igual
+        case 'runstep':
+            clearInterval(this.timer);
+            this.history.push({ states: this.activeStates, index: this.index });
+            this.activeTransitions = this.chart._getActiveTransitions(this.activeStates, this.input.charAt(this.index));
+            if (this.activeTransitions.length !== 0) {
+                this.activeStates = this.chart.executionStep(this.activeTransitions);
+                this.index++
+                    setTimeout(() => this._showStates(undefined, this.activeTransitions), 100);
+                setTimeout(() => this._showStates(this.activeStates, []), 500);
+                //Nueva especificación, actualizar la ventanilla de salida
+                //si modo run, nos autolanzamos un evento dentro de un tiempo...si no es terminal, claro
+                if (this.activeStates.some(st => st.isTerminalState)) {
+                    //Puede llegar a un terminal sin agotar la entrada
+                    setTimeout(() => alert(`entrada correcta ${this.index===this.input.length?'':'pero no agotada'}, alcanzado estado terminal`), 550);
+                } else if (this.index >= this.input.length) { //caracteres acabados y no he llegado a un terminal
+                    setTimeout(() => alert(`entrada correcta pero agotada sin haber alcanzado estado terminal`), 550);
+                } else if (!this.pause)
+                    this.timer = setTimeout(() => this.dispatchEvent(new CustomEvent('test', { detail: { action: 'runstep' } })), 1000);
+            } else { //Si Entrada incorrecta o estado final, volvemos a sacar el diálogo
+                alert(`entrada incorrecta: ${this.input.charAt(this.index)}`)
+            }
+            break;
+        case 'run':
+            this.pause = false;
+            this.timer = setTimeout(() => this.dispatchEvent(new CustomEvent('test', { detail: { action: 'runstep' } })), 1000);
+            //this.timer = setTimeout(()=>this._runstep(),1000);  //Un rollo la sintaxis del timeout
+            break;
+        default:
+            break;
     }
   }
   handleEvent(evt) {
