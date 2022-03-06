@@ -69,12 +69,6 @@ const zoomButtonsData = {
       action: "fit",
       id: "b-fit",
     },
-    /*,
-                {
-                    value: "ZOOM",
-                    action: 'set_zoom_mode',
-                    id: 'b-setzoom'
-                }*/
   ],
 };
 const editButtonsData = {
@@ -128,14 +122,29 @@ const undoButtonsData = {
       id: "b-redo",
     },
     {
-      value: "Minimizar", //Esta creado el boton pero falta toda la implementacion, LO DEJO AQUI??
+      value: "Minimizar", //Esta creado el boton pero falta toda la implementacion
       action: "minimize_mode",
       id: "b-minimize",
     },
     {
-      value: "Hacer Total", //Esta creado el boton pero falta toda la implementacion, LO DEJO AQUI??
+      value: "Hacer Total", 
       action: "total_mode",
       id: "b-total",
+    },
+    {
+      value: "Hacer Determinista", 
+      action: "determinista_mode",
+      id: "b-determinista",
+    },
+    {
+      value: "Complementar Total", 
+      action: "complementar_mode",
+      id: "b-complementar",
+    },
+    {
+      value: "Invertir AF", 
+      action: "invertir_mode",
+      id: "b-invertir",
     },
   ],
 };
@@ -543,11 +552,14 @@ class StateEditor extends HTMLElement {
       case "delete_transition":
         this.chart.deleteTransition(data.transitionId);
         break;
-      case "minimize_mode":
+      case "minimize_mode": //TODO: Aqui supuestamente se minimiza el automa
         {
-          console.log("estoy aqui minimizando");
-          this.chart.minimazeAutomaton(this.chart.type); //TODO: Aqui supuestamente se minimiza el automata
-          console.log("estoy ahi minimizando :)");
+          if (this.chart.type != "AFD") {
+            alert("Solo se puede hacer minimizar un AFD");
+          } else {
+          this.chart.minimazeAutomaton(this.chart.type); 
+          
+          }
         }
         break;
       case "total_mode":
@@ -586,7 +598,35 @@ class StateEditor extends HTMLElement {
           this._redraw();
           this._redraw();
         }
-        break;
+      break;
+      case "determinista_mode":
+          {
+            if (this.chart.type != "AFND") {
+              alert("Solo se puede hacer determinista un AFND");
+            } else {
+            
+            }
+          }
+      break;
+      case "complementar_mode":
+            {
+              if (this.chart.type != "AFD") {
+                alert("Solo se puede complementar un AFD Total");
+              } else {
+              
+              }
+            }
+      break;
+      case "invertir_mode":
+              {
+                if (this.chart.type === "AFND" || this.chart.type === "AFD") {
+                  alert("Invirtiendo");
+                }
+                else {
+                  alert("Solo se puede invertir AF");
+                }
+              }
+      break;
       case "undo":
         {
           //tanto al crear uno nuevo como al cargar, el history siempre va a estar vacío.
@@ -641,6 +681,9 @@ class StateEditor extends HTMLElement {
       case "new_transition":
       case "state_moved_end":
       case "delete_state":
+      case "determinista_mode":
+      case "complementar_mode":
+      case "invertir_mode":
       case "minimize_mode":
       case "delete_transition":
         this._saveStateChart();
