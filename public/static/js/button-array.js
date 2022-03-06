@@ -14,13 +14,13 @@ export default class ButtonArray extends HTMLElement {
 
     createStyle() {
         let style = `
-      <style>
+    <style>
         :host {
-          font-family: italic bold arial, sans-serif;
-          font-size: 12px;
-          color: black;
-          width:100%;
-          height:100%;
+            font-family: italic bold arial, sans-serif;
+            font-size: 12px;
+            color: black;
+            width:100%;
+            height:100%;
         }
         div{
             display: flex;
@@ -60,15 +60,15 @@ export default class ButtonArray extends HTMLElement {
             border-radius: 4px;
         }
         .esti-button:hover {
-            transform:scale(1.1);
+            transform:scale(1.2);
         }
 
         .esti-button:active {
             color:transparent;
-/*          transform: translateY(4px);*/
+         /* transform: translateY(4px);*/
         }
         .hide {
-          display: none;
+            display: none;
         }
 
         #b-testmode {
@@ -93,10 +93,10 @@ export default class ButtonArray extends HTMLElement {
         #b-drawmode {background-image: url(/static/images/edit.svg);}
         #b-drawmode.selected {background-image: url(/static/images/edit-blue.svg);}
 
-        #b-download, #b-screenshot,
+        #b-download, #b-screenshot, #b-json, #b-xml, #b-based,
         #b-zoomin, #b-zoomout, #b-home, #b-sethome, #b-fit, #b-setzoom,
         #b-state, #b-trans, #b-drag, #b-delete, #b-edit,
-        #b-undo, #b-redo, #b-minimize, #b-total,
+        #b-undo, #b-redo, #b-minimize, #b-total, #b-determinista, #b-complementar, #b-invertir,
         #b-play, #b-stop, #b-back, #b-fback, #b-fforward {
             background-repeat: no-repeat;
             background-position: center;
@@ -139,7 +139,10 @@ export default class ButtonArray extends HTMLElement {
         #b-delete {background-image: url(/static/images/delete.svg);}
         #b-delete.selected {background-image: url(/static/images/delete-blue.svg);}
         #b-edit {background-image: url(/static/images/edit-nuevo.svg);}
-        #b-minimize {background-image: url(/static/images/minimize.svg);}  
+        #b-minimize {background-image: url(/static/images/minimize.svg);}
+        #b-determinista {background-image: url(/static/images/determinista.svg);}
+        #b-complementar {background-image: url(/static/images/complementary.svg);}
+        #b-invertir {background-image: url(/static/images/invertir.svg);}  
         #b-total {background-image: url(/static/images/total.svg);}  
         #b-edit.selected {background-image: url(/static/images/edit-blue-nuevo.svg);}
         #b-undo {background-image: url(/static/images/rotate-left.svg);}
@@ -155,23 +158,23 @@ export default class ButtonArray extends HTMLElement {
             text-align: center;
             border-radius: 6px;
             padding: 5px 0;
-          
+
             /* Position the tooltip */
             position: absolute;
             z-index: 1;
-          }
-          .tooltiptext:before {
-              content 'holaaa';
-              background-color: pink;
-              border-color: black;
-          }
-          .esti-button:hover .tooltiptext {
+        }
+        .tooltiptext:before {
+            content 'holaaa';
+            background-color: pink;
+            border-color: black;
+        }
+        .esti-button:hover .tooltiptext {
             visibility: visible;
-          }
-          #menu {
-              width: 100%;
-          }
-      </style>
+        }
+        #menu {
+            width: 100%;
+        }
+    </style>
     `;
         return style;
     }

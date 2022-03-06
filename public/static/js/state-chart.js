@@ -397,11 +397,7 @@ export default class StateChart {
     );
   }
   minimazeAutomaton(type) {
-    if (type != "AFD") {
-      alert("Solo se puede minimizar un AFD");
-    } else {
-      alert("GG ahora implementalo ;)");
-    }
+    //TODO:
   }
   totalAutomaton() {
     if(this.isTotal == false){
