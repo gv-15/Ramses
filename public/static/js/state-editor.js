@@ -1009,6 +1009,7 @@ class StateEditor extends HTMLElement {
       case "xml":
         console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
 
+        
         /*
         let filename2 = document.querySelector('#saved-name').getAttribute('value');
         let type = document.querySelector('#type').getAttribute('value');
@@ -1051,22 +1052,31 @@ class StateEditor extends HTMLElement {
             downloadAnchorNode.remove();        
             break;
 
-      case based:
+      case "based":
            
             // INSERT INTO BD states, Q and type of automaton, M
 
             var state = this.chart.obtainStates();
-            console.log ("state is: " + state);
+            console.log ("the state is " + state);
+
+            var state2 = state.split("x",1);
+            console.log ("the state2 is " + state2);
+
+            var state3 = state.split(",",1);
+            console.log("el 3 es " + state3);
 
             var aut = this.chart.getType();
-            console.log("the type is" + aut);
+            console.log("the automaton type is: " + aut);
+
+
+            //let statename = document.querySelector(#states).getAttribute('name');
        
 
           if (this.chart.type === 'AFD' || this.chart.type === 'AFND') 
           
           {
            
-           connection2.Query("INSERT INTO transicionaf VALUES (1,2, 'X','X',' ')");
+           //connection2.Query("INSERT INTO transicionaf VALUES (1,2, 'X','X',' ')");
           }
           else if (this.chart.type === 'APN' || this.chart.type === 'APD' )
           {
@@ -1075,11 +1085,7 @@ class StateEditor extends HTMLElement {
           else if (this.chart.type === 'MTR' || this.chart.type === 'MTC' )
           {
 
-          }
-          // Connection.createQuery("INSERT INTO q VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");  
-                       //connection.query('INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');', function(error, results, fields) {
-                       
-                       //});   
+          } 
        }
     
   }
