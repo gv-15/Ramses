@@ -571,7 +571,7 @@ class StateEditor extends HTMLElement {
             let index = this.chart.states.length;
             this.chart.totalAutomaton();
              //console.log(this.chart.states[index]);
-             for (var i = 0; i < index; i++) { // Aqui miro en todos los states menos en el trampa
+             for (var i = 0; i <= index; i++) { // Aqui miro en todos los states menos en el trampa
               //console.log(this.chart.states[g].transitions[0].name);
               //console.log("El numero de transiciones es:" + this.chart.states[i].transitions.length);
               let transitionIndex = this.chart.states[i].transitions.length;
