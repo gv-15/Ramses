@@ -1056,10 +1056,10 @@ class StateEditor extends HTMLElement {
             // INSERT INTO BD states, Q and type of automaton, M
 
             var state = this.chart.obtainStates();
-            console.log (state);
+            console.log ("state is: " + state);
 
             var aut = this.chart.getType();
-            console.log(aut);
+            console.log("the type is" + aut);
        
 
           if (this.chart.type === 'AFD' || this.chart.type === 'AFND') 
