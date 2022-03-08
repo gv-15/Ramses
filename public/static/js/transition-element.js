@@ -81,8 +81,8 @@ export default class TransitionElement {
             out = `
             <g id='${this.id}' transform='translate(${fromPos.x},${fromPos.y})'>
                 <path class='transition' id="path_${this.id}"  d=${path}></path>
-                <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${es}>
-                <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name},${this.name2};${this.position - (index * 20)}</textPath>
+                <text  class='transition-text' style='font-size:${this.tsize/scale}px;' dy=${this.position - (index * 20)}>
+                <textPath startOffset="50%" xlink:href="#path_${this.id}" >${this.name + ','}${this.name2 + ';'}${this.name3}</textPath>
                 </text>
             </g>`;
         }
