@@ -75,7 +75,7 @@ export default class StateChart {
         };
         break;
 
-      case "APD": //todo Automata con pila Determinista
+     /*  case "APD": //todo Automata con pila Determinista
         this.isValidTransitionName = (name) =>
           name.length === 1 && this.sigma.indexOf(name) !== -1;
         this.isValidTransitionName2 = (name2) =>
@@ -84,7 +84,7 @@ export default class StateChart {
         this.siblings = () => {
           return [];
         };
-        break;
+        break; */
 
       case "MTR": //todo Maquinas de turing Reconocedoras, siempre son deterministas
         this.isValidTransitionName = (name) =>

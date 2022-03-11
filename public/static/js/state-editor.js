@@ -620,15 +620,39 @@ class StateEditor extends HTMLElement {
       case "invertir_mode": //TODO: invertir un automata finito
               {
                 if (this.chart.type === "AFND" || this.chart.type === "AFD") {
-                  alert("Invirtiendo");
-                  this.chart.states.forEach((st) => {
                     //Aqui hago las operaciones con los state para invertir
-                  });
+                  const transitionIdArray = [];
+                  const transitionLetterArray = [];
+                  let contador = 0;
                   this.chart.states.forEach((st) => {
-                    st.transitions.forEach((tr) => {
-                      //Aqui hago las operaciones con las transiciones para invertir
+                      st.transitions.forEach((tr) => {
+                      transitionIdArray.push(tr.id);
+                      transitionLetterArray.push(tr.name);
+                      //this.chart.insertTransition2(this.chart.getState(transitionPhases[1]).name, this.chart.getState(transitionPhases[0]).name, tr.name);
+                      contador++;
                     });
                   });
+                  console.log(transitionIdArray);
+                  console.log(transitionLetterArray);  
+                
+                
+                for(let i = 0; i <= contador; i++) {
+                
+                   
+                    this.chart.deleteTransition(transitionIdArray[i]);
+                  
+                }
+                  
+                  this.chart.states.forEach((st) => {
+                    st.transitions.forEach((tr) => {
+                      transitionIdArray.push(tr.id);
+                      transitionLetterArray.push(tr.name);
+                    });
+                  });
+                  console.log("---------------------");
+                  console.log(transitionIdArray);
+                  console.log(transitionLetterArray); 
+                  console.log("---------------------");
                 }
                 else {
                   alert("Solo se puede invertir AF");
