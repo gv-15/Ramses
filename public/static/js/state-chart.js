@@ -239,7 +239,6 @@ export default class StateChart {
         
     }
 
-   
     toJSON() { //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
         let states = [];
         this.states.forEach(st => states.push(st.toSave()));
@@ -382,6 +381,10 @@ export default class StateChart {
       from.transitions.findIndex((t) => t === states[1]),
       1
     );
+  }
+  IsTerminal() {
+    console.log(this.terminal);
+    return this.terminal;
   }
   //me pasan solo coordenadas, en principio
   insertState(x, y, terminal = false, initial = false, comments = "") {

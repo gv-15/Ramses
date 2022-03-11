@@ -617,10 +617,18 @@ class StateEditor extends HTMLElement {
               }
             }
       break;
-      case "invertir_mode":
+      case "invertir_mode": //TODO: invertir un automata finito
               {
                 if (this.chart.type === "AFND" || this.chart.type === "AFD") {
                   alert("Invirtiendo");
+                  this.chart.states.forEach((st) => {
+                    //Aqui hago las operaciones con los state para invertir
+                  });
+                  this.chart.states.forEach((st) => {
+                    st.transitions.forEach((tr) => {
+                      //Aqui hago las operaciones con las transiciones para invertir
+                    });
+                  });
                 }
                 else {
                   alert("Solo se puede invertir AF");
