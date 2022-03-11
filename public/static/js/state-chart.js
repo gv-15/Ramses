@@ -385,23 +385,36 @@ export default class StateChart {
   }
   //me pasan solo coordenadas, en principio
   insertState(x, y, terminal = false, initial = false, comments = "") {
-    this.states.push(
-      new StateElement(
-        this.defaultName + this.stateIndex++,
-        x,
-        y,
-        terminal,
-        initial,
-        comments
-      )
-    );
+    if(this.stateIndex === 0) {
+      this.states.push(
+        new StateElement(
+          this.defaultName + this.stateIndex++,
+          x,
+          y,
+          terminal,
+          true,
+          comments
+        )
+      );
+    }else {
+      this.states.push(
+        new StateElement(
+          this.defaultName + this.stateIndex++,
+          x,
+          y,
+          terminal,
+          initial,
+          comments
+        )
+      );
+    }
   }
   minimazeAutomaton(type) {
     //TODO:
   }
   totalAutomaton() {
     if(this.isTotal == false){
-      this.states.push(new StateElement('Trap',717.9859619140625, 564.9700317382812, true, false, ""));
+      this.states.push(new StateElement('Trap',717.9859619140625, 564.9700317382812, false, false, ""));
       this.isTotal = true;
       }
   }
