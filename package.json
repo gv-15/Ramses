@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node index.js"
     },
-    "author": "Estibaliz Rodriguez de Yurre",
+    "author": "Estibaliz Rodriguez de Yurre, Gaizka Valle Zabala, Maider Pozo Yubero",
     "dependencies": {
         "dom-to-image": "^2.6.0",
         "express": "^4.17.1",
