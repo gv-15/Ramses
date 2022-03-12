@@ -127,6 +127,12 @@ export default class StateChart {
     //Para recuperar el tipo de automata que es el que hemos creado
     return this.type;
   }
+
+  getTerminal() {
+    this.states.isInitialState;
+    console.log(this.states.isInitialState);
+  }
+
   toDownload() {
     //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
     let states = [];

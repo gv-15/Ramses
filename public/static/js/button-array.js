@@ -60,7 +60,7 @@ export default class ButtonArray extends HTMLElement {
             border-radius: 4px;
         }
         .esti-button:hover {
-            transform:scale(1.2);
+            transform:scale(0.9);
         }
 
         .esti-button:active {

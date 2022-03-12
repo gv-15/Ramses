@@ -137,7 +137,7 @@ const undoButtonsData = {
       id: "b-determinista",
     },
     {
-      value: "Complementar Total", 
+      value: "Complementar", 
       action: "complementar_mode",
       id: "b-complementar",
     },
@@ -608,12 +608,21 @@ class StateEditor extends HTMLElement {
             }
           }
       break;
-      case "complementar_mode":
+      case "complementar_mode": //TODO:
             {
               if (this.chart.type != "AFD") {
-                alert("Solo se puede complementar un AFD Total");
+                alert("Solo se puede complementar un AF");
               } else {
-              
+                this.chart.states.forEach((st) => {
+                  if(st.isTerminalState){
+                  st.setIsInicial();
+                  console.log("ahora es inicial" + st.isInitialState);
+                  }
+                  else if(st.isInitialState){
+                  st.setIsTerminal();
+                  console.log("ahora es final" + st.isfinalState);
+                  }
+                });
               }
             }
       break;
