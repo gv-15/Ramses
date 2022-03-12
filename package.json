@@ -4,7 +4,7 @@
     "description": "Entorno de simulación de máquinas abstractas",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon index.js"
+        "start": "node index.js"
     },
     "author": "Estibaliz Rodriguez de Yurre, Gaizka Valle Zabala, Maider Pozo Yubero",
     "dependencies": {
