@@ -626,13 +626,12 @@ class StateEditor extends HTMLElement {
               }
             }
       break;
-      case "invertir_mode": //TODO: invertir un automata finito
+      case "invertir_mode":
         {
                 if (this.chart.type === "AFND" || this.chart.type === "AFD") {
                     //Aqui hago las operaciones con los state para invertir
                   const transitionIdArray = [];
                   const transitionLetterArray = [];  
-                  console.log("empezamos a invertir ");
                   let contador = 0;
                   this.chart.states.forEach((st) => {
                       st.transitions.forEach((tr) => {
@@ -648,11 +647,19 @@ class StateEditor extends HTMLElement {
                 }
                 for(let i = 0; i < contador; i++) {
                   let transitionPhases = transitionIdArray[i].split("_");  
-                  console.log(transitionPhases);
                   this.chart.insertTransition2(this.chart.getState(transitionPhases[1]).name, this.chart.getState(transitionPhases[0]).name, transitionLetterArray[i]);
                   this._saveStateChart();
                   this._redraw();
                 } 
+
+                this.chart.states.forEach((st) => {
+                  if(st.isTerminalState){
+                  st.setIsInicial();
+                  }
+                  else if(st.isInitialState){
+                  st.setIsTerminal();
+                  }
+                });
               }
               else {
                 alert("Solo se puede invertir AF");
@@ -715,7 +722,7 @@ class StateEditor extends HTMLElement {
       case "delete_state":
       case "determinista_mode":
       case "complementar_mode":
-     // case "invertir_mode":
+      case "invertir_mode":
       case "minimize_mode":
       case "delete_transition":
         this._saveStateChart();
