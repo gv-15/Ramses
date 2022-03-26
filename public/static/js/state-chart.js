@@ -75,7 +75,7 @@ export default class StateChart {
         };
         break;
 
-      case "APD": //todo Automata con pila Determinista
+     /*  case "APD": //todo Automata con pila Determinista
         this.isValidTransitionName = (name) =>
           name.length === 1 && this.sigma.indexOf(name) !== -1;
         this.isValidTransitionName2 = (name2) =>
@@ -84,7 +84,7 @@ export default class StateChart {
         this.siblings = () => {
           return [];
         };
-        break;
+        break; */
 
       case "MTR": //todo Maquinas de turing Reconocedoras, siempre son deterministas
         this.isValidTransitionName = (name) =>
@@ -127,6 +127,12 @@ export default class StateChart {
     //Para recuperar el tipo de automata que es el que hemos creado
     return this.type;
   }
+
+  getTerminal() {
+    this.states.isInitialState;
+    console.log(this.states.isInitialState);
+  }
+
   toDownload() {
     //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
     let states = [];
@@ -239,7 +245,6 @@ export default class StateChart {
         
     }
 
-   
     toJSON() { //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
         let states = [];
         this.states.forEach(st => states.push(st.toSave()));
@@ -334,15 +339,12 @@ export default class StateChart {
     return trId;
   }
   insertTransition2(idFrom, idTo, letra) {
-  /*  console.log(idFrom);
-    console.log(idTo);
-    console.log(letra); */
     let from = this.states.find((el) => el.name === idFrom);
     let to = this.states.find((el) => el.name === idTo);
     let trId = idFrom + "_" + idTo +  "_" + this.transitionIndex++;
     from.transitions.push(
       new TransitionElement(trId, from, to, letra, "", "", this.type, true, this.transitionIndex)
-    ); //le decimos el tipo de transición permitida (DFA, NFA)
+    ); 
     return trId;
   }
   modifyTransitionData(id, data) {
@@ -383,25 +385,42 @@ export default class StateChart {
       1
     );
   }
+  IsTerminal() {
+    console.log(this.terminal);
+    return this.terminal;
+  }
   //me pasan solo coordenadas, en principio
   insertState(x, y, terminal = false, initial = false, comments = "") {
-    this.states.push(
-      new StateElement(
-        this.defaultName + this.stateIndex++,
-        x,
-        y,
-        terminal,
-        initial,
-        comments
-      )
-    );
+    if(this.stateIndex === 0) {
+      this.states.push(
+        new StateElement(
+          this.defaultName + this.stateIndex++,
+          x,
+          y,
+          terminal,
+          true,
+          comments
+        )
+      );
+    }else {
+      this.states.push(
+        new StateElement(
+          this.defaultName + this.stateIndex++,
+          x,
+          y,
+          terminal,
+          initial,
+          comments
+        )
+      );
+    }
   }
   minimazeAutomaton(type) {
     //TODO:
   }
   totalAutomaton() {
     if(this.isTotal == false){
-      this.states.push(new StateElement('Trap',717.9859619140625, 564.9700317382812, true, false, ""));
+      this.states.push(new StateElement('Trap',717.9859619140625, 564.9700317382812, false, false, ""));
       this.isTotal = true;
       }
   }

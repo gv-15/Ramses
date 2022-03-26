@@ -44,6 +44,16 @@ export default class StateElement {
         return (out);
     }
 
+    setIsTerminal(){
+        this.isTerminalState = true;
+        this.isInitialState = false;
+    }
+
+    setIsInicial() {
+        this.isInitialState = true;
+        this.isTerminalState = false;
+    }
+
     //Y meto la escala del radio que el padre obtiene del gestor de zoom, también se puede pasar todo aquí, pero esto es más limpio
     toDOM(scale) {
         let out = `<svg xmlns="http://www.w3.org/2000/svg" version="1.2" preserveAspectRatio="xMidYMid meet" style=" stroke-width:1px;">${this.toSVG(scale)}</svg>`;

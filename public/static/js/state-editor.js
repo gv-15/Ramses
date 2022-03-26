@@ -137,7 +137,7 @@ const undoButtonsData = {
       id: "b-determinista",
     },
     {
-      value: "Complementar Total", 
+      value: "Complementar", 
       action: "complementar_mode",
       id: "b-complementar",
     },
@@ -571,7 +571,7 @@ class StateEditor extends HTMLElement {
             let index = this.chart.states.length;
             this.chart.totalAutomaton();
              //console.log(this.chart.states[index]);
-             for (var i = 0; i < index; i++) { // Aqui miro en todos los states menos en el trampa
+             for (var i = 0; i <= index; i++) { // Aqui miro en todos los states menos en el trampa
               //console.log(this.chart.states[g].transitions[0].name);
               //console.log("El numero de transiciones es:" + this.chart.states[i].transitions.length);
               let transitionIndex = this.chart.states[i].transitions.length;
@@ -608,24 +608,63 @@ class StateEditor extends HTMLElement {
             }
           }
       break;
-      case "complementar_mode":
+      case "complementar_mode": //TODO:
             {
               if (this.chart.type != "AFD") {
-                alert("Solo se puede complementar un AFD Total");
+                alert("Solo se puede complementar un AF");
               } else {
-              
+                this.chart.states.forEach((st) => {
+                  if(st.isTerminalState){
+                  st.setIsInicial();
+                  console.log("ahora es inicial" + st.isInitialState);
+                  }
+                  else if(st.isInitialState){
+                  st.setIsTerminal();
+                  console.log("ahora es final" + st.isfinalState);
+                  }
+                });
               }
             }
       break;
       case "invertir_mode":
-              {
+        {
                 if (this.chart.type === "AFND" || this.chart.type === "AFD") {
-                  alert("Invirtiendo");
+                    //Aqui hago las operaciones con los state para invertir
+                  const transitionIdArray = [];
+                  const transitionLetterArray = [];  
+                  let contador = 0;
+                  this.chart.states.forEach((st) => {
+                      st.transitions.forEach((tr) => {
+                      transitionIdArray.push(tr.id);
+                      transitionLetterArray.push(tr.name);
+                      contador++;
+                    });
+                  });
+                for(let i = 0; i < contador ; i++) {
+                  this.chart.deleteTransition(transitionIdArray[i]);
+                  this._saveStateChart();
+                  this._redraw()
                 }
-                else {
-                  alert("Solo se puede invertir AF");
-                }
+                for(let i = 0; i < contador; i++) {
+                  let transitionPhases = transitionIdArray[i].split("_");  
+                  this.chart.insertTransition2(this.chart.getState(transitionPhases[1]).name, this.chart.getState(transitionPhases[0]).name, transitionLetterArray[i]);
+                  this._saveStateChart();
+                  this._redraw();
+                } 
+
+                this.chart.states.forEach((st) => {
+                  if(st.isTerminalState){
+                  st.setIsInicial();
+                  }
+                  else if(st.isInitialState){
+                  st.setIsTerminal();
+                  }
+                });
               }
+              else {
+                alert("Solo se puede invertir AF");
+              }
+        }
       break;
       case "undo":
         {

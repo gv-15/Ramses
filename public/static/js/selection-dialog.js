@@ -121,8 +121,7 @@ export default class SelectionDialog extends HTMLElement {
                             <label for="AFND">AFND</label>
                             <input type="radio" name="machine"id="APN"  value="APN"/>
                             <label for="APN">APN</label>
-                            <input type="radio" name="machine" id="APD"  value="APD"/>      
-                            <label for="APD">APD</label>
+                           
                             <input type="radio" name="machine" id="MTR"  value="MTR"/>
                             <label for="MTR">MTR</label>
                             <input type="radio" name="machine" id="MTC"  value="MTC"/>      
