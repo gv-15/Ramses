@@ -339,15 +339,12 @@ export default class StateChart {
     return trId;
   }
   insertTransition2(idFrom, idTo, letra) {
-  /*  console.log(idFrom);
-    console.log(idTo);
-    console.log(letra); */
     let from = this.states.find((el) => el.name === idFrom);
     let to = this.states.find((el) => el.name === idTo);
     let trId = idFrom + "_" + idTo +  "_" + this.transitionIndex++;
     from.transitions.push(
       new TransitionElement(trId, from, to, letra, "", "", this.type, true, this.transitionIndex)
-    ); //le decimos el tipo de transición permitida (DFA, NFA)
+    ); 
     return trId;
   }
   modifyTransitionData(id, data) {
