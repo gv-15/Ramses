@@ -65,7 +65,7 @@ export default class ButtonArray extends HTMLElement {
 
         .esti-button:active {
             color:transparent;
-         /* transform: translateY(4px);*/
+        /* transform: translateY(4px);*/
         }
         .hide {
             display: none;
