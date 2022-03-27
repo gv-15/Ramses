@@ -546,8 +546,9 @@ class StateEditor extends HTMLElement {
           );
         }
         break;
-      case "delete_state": //NO puede haber más de una conexión de un estado a otro o a sí mismo
+      case "delete_state":
         this.chart.deleteState(data.stateId);
+        this._saveStateChart();
         break;
       case "delete_transition":
         this.chart.deleteTransition(data.transitionId);
@@ -558,7 +559,6 @@ class StateEditor extends HTMLElement {
             alert("Solo se puede hacer minimizar un AFD");
           } else {
           this.chart.minimazeAutomaton(this.chart.type); 
-          
           }
         }
         break;
@@ -608,7 +608,7 @@ class StateEditor extends HTMLElement {
             }
           }
       break;
-      case "complementar_mode": //TODO:
+      case "complementar_mode": //TODO: cuando es total solo
             {
               if (this.chart.type != "AFD") {
                 alert("Solo se puede complementar un AF");
@@ -651,7 +651,6 @@ class StateEditor extends HTMLElement {
                   this._saveStateChart();
                   this._redraw();
                 } 
-
                 this.chart.states.forEach((st) => {
                   if(st.isTerminalState){
                   st.setIsInicial();
