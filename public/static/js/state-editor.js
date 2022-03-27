@@ -1056,6 +1056,8 @@ class StateEditor extends HTMLElement {
            
             // INSERT INTO BD states, Q and type of automaton, M
 
+            console.log('item set:', storage.getItem('user'));
+
             var state = this.chart.obtainStates();
             console.log ("the state is " + state);
 

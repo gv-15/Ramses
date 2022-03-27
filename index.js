@@ -32,10 +32,16 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+const storage = require('node-sessionstorage');
+
+
 
 app.post('/auth', function(request, response) {
     var username = request.body.username;
     var password = request.body.password;
+
+    storage.setItem('user', username)
+
     if (username && password) {
         connection.query('SELECT * FROM usuarios WHERE nombre_usuario = ? AND password_usuario = ?', [username, password], function(error, results, fields) {
             if (results.length > 0) {
