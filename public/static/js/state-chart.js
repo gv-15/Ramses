@@ -75,7 +75,7 @@ export default class StateChart {
         };
         break;
 
-     /*  case "APD": //todo Automata con pila Determinista
+      /*  case "APD": //todo Automata con pila Determinista
         this.isValidTransitionName = (name) =>
           name.length === 1 && this.sigma.indexOf(name) !== -1;
         this.isValidTransitionName2 = (name2) =>
@@ -126,11 +126,6 @@ export default class StateChart {
   getType() {
     //Para recuperar el tipo de automata que es el que hemos creado
     return this.type;
-  }
-
-  getTerminal() {
-    this.states.isInitialState;
-    console.log(this.states.isInitialState);
   }
 
   toDownload() {
@@ -184,13 +179,11 @@ export default class StateChart {
         )
       );
     });
-    if (this.states.length === 0){
+    if (this.states.length === 0) {
       this.stateIndex = 0;
       this.transitionIndex = 0;
       this.isTotal = false;
-
-    } 
-    else {
+    } else {
       let numbers = this.states.map((st) => parseInt(st.name.substring(1))); //quito la q y convierto a número
       this.stateIndex = Math.max(...numbers) + 1;
       this.transitionIndex = Math.max(...numbers) + 1;
@@ -224,103 +217,100 @@ export default class StateChart {
                 " to " +
                 tr.id.split("_")[1]
             ); //TODO mejorar si se quiere
-          });
-        }
-      });
-      // this._redraw();
-    }
-
-    toDownload2() { //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
-        let states = [];
-        this.states.forEach(st => states.push(st.toSave()));
-        var dat = ([{ "type": this.type, "sigma": this.sigma, "states": states }]);
-        return this.OBJtoXML2(dat);
-        //return (JSON.stringify(states));
-    }
-    obtainStates(){
-        let states = [];
-        this.states.forEach(st => states.push(st.toSave()));
-        console.log(JSON.stringify(states));
-        return JSON.stringify([{"states": states }]);
-        
-    }
-
-    toJSON() { //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
-        let states = [];
-        this.states.forEach(st => states.push(st.toSave()));
-        return (JSON.stringify(states));
-    }
-    fromJSON(data) {
-        let states = JSON.parse(data);
-        this.init(states);
-    }
-    fileToJSON(dataObject) {
-        var data = dataObject.data;
-        let newChart = JSON.parse(data);
-        this.initDiagram(newChart);
-    }
-    fromModal(states) {
-        this.init(states);
-    }
-    init(states = []) {
-      this.states = [];
-      //Primero creo los estados, sus transiciones se quedan vacías
-      states.forEach((st) => {
-        this.states.push(
-          new StateElement(
-            st.name,
-            st.x,
-            st.y,
-            st.isTerminalState,
-            st.isInitialState,
-            st.comments
-          )
-        );
-      });
-      if (this.states.length === 0){
-        this.stateIndex = 0;
-        this.transitionIndex = 0;
-        this.isTotal = false;
-  
-      } 
-      else {
-        let numbers = this.states.map((st) => parseInt(st.name.substring(1))); //quito la q y convierto a número
-        this.stateIndex = Math.max(...numbers) + 1;
-        this.transitionIndex = Math.max(...numbers) + 1;
+        });
       }
-      //Ahora que están creados, les añado las transiciones
-      states.forEach((st) => {
-        let from_st = this.states.find((el) => el.name === st.name); //states es un objeto, necesito la clase que está en this.
-        if (st.transitions === undefined) {
-          return;
-        } else {
-          st.transitions.forEach((tr) => {
-            let to_st = this.states.find((el) => el.name == tr.id.split("_")[1]); //to state, viene codificado qa_qb
-  
-            let transitionNode = new TransitionElement(
-              tr.id,
-              from_st,
-              to_st,
-              tr.name,
-              tr.name2,
-              tr.name3,
-              this.type
-            ); // Aqui hay que averiguar cosas
-            if (!transitionNode.error) {
-              tr.node = transitionNode;
-              from_st.transitions.push(transitionNode);
-            } else
-              console.log(
-                "estado no encontrado en la conexion " +
-                  st.name +
-                  " to " +
-                  tr.id.split("_")[1]
-              ); //TODO mejorar si se quiere
-          });
-        }
-      });
-      // this._redraw();
+    });
+    // this._redraw();
+  }
+
+  toDownload2() {
+    //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
+    let states = [];
+    this.states.forEach((st) => states.push(st.toSave()));
+    var dat = [{ type: this.type, sigma: this.sigma, states: states }];
+    return this.OBJtoXML2(dat);
+    //return (JSON.stringify(states));
+  }
+  obtainStates() {
+    let states = [];
+    this.states.forEach((st) => states.push(st.toSave()));
+    console.log(JSON.stringify(states));
+    return JSON.stringify([{ states: states }]);
+  }
+  toJSON() {
+    //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
+    let states = [];
+    this.states.forEach((st) => states.push(st.toSave()));
+    return JSON.stringify(states);
+  }
+  fromJSON(data) {
+    let states = JSON.parse(data);
+    this.init(states);
+  }
+  fileToJSON(dataObject) {
+    var data = dataObject.data;
+    let newChart = JSON.parse(data);
+    this.initDiagram(newChart);
+  }
+  fromModal(states) {
+    this.init(states);
+  }
+  init(states = []) {
+    this.states = [];
+    //Primero creo los estados, sus transiciones se quedan vacías
+    states.forEach((st) => {
+      this.states.push(
+        new StateElement(
+          st.name,
+          st.x,
+          st.y,
+          st.isTerminalState,
+          st.isInitialState,
+          st.comments
+        )
+      );
+    });
+    if (this.states.length === 0) {
+      this.stateIndex = 0;
+      this.transitionIndex = 0;
+      this.isTotal = false;
+    } else {
+      let numbers = this.states.map((st) => parseInt(st.name.substring(1))); //quito la q y convierto a número
+      this.stateIndex = Math.max(...numbers) + 1;
+      this.transitionIndex = Math.max(...numbers) + 1;
     }
+    //Ahora que están creados, les añado las transiciones
+    states.forEach((st) => {
+      let from_st = this.states.find((el) => el.name === st.name); //states es un objeto, necesito la clase que está en this.
+      if (st.transitions === undefined) {
+        return;
+      } else {
+        st.transitions.forEach((tr) => {
+          let to_st = this.states.find((el) => el.name == tr.id.split("_")[1]); //to state, viene codificado qa_qb
+          let transitionNode = new TransitionElement(
+            tr.id,
+            from_st,
+            to_st,
+            tr.name,
+            tr.name2,
+            tr.name3,
+            this.type
+          ); // Aqui hay que averiguar cosas
+          if (!transitionNode.error) {
+            tr.node = transitionNode;
+            from_st.transitions.push(transitionNode);
+          } else
+            console.log(
+              "estado no encontrado en la conexion " +
+                st.name +
+                " to " +
+                tr.id.split("_")[1]
+            ); //TODO mejorar si se quiere
+        });
+      }
+    });
+    // this._redraw();
+  }
   isValidInputStream(input) {
     return input.search(`[^${this.sigma}]`) === -1; //Si encuentro caracteres fuera del conjunto search devuelve !== -1,
   }
@@ -334,17 +324,37 @@ export default class StateChart {
     let trId = idFrom + "_" + idTo;
     trId = trId + "_" + this.transitionIndex++;
     from.transitions.push(
-      new TransitionElement(trId, from, to, "", "", "", this.type , true, this.transitionIndex)
+      new TransitionElement(
+        trId,
+        from,
+        to,
+        "",
+        "",
+        "",
+        this.type,
+        true,
+        this.transitionIndex
+      )
     ); //le decimos el tipo de transición permitida (DFA, NFA)
     return trId;
   }
   insertTransition2(idFrom, idTo, letra) {
     let from = this.states.find((el) => el.name === idFrom);
     let to = this.states.find((el) => el.name === idTo);
-    let trId = idFrom + "_" + idTo +  "_" + this.transitionIndex++;
+    let trId = idFrom + "_" + idTo + "_" + this.transitionIndex++;
     from.transitions.push(
-      new TransitionElement(trId, from, to, letra, "", "", this.type, true, this.transitionIndex)
-    ); 
+      new TransitionElement(
+        trId,
+        from,
+        to,
+        letra,
+        "",
+        "",
+        this.type,
+        true,
+        this.transitionIndex
+      )
+    );
     return trId;
   }
   modifyTransitionData(id, data) {
@@ -375,7 +385,9 @@ export default class StateChart {
     let st = trId.split("_");
     let from = this.states.find((el) => el.name === st[0]);
     //return from.transitions.find((tr) => tr.to.name === st[1]);
-    return from.transitions.find((tr) => tr.to.name === st[1] && tr.id.split("_")[2] === st[2]);
+    return from.transitions.find(
+      (tr) => tr.to.name === st[1] && tr.id.split("_")[2] === st[2]
+    );
   }
   deleteTransition(id) {
     let states = id.split("_");
@@ -391,7 +403,7 @@ export default class StateChart {
   }
   //me pasan solo coordenadas, en principio
   insertState(x, y, terminal = false, initial = false, comments = "") {
-    if(this.stateIndex === 0) {
+    if (this.stateIndex === 0) {
       this.states.push(
         new StateElement(
           this.defaultName + this.stateIndex++,
@@ -402,7 +414,7 @@ export default class StateChart {
           comments
         )
       );
-    }else {
+    } else {
       this.states.push(
         new StateElement(
           this.defaultName + this.stateIndex++,
@@ -419,10 +431,19 @@ export default class StateChart {
     //TODO:
   }
   totalAutomaton() {
-    if(this.isTotal == false){
-      this.states.push(new StateElement('Trap',717.9859619140625, 564.9700317382812, false, false, ""));
+    if (this.isTotal == false) {
+      this.states.push(
+        new StateElement(
+          "Trap",
+          717.9859619140625,
+          564.9700317382812,
+          false,
+          false,
+          ""
+        )
+      );
       this.isTotal = true;
-      }
+    }
   }
   //voy a mirar tanbién si es inicial
   modifyStateData(stId, data) {
@@ -440,6 +461,13 @@ export default class StateChart {
     return this.states.find((st) => st.name === stName);
   }
   deleteState(q) {
+    let deletedState = this.states.find((st) => st.name === q);
+    let states = q.split('');
+    if(deletedState.isInitialState == true){
+      console.log("estoy aqui");
+      let number = parseInt(states[1]) +1;
+      this.getState('q'+number).setIsInicial();
+    }
     this.states.forEach(
       (st) => (st.transitions = st.transitions.filter((t) => t.to !== q))
     ); //solo las que no apuntaban
