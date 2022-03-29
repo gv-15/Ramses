@@ -132,7 +132,7 @@ const undoButtonsData = {
       id: "b-total",
     },
     {
-      value: "Hacer Determinista", 
+      value: "Hacer Determinista", //Esta creado el boton pero falta toda la implementacion
       action: "determinista_mode",
       id: "b-determinista",
     },
@@ -140,6 +140,11 @@ const undoButtonsData = {
       value: "Complementar", 
       action: "complementar_mode",
       id: "b-complementar",
+    },
+    {
+      value: "Complementar Total", 
+      action: "complementarTotal_mode",
+      id: "b-complementarTotal",
     },
     {
       value: "Invertir AF", 
@@ -571,7 +576,7 @@ class StateEditor extends HTMLElement {
             let index = this.chart.states.length;
             this.chart.totalAutomaton();
              //console.log(this.chart.states[index]);
-             for (var i = 0; i <= index; i++) { // Aqui miro en todos los states menos en el trampa
+             for (var i = 0; i <= index; i++) { // Aqui miro en todos los states 
               //console.log(this.chart.states[g].transitions[0].name);
               //console.log("El numero de transiciones es:" + this.chart.states[i].transitions.length);
               let transitionIndex = this.chart.states[i].transitions.length;
@@ -608,23 +613,58 @@ class StateEditor extends HTMLElement {
             }
           }
       break;
-      case "complementar_mode": //TODO: cuando es total solo
+      case "complementarTotal_mode": //TODO: cuando es total solo
             {
-              if (this.chart.type != "AFD") {
+              let esTotal = true;
+              let sigmaIndex = this.chart.sigma.length;
+              let index = this.chart.states.length;
+              var compr = 0;
+              for (var i = 0; i < index; i++) {
+                let transitionIndex = this.chart.states[i].transitions.length;
+                for (var j = 0; j < sigmaIndex; j++) {
+                  var compr = 0;
+                  for (var z = 0; z < transitionIndex ; z++) {
+                      if (this.chart.sigma[j] === this.chart.states[i].transitions[z].name) { 
+                        compr++;
+                      }
+                  }
+                  if (compr == "0") { 
+                    esTotal = false;
+                  }
+                }
+              }
+              console.log(esTotal);
+              if (this.chart.type != "AFD" || !esTotal) {
                 alert("Solo se puede complementar un AF");
               } else {
                 this.chart.states.forEach((st) => {
                   if(st.isTerminalState){
                   st.setIsInicial();
-                  console.log("ahora es inicial" + st.isInitialState);
                   }
                   else if(st.isInitialState){
                   st.setIsTerminal();
-                  console.log("ahora es final" + st.isfinalState);
                   }
                 });
               }
             }
+      break;
+      case "complementar_mode": 
+      {        
+        if (this.chart.type != "AFD" ) {
+          alert("Solo se puede complementar un AFD total");
+        } else {
+          this.chart.states.forEach((st) => {
+            if(st.isTerminalState){
+            st.setIsInicial();
+            console.log("ahora es inicial" + st.isInitialState);
+            }
+            else if(st.isInitialState){
+            st.setIsTerminal();
+            console.log("ahora es final" + st.isfinalState);
+            }
+          });
+        }
+      }
       break;
       case "invertir_mode":
         {
@@ -721,6 +761,7 @@ class StateEditor extends HTMLElement {
       case "delete_state":
       case "determinista_mode":
       case "complementar_mode":
+      case "complementarTotal_mode":
       case "invertir_mode":
       case "minimize_mode":
       case "delete_transition":
