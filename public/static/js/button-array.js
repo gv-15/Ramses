@@ -96,7 +96,7 @@ export default class ButtonArray extends HTMLElement {
         #b-download, #b-screenshot, #b-json, #b-xml, #b-based,
         #b-zoomin, #b-zoomout, #b-home, #b-sethome, #b-fit, #b-setzoom,
         #b-state, #b-trans, #b-drag, #b-delete, #b-edit,
-        #b-undo, #b-redo, #b-minimize, #b-total, #b-determinista, #b-complementar, #b-invertir,
+        #b-undo, #b-redo, #b-minimize, #b-total, #b-determinista, #b-complementar, #b-invertir, b-complementarTotal, 
         #b-play, #b-stop, #b-back, #b-fback, #b-fforward {
             background-repeat: no-repeat;
             background-position: center;
@@ -142,6 +142,7 @@ export default class ButtonArray extends HTMLElement {
         #b-minimize {background-image: url(/static/images/minimize.svg);}
         #b-determinista {background-image: url(/static/images/determinista.svg);}
         #b-complementar {background-image: url(/static/images/complementary.svg);}
+        #b-complementarTotal {background-image: url(/static/images/complementary.svg);}
         #b-invertir {background-image: url(/static/images/invertir.svg);}  
         #b-total {background-image: url(/static/images/total.svg);}  
         #b-edit.selected {background-image: url(/static/images/edit-blue-nuevo.svg);}
