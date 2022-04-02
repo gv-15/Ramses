@@ -427,9 +427,7 @@ export default class StateChart {
       );
     }
   }
-  minimazeAutomaton(type) {
-    //TODO:
-  }
+
   totalAutomaton() {
     if (this.isTotal == false) {
       this.states.push(
@@ -464,10 +462,19 @@ export default class StateChart {
     let deletedState = this.states.find((st) => st.name === q);
     let states = q.split('');
     if(deletedState.isInitialState == true){
-      console.log("estoy aqui");
       let number = parseInt(states[1]) +1;
       this.getState('q'+number).setIsInicial();
     }
+    this.states.forEach(
+      (st) => (st.transitions = st.transitions.filter((t) => t.to !== q))
+    ); //solo las que no apuntaban
+    this.states.splice(
+      this.states.findIndex((st) => st.name === q),
+      1
+    );
+  }
+
+  clearAll(q) {
     this.states.forEach(
       (st) => (st.transitions = st.transitions.filter((t) => t.to !== q))
     ); //solo las que no apuntaban

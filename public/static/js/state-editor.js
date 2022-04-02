@@ -122,9 +122,9 @@ const undoButtonsData = {
       id: "b-redo",
     },
     {
-      value: "Minimizar", //Esta creado el boton pero falta toda la implementacion
-      action: "minimize_mode",
-      id: "b-minimize",
+      value: "Nuevo automata", //Esta creado el boton pero falta toda la implementacion
+      action: "nuevo_mode",
+      id: "b-nuevo",
     },
     {
       value: "Hacer Total", 
@@ -558,13 +558,20 @@ class StateEditor extends HTMLElement {
       case "delete_transition":
         this.chart.deleteTransition(data.transitionId);
         break;
-      case "minimize_mode": //TODO: Aqui supuestamente se minimiza el automa
+      case "nuevo_mode":
         {
-          if (this.chart.type != "AFD") {
-            alert("Solo se puede hacer minimizar un AFD");
-          } else {
-          this.chart.minimazeAutomaton(this.chart.type); 
+          const statesName = [];
+          let contador = 0;
+          this.chart.states.forEach((st) => {
+            statesName.push(st.name);
+            contador++;
+          });
+          for(let i = 0; i <= contador ; i++) {
+            this.chart.clearAll(statesName[i]);
+            this._saveStateChart();
+            this._redraw()
           }
+        this.selectionDialog.open();
         }
         break;
       case "total_mode":
