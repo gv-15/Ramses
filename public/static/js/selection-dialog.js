@@ -13,18 +13,18 @@ export default class SelectionDialog extends HTMLElement {
     }
     style() {
         return (String.raw `
-      <style>
+    <style>
         :host {
-          display: block;
+        display: block;
         }
         dialog {
-            font-family: 'Maven Pro', sans-serif;
-          background: linear-gradient(to left, #955DFF, #6FAAFF);
-          border-radius:10px;
-          border-width: thin;
-          top: 30%;
-          -webkit-box-shadow: 10px 10px 24px 13px rgba(0,0,0,0.75);
-          -moz-box-shadow: 10px 10px 24px 13px rgba(0,0,0,0.75);
+        font-family: 'Maven Pro', sans-serif;
+        background: linear-gradient(to left, #955DFF, #6FAAFF);
+        border-radius:10px;
+        border-width: thin;
+        top: 10%;
+        -webkit-box-shadow: 10px 10px 24px 13px rgba(0,0,0,0.75);
+        -moz-box-shadow: 10px 10px 24px 13px rgba(0,0,0,0.75);
         box-shadow: 10px 10px 24px 13px rgba(0,0,0,0.75);
         color: white;
         text-align: center;
@@ -45,11 +45,11 @@ export default class SelectionDialog extends HTMLElement {
             margin-left:4px;
             border-radius: 4px;
             border: none;
-         }
-         input[type=file]{
+        }
+        input[type=file]{
             padding:4px;
             margin-top: 15%;
-                 }
+        }
 
         input[type=button]{
             margin-top: 4px;
@@ -75,15 +75,15 @@ export default class SelectionDialog extends HTMLElement {
         }
         #sigma-label, #filename-label ,#stack-label {
             border-style: none;
-            text-align: start;
+            text-align: center;
         }
         input[type=radio]{
-           display:none;
+        display:none;
         }
         input[type=radio]:checked + label {
             background: white;
             color: black;
-          }
+        }
         #radio-container {
             display:flex;
             width: 100%;
@@ -104,9 +104,9 @@ export default class SelectionDialog extends HTMLElement {
             border-right: 1px solid #16222c;
             height: auto;
             
-       }
-      </style>
-      `);
+        }
+    </style>
+    `);
     }
         template() {
             return (
@@ -121,19 +121,16 @@ export default class SelectionDialog extends HTMLElement {
                             <label for="AFND">AFND</label>
                             <input type="radio" name="machine"id="APN"  value="APN"/>
                             <label for="APN">APN</label>
-                           
                             <input type="radio" name="machine" id="MTR"  value="MTR"/>
                             <label for="MTR">MTR</label>
                             <input type="radio" name="machine" id="MTC"  value="MTC"/>      
                             <label for="MTC">MTC</label>
                         </div>
-                      
                         <div id="text-input-container">
             
                             <label id="sigma-label">&#931<input type="text"  name="machine" id="alphabet-input" placeholder="p.ej: ab, 01"/></label></br>
-                            <label id="stack-label">&#931 Pila <input type="text"  name="stack-machine" id="stack-alphabet-input" placeholder="p.ej: gv, 15"/></label></br>
-                            <label id="filename-label">Nombre <input type="text"  name="filename" id="filename-input" placeholder="afd-01"/></label>
- 
+                            <label id="stack-label">&#931 Pila<input type="text"  name="stack-machine" id="stack-alphabet-input" placeholder="p.ej: gv, 15"/></label></br>
+                            <label id="filename-label">Nombre<input type="text"  name="filename" id="filename-input" placeholder="afd-01"/></label>
                         </div>
                     </div>
                     <div class="headerDivider"></div>
