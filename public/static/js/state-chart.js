@@ -428,6 +428,19 @@ export default class StateChart {
     }
   }
 
+  addFinalState() {
+    this.states.push(
+      new StateElement(
+        "Trap Final",
+        717.9859619140625,
+        564.9700317382812,
+        true,
+        false,
+        ""
+      )
+    );
+  }
+
   totalAutomaton() {
     if (this.isTotal == false) {
       this.states.push(
