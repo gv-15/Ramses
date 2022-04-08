@@ -38,7 +38,7 @@ app.post('/auth', function(request, response) {
     var username = request.body.username;
     var password = request.body.password;
     if (username && password) {
-        connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+        connection.query('SELECT * FROM usuarios WHERE nombre_usuario = ? AND password_usuario = ?', [username, password], function(error, results, fields) {
             if (results.length > 0) {
                 request.session.loggedin = true;
                 request.session.username = username;
@@ -54,17 +54,17 @@ app.post('/auth', function(request, response) {
     }
 });
 
-app.get(`/home`, (request, response) => {
+app.get('/home', (request, response) => {
     response.sendFile('home.html', { root: `${__dirname}/public` });
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get(`/`, (request, response) => {
+app.get('/ramses/', (request, response) => {
     response.sendFile('login.html', { root: `${__dirname}/public` });
 });
 
-app.get('/ramses/', function(req, res) {
+app.get('/logout', function(req, res) {
     req.session.destroy();
     connection.end();
     res.redirect('/ramses/');

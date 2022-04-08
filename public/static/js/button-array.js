@@ -14,13 +14,13 @@ export default class ButtonArray extends HTMLElement {
 
     createStyle() {
         let style = `
-      <style>
+    <style>
         :host {
-          font-family: italic bold arial, sans-serif;
-          font-size: 12px;
-          color: black;
-          width:100%;
-          height:100%;
+            font-family: italic bold arial, sans-serif;
+            font-size: 12px;
+            color: black;
+            width:100%;
+            height:100%;
         }
         div{
             display: flex;
@@ -60,15 +60,15 @@ export default class ButtonArray extends HTMLElement {
             border-radius: 4px;
         }
         .esti-button:hover {
-            transform:scale(1.1);
+            transform:scale(0.9);
         }
 
         .esti-button:active {
             color:transparent;
-/*          transform: translateY(4px);*/
+        /* transform: translateY(4px);*/
         }
         .hide {
-          display: none;
+            display: none;
         }
 
         #b-testmode {
@@ -93,10 +93,10 @@ export default class ButtonArray extends HTMLElement {
         #b-drawmode {background-image: url(/ramses/static/images/edit.svg);}
         #b-drawmode.selected {background-image: url(/ramses/static/images/edit-blue.svg);}
 
-        #b-download, #b-screenshot,
+        #b-download, #b-screenshot, #b-json, #b-xml, #b-based,
         #b-zoomin, #b-zoomout, #b-home, #b-sethome, #b-fit, #b-setzoom,
         #b-state, #b-trans, #b-drag, #b-delete, #b-edit,
-        #b-undo, #b-redo, #b-minimize,
+        #b-undo, #b-redo, #b-nuevo, #b-total, #b-determinista, #b-complementar, #b-invertir, #b-complementarTotal, 
         #b-play, #b-stop, #b-back, #b-fback, #b-fforward {
             background-repeat: no-repeat;
             background-position: center;
@@ -112,8 +112,12 @@ export default class ButtonArray extends HTMLElement {
         #b-fforward {background-image: url(/ramses/static/images/fforward.svg);}
         #b-fforward.selected {background-image: url(/ramses/static/images/fforward-blue.svg);}
 
-        #b-download {background-image: url(/ramses/static/images/download.svg);}
-        #b-download.selected {background-image: url(/ramses/static/images/download-blue.svg);}
+        #b-based {background-image: url(/ramses/static/images/bd.svg);}
+        #b-based.selected {background-image: url(/ramses/static/images/bd.svg);}
+        #b-xml {background-image: url(/ramses/static/images/xml.svg);}
+        #b-xml.selected {background-image: url(/ramses/static/images/xml.svg);}
+        #b-json {background-image: url(/ramses/static/images/json.svg);}
+        #b-json.selected {background-image: url(/ramses/static/images/json.svg);}
         #b-screenshot {background-image: url(/ramses/static/images/camera.svg);}
         #b-screenshot.selected {background-image: url(/ramses/static/images/camera.svg);}
         #b-zoomin {background-image: url(/ramses/static/images/zoom-in.svg);}
@@ -135,8 +139,12 @@ export default class ButtonArray extends HTMLElement {
         #b-delete {background-image: url(/ramses/static/images/delete.svg);}
         #b-delete.selected {background-image: url(/ramses/static/images/delete-blue.svg);}
         #b-edit {background-image: url(/ramses/static/images/edit-nuevo.svg);}
-        #b-minimize {background-image: url(/ramses/static/images/minimize.svg);}  //No ajusta
-        #b-minimize.selected {background-image: url(/ramses/static/images/minimize-blue.svg);} //No ajusta y no implementado
+        #b-nuevo {background-image: url(/ramses/static/images/nuevo.svg);}
+        #b-determinista {background-image: url(/ramses/static/images/determinista.svg);}
+        #b-complementar {background-image: url(/ramses/static/images/complementary.svg);}
+        #b-complementarTotal {background-image: url(/ramses/static/images/complementarTotal.svg);}
+        #b-invertir {background-image: url(/ramses/static/images/invertir.svg);}  
+        #b-total {background-image: url(/ramses/static/images/total.svg);}  
         #b-edit.selected {background-image: url(/ramses/static/images/edit-blue-nuevo.svg);}
         #b-undo {background-image: url(/ramses/static/images/rotate-left.svg);}
         #b-undo.selected {background-image: url(/ramses/static/images/rotate-left-blue.svg);}
@@ -151,23 +159,23 @@ export default class ButtonArray extends HTMLElement {
             text-align: center;
             border-radius: 6px;
             padding: 5px 0;
-          
+
             /* Position the tooltip */
             position: absolute;
             z-index: 1;
-          }
-          .tooltiptext:before {
-              content 'holaaa';
-              background-color: pink;
-              border-color: black;
-          }
-          .esti-button:hover .tooltiptext {
+        }
+        .tooltiptext:before {
+            content 'holaaa';
+            background-color: pink;
+            border-color: black;
+        }
+        .esti-button:hover .tooltiptext {
             visibility: visible;
-          }
-          #menu {
-              width: 100%;
-          }
-      </style>
+        }
+        #menu {
+            width: 100%;
+        }
+    </style>
     `;
         return style;
     }
