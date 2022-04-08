@@ -615,12 +615,14 @@ class StateEditor extends HTMLElement {
           {
             if (this.chart.type != "AFND") {
               alert("Solo se puede hacer determinista un AFND");
+
+              //TODO: esra funcionalidad este sin implementar deberia tocar ahora
             } else {
             
             }
           }
       break;
-      case "complementarTotal_mode": //TODO: cuando es total solo
+      case "complementarTotal_mode":
             {
               let esTotal = true;
               let sigmaIndex = this.chart.sigma.length;
@@ -640,7 +642,7 @@ class StateEditor extends HTMLElement {
                   }
                 }
               }
-              console.log(esTotal);
+              //console.log(esTotal);
               if (this.chart.type != "AFD" || !esTotal) {
                 alert("Solo se puede complementar un AF");
               } else {
@@ -663,11 +665,11 @@ class StateEditor extends HTMLElement {
           this.chart.states.forEach((st) => {
             if(st.isTerminalState){
             st.setIsInicial();
-            console.log("ahora es inicial" + st.isInitialState);
+            //console.log("ahora es inicial" + st.isInitialState);
             }
             else if(st.isInitialState){
             st.setIsTerminal();
-            console.log("ahora es final" + st.isfinalState);
+            //console.log("ahora es final" + st.isfinalState);
             }
           });
         }
@@ -698,6 +700,7 @@ class StateEditor extends HTMLElement {
                   this._saveStateChart();
                   this._redraw();
                 } 
+                let contadorFinales = 0;
                 this.chart.states.forEach((st) => {
                   if(st.isTerminalState){
                   st.setIsInicial();
@@ -706,6 +709,19 @@ class StateEditor extends HTMLElement {
                   st.setIsTerminal();
                   }
                 });
+                  this._saveStateChart();
+                    this._redraw();
+                  this.chart.states.forEach((st) => {
+                    if(st.isTerminalState){
+                    contadorFinales++;
+                    }
+                  });
+                  console.log(contadorFinales);
+                  if(contadorFinales === 0) {
+                    this.chart.addFinalState();
+                    this._saveStateChart();
+                    this._redraw();
+                  }
               }
               else {
                 alert("Solo se puede invertir AF");
