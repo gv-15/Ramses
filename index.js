@@ -1,5 +1,7 @@
 "use strict";
 
+
+
 const path = require("path");
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -11,7 +13,7 @@ app.listen(PORT, () => console.log(`Express server currently running on port ${P
 
 var connection = mysql.createConnection({
     host: 'localhost',
-    database: 'todoapp2',
+    database: 'todoapp',
     user: 'root',
     password: 'root',
 });
@@ -36,10 +38,11 @@ const storage = require('node-sessionstorage');
 
 
 
+
 app.post('/auth', function(request, response) {
     var username = request.body.username;
     var password = request.body.password;
-
+   
     storage.setItem('user', username)
 
     if (username && password) {

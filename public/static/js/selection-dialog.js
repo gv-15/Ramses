@@ -138,6 +138,10 @@ export default class SelectionDialog extends HTMLElement {
                         <span> Importar desde JSON</span></br>
                         <input type="file"  name="machine" id="file-input" /></br>
                     </div>
+                    <div>
+                    <span> Importar desde JFLAP</span></br>
+                    <input type="file"  name="machine2" id="file-input2" /></br>
+                </div>
                 </div>
                 <input type="button" id="end" value="Empezar"/>
 
@@ -171,12 +175,15 @@ export default class SelectionDialog extends HTMLElement {
         this.data = {};
         if (button === 'OK') { //modifico campos
             let file = this.dom.querySelector("#file-input").files[0];
-            if (file) {
+            let file2 = this.dom.querySelector("#file-input2").files[0];
+            if (file && file2) {
                 let filename = file.name.toLowerCase();
-                if (!filename.endsWith('.json')) {
+                let filename2 = file2.name.toLowerCase();
+                if (!filename.endsWith('.json') && !filename2.endsWith('.xml')) {
                     alert('extensión de fichero no soportada');
                     return;
                 }
+
                 let reader = new FileReader();
                 reader.readAsText(file);
                 reader.onloadend = (evt) => {
@@ -189,6 +196,22 @@ export default class SelectionDialog extends HTMLElement {
                     let res = filename.split(".");
                     this.data.filename = res[0];
                     this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
+                    //---------
+                    
+                }
+                reader.readAsText(file2);
+                reader.onloadend = (evt) => {
+                    let stored = JSON.parse(evt.target.result);
+                    this.data.type = stored[0].type;
+                    this.data.sigma = stored[0].sigma;
+                    this.data.states = stored[0].states;
+                    this.data.stack = stored[0].stack;
+                    this.data.button = button;
+                    let res = filename2.split(".");
+                    this.data.filename2 = res[0];
+                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
+                    //---------
+                    
                 }
             } else {
                 this.data.type = this.dom.querySelector("input[name=machine]:checked").value;
