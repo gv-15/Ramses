@@ -174,12 +174,14 @@ export default class SelectionDialog extends HTMLElement {
     sendData(button) {
         this.data = {};
         if (button === 'OK') { //modifico campos
-            let file = this.dom.querySelector("#file-input").files[0];
-            let file2 = this.dom.querySelector("#file-input2").files[0];
-            if (file && file2) {
+            
+            let file = this.dom.querySelector("#file-input").files[0];          
+            let file2 = this.dom.querySelector("#file-input2").files[1];
+            
+            if (file) {
                 let filename = file.name.toLowerCase();
-                let filename2 = file2.name.toLowerCase();
-                if (!filename.endsWith('.json') && !filename2.endsWith('.xml')) {
+               // let filename2 = file2.name.toLowerCase();
+                if (!filename.endsWith('.json')) {
                     alert('extensión de fichero no soportada');
                     return;
                 }
@@ -199,6 +201,18 @@ export default class SelectionDialog extends HTMLElement {
                     //---------
                     
                 }
+
+            } 
+
+            else if(file2)
+            {
+                let filename2 = file2.name.toLowerCase();
+                    if (!filename2.endsWith('.xml')) {
+                        alert('extensión de fichero no soportada');
+                        return;
+                    }  
+                    
+                let reader = new FileReader();
                 reader.readAsText(file2);
                 reader.onloadend = (evt) => {
                     let stored = JSON.parse(evt.target.result);
@@ -212,12 +226,26 @@ export default class SelectionDialog extends HTMLElement {
                     this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
                     //---------
                     
+                } 
+            }
+            else {
+
+                if (filename!="")
+                {
+                    this.data.type = this.dom.querySelector("input[name=machine2]:checked").value;
+                    this.data.sigma = this.dom.querySelector("#alphabet-input").value;
+                    this.data.stack = this.dom.querySelector("#stack-alphabet-input").value;
+                    this.data.filename = this.dom.querySelector("#filename-input2").value;
                 }
-            } else {
-                this.data.type = this.dom.querySelector("input[name=machine]:checked").value;
-                this.data.sigma = this.dom.querySelector("#alphabet-input").value;
-                this.data.stack = this.dom.querySelector("#stack-alphabet-input").value;
-                this.data.filename = this.dom.querySelector("#filename-input").value;
+                else 
+                {
+                    this.data.type = this.dom.querySelector("input[name=machine]:checked").value;
+                    this.data.sigma = this.dom.querySelector("#alphabet-input").value;
+                    this.data.stack = this.dom.querySelector("#stack-alphabet-input").value;
+                    this.data.filename = this.dom.querySelector("#filename-input").value;
+
+                }
+                
              if(this.data.type == "AFND" || this.data.type == "AFD")
              {
                 if (this.data.type && this.data.sigma && this.data.filename ) {
@@ -225,7 +253,17 @@ export default class SelectionDialog extends HTMLElement {
                     this.data.states = [];
                     this.data.button = button;
                     this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
-                } else {
+                } 
+                else if (this.data.type && this.data.sigma && this.data.filename2)
+                {
+
+                    this.data.states = [];
+                    this.data.button = button;
+                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
+                }
+                
+                
+                else {
                     //console.log("no hay datos suficintes");
                     alert("Rellena todos los campos para continuar");
                     return;
