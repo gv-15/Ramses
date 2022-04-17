@@ -174,9 +174,9 @@ export default class SelectionDialog extends HTMLElement {
     sendData(button) {
         this.data = {};
         if (button === 'OK') { //modifico campos
-            
+
             let file = this.dom.querySelector("#file-input").files[0];          
-            let file2 = this.dom.querySelector("#file-input2").files[1];
+            let file2 = this.dom.querySelector("#file-input2").files[0];
             
             if (file) {
                 let filename = file.name.toLowerCase();
