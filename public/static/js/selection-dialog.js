@@ -216,35 +216,28 @@ export default class SelectionDialog extends HTMLElement {
                 reader.readAsText(file2);
                 reader.onloadend = (evt) => {
                     let stored = JSON.parse(evt.target.result);
-                    this.data.type = stored[0].type;
-                    this.data.sigma = stored[0].sigma;
-                    this.data.states = stored[0].states;
-                    this.data.stack = stored[0].stack;
-                    this.data.button = button;
+                    var dat = OBJtoXML2(this.data);
+                    this.dat.type = stored[0].type;
+                    this.dat.sigma = stored[0].sigma;
+                    this.dat.states = stored[0].states;
+                    this.dat.stack = stored[0].stack;
+                    this.dat.button = button;
                     let res = filename2.split(".");
-                    this.data.filename2 = res[0];
-                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
+                    this.dat.filename2 = res[0];
+                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.dat } }));
                     //---------
                     
                 } 
             }
             else {
 
-                if (filename!="")
-                {
-                    this.data.type = this.dom.querySelector("input[name=machine2]:checked").value;
-                    this.data.sigma = this.dom.querySelector("#alphabet-input").value;
-                    this.data.stack = this.dom.querySelector("#stack-alphabet-input").value;
-                    this.data.filename = this.dom.querySelector("#filename-input2").value;
-                }
-                else 
-                {
+   
                     this.data.type = this.dom.querySelector("input[name=machine]:checked").value;
                     this.data.sigma = this.dom.querySelector("#alphabet-input").value;
                     this.data.stack = this.dom.querySelector("#stack-alphabet-input").value;
                     this.data.filename = this.dom.querySelector("#filename-input").value;
 
-                }
+        
                 
              if(this.data.type == "AFND" || this.data.type == "AFD")
              {
