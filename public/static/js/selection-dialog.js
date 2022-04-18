@@ -212,19 +212,22 @@ export default class SelectionDialog extends HTMLElement {
                         return;
                     }  
                     
-                let reader = new FileReader();
-                reader.readAsText(file2);
-                reader.onloadend = (evt) => {
-                    let stored = JSON.parse(evt.target.result);
-                    var dat = OBJtoXML2(this.data);
-                    this.dat.type = stored[0].type;
-                    this.dat.sigma = stored[0].sigma;
-                    this.dat.states = stored[0].states;
-                    this.dat.stack = stored[0].stack;
-                    this.dat.button = button;
+                let reader2 = new FileReader();
+                reader2.readAsText(file2);
+                reader2.onloadend = (evt) => {
+                    let stored = evt.target.result;
+                    var parser = new DOMParser();
+                    var xmlDoc = parser.parseFromString(this.data,"text/xml");
+                    console.log(" DE XML A JSON " + JSON.stringify(xmlToJson2(xmlDoc))); 
+                    var dat = JSON.stringify(xmlToJson2(xmlDoc));
+                    this.data.type = stored[0].type;
+                    this.data.sigma = stored[0].sigma;
+                    this.data.states = stored[0].states;
+                    this.data.stack = stored[0].stack;
+                    this.data.button = button;
                     let res = filename2.split(".");
-                    this.dat.filename2 = res[0];
-                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.dat } }));
+                    this.data.filename2 = res[0];
+                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
                     //---------
                     
                 } 
@@ -312,3 +315,41 @@ export default class SelectionDialog extends HTMLElement {
 
 //esto ta fuera de la clase
 customElements.define('selection-dialog', SelectionDialog);
+
+function xmlToJson2(xml) {
+  var obj = {};
+  if (xml.nodeType == 1) {
+    if (xml.attributes.length > 0) {
+      obj["@attributes"] = {};
+
+      for (var j = 0; j < xml.attributes.length; j++) {
+        var attribute = xml.attributes.item(j);
+        obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+      }
+    }
+  } else if (xml.nodeType == 4) {
+    obj = xml.nodeValue;
+  }
+  if (xml.hasChildNodes()) {
+    for (var i = 0; i < xml.childNodes.length; i++) {
+      var item = xml.childNodes.item(i);
+      var nodeName = item.nodeName;
+
+      if (typeof obj[nodeName] == "undefined") {
+        obj[nodeName] = xmlToJson2(item);
+      } else {
+        if (typeof obj[nodeName].length == "undefined") {
+          var old = obj[nodeName];
+          obj[nodeName] = [];
+          obj[nodeName].push(old);
+        }
+
+        if (typeof obj[nodeName] === "object") {
+          obj[nodeName].push(xmlToJson2(item));
+        }
+      }
+    }
+  }
+
+  return obj;
+}
