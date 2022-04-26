@@ -178,7 +178,7 @@ export default class SelectionDialog extends HTMLElement {
             let file = this.dom.querySelector("#file-input").files[0];          
             let file2 = this.dom.querySelector("#file-input2").files[0];
             
-            if (file) {
+            if (file && file2==null) {
                 let filename = file.name.toLowerCase();
                // let filename2 = file2.name.toLowerCase();
                 if (!filename.endsWith('.json')) {
@@ -204,7 +204,7 @@ export default class SelectionDialog extends HTMLElement {
 
             } 
 
-            else if(file2)
+            else if(file2 && file==null)
             {
                 let filename2 = file2.name.toLowerCase();
                     if (!filename2.endsWith('.xml')) {
@@ -218,15 +218,15 @@ export default class SelectionDialog extends HTMLElement {
                     let stored = evt.target.result;
                     var parser = new DOMParser();
                     var xmlDoc = parser.parseFromString(this.data,"text/xml");
-                    console.log(" DE XML A JSON " + JSON.stringify(xmlToJson2(xmlDoc))); 
+                    console.log(" DE XML A JSONn bb " + JSON.stringify(xmlToJson2(xmlDoc))); 
                     var dat = JSON.stringify(xmlToJson2(xmlDoc));
-                    this.data.type = stored[0].type;
-                    this.data.sigma = stored[0].sigma;
-                    this.data.states = stored[0].states;
-                    this.data.stack = stored[0].stack;
-                    this.data.button = button;
+                    a.type = stored[0].type;
+                    a.sigma = stored[0].sigma;
+                    a.states = stored[0].states;
+                    a.stack = stored[0].stack;
+                    a.button = button;
                     let res = filename2.split(".");
-                    this.data.filename2 = res[0];
+                    a.filename2 = res[0];
                     this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
                     //---------
                     
