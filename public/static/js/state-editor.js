@@ -1019,9 +1019,9 @@ class StateEditor extends HTMLElement {
       
         var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
         var parser = new DOMParser();
-        var xmlDoc = parser.parseFromString(text,"text/xml");
-        var xmlDoc = parser.parseFromString(evt.target.result,"text/xml");
-        var s = xmlToJson2(xmlDoc);
+        //var xmlDoc = parser.parseFromString(text,"text/xml");
+        //var xmlDoc = parser.parseFromString(evt.target.result,"text/xml");
+        //var s = xmlToJson2(xmlDoc);
         //let stored = JSON.stringify(json);
     //---------------------------------------------
        
