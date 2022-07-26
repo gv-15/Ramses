@@ -1009,37 +1009,35 @@ class StateEditor extends HTMLElement {
       case "xml":
         console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
 
-        /*
-        let filename2 = document.querySelector('#saved-name').getAttribute('value');
-        let type = document.querySelector('#type').getAttribute('value');
-        let sigma = document.querySelector('#sigma').getAttribute('value');
-        let statename = document.querySelector(#states).getAttribute('name');
-        console.log("el contenido es " + filename2 + type + sigma);
-        console.log("------------------------------");
-        */
-
+        alert("entra");
         console.log("--------------");
         console.log(data2);
    
         
     //-------------------------- -----------------
     // esto es para pasar de XML a JSON
-      /*
+      
         var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
         var parser = new DOMParser();
-        var xmlDoc = parser.parseFromString(text,"text/xml");
-        console.log(" DE XML A JSON " + JSON.stringify(xmlToJson(xmlDoc))); */
+        //var xmlDoc = parser.parseFromString(text,"text/xml");
+        //var xmlDoc = parser.parseFromString(evt.target.result,"text/xml");
+        //var s = xmlToJson2(xmlDoc);
+        //let stored = JSON.stringify(json);
     //---------------------------------------------
        
 
     //esto es para pasar de json a xml
 
         let filename2 = document.querySelector('#saved-name').getAttribute('value');
+        var InputJSON = "{College:{entry: [{ Student : 'shiv', Roll_No: 12},{ Student : 'yadav',Roll_No: 56}]}}";
+        var output = eval("OBJtoXML("+InputJSON+");")
+        console.log(output);
 
     //----------------------------------------------
 
     // Aqui ya se descarga
 
+          //la conversion a json la hace directamente en toDownload2
             var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload2());
             var downloadAnchorNode = document.createElement('a');
             downloadAnchorNode.setAttribute("href", dataStr);
@@ -1051,22 +1049,34 @@ class StateEditor extends HTMLElement {
             downloadAnchorNode.remove();        
             break;
 
-      case based:
+      case "based":
            
             // INSERT INTO BD states, Q and type of automaton, M
+          
+            console.log(this.index.a());
+            
 
             var state = this.chart.obtainStates();
-            console.log (state);
+            console.log ("the state is " + state);
+
+            var state2 = state.split("x",1);
+            console.log ("the state2 is " + state2);
+
+            var state3 = state.split(",",1);
+            console.log("el 3 es " + state3);
 
             var aut = this.chart.getType();
-            console.log(aut);
+            console.log("the automaton type is: " + aut);
+
+
+            //let statename = document.querySelector(#states).getAttribute('name');
        
 
           if (this.chart.type === 'AFD' || this.chart.type === 'AFND') 
           
           {
            
-           connection2.Query("INSERT INTO transicionaf VALUES (1,2, 'X','X',' ')");
+           //connection2.Query("INSERT INTO transicionaf VALUES (1,2, 'X','X',' ')");
           }
           else if (this.chart.type === 'APN' || this.chart.type === 'APD' )
           {
@@ -1075,11 +1085,7 @@ class StateEditor extends HTMLElement {
           else if (this.chart.type === 'MTR' || this.chart.type === 'MTC' )
           {
 
-          }
-          // Connection.createQuery("INSERT INTO q VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');");  
-                       //connection.query('INSERT INTO maquinas VALUES (5,3, '['abc', 10, null, true, false]','CCC','CCC','2022-09-09','');', function(error, results, fields) {
-                       
-                       //});   
+          } 
        }
     
   }

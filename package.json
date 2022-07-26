@@ -9,9 +9,13 @@
     "author": "Estibaliz Rodriguez de Yurre, Gaizka Valle Zabala, Maider Pozo Yubero",
     "dependencies": {
         "dom-to-image": "^2.6.0",
-        "express": "^4.17.1",
-        "express-session": "^1.17.1",
-        "html2canvas": "^1.0.0-rc.7",
-        "mysql": "^2.18.1"
+        "express": "^4.17.3",
+        "express-load": "^1.1.16",
+        "express-session": "^1.17.2",
+        "html2canvas": "^1.4.1",
+        "mysql": "^2.18.1",
+        "node-sessionstorage": "^1.0.0",
+        "nodemon": "^2.0.15",
+        "txml": "^5.1.1"
     }
 }
