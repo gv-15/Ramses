@@ -1,3 +1,4 @@
 ramsest=>ramses1
 namet=>Nombre de Usuario
 passwordt=>Contraseña
+bienvenidos=>ay

@@ -189,7 +189,9 @@ export default class SelectionDialog extends HTMLElement {
                 let reader = new FileReader();
                 reader.readAsText(file);
                 reader.onloadend = (evt) => {
+                    console.log("lo de evt" + evt.target.result);
                     let stored = JSON.parse(evt.target.result);
+                    console.log("stored es" + stored);
                     this.data.type = stored[0].type;
                     this.data.sigma = stored[0].sigma;
                     this.data.states = stored[0].states;
@@ -203,10 +205,10 @@ export default class SelectionDialog extends HTMLElement {
                 }
 
             } 
-
             else if(file2 && file==null)
             {
                 let filename2 = file2.name.toLowerCase();
+                console.log("aaa");
                     if (!filename2.endsWith('.xml')) {
                         alert('extensión de fichero no soportada');
                         return;
@@ -215,18 +217,39 @@ export default class SelectionDialog extends HTMLElement {
                 let reader2 = new FileReader();
                 reader2.readAsText(file2);
                 reader2.onloadend = (evt) => {
-                    let stored = evt.target.result;
-                    var parser = new DOMParser();
-                    var xmlDoc = parser.parseFromString(this.data,"text/xml");
-                    console.log(" DE XML A JSONn bb " + JSON.stringify(xmlToJson2(xmlDoc))); 
-                    var dat = JSON.stringify(xmlToJson2(xmlDoc));
-                    a.type = stored[0].type;
-                    a.sigma = stored[0].sigma;
-                    a.states = stored[0].states;
-                    a.stack = stored[0].stack;
-                    a.button = button;
+                    console.log(evt.target.result);
+                    console.log("---------------")
+
+                           var parseXml;
+                           var a = evt.target.result;
+
+                           if (window.DOMParser) {
+                              parseXml = function(a) {
+                                 return ( new window.DOMParser() ).parseFromString(a, "text/xml");
+                              };
+                           } else if (typeof window.ActiveXObject != "undefined" && new window.ActiveXObject("Microsoft.XMLDOM")) {
+                              parseXml = function(a) {
+                                 var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
+                                 xmlDoc.async = "false";
+                                 xmlDoc.loadXML(a);
+                                 return xmlDoc;
+                              };
+                           } else {
+                              parseXml = function() { return null; }
+                           }
+                           var xmlDoc = parseXml(a);
+                           console.log("---------------")
+                           var theJson = xmlToJson2(xmlDoc);
+                           console.log(JSON.stringify(theJson));                          
+
+                  console.log("eyyy" + stored);
+                    this.data.type = stored[0].type;
+                    this.data.sigma = stored[0].sigma;
+                    this.data.states = stored[0].states;
+                    this.data.stack = stored[0].stack;
+                    this.data.button = button;
                     let res = filename2.split(".");
-                    a.filename2 = res[0];
+                    this.data.filename2 = res[0];
                     this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
                     //---------
                     
@@ -317,39 +340,219 @@ export default class SelectionDialog extends HTMLElement {
 customElements.define('selection-dialog', SelectionDialog);
 
 function xmlToJson2(xml) {
-  var obj = {};
-  if (xml.nodeType == 1) {
-    if (xml.attributes.length > 0) {
-      obj["@attributes"] = {};
+   // Create the return object
+   var obj = {};
 
-      for (var j = 0; j < xml.attributes.length; j++) {
-        var attribute = xml.attributes.item(j);
-        obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-      }
-    }
-  } else if (xml.nodeType == 4) {
-    obj = xml.nodeValue;
-  }
-  if (xml.hasChildNodes()) {
-    for (var i = 0; i < xml.childNodes.length; i++) {
-      var item = xml.childNodes.item(i);
-      var nodeName = item.nodeName;
+   // console.log(xml.nodeType, xml.nodeName );
 
-      if (typeof obj[nodeName] == "undefined") {
-        obj[nodeName] = xmlToJson2(item);
-      } else {
-        if (typeof obj[nodeName].length == "undefined") {
-          var old = obj[nodeName];
-          obj[nodeName] = [];
-          obj[nodeName].push(old);
-        }
+   if (xml.nodeType == 1) { // element
+       // do attributes
+       if (xml.attributes.length > 0) {
+       obj["@attributes"] = {};
+           for (var j = 0; j < xml.attributes.length; j++) {
+               var attribute = xml.attributes.item(j);
+               obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+           }
+       }
+   } 
+   else if (xml.nodeType == 3 || 
+            xml.nodeType == 4) { // text and cdata section
+       obj = xml.nodeValue
+   }
 
-        if (typeof obj[nodeName] === "object") {
-          obj[nodeName].push(xmlToJson2(item));
-        }
-      }
-    }
-  }
-
-  return obj;
+   // do children
+   if (xml.hasChildNodes()) {
+       for(var i = 0; i < xml.childNodes.length; i++) {
+           var item = xml.childNodes.item(i);
+           var nodeName = item.nodeName;
+           if (typeof(obj[nodeName]) == "undefined") {
+               obj[nodeName] = xmlToJson2(item);
+           } else {
+               if (typeof(obj[nodeName].length) == "undefined") {
+                   var old = obj[nodeName];
+                   obj[nodeName] = [];
+                   obj[nodeName].push(old);
+               }
+               if (typeof(obj[nodeName]) === 'object') {
+                   obj[nodeName].push(xmlToJson2(item));
+               }
+           }
+       }
+   }
+   return obj;
 }
+
+
+/*
+"{"root":{"fl":[{"@attributes":{"val":"A_Value"},"#text":{}},{"@attributes":{"val":"B_Value"},"#text":{},"#cdata-section":"\"BBBBBBBB\""},{"@attributes":{"val":"C_Value"},"#text":{}},{"@attributes":{"val":"D_Value"},"#text":{}}]}}"
+*/
+  function xml2json(xml, tab) {
+    var X = {
+       toObj: function(xml) {
+          var o = {};
+          if (xml.nodeType==1) {   // element node ..
+             if (xml.attributes.length)   // element with attributes  ..
+                for (var i=0; i<xml.attributes.length; i++)
+                   o["@"+xml.attributes[i].nodeName] = (xml.attributes[i].nodeValue||"").toString();
+             if (xml.firstChild) { // element has child nodes ..
+                var textChild=0, cdataChild=0, hasElementChild=false;
+                for (var n=xml.firstChild; n; n=n.nextSibling) {
+                   if (n.nodeType==1) hasElementChild = true;
+                   else if (n.nodeType==3 && n.nodeValue.match(/[^ \f\n\r\t\v]/)) textChild++; // non-whitespace text
+                   else if (n.nodeType==4) cdataChild++; // cdata section node
+                }
+                if (hasElementChild) {
+                   if (textChild < 2 && cdataChild < 2) { // structured element with evtl. a single text or/and cdata node ..
+                      X.removeWhite(xml);
+                      for (var n=xml.firstChild; n; n=n.nextSibling) {
+                         if (n.nodeType == 3)  // text node
+                            o["#text"] = X.escape(n.nodeValue);
+                         else if (n.nodeType == 4)  // cdata node
+                            o["#cdata"] = X.escape(n.nodeValue);
+                         else if (o[n.nodeName]) {  // multiple occurence of element ..
+                            if (o[n.nodeName] instanceof Array)
+                               o[n.nodeName][o[n.nodeName].length] = X.toObj(n);
+                            else
+                               o[n.nodeName] = [o[n.nodeName], X.toObj(n)];
+                         }
+                         else  // first occurence of element..
+                            o[n.nodeName] = X.toObj(n);
+                      }
+                   }
+                   else { // mixed content
+                      if (!xml.attributes.length)
+                         o = X.escape(X.innerXml(xml));
+                      else
+                         o["#text"] = X.escape(X.innerXml(xml));
+                   }
+                }
+                else if (textChild) { // pure text
+                   if (!xml.attributes.length)
+                      o = X.escape(X.innerXml(xml));
+                   else
+                      o["#text"] = X.escape(X.innerXml(xml));
+                }
+                else if (cdataChild) { // cdata
+                   if (cdataChild > 1)
+                      o = X.escape(X.innerXml(xml));
+                   else
+                      for (var n=xml.firstChild; n; n=n.nextSibling)
+                         o["#cdata"] = X.escape(n.nodeValue);
+                }
+             }
+             if (!xml.attributes.length && !xml.firstChild) o = null;
+          }
+          else if (xml.nodeType==9) { // document.node
+             o = X.toObj(xml.documentElement);
+          }
+          else
+             alert("unhandled node type: " + xml.nodeType);
+          return o;
+       },
+       toJson: function(o, name, ind) {
+          var json = name ? ("\""+name+"\"") : "";
+          if (o instanceof Array) {
+             for (var i=0,n=o.length; i<n; i++)
+                o[i] = X.toJson(o[i], "", ind+"\t");
+             json += (name?":[":"[") + (o.length > 1 ? ("\n"+ind+"\t"+o.join(",\n"+ind+"\t")+"\n"+ind) : o.join("")) + "]";
+          }
+          else if (o == null)
+             json += (name&&":") + "null";
+          else if (typeof(o) == "object") {
+             var arr = [];
+             for (var m in o)
+                arr[arr.length] = X.toJson(o[m], m, ind+"\t");
+             json += (name?":{":"{") + (arr.length > 1 ? ("\n"+ind+"\t"+arr.join(",\n"+ind+"\t")+"\n"+ind) : arr.join("")) + "}";
+          }
+          else if (typeof(o) == "string")
+             json += (name&&":") + "\"" + o.toString() + "\"";
+          else
+             json += (name&&":") + o.toString();
+          return json;
+       },
+       innerXml: function(node) {
+          var s = ""
+          if ("innerHTML" in node)
+             s = node.innerHTML;
+          else {
+             var asXml = function(n) {
+                var s = "";
+                if (n.nodeType == 1) {
+                   s += "<" + n.nodeName;
+                   for (var i=0; i<n.attributes.length;i++)
+                      s += " " + n.attributes[i].nodeName + "=\"" + (n.attributes[i].nodeValue||"").toString() + "\"";
+                   if (n.firstChild) {
+                      s += ">";
+                      for (var c=n.firstChild; c; c=c.nextSibling)
+                         s += asXml(c);
+                      s += "</"+n.nodeName+">";
+                   }
+                   else
+                      s += "/>";
+                }
+                else if (n.nodeType == 3)
+                   s += n.nodeValue;
+                else if (n.nodeType == 4)
+                   s += "<![CDATA[" + n.nodeValue + "]]>";
+                return s;
+             };
+             for (var c=node.firstChild; c; c=c.nextSibling)
+                s += asXml(c);
+          }
+          return s;
+       },
+       escape: function(txt) {
+          return txt.replace(/[\\]/g, "\\\\")
+                    .replace(/[\"]/g, '\\"')
+                    .replace(/[\n]/g, '\\n')
+                    .replace(/[\r]/g, '\\r');
+       },
+       removeWhite: function(e) {
+          e.normalize();
+          for (var n = e.firstChild; n; ) {
+             if (n.nodeType == 3) {  // text node
+                if (!n.nodeValue.match(/[^ \f\n\r\t\v]/)) { // pure whitespace text node
+                   var nxt = n.nextSibling;
+                   e.removeChild(n);
+                   n = nxt;
+                }
+                else
+                   n = n.nextSibling;
+             }
+             else if (n.nodeType == 1) {  // element node
+                X.removeWhite(n);
+                n = n.nextSibling;
+             }
+             else                      // any other node
+                n = n.nextSibling;
+          }
+          return e;
+       }
+    };
+    if (xml.nodeType == 9) // document node
+       xml = xml.documentElement;
+    var json = X.toJson(X.toObj(X.removeWhite(xml)), xml.nodeName, "\t");
+    return "{\n" + tab + (tab ? json.replace(/\t/g, tab) : json.replace(/\t|\n/g, "")) + "\n}";
+ }
+ function parseXml(xml) {
+    var dom = null;
+    if (window.DOMParser) {
+       try { 
+          dom = (new DOMParser()).parseFromString(xml, "text/xml"); 
+       } 
+       catch (e) { dom = null; }
+    }
+    else if (window.ActiveXObject) {
+       try {
+          dom = new ActiveXObject('Microsoft.XMLDOM');
+          dom.async = false;
+          if (!dom.loadXML(xml)) // parse error ..
+ 
+             window.alert(dom.parseError.reason + dom.parseError.srcText);
+       } 
+       catch (e) { dom = null; }
+    }
+    else
+       alert("cannot parse xml string!");
+    return dom;
+ }

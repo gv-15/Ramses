@@ -143,7 +143,11 @@ export default class StateChart {
     let states = [];
     this.states.forEach((st) => states.push(st.toSave()));
     var dat = [{ type: this.type, sigma: this.sigma, states: states }];
-    return this.OBJtoXML2(dat);
+    //var InputJSON = "{College:{entry: [{ Student : 'shiv', Roll_No: 12},{ Student : 'yadav',Roll_No: 56}]}}";
+    var output = eval("OBJtoXML("+dat+");")
+    console.log(output);
+    return output;
+    //return this.OBJtoXML2(dat);
     //return (JSON.stringify(states));
   }
   toJSON() {
