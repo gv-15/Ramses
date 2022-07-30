@@ -138,6 +138,10 @@ export default class SelectionDialog extends HTMLElement {
                         <span> Importar desde JSON</span></br>
                         <input type="file"  name="machine" id="file-input" /></br>
                     </div>
+                    <div>
+                    <span> Importar desde JFLAP</span></br>
+                    <input type="file"  name="machine2" id="file-input2" /></br>
+                </div>
                 </div>
                 <input type="button" id="end" value="Empezar"/>
 
@@ -170,17 +174,24 @@ export default class SelectionDialog extends HTMLElement {
     sendData(button) {
         this.data = {};
         if (button === 'OK') { //modifico campos
-            let file = this.dom.querySelector("#file-input").files[0];
-            if (file) {
+
+            let file = this.dom.querySelector("#file-input").files[0];          
+            let file2 = this.dom.querySelector("#file-input2").files[0];
+            
+            if (file && file2==null) {
                 let filename = file.name.toLowerCase();
+               // let filename2 = file2.name.toLowerCase();
                 if (!filename.endsWith('.json')) {
                     alert('extensión de fichero no soportada');
                     return;
                 }
+
                 let reader = new FileReader();
                 reader.readAsText(file);
                 reader.onloadend = (evt) => {
+                    console.log("lo de evt" + evt.target.result);
                     let stored = JSON.parse(evt.target.result);
+                    console.log("stored es" + stored);
                     this.data.type = stored[0].type;
                     this.data.sigma = stored[0].sigma;
                     this.data.states = stored[0].states;
@@ -189,12 +200,71 @@ export default class SelectionDialog extends HTMLElement {
                     let res = filename.split(".");
                     this.data.filename = res[0];
                     this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
+                    //---------
+                    
                 }
-            } else {
-                this.data.type = this.dom.querySelector("input[name=machine]:checked").value;
-                this.data.sigma = this.dom.querySelector("#alphabet-input").value;
-                this.data.stack = this.dom.querySelector("#stack-alphabet-input").value;
-                this.data.filename = this.dom.querySelector("#filename-input").value;
+
+            } 
+            else if(file2 && file==null)
+            {
+                let filename2 = file2.name.toLowerCase();
+                console.log("aaa");
+                    if (!filename2.endsWith('.xml')) {
+                        alert('extensión de fichero no soportada');
+                        return;
+                    }  
+                    
+                let reader2 = new FileReader();
+                reader2.readAsText(file2);
+                reader2.onloadend = (evt) => {
+                    console.log(evt.target.result);
+                    console.log("---------------")
+
+                           var parseXml;
+                           var a = evt.target.result;
+
+                           if (window.DOMParser) {
+                              parseXml = function(a) {
+                                 return ( new window.DOMParser() ).parseFromString(a, "text/xml");
+                              };
+                           } else if (typeof window.ActiveXObject != "undefined" && new window.ActiveXObject("Microsoft.XMLDOM")) {
+                              parseXml = function(a) {
+                                 var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
+                                 xmlDoc.async = "false";
+                                 xmlDoc.loadXML(a);
+                                 return xmlDoc;
+                              };
+                           } else {
+                              parseXml = function() { return null; }
+                           }
+                           var xmlDoc = parseXml(a);
+                           console.log("---------------")
+                           var theJson = xmlToJson2(xmlDoc);
+                           console.log(JSON.stringify(theJson));                          
+
+                  console.log("eyyy" + stored);
+                    this.data.type = stored[0].type;
+                    this.data.sigma = stored[0].sigma;
+                    this.data.states = stored[0].states;
+                    this.data.stack = stored[0].stack;
+                    this.data.button = button;
+                    let res = filename2.split(".");
+                    this.data.filename2 = res[0];
+                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
+                    //---------
+                    
+                } 
+            }
+            else {
+
+   
+                    this.data.type = this.dom.querySelector("input[name=machine]:checked").value;
+                    this.data.sigma = this.dom.querySelector("#alphabet-input").value;
+                    this.data.stack = this.dom.querySelector("#stack-alphabet-input").value;
+                    this.data.filename = this.dom.querySelector("#filename-input").value;
+
+        
+                
              if(this.data.type == "AFND" || this.data.type == "AFD")
              {
                 if (this.data.type && this.data.sigma && this.data.filename ) {
@@ -202,7 +272,17 @@ export default class SelectionDialog extends HTMLElement {
                     this.data.states = [];
                     this.data.button = button;
                     this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
-                } else {
+                } 
+                else if (this.data.type && this.data.sigma && this.data.filename2)
+                {
+
+                    this.data.states = [];
+                    this.data.button = button;
+                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
+                }
+                
+                
+                else {
                     //console.log("no hay datos suficintes");
                     alert("Rellena todos los campos para continuar");
                     return;
@@ -258,3 +338,47 @@ export default class SelectionDialog extends HTMLElement {
 
 //esto ta fuera de la clase
 customElements.define('selection-dialog', SelectionDialog);
+
+function xmlToJson2(xml) {
+   // Create the return object
+   var obj = {};
+
+   // console.log(xml.nodeType, xml.nodeName );
+
+   if (xml.nodeType == 1) { // element
+       // do attributes
+       if (xml.attributes.length > 0) {
+       obj["@attributes"] = {};
+           for (var j = 0; j < xml.attributes.length; j++) {
+               var attribute = xml.attributes.item(j);
+               obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+           }
+       }
+   } 
+   else if (xml.nodeType == 3 || 
+            xml.nodeType == 4) { // text and cdata section
+       obj = xml.nodeValue
+   }
+
+   // do children
+   if (xml.hasChildNodes()) {
+       for(var i = 0; i < xml.childNodes.length; i++) {
+           var item = xml.childNodes.item(i);
+           var nodeName = item.nodeName;
+           if (typeof(obj[nodeName]) == "undefined") {
+               obj[nodeName] = xmlToJson2(item);
+           } else {
+               if (typeof(obj[nodeName].length) == "undefined") {
+                   var old = obj[nodeName];
+                   obj[nodeName] = [];
+                   obj[nodeName].push(old);
+               }
+               if (typeof(obj[nodeName]) === 'object') {
+                   obj[nodeName].push(xmlToJson2(item));
+               }
+           }
+       }
+   }
+   return obj;
+}
+

@@ -93,7 +93,7 @@ export default class ButtonArray extends HTMLElement {
         #b-drawmode {background-image: url(/static/images/edit.svg);}
         #b-drawmode.selected {background-image: url(/static/images/edit-blue.svg);}
 
-        #b-download, #b-screenshot, #b-json, #b-xml, #b-based,
+        #b-download, #b-screenshot, #b-based , #b-json, #b-xml, #b-based,
         #b-zoomin, #b-zoomout, #b-home, #b-sethome, #b-fit, #b-setzoom,
         #b-state, #b-trans, #b-drag, #b-delete, #b-edit,
         #b-undo, #b-redo, #b-nuevo, #b-total, #b-determinista, #b-complementar, #b-invertir, #b-complementarTotal, 

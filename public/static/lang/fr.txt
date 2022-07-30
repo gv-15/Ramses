@@ -1,3 +1,0 @@
-ramsest=>ramses3
-namet=>nom
-passwordt=>prenom
