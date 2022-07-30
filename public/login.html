@@ -1,59 +1,70 @@
+
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="es">
 
-    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-    <script src="main.js"></script>
-    <script src="lang/en.txt"></script>
-    <script src="lang/es.txt"></script>
-    <script src="lang/fr.txt"></script>
-    
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title data-lang="ramsest">RAMSES</title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script src="main.js"></script>
 
-  <link href="./loginTemplate/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-  <link rel="shortcut icon" href="static/images/FAVICON.png">
-  <meta name="theme-color" content="#7952b3">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAMSES</title>
 
-    <style>
-      .bd-placeholder-img {
+<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
+
+<link href="./loginTemplate/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+<link rel="shortcut icon" href="static/images/FAVICON.png">
+<meta name="theme-color" content="#7952b3">
+
+<style>
+    .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
-      }
+    }
 
-      @media (min-width: 768px) {
+    @media (min-width: 768px) {
         .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+            font-size: 3.5rem;
         }
-    
-      }
-    </style>
-    <link href="./loginTemplate/signin.css" rel="stylesheet">
-    
-  </head>
 
-  <body class="text-center">
+    }
+</style>
+<link href="./loginTemplate/signin.css" rel="stylesheet">
+
+</head>
+
+<body class="text-center">
 <main class="form-signin">
-  <form action="auth" method="POST">
-    <a href="#" id="translate" data-text="English,Español,Français" data-file="es,en,fra" data-index="1">English</a>
-    <span class="loading-lang">Cargando...</span>
-    <img class="mb-4" src="static/images/VERDE-TEXTO.svg" alt="" width="304" height="200">
-    <div class="form-floating">
-      <input type="text" class="form-control" id="username" name="username" placeholder="username" required>
-      <label data-lang="namet" for="floatingInput">Nombre de usuario</label>
-    </div><br>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="password" name="password" placeholder="*******" required>
-      <label data-lang="passwordt" for="floatingPassword">Contraseña</label>
-    </div>
-    <h1 data-lang="bienvenidos">Bienvenido</h1>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-  </form>
+    <form action="auth" method="POST">
+
+        <a data-lang="es" href="javascript:translate(es)">ES</a>
+        <a data-lang="en" href="javascript:translate(en)">EN</a>
+        <a data-lang="fr" href="javascript:translate(fr)">FR</a>
+
+        <img class="mb-4" src="static/images/VERDE-TEXTO.svg" alt="" width="304" height="200">
+        <div class="form-floating">
+            <input type="text" class="form-control" id="username" name="username" placeholder="username" required>
+            <label><p href="#usuario" data-translate="usuario">Nombre de usuario</p></label>
+        </div><br>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="password" name="password" placeholder="*******" required>
+            <label><p href="#contra" data-translate="contra">Contraseña</p></label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit"><p href="#login" data-translate="login">Iniciar sesión</p></button>
+    </form>
 </main>
-</body></html>
+<div style="margin-top: 1000000px; display: none">-->
+        function translate(lang) {
+        <script src="main.js"></script>
+        }
+    </div>
+</body>
+</html>
+
+
+

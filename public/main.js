@@ -1,67 +1,39 @@
-$(document).ready(function(){
-  var selector = '#translate';
-  $(selector).on('click', function(e){
-    e.preventDefault();
-    startLang( $(this) );
-  });
-  var startLang = function(el){
-    var el = $(el);
-    var text = el.attr('data-text');
-    var file = el.attr('data-file');
-    file = file.split(',');
-    text = text.split(',');
-    var login = el.attr('data-index');
-    if(login >= file.length){
-      login = 0;
+var dictionary = { // props in alphabetical order ok? promise?
+// prop   : {fr, en, es}
+  contra  : {fr:"Mot de passe", en:"Password", es:"Contraseña"},
+  login  : {fr:"Connexion", en:"Login", es:"Iniciar sesión"},
+  usuario : {fr:"Nom de l'utilisateur", en:"Username", es:"Nombre de usuario"},
+};
+
+function translate( lan ) {
+  console.log(lan);
+  $("[data-translate]").text(function(){
+
+    var data = this.dataset.translate.split("|");
+    var prop = data[0];  // the dictionary property name
+    var style = data[1]; // "uppercase", "lowercase", "capitalize"
+
+    if(!prop in dictionary) return console.error("No "+ prop +" in dictionary");
+
+    var trans =  dictionary[prop][lan]; // The translated word
+
+// Do we need to apply styles?
+    if(style==="capitalize"){
+      trans = trans.charAt(0).toUpperCase() + trans.slice(1);
+    } else if(style==="uppercase"){
+      trans = trans.toUpperCase();
+    } else if( style==="lowercase"){
+      trans = trans.toLowerCase();
     }
-    changeName(el, text[login]);
-    changeIndex(el, login);
-    loadLang(file[login]);
-    $('html').attr('lang', file[login]);
-  };
 
-  var changeName = function(el, name){
-    $(el).html( name );
-  };
+    return trans;
+  });
+}
 
-  var changeIndex = function(el, login){
-    $(el).attr('data-index', ++login);
-  };
-
-  var loadLang = function(lang){
-    var processLang = function(data){
-      var arr = data.split('\n');
-      for(var i in arr){
-        if( lineValid(arr[i]) ){
-          var obj = arr[i].split('=>');
-          assignText(obj[0], obj[1]);
-        }
-      }
-    };
-    var assignText = function(key, value){
-      $('[data-lang="'+key+'"]').each(function(){
-        var attr = $(this).attr('data-destine');
-        if(typeof attr !== 'undefined'){
-          $(this).attr(attr, value);
-          
-        }else{
-          $(this).html(value);
-        }
-      });
-    };
-    var lineValid = function(line){
-      return (line.trim().length > 0);
-    };
-    /*$('.loading-lang').addClass('show');
-    $.ajax({
-      url: 'lang/'+lang+'.txt',
-      error:function(){
-        alert('No se carga la traducción');
-      },
-      success: function(data){
-        $('.loading-lang').removeClass('show');
-        processLang(data);
-      }
-    });*/
-  };  
+// Swap languages when menu changes
+$("[data-lang]").click(function() {
+  translate( this.dataset.lang );
 });
+
+// Set initial language to French
+translate("es");
