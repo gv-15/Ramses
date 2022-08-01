@@ -277,7 +277,7 @@ class StateEditor extends HTMLElement {
       </svg>
       <transition-dialog id='transition-input' ></transition-dialog>
       <transition-dialog2 id='transition-input2' ></transition-dialog2>
-      <selection-dialog id='selection-input' ></selection-dialog>
+      <selection-dialog id='selection-input'></selection-dialog>
       <state-dialog id='state-input'></state-dialog>
       <div id='data-in-out' class='hide'>
         <div id='data-input'><input type='text' id='input-text'></div>
@@ -888,8 +888,8 @@ class StateEditor extends HTMLElement {
         let machineInfo = document.querySelector("#machine-info");
         if (data.type == "AFND" || data.type == "AFD") {
           machineInfo.innerHTML = `
-                        <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename}</span>
-                        <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
+                        <span id="saved-name" value="${data.filename}"><span href="#nombre" data-translate="nombre">Nombre:</span>${data.filename}</span>
+                        <span id="type" value = "${data.type}" ><span href="#tipo" data-translate="tipo">Tipo:</span>${data.type} </span>
                         <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>`;
         } else {
           machineInfo.innerHTML = `

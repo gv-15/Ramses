@@ -1,9 +1,10 @@
 ﻿<!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <title>RAMSES</title>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
     <script type="module" src="static/js/button-array.js"></script>
     <script type="module" src="static/js/state-editor.js"></script>
     <script src="static/js/counter.js"></script>
@@ -22,6 +23,11 @@
         <div id="all-menus">
             <div id="top-menus">
                 <button-array id='modeButtons'></button-array>
+
+                <a data-lang="es" href="javascript:translate(es)">ES</a>
+                <a data-lang="en" href="javascript:translate(en)">EN</a>
+                <a data-lang="fr" href="javascript:translate(fr)">FR</a>
+
                 <div id="machine-info"></div>
                 <button id="b-logout" type="click" onclick="window.location='/logout';">Logout</button>
                 
@@ -47,6 +53,11 @@
             </div> -->
         </div>
         <state-editor id='state-editor'></state-editor>
+    </div>
+    <div style="margin-top: 1000000px; display: none">-->
+        function translate(lang) {
+        <script src="main.js"></script>
+        }
     </div>
 </body>
 
