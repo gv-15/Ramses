@@ -148,10 +148,100 @@ export default class SelectionDialog extends HTMLElement {
         </dialog>`
             );
         }
+
+    template2() {
+        return (
+            `<dialog id="selection-dialog">
+                <div id="sections-container">
+                    <div class="section">
+                        <span>New machine</span></br>
+                        <div id="radio-container">
+                            <input type="radio" name="machine" id="AFD" value="AFD" checked />
+                            <label for="AFD">AFD</label>
+                            <input type="radio" name="machine" id="AFND" value="AFND"/>
+                            <label for="AFND">AFND</label>
+                            <input type="radio" name="machine"id="APN"  value="APN"/>
+                            <label for="APN">APN</label>
+                            <input type="radio" name="machine" id="MTR"  value="MTR"/>
+                            <label for="MTR">MTR</label>
+                            <input type="radio" name="machine" id="MTC"  value="MTC"/>      
+                            <label for="MTC">MTC</label>
+                        </div>
+                        <div id="text-input-container">
+            
+                            <label id="sigma-label">&#931<input type="text" name="machine" id="alphabet-input" placeholder="p.ej: ab, 01"/></label></br>
+                            <label id="stack-label">&#931 Stack<input type="text"  name="stack-machine" id="stack-alphabet-input" placeholder="p.ej: gv, 15"/></label></br>
+                            <label id="filename-label">Name<input type="text"  name="filename" id="filename-input" placeholder="afd-01"/></label>
+                        </div>
+                    </div>
+                    <div class="headerDivider"></div>
+                    <div>
+                        <span>Import from JSON</span></br>
+                        <input type="file"  name="machine" id="file-input" /></br>
+                    </div>
+                    <div>
+                    <span>Import from JFLAP</span></br>
+                    <input type="file"  name="machine2" id="file-input2" /></br>
+                </div>
+                </div>
+                <input type="button" id="end" value="Start"/>
+
+        </dialog>`
+        );
+    }
+
+    template3() {
+        return (
+            `<dialog id="selection-dialog">
+                <div id="sections-container">
+                    <div class="section">
+                        <span>Machine neuve</span></br>
+                        <div id="radio-container">
+                            <input type="radio" name="machine" id="AFD" value="AFD" checked />
+                            <label for="AFD">AFD</label>
+                            <input type="radio" name="machine" id="AFND" value="AFND"/>
+                            <label for="AFND">AFND</label>
+                            <input type="radio" name="machine"id="APN"  value="APN"/>
+                            <label for="APN">APN</label>
+                            <input type="radio" name="machine" id="MTR"  value="MTR"/>
+                            <label for="MTR">MTR</label>
+                            <input type="radio" name="machine" id="MTC"  value="MTC"/>      
+                            <label for="MTC">MTC</label>
+                        </div>
+                        <div id="text-input-container">
+            
+                            <label id="sigma-label">&#931<input type="text" name="machine" id="alphabet-input" placeholder="p.ej: ab, 01"/></label></br>
+                            <label id="stack-label">&#931 Batterie<input type="text"  name="stack-machine" id="stack-alphabet-input" placeholder="p.ej: gv, 15"/></label></br>
+                            <label id="filename-label">Nom<input type="text"  name="filename" id="filename-input" placeholder="afd-01"/></label>
+                        </div>
+                    </div>
+                    <div class="headerDivider"></div>
+                    <div>
+                        <span>Importation à partir de JSON</span></br>
+                        <input type="file"  name="machine" id="file-input" /></br>
+                    </div>
+                    <div>
+                    <span>Importation à partir de JFLAP</span></br>
+                    <input type="file" name="machine2" id="file-input2"/></br>
+                </div>
+                </div>
+                <input type="button" id="end" value="Commencer"/>
+
+        </dialog>`
+        );
+    }
+
         //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
     connectedCallback() {
-
-        this.dom.innerHTML = this.style() + this.template();
+        if(getLang() === 'es') {
+            this.dom.innerHTML = this.style() + this.template();
+        }
+        else if(getLang() === 'en') {
+            this.dom.innerHTML = this.style() + this.template2();
+        }
+        else {
+            this.dom.innerHTML = this.style() + this.template3();
+        }
         this.dialog = this.dom.querySelector('#selection-dialog');
         this.data = { type: '', sigma: '', stack: '', states: [] };
         this.dom.querySelector('#end').addEventListener('click', () => this.sendData('OK'));
@@ -308,6 +398,7 @@ export default class SelectionDialog extends HTMLElement {
         this.dialog.close()
     }
     open() {
+        this.connectedCallback();
         this.dialog.showModal();
     }
     disconnectedCallback() {}

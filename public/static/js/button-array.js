@@ -165,7 +165,7 @@ export default class ButtonArray extends HTMLElement {
             z-index: 1;
         }
         .tooltiptext:before {
-            content 'holaaa';
+            content 'pruebita';
             background-color: pink;
             border-color: black;
         }

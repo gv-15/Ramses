@@ -4,10 +4,19 @@ var dictionary = { // props in alphabetical order ok? promise?
   login  : {fr:"Connexion", en:"Login", es:"Iniciar sesión"},
   nombre : {fr:"Nom:", en:"Name:", es:"Nombre:"},
   tipo  : {fr:"Type:", en:"Type:", es:"Tipo:"},
+  pila :  {fr:"Batterie:", en:"Stack::", es:"Pila:"},
   usuario : {fr:"Nom de l'utilisateur", en:"Username", es:"Nombre de usuario"},
 };
 
+let idioma;
+
+function getLang() {
+  return this.idioma;
+}
+
+
 function translate( lan ) {
+  this.idioma = lan;
   console.log('Cambiamos al idioma '+ lan);
   $("[data-translate]").text(function(){
 
@@ -39,3 +48,4 @@ $("[data-lang]").click(function() {
 
 // Set initial language to spanish
 translate("es");
+console.log(getLang());

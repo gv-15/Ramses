@@ -153,12 +153,13 @@ const undoButtonsData = {
     },
   ],
 };
+
 const modeButtonsData = {
   appName: "mode",
   type: "radio",
   buttons: [
     {
-      value: "Modo Dibujar",
+      value: 'Modo dibujar',
       action: "draw",
       class: "selected",
       id: "b-drawmode",
@@ -277,7 +278,7 @@ class StateEditor extends HTMLElement {
       </svg>
       <transition-dialog id='transition-input' ></transition-dialog>
       <transition-dialog2 id='transition-input2' ></transition-dialog2>
-      <selection-dialog id='selection-input'></selection-dialog>
+      <selection-dialog id='selection-input' idioma="getLang()"></selection-dialog>
       <state-dialog id='state-input'></state-dialog>
       <div id='data-in-out' class='hide'>
         <div id='data-input'><input type='text' id='input-text'></div>
@@ -896,7 +897,7 @@ class StateEditor extends HTMLElement {
                             <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename}</span>
                             <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
                             <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>
-                            <span id="sigma" value = "${data.stack}"> &#931 Pila: ${data.stack} </span>`;
+                            <span id="sigma" value = "${data.stack}"> &#931 <span href="#pila" data-translate="pila">Pila:</span> ${data.stack} </span>`;
         }
         break;
       default:
