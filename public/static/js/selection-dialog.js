@@ -332,11 +332,11 @@ export default class SelectionDialog extends HTMLElement {
                            var theJson = xmlToJson2(xmlDoc);
                            console.log(JSON.stringify(theJson));                          
 
-                  console.log("eyyy" + stored);
-                    this.data.type = stored[0].type;
-                    this.data.sigma = stored[0].sigma;
-                    this.data.states = stored[0].states;
-                    this.data.stack = stored[0].stack;
+                  console.log("eyyy" + theJson);
+                    this.data.type = theJson[0].type;
+                    this.data.sigma = theJson[0].sigma;
+                    this.data.states = theJson[0].states;
+                    this.data.stack = theJson[0].stack;
                     this.data.button = button;
                     let res = filename2.split(".");
                     this.data.filename2 = res[0];
