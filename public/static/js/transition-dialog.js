@@ -69,11 +69,60 @@ export default class TransitionDialog extends HTMLElement {
         </div>
         </dialog>`
         ); 
-        }
+    }
+    template2() {
+        return (
+            `<dialog id="transition-dialog">
+        <select id='select-transition'></select>
+        <input type="button" id="add" value=" Add "/>
+        <input type="button" id="del" value=" Delete "/></br></br>
+        <select id='select-stack-transition'></select>
+        <input type="button" id="add2" value=" Add "/>
+        <input type="button" id="del2" value=" Delete "/></br></br>
+        <select id='select-stack-transition2'></select>
+        <input type="button" id="add3" value=" Add "/>
+        <input type="button" id="del3" value=" Delete "/></br></br>
+        <span id='name' ></span>,<span id='name2' ></span>;<span id='name3' ></span></br>
+        <span id='optional-text'></span></br>
+        <div id="buttons">
+        <input type="button" id="esc" value="Exit"/>
+        <input type="button" id="end" value="Send"/>
+        </div>
+        </dialog>`
+        );
+    }
+    template3() {
+        return (
+            `<dialog id="transition-dialog">
+        <select id='select-transition'></select>
+        <input type="button" id="add" value=" Ajouter "/>
+        <input type="button" id="del" value=" Supprimer "/></br></br>
+        <select id='select-stack-transition'></select>
+        <input type="button" id="add2" value=" Ajouter "/>
+        <input type="button" id="del2" value=" Supprimer "/></br></br>
+        <select id='select-stack-transition2'></select>
+        <input type="button" id="add3" value=" Ajouter "/>
+        <input type="button" id="del3" value=" Supprimer "/></br></br>
+        <span id='name' ></span>,<span id='name2' ></span>;<span id='name3' ></span></br>
+        <span id='optional-text'></span></br>
+        <div id="buttons">
+        <input type="button" id="esc" value="Sortie"/>
+        <input type="button" id="end" value="Envoyer"/>
+        </div>
+        </dialog>`
+        );
+    }
         //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
     connectedCallback() {
+        if(getLang() === 'es') {
             this.dom.innerHTML = this.style() + this.template();
-            this.dialog = this.dom.querySelector('#transition-dialog'),
+        }
+        else if(getLang() === 'en') {
+            this.dom.innerHTML = this.style() + this.template2();
+        }
+        else {
+            this.dom.innerHTML = this.style() + this.template3();
+        }            this.dialog = this.dom.querySelector('#transition-dialog'),
             this.nameNode = this.dom.querySelector('#name');
             this.nameNode2 = this.dom.querySelector('#name2');
             this.nameNode3 = this.dom.querySelector('#name3');
@@ -150,6 +199,7 @@ export default class TransitionDialog extends HTMLElement {
     }
     open(data, alphabet, stack) {
             //copia de los datos del estado
+            this.connectedCallback();
             this.oldData = JSON.parse(JSON.stringify(data)); //por si hay que recuperar? esto hace un clone sencillo
             this.type = (alphabet.indexOf('\u03f5') !== -1) ? 'NFA' : 'DFA';
             this.nameNode.innerText = data.name;

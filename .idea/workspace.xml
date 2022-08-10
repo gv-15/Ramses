@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7fc5de50-42d9-4c75-9edc-f0d4d7fc2ff8" name="Changes" comment="">
+    <list default="true" id="7fc5de50-42d9-4c75-9edc-f0d4d7fc2ff8" name="Changes" comment="fix: buttons text v1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/lang/es.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/lang/es.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/selection-dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/selection-dialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/state-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/state-chart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/state-editor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/state-editor.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +72,12 @@
       <updated>1658851454709</updated>
       <workItem from="1658851466209" duration="205000" />
       <workItem from="1658944711675" duration="2299000" />
-      <workItem from="1659176065686" duration="6321000" />
+      <workItem from="1659176065686" duration="6973000" />
+      <workItem from="1659183211612" duration="138000" />
+      <workItem from="1659196122462" duration="23000" />
+      <workItem from="1659388278592" duration="6324000" />
+      <workItem from="1659448118350" duration="4872000" />
+      <workItem from="1660140557963" duration="5893000" />
     </task>
     <task id="LOCAL-00001" summary="fix: nodemodules">
       <created>1658851610630</created>
@@ -81,7 +86,42 @@
       <option name="project" value="LOCAL" />
       <updated>1658851610630</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: translate login">
+      <created>1659182905665</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1659182905665</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: traduce más cositas miralo">
+      <created>1659394583559</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1659394583559</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: más traducciones de ejemplo">
+      <created>1659452921362</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1659452921362</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: all page translate, no buttons yet">
+      <created>1660143132695</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1660143132695</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fix: buttons text v1">
+      <created>1660144805676</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1660144805676</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -99,9 +139,15 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="fix: nodemodules" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: nodemodules" />
+    <MESSAGE value="feat: translate login" />
+    <MESSAGE value="feat: traduce más cositas miralo" />
+    <MESSAGE value="feat: más traducciones de ejemplo" />
+    <MESSAGE value="feat: all page translate, no buttons yet" />
+    <MESSAGE value="fix: buttons text v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: buttons text v1" />
   </component>
 </project>

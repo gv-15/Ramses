@@ -2,11 +2,22 @@ var dictionary = { // props in alphabetical order ok? promise?
 // prop   : {fr, en, es}
   contra  : {fr:"Mot de passe", en:"Password", es:"Contraseña"},
   login  : {fr:"Connexion", en:"Login", es:"Iniciar sesión"},
+  nombre : {fr:"Nom:", en:"Name:", es:"Nombre:"},
+  tipo  : {fr:"Type:", en:"Type:", es:"Tipo:"},
+  pila :  {fr:"Batterie:", en:"Stack::", es:"Pila:"},
   usuario : {fr:"Nom de l'utilisateur", en:"Username", es:"Nombre de usuario"},
 };
 
+let idioma;
+
+function getLang() {
+  return idioma;
+}
+
+
 function translate( lan ) {
-  console.log(lan);
+  idioma = lan;
+  console.log('Cambiamos al idioma '+ lan);
   $("[data-translate]").text(function(){
 
     var data = this.dataset.translate.split("|");
@@ -35,5 +46,6 @@ $("[data-lang]").click(function() {
   translate( this.dataset.lang );
 });
 
-// Set initial language to French
-translate("es");
+// Set initial language to spanish
+translate('es');
+console.log(getLang());

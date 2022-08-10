@@ -153,18 +153,19 @@ const undoButtonsData = {
     },
   ],
 };
+
 const modeButtonsData = {
   appName: "mode",
   type: "radio",
   buttons: [
     {
-      value: "Modo Dibujar",
+      value: 'Modo dibujar',
       action: "draw",
       class: "selected",
       id: "b-drawmode",
     },
     {
-      value: "Modo Ejecutar",
+      value: "Modo ejecutar",
       action: "test",
       id: "b-testmode",
     },
@@ -277,7 +278,7 @@ class StateEditor extends HTMLElement {
       </svg>
       <transition-dialog id='transition-input' ></transition-dialog>
       <transition-dialog2 id='transition-input2' ></transition-dialog2>
-      <selection-dialog id='selection-input' ></selection-dialog>
+      <selection-dialog id='selection-input' idioma="getLang()"></selection-dialog>
       <state-dialog id='state-input'></state-dialog>
       <div id='data-in-out' class='hide'>
         <div id='data-input'><input type='text' id='input-text'></div>
@@ -888,15 +889,15 @@ class StateEditor extends HTMLElement {
         let machineInfo = document.querySelector("#machine-info");
         if (data.type == "AFND" || data.type == "AFD") {
           machineInfo.innerHTML = `
-                        <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename}</span>
-                        <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
+                        <span id="saved-name" value="${data.filename}"><span href="#nombre" data-translate="nombre">Nombre:</span>${data.filename}</span>
+                        <span id="type" value = "${data.type}" ><span href="#tipo" data-translate="tipo">Tipo:</span>${data.type} </span>
                         <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>`;
         } else {
           machineInfo.innerHTML = `
-                            <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename}</span>
-                            <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
-                            <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>
-                            <span id="sigma" value = "${data.stack}"> &#931 Pila: ${data.stack} </span>`;
+                        <span id="saved-name" value="${data.filename}"><span href="#nombre" data-translate="nombre">Nombre:</span>${data.filename}</span>
+                        <span id="type" value = "${data.type}" ><span href="#tipo" data-translate="tipo">Tipo:</span>${data.type} </span>
+                        <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>;
+                         <span id="sigma" value = "${data.stack}"> &#931 <span href="#pila" data-translate="pila">Pila:</span> ${data.stack} </span>`
         }
         break;
       default:
@@ -967,6 +968,43 @@ class StateEditor extends HTMLElement {
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
         break;
+      case "xml":
+        //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
+
+        console.log("--------------");
+        console.log(data2);
+
+
+        //-------------------------- -----------------
+        // esto es para pasar de XML a JSON
+
+        var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
+        var parser = new DOMParser();
+        //var xmlDoc = parser.parseFromString(text,"text/xml");
+        //var xmlDoc = parser.parseFromString(evt.target.result,"text/xml");
+        //var s = xmlToJson2(xmlDoc);
+        //let stored = JSON.stringify(json);
+        //---------------------------------------------
+        //esto es para pasar de json a xml
+        let filename2 = document.querySelector('#saved-name').getAttribute('value');
+        var InputJSON = "{College:{entry: [{ Student : 'shiv', Roll_No: 12},{ Student : 'yadav',Roll_No: 56}]}}";
+        var output = eval("OBJtoXML("+InputJSON+");")
+        //console.log(output);
+        //----------------------------------------------
+        // Aqui ya se descarga
+        //la conversion a json la hace directamente en toDownload2
+        var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload2());
+        //console.log(dataStr);
+        var downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        //console.log("llega aqui");
+        downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
+        //console.log("llega aqui 2");
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+        break;
+
       case "screenshot":
         console.log("screenshot");
         let svg = this.shadowRoot.getElementById("svg-view");
@@ -1006,55 +1044,12 @@ class StateEditor extends HTMLElement {
         break;
       default:
         break;
-      case "xml":
-        console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
-
-        alert("entra");
-        console.log("--------------");
-        console.log(data2);
-   
-        
-    //-------------------------- -----------------
-    // esto es para pasar de XML a JSON
-      
-        var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
-        var parser = new DOMParser();
-        //var xmlDoc = parser.parseFromString(text,"text/xml");
-        //var xmlDoc = parser.parseFromString(evt.target.result,"text/xml");
-        //var s = xmlToJson2(xmlDoc);
-        //let stored = JSON.stringify(json);
-    //---------------------------------------------
-       
-
-    //esto es para pasar de json a xml
-
-        let filename2 = document.querySelector('#saved-name').getAttribute('value');
-        var InputJSON = "{College:{entry: [{ Student : 'shiv', Roll_No: 12},{ Student : 'yadav',Roll_No: 56}]}}";
-        var output = eval("OBJtoXML("+InputJSON+");")
-        console.log(output);
-
-    //----------------------------------------------
-
-    // Aqui ya se descarga
-
-          //la conversion a json la hace directamente en toDownload2
-            var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload2());
-            var downloadAnchorNode = document.createElement('a');
-            downloadAnchorNode.setAttribute("href", dataStr);
-            console.log("llega aqui");
-            downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
-            console.log("llega aqui 2");
-            document.body.appendChild(downloadAnchorNode);
-            downloadAnchorNode.click();
-            downloadAnchorNode.remove();        
-            break;
 
       case "based":
            
             // INSERT INTO BD states, Q and type of automaton, M
           
             console.log(this.index.a());
-            
 
             var state = this.chart.obtainStates();
             console.log ("the state is " + state);

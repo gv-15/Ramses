@@ -71,25 +71,15 @@ export default class ButtonArray extends HTMLElement {
             display: none;
         }
 
-        #b-testmode {
-            color: black;
-            border:none;
-            background-repeat: no-repeat;
-            background-position: right;
-        }
         #b-testmode {background-image: url(/static/images/lightning.svg);}
         #b-testmode.selected {background-image: url(/static/images/lightning-blue.svg);}
 
         #b-testmode.selected, #b-drawmode.selected {
-            color: cornflowerblue;
+             background-repeat: no-repeat;
+             background-color: #b6effb;
+             background-position: center;
         }
 
-        #b-drawmode {
-            color: black;
-            border:none;
-            background-repeat: no-repeat;
-            background-position: left;
-        }
         #b-drawmode {background-image: url(/static/images/edit.svg);}
         #b-drawmode.selected {background-image: url(/static/images/edit-blue.svg);}
 
@@ -97,7 +87,7 @@ export default class ButtonArray extends HTMLElement {
         #b-zoomin, #b-zoomout, #b-home, #b-sethome, #b-fit, #b-setzoom,
         #b-state, #b-trans, #b-drag, #b-delete, #b-edit,
         #b-undo, #b-redo, #b-nuevo, #b-total, #b-determinista, #b-complementar, #b-invertir, #b-complementarTotal, 
-        #b-play, #b-stop, #b-back, #b-fback, #b-fforward {
+        #b-play, #b-stop, #b-back, #b-fback, #b-fforward, #b-drawmode, #b-testmode {
             background-repeat: no-repeat;
             background-position: center;
         }
@@ -165,7 +155,7 @@ export default class ButtonArray extends HTMLElement {
             z-index: 1;
         }
         .tooltiptext:before {
-            content 'holaaa';
+            content 'pruebita';
             background-color: pink;
             border-color: black;
         }
