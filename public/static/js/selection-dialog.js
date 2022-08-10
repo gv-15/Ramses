@@ -99,7 +99,7 @@ export default class SelectionDialog extends HTMLElement {
 
         .headerDivider {
             margin-right: 8px;
-            margin-left: 8spx;
+            margin-left: 8px;
             border-left: 1px solid #38546d;
             border-right: 1px solid #16222c;
             height: auto;
@@ -218,7 +218,7 @@ export default class SelectionDialog extends HTMLElement {
                     <div class="headerDivider"></div>
                     <div>
                         <span>Importation à partir de JSON</span></br>
-                        <input type="file"  name="machine" id="file-input" /></br>
+                        <input type="file"  name="machine" id="file-input"/></br>
                     </div>
                     <div>
                     <span>Importation à partir de JFLAP</span></br>

@@ -138,7 +138,7 @@ svg {
 }
 
 #modeButtons {
-    color: white;
+    color: transparent;
     background-color: cornflowerblue;
     display: flex;
     width: 10%;

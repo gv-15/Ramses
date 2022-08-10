@@ -159,13 +159,13 @@ const modeButtonsData = {
   type: "radio",
   buttons: [
     {
-      value: '',
+      value: 'Modo dibujar',
       action: "draw",
       class: "selected",
       id: "b-drawmode",
     },
     {
-      value: "",
+      value: "Modo ejecutar",
       action: "test",
       id: "b-testmode",
     },

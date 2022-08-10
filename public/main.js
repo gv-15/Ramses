@@ -11,12 +11,12 @@ var dictionary = { // props in alphabetical order ok? promise?
 let idioma;
 
 function getLang() {
-  return this.idioma;
+  return idioma;
 }
 
 
 function translate( lan ) {
-  this.idioma = lan;
+  idioma = lan;
   console.log('Cambiamos al idioma '+ lan);
   $("[data-translate]").text(function(){
 
@@ -47,5 +47,5 @@ $("[data-lang]").click(function() {
 });
 
 // Set initial language to spanish
-translate("es");
+translate('es');
 console.log(getLang());
