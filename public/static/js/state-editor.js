@@ -159,13 +159,13 @@ const modeButtonsData = {
   type: "radio",
   buttons: [
     {
-      value: 'Modo dibujar',
+      value: '',
       action: "draw",
       class: "selected",
       id: "b-drawmode",
     },
     {
-      value: "Modo Ejecutar",
+      value: "",
       action: "test",
       id: "b-testmode",
     },
@@ -894,10 +894,10 @@ class StateEditor extends HTMLElement {
                         <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>`;
         } else {
           machineInfo.innerHTML = `
-                            <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename}</span>
-                            <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
-                            <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>
-                            <span id="sigma" value = "${data.stack}"> &#931 <span href="#pila" data-translate="pila">Pila:</span> ${data.stack} </span>`;
+                        <span id="saved-name" value="${data.filename}"><span href="#nombre" data-translate="nombre">Nombre:</span>${data.filename}</span>
+                        <span id="type" value = "${data.type}" ><span href="#tipo" data-translate="tipo">Tipo:</span>${data.type} </span>
+                        <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>;
+                         <span id="sigma" value = "${data.stack}"> &#931 <span href="#pila" data-translate="pila">Pila:</span> ${data.stack} </span>`
         }
         break;
       default:

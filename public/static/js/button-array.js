@@ -75,7 +75,7 @@ export default class ButtonArray extends HTMLElement {
             color: black;
             border:none;
             background-repeat: no-repeat;
-            background-position: right;
+            background-position: center;
         }
         #b-testmode {background-image: url(/static/images/lightning.svg);}
         #b-testmode.selected {background-image: url(/static/images/lightning-blue.svg);}
@@ -88,7 +88,7 @@ export default class ButtonArray extends HTMLElement {
             color: black;
             border:none;
             background-repeat: no-repeat;
-            background-position: left;
+            background-position: center;
         }
         #b-drawmode {background-image: url(/static/images/edit.svg);}
         #b-drawmode.selected {background-image: url(/static/images/edit-blue.svg);}

@@ -67,14 +67,55 @@ export default class TransitionDialog2 extends HTMLElement {
         </div>
         </dialog>`
         ); 
-    
-   
-        }
-        //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
-    connectedCallback() {
-          
 
+    }
+    template2() {
+
+        return (
+            `<dialog id="transition-dialog2">
+        <select id='select-transition'></select>
+        <input type="button" id="add" value=" Add "/>
+        <input type="button" id="del" value=" Delete "/></br></br>
+        <span id='name' ></span></span></br>
+        <span id='optional-text'></span></br>
+        <div id="buttons">
+         <input type="button" id="esc" value="Exit"/>
+         <input type="button" id="end" value="Send"/>
+        </div>
+        </dialog>`
+        );
+
+    }
+    template3() {
+
+        return (
+            `<dialog id="transition-dialog2">
+        <select id='select-transition'></select>
+        <input type="button" id="add" value=" Ajouter "/>
+        <input type="button" id="del" value=" Supprimer "/></br></br>
+        <span id='name' ></span></span></br>
+        <span id='optional-text'></span></br>
+        <div id="buttons">
+         <input type="button" id="esc" value="Sortie"/>
+         <input type="button" id="end" value="Envoyer"/>
+        </div>
+        </dialog>`
+        );
+
+    }
+        //Aquí se llama cuando se conectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
+    connectedCallback() {
+
+        if(getLang() === 'es') {
             this.dom.innerHTML = this.style() + this.template();
+        }
+        else if(getLang() === 'en') {
+            this.dom.innerHTML = this.style() + this.template2();
+        }
+        else {
+            this.dom.innerHTML = this.style() + this.template3();
+        }
+
             this.dialog = this.dom.querySelector('#transition-dialog2'),
             this.nameNode = this.dom.querySelector('#name');
             this.selNode = this.dom.querySelector('#select-transition');
@@ -87,7 +128,6 @@ export default class TransitionDialog2 extends HTMLElement {
                 if (this.type === 'DFA'){
 
                     this.nameNode.innerText = this.selNode.value;
-                 
 
                 }
 
@@ -128,12 +168,14 @@ export default class TransitionDialog2 extends HTMLElement {
     }
     open(data, alphabet, stack) {
             //copia de los datos del estado
+            this.connectedCallback();
             this.oldData = JSON.parse(JSON.stringify(data)); //por si hay que recuperar? esto hace un clone sencillo
             this.type = (alphabet.indexOf('\u03f5') !== -1) ? 'NFA' : 'DFA';
             this.nameNode.innerText = data.name;
             this.dom.querySelector('#optional-text').innerText = data.text || ''; //Aquí vendría texto de error
             this.selNode.innerHTML = alphabet.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), ""); //de donde sale este alphabet
-            this.dialog.showModal();
+
+        this.dialog.showModal();
             
             
                 }
