@@ -133,13 +133,17 @@ export default class SelectionDialog extends HTMLElement {
                             <label id="filename-label">Nombre<input type="text"  name="filename" id="filename-input" placeholder="afd-01"/></label>
                         </div>
                     </div>
-                    <div class="headerDivider"></div>
+                    <div class="headerDivider">
+                    <a data-lang="es" href="javascript:translate(es)">ES</a>
+                    <a data-lang="en" href="javascript:translate(en)">EN</a>
+                    <a data-lang="fr" href="javascript:translate(fr)">FR</a>
+                    </div>
                     <div>
                         <span> Importar desde JSON</span></br>
                         <input type="file"  name="machine" id="file-input" /></br>
                     </div>
                     <div>
-                    <span> Importar desde JFLAP</span></br>
+                    <span>Importar desde JFLAP</span></br>
                     <input type="file"  name="machine2" id="file-input2" /></br>
                 </div>
                 </div>
