@@ -994,7 +994,7 @@ class StateEditor extends HTMLElement {
         // Aqui ya se descarga
         //la conversion a json la hace directamente en toDownload2
         var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload2());
-        //console.log(dataStr);
+        console.log(dataStr);
         var downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute("href", dataStr);
         //console.log("llega aqui");

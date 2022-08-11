@@ -139,7 +139,7 @@ export default class StateChart {
     //return (JSON.stringify(states));
   }
   toDownload2() {
-    console.log('estoy aqui descargando de tranqui');
+    console.log('estoy aqui descargando');
     //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
     let states = [];
     this.states.forEach((st) => states.push(st.toSave()));
@@ -557,6 +557,7 @@ export default class StateChart {
       xml += obj[prop] instanceof Array ? "" : "</" + prop + ">";
     }
     var xml = xml.replace(/<\/?[0-9]{1,}>/g, "");
+   
 
     return xml;
  

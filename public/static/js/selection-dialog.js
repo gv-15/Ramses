@@ -286,6 +286,7 @@ export default class SelectionDialog extends HTMLElement {
                     console.log("lo de evt" + evt.target.result);
                     let stored = JSON.parse(evt.target.result);
                     console.log("stored es" + stored);
+                    console.log(stored[0].type);
                     this.data.type = stored[0].type;
                     this.data.sigma = stored[0].sigma;
                     this.data.states = stored[0].states;
@@ -314,33 +315,33 @@ export default class SelectionDialog extends HTMLElement {
                     console.log(evt.target.result);
                     console.log("---------------")
 
-                           var parseXml;
+                           
                            var a = evt.target.result;
+                           const parser = new DOMParser();
 
-                           if (window.DOMParser) {
-                              parseXml = function(a) {
-                                 return ( new window.DOMParser() ).parseFromString(a, "text/xml");
-                              };
-                           } else if (typeof window.ActiveXObject != "undefined" && new window.ActiveXObject("Microsoft.XMLDOM")) {
-                              parseXml = function(a) {
-                                 var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
-                                 xmlDoc.async = "false";
-                                 xmlDoc.loadXML(a);
-                                 return xmlDoc;
-                              };
-                           } else {
-                              parseXml = function() { return null; }
-                           }
-                           var xmlDoc = parseXml(a);
-                           console.log("---------------")
-                           var theJson = xmlToJson2(xmlDoc);
-                           console.log(JSON.stringify(theJson));                          
+                           const xmlString = "<warning>Beware of the missing closing tag</warning>";
+                           var b = "<automaton>" + a + "</automaton>";
+                           var c = formatXml(b);
+                           console.log(c);
+                           const doc = parser.parseFromString(c, "application/xml");
+                           console.log(doc);                      
+                           var theJson = xmlToJson2(doc);
+                          
 
-                  console.log("eyyy" + theJson);
-                    this.data.type = theJson[0].type;
-                    this.data.sigma = theJson[0].sigma;
-                    this.data.states = theJson[0].states;
-                    this.data.stack = theJson[0].stack;
+                           /*const bby= "<type>AFD</type><sigma>ab,01</sigma>";
+                           var ay = "<automaton>" + a + "</automaton>";
+                           var ojala = formatXml(ay);
+                           const docc = parser.parseFromString(ojala, "application/xml");
+                           console.log(docc);                          
+                           var oooo = xmlToJson2(docc);
+                           console.log("convierte asi" + oooo);*/
+
+                   console.log("eyyy" + theJson); 
+                   console.log(doc.querySelector('type')?.textContent || 'default');
+                    this.data.type = doc.querySelector('type')?.textContent || 'default';
+                    this.data.sigma = doc.querySelector('sigma')?.textContent || 'default';
+                    this.data.states = doc.querySelector('states')?.textContent || 'default';
+                    this.data.stack = doc.querySelector('stack')?.textContent || 'default';
                     this.data.button = button;
                     let res = filename2.split(".");
                     this.data.filename2 = res[0];
@@ -349,16 +350,12 @@ export default class SelectionDialog extends HTMLElement {
                     
                 } 
             }
-            else {
-
-   
+            else {  
                     this.data.type = this.dom.querySelector("input[name=machine]:checked").value;
                     this.data.sigma = this.dom.querySelector("#alphabet-input").value;
                     this.data.stack = this.dom.querySelector("#stack-alphabet-input").value;
                     this.data.filename = this.dom.querySelector("#filename-input").value;
-
-        
-                
+                       
              if(this.data.type == "AFND" || this.data.type == "AFD")
              {
                 if (this.data.type && this.data.sigma && this.data.filename ) {
@@ -434,6 +431,22 @@ export default class SelectionDialog extends HTMLElement {
 //esto ta fuera de la clase
 customElements.define('selection-dialog', SelectionDialog);
 
+function parseXml(xml) {
+    var dom = null;
+    if (window.DOMParser) {
+       try { 
+          dom = (new DOMParser()).parseFromString(xml, "text/xml"); 
+          console.log(dom);
+       } 
+       catch (e) { dom = null; }
+    }
+    else
+       alert("cannot parse xml string!");
+    return dom;
+ }
+ 
+
+
 function xmlToJson2(xml) {
    // Create the return object
    var obj = {};
@@ -470,10 +483,23 @@ function xmlToJson2(xml) {
                }
                if (typeof(obj[nodeName]) === 'object') {
                    obj[nodeName].push(xmlToJson2(item));
+                   
                }
            }
        }
    }
+   
    return obj;
 }
 
+
+function formatXml(xml, tab) { // tab = optional indent value, default is tab (\t)
+    var formatted = '', indent= '';
+    tab = tab || '\t';
+    xml.split(/>\s*</).forEach(function(node) {
+        if (node.match( /^\/\w/ )) indent = indent.substring(tab.length); // decrease indent by one 'tab'
+        formatted += indent + '<' + node + '>\r\n';
+        if (node.match( /^<?\w[^>]*[^\/]$/ )) indent += tab;              // increase indent
+    });
+    return formatted.substring(1, formatted.length-3);
+}
