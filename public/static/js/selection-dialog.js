@@ -290,6 +290,7 @@ export default class SelectionDialog extends HTMLElement {
                     this.data.type = stored[0].type;
                     this.data.sigma = stored[0].sigma;
                     this.data.states = stored[0].states;
+                    console.log("los state son" + stored[0].states);
                     this.data.stack = stored[0].stack;
                     this.data.button = button;
                     let res = filename.split(".");
@@ -313,9 +314,7 @@ export default class SelectionDialog extends HTMLElement {
                 reader2.readAsText(file2);
                 reader2.onloadend = (evt) => {
                     console.log(evt.target.result);
-                    console.log("---------------")
-
-                           
+                    console.log("---------------")                          
                            var a = evt.target.result;
                            const parser = new DOMParser();
 
@@ -326,8 +325,8 @@ export default class SelectionDialog extends HTMLElement {
                            const doc = parser.parseFromString(c, "application/xml");
                            console.log(doc);                      
                            var theJson = xmlToJson2(doc);
+                           //var theJson2 =  JSON.parse(theJson);
                           
-
                            /*const bby= "<type>AFD</type><sigma>ab,01</sigma>";
                            var ay = "<automaton>" + a + "</automaton>";
                            var ojala = formatXml(ay);
@@ -339,8 +338,11 @@ export default class SelectionDialog extends HTMLElement {
                    console.log("eyyy" + theJson); 
                    console.log(doc.querySelector('type')?.textContent || 'default');
                     this.data.type = doc.querySelector('type')?.textContent || 'default';
+                    console.log(doc.querySelector('sigma')?.textContent || 'default');
                     this.data.sigma = doc.querySelector('sigma')?.textContent || 'default';
-                    this.data.states = doc.querySelector('states')?.textContent || 'default';
+                    console.log(doc.querySelector('states')?.textContent || 'default');
+                    this.data.states = document.querySelector('states')?.textContent || 'default';
+                    console.log(doc.querySelector('stack')?.textContent  || 'default');
                     this.data.stack = doc.querySelector('stack')?.textContent || 'default';
                     this.data.button = button;
                     let res = filename2.split(".");
