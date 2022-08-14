@@ -291,6 +291,7 @@ export default class SelectionDialog extends HTMLElement {
                     this.data.sigma = stored[0].sigma;
                     this.data.states = stored[0].states;
                     console.log("los state son" + stored[0].states);
+                    console.log("EL STACK ES" + stored[0].states);
                     this.data.stack = stored[0].stack;
                     this.data.button = button;
                     let res = filename.split(".");
@@ -317,15 +318,16 @@ export default class SelectionDialog extends HTMLElement {
                     console.log("---------------")                          
                            var a = evt.target.result;
                            const parser = new DOMParser();
-
+                           
+                          
                            const xmlString = "<warning>Beware of the missing closing tag</warning>";
                            var b = "<automaton>" + a + "</automaton>";
                            var c = formatXml(b);
                            console.log(c);
                            const doc = parser.parseFromString(c, "application/xml");
-                           console.log(doc);                      
+                           console.log(doc);     
                            var theJson = xmlToJson2(doc);
-                           //var theJson2 =  JSON.parse(theJson);
+                           
                           
                            /*const bby= "<type>AFD</type><sigma>ab,01</sigma>";
                            var ay = "<automaton>" + a + "</automaton>";
@@ -341,12 +343,15 @@ export default class SelectionDialog extends HTMLElement {
                     console.log(doc.querySelector('sigma')?.textContent || 'default');
                     this.data.sigma = doc.querySelector('sigma')?.textContent || 'default';
                     console.log(doc.querySelector('states')?.textContent || 'default');
-                    this.data.states = document.querySelector('states')?.textContent || 'default';
+                    this.data.states = Array.from(doc.querySelector('states').shadowRoot);
+                    Array.from(this.data.states).forEach(function(el) {
+                        console.log(el);
+                      });
                     console.log(doc.querySelector('stack')?.textContent  || 'default');
-                    this.data.stack = doc.querySelector('stack')?.textContent || 'default';
+                    this.data.stack = doc.querySelector('stack')?.textContent;
                     this.data.button = button;
                     let res = filename2.split(".");
-                    this.data.filename2 = res[0];
+                    this.data.filename = res[0];
                     this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
                     //---------
                     
