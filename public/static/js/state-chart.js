@@ -139,13 +139,10 @@ export default class StateChart {
     //return (JSON.stringify(states));
   }
   toDownload2() {
-    console.log('estoy aqui descargando');
     //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
     let states = [];
     this.states.forEach((st) => states.push(st.toSave()));
     var dat = [{ type: this.type, sigma: this.sigma, states: states }];
-    console.log('s--------------------------------------');
-    console.log('estoy aqui probando ' +dat);
     return this.OBJtoXML2(dat);
     //return (JSON.stringify(states));
   }

@@ -969,37 +969,19 @@ class StateEditor extends HTMLElement {
         downloadAnchorNode.remove();
         break;
       case "xml":
-        //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
+        
+      //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
 
         console.log("--------------");
         console.log(data2);
 
-
-        //-------------------------- -----------------
-        // esto es para pasar de XML a JSON
-
-        var text = "<?xml?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>0</read>&#13;</transition>&#13;</automaton>&#13;</structure>";
-        var parser = new DOMParser();
-        //var xmlDoc = parser.parseFromString(text,"text/xml");
-        //var xmlDoc = parser.parseFromString(evt.target.result,"text/xml");
-        //var s = xmlToJson2(xmlDoc);
-        //let stored = JSON.stringify(json);
-        //---------------------------------------------
-        //esto es para pasar de json a xml
-        let filename2 = document.querySelector('#saved-name').getAttribute('value');
-        var InputJSON = "{College:{entry: [{ Student : 'shiv', Roll_No: 12},{ Student : 'yadav',Roll_No: 56}]}}";
-        var output = eval("OBJtoXML("+InputJSON+");")
-        //console.log(output);
-        //----------------------------------------------
         // Aqui ya se descarga
         //la conversion a json la hace directamente en toDownload2
         var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload2());
         console.log(dataStr);
         var downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute("href", dataStr);
-        //console.log("llega aqui");
         downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
-        //console.log("llega aqui 2");
         document.body.appendChild(downloadAnchorNode);
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
@@ -1046,20 +1028,23 @@ class StateEditor extends HTMLElement {
         break;
 
       case "based":
+        alert(this.chart.obtainStates())
+
+        var connection2 = mysql.createConnection({
+          host: 'localhost',
+          database: 'todoapp',
+          user: 'root',
+          password: 'root',
+      });
            
             // INSERT INTO BD states, Q and type of automaton, M
           
-            console.log(this.index.a());
+            //console.log(this.index.a());
+         
 
             var state = this.chart.obtainStates();
             console.log ("the state is " + state);
-
-            var state2 = state.split("x",1);
-            console.log ("the state2 is " + state2);
-
-            var state3 = state.split(",",1);
-            console.log("el 3 es " + state3);
-
+          
             var aut = this.chart.getType();
             console.log("the automaton type is: " + aut);
 
@@ -1071,7 +1056,7 @@ class StateEditor extends HTMLElement {
           
           {
            
-           //connection2.Query("INSERT INTO transicionaf VALUES (1,2, 'X','X',' ')");
+           connection2.Query("INSERT INTO maquinas VALUES (1,2,3,0.5,1.5)");
           }
           else if (this.chart.type === 'APN' || this.chart.type === 'APD' )
           {
