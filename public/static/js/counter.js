@@ -3,7 +3,7 @@ var segundos = 0;
 var minutos = 0;
 var horas = 0;
 function inicio () {
-	control = setInterval(cronometro,10);
+	control = setInterval(cronometro,5);
 	document.getElementById("inicio").disabled = true;
 	document.getElementById("parar").disabled = false;
 }
