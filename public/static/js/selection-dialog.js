@@ -343,7 +343,7 @@ export default class SelectionDialog extends HTMLElement {
                     console.log(doc.querySelector('sigma')?.textContent || 'default');
                     this.data.sigma = doc.querySelector('sigma')?.textContent || 'default';
                     console.log(doc.querySelector('states')?.textContent || 'default');
-                    this.data.states = Array.from(doc.querySelector('states').prepend);
+                    this.data.states = Array.from(doc.querySelector('states').children);
                     Array.from(this.data.states).forEach(function(el) {
                         console.log(el);
                       });

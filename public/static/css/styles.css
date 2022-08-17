@@ -185,6 +185,8 @@ justify-content: right;
 	font-size: 40px;
 	font-family: Courier,sans-serif;
 	color: #363431;
+    display: flex;
+    flex-direction: row;
 }
 .boton{
 	outline: none;
