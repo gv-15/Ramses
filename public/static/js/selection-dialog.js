@@ -324,14 +324,6 @@ export default class SelectionDialog extends HTMLElement {
                            var theJson = xmlToJson2(doc);
                            
                           
-                           /*const bby= "<type>AFD</type><sigma>ab,01</sigma>";
-                           var ay = "<automaton>" + a + "</automaton>";
-                           var ojala = formatXml(ay);
-                           const docc = parser.parseFromString(ojala, "application/xml");
-                           console.log(docc);                          
-                           var oooo = xmlToJson2(docc);
-                           console.log("convierte asi" + oooo);*/
-
                    //console.log("eyyy" + theJson);
                    //console.log(doc.querySelector('type')?.textContent || 'default');
                     this.data.type = doc.querySelector('type')?.textContent || 'default';
@@ -339,6 +331,7 @@ export default class SelectionDialog extends HTMLElement {
                     this.data.sigma = doc.querySelector('sigma')?.textContent || 'default';
                     //console.log(doc.querySelector('states')?.textContent || 'default');
                     let array = [];
+                    let transitions = [];
                     for(let i = 0; i < 2 ; i++ ) {
                         let name = doc.querySelector('name'+i).textContent;
                         console.log(name);
@@ -356,8 +349,11 @@ export default class SelectionDialog extends HTMLElement {
                         console.log(name2);
                         let id = doc.querySelector('id'+i).textContent;
                         console.log(id);
-
-                        array.push( {name,x,y,isInitialState,isTerminalState,comments} );
+                      
+                        //let node = doc.querySelector('node'+i).textContent;
+                        console.log(comments);
+                        transitions.push({name2,id});
+                        array.push( {name,x,y,isInitialState,isTerminalState,comments,transitions});
 
                     }
                     this.data.states = array;
