@@ -1028,9 +1028,18 @@ class StateEditor extends HTMLElement {
         break;
 
       case "based":
+
         alert(this.chart.obtainStates())
 
-        var connection2 = mysql.createConnection({
+        //const path = require("path");
+        const express = require('express');
+        //const bodyParser = require('body-parser');
+        var mysql = require('mysql');
+
+        const app = express();
+        const PORT = 3000;
+          app.listen(PORT, () => console.log(`Express server currently running on port ${PORT}`));
+          var connection2 = mysql.createConnection({
           host: 'localhost',
           database: 'todoapp',
           user: 'root',

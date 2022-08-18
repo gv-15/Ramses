@@ -133,11 +133,7 @@ export default class SelectionDialog extends HTMLElement {
                             <label id="filename-label">Nombre<input type="text"  name="filename" id="filename-input" placeholder="afd-01"/></label>
                         </div>
                     </div>
-                    <div class="headerDivider">
-                    <a data-lang="es" href="javascript:translate(es)">ES</a>
-                    <a data-lang="en" href="javascript:translate(en)">EN</a>
-                    <a data-lang="fr" href="javascript:translate(fr)">FR</a>
-                    </div>
+                    <div class="headerDivider"></div>
                     <div>
                         <span> Importar desde JSON</span></br>
                         <input type="file"  name="machine" id="file-input" /></br>
@@ -343,7 +339,7 @@ export default class SelectionDialog extends HTMLElement {
                     console.log(doc.querySelector('sigma')?.textContent || 'default');
                     this.data.sigma = doc.querySelector('sigma')?.textContent || 'default';
                     console.log(doc.querySelector('states')?.textContent || 'default');
-                    this.data.states = Array.from(doc.querySelector('states')?.children);
+                    this.data.states = Array.from(doc.querySelector('states').children);
                     Array.from(this.data.states).forEach(function(el) {
                         console.log(el);
                       });
