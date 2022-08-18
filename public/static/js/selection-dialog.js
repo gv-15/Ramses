@@ -316,7 +316,6 @@ export default class SelectionDialog extends HTMLElement {
                            const parser = new DOMParser();
                            
                           
-                           const xmlString = "<warning>Beware of the missing closing tag</warning>";
                            var b = "<automaton>" + a + "</automaton>";
                            var c = formatXml(b);
                            console.log(c);
@@ -333,16 +332,38 @@ export default class SelectionDialog extends HTMLElement {
                            var oooo = xmlToJson2(docc);
                            console.log("convierte asi" + oooo);*/
 
-                   console.log("eyyy" + theJson); 
-                   console.log(doc.querySelector('type')?.textContent || 'default');
+                   //console.log("eyyy" + theJson);
+                   //console.log(doc.querySelector('type')?.textContent || 'default');
                     this.data.type = doc.querySelector('type')?.textContent || 'default';
-                    console.log(doc.querySelector('sigma')?.textContent || 'default');
+                    //console.log(doc.querySelector('sigma')?.textContent || 'default');
                     this.data.sigma = doc.querySelector('sigma')?.textContent || 'default';
-                    console.log(doc.querySelector('states')?.textContent || 'default');
-                    this.data.states = Array.from(doc.querySelector('states').children);
-                    Array.from(this.data.states).forEach(function(el) {
-                        console.log(el);
-                      });
+                    //console.log(doc.querySelector('states')?.textContent || 'default');
+                    let array = [];
+                    for(let i = 0; i < 2 ; i++ ) {
+                        let name = doc.querySelector('name'+i).textContent;
+                        console.log(name);
+                        let x = doc.querySelector('x'+i).textContent;
+                        console.log(x);
+                        let y = doc.querySelector('y'+i).textContent;
+                        console.log(y);
+                        let isInitialState = doc.querySelector('isInitialState'+i).textContent;
+                        console.log(isInitialState);
+                        let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
+                        console.log(isTerminalState);
+                        let comments = doc.querySelector('comments'+i).textContent;
+                        console.log(comments);
+                        let name2 = doc.querySelector('names'+i).textContent;
+                        console.log(name2);
+                        let id = doc.querySelector('id'+i).textContent;
+                        console.log(id);
+
+                        array.push( {name,x,y,isInitialState,isTerminalState,comments} );
+
+                    }
+                    this.data.states = array;
+                    console.log(this.data.states);
+
+
                     console.log(doc.querySelector('stack')?.textContent  || 'default');
                     this.data.stack = doc.querySelector('stack')?.textContent;
                     this.data.button = button;

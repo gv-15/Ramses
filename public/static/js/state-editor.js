@@ -972,13 +972,12 @@ class StateEditor extends HTMLElement {
         
       //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
 
-        console.log("--------------");
-        console.log(data2);
-
+        let filename2 = document
+            .querySelector("#saved-name")
+            .getAttribute("value")
         // Aqui ya se descarga
         //la conversion a json la hace directamente en toDownload2
         var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload2());
-        console.log(dataStr);
         var downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute("href", dataStr);
         downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));

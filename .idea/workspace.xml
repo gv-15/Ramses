@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7fc5de50-42d9-4c75-9edc-f0d4d7fc2ff8" name="Changes" comment="fix: buttons text v1">
+    <list default="true" id="5e819725-b484-43e9-acd5-b1ff2b38f1f5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/static/js/selection-dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/selection-dialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/state-chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/state-chart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/static/js/state-editor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/state-editor.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,13 +21,11 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="e7ee13cb-4605-4af8-8f0d-f5980bbc8f70" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2CUJulL3xWGBetd5qh05uvmXOWx" />
+  <component name="ProjectId" id="2DXUCccsOAeUk5hzE5JrU0Zse33" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -36,9 +35,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.tools&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -60,68 +57,16 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="SvnConfiguration">
-    <configuration>C:\Users\gaizk\AppData\Roaming\Subversion</configuration>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7fc5de50-42d9-4c75-9edc-f0d4d7fc2ff8" name="Changes" comment="" />
-      <created>1658851454709</created>
+      <changelist id="5e819725-b484-43e9-acd5-b1ff2b38f1f5" name="Changes" comment="" />
+      <created>1660844804846</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1658851454709</updated>
-      <workItem from="1658851466209" duration="205000" />
-      <workItem from="1658944711675" duration="2299000" />
-      <workItem from="1659176065686" duration="6973000" />
-      <workItem from="1659183211612" duration="138000" />
-      <workItem from="1659196122462" duration="23000" />
-      <workItem from="1659388278592" duration="6324000" />
-      <workItem from="1659448118350" duration="4872000" />
-      <workItem from="1660140557963" duration="5893000" />
+      <updated>1660844804846</updated>
+      <workItem from="1660844822001" duration="78000" />
+      <workItem from="1660844902454" duration="3077000" />
     </task>
-    <task id="LOCAL-00001" summary="fix: nodemodules">
-      <created>1658851610630</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1658851610630</updated>
-    </task>
-    <task id="LOCAL-00002" summary="feat: translate login">
-      <created>1659182905665</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1659182905665</updated>
-    </task>
-    <task id="LOCAL-00003" summary="feat: traduce más cositas miralo">
-      <created>1659394583559</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1659394583559</updated>
-    </task>
-    <task id="LOCAL-00004" summary="feat: más traducciones de ejemplo">
-      <created>1659452921362</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1659452921362</updated>
-    </task>
-    <task id="LOCAL-00005" summary="feat: all page translate, no buttons yet">
-      <created>1660143132695</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1660143132695</updated>
-    </task>
-    <task id="LOCAL-00006" summary="fix: buttons text v1">
-      <created>1660144805676</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1660144805676</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,17 +82,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="FORCE_NON_EMPTY_COMMENT" value="true" />
-    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="fix: nodemodules" />
-    <MESSAGE value="feat: translate login" />
-    <MESSAGE value="feat: traduce más cositas miralo" />
-    <MESSAGE value="feat: más traducciones de ejemplo" />
-    <MESSAGE value="feat: all page translate, no buttons yet" />
-    <MESSAGE value="fix: buttons text v1" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: buttons text v1" />
   </component>
 </project>
