@@ -348,13 +348,55 @@ export default class SelectionDialog extends HTMLElement {
                         let name2 = doc.querySelector('names'+i).textContent;
                         console.log(name2);
                         let id = doc.querySelector('id'+i).textContent;
-                        console.log(id);
-                      
-                        //let node = doc.querySelector('node'+i).textContent;
-                        console.log(comments);
-                        transitions.push({name2,id});
-                        array.push( {name,x,y,isInitialState,isTerminalState,comments,transitions});
+                        console.log(id); 
 
+                        
+                  
+                        transitions.push({name:name2,id});
+                        
+                 
+                        
+                      /*  
+                              transitions ={
+                            id:id,
+                            name:name2,
+                        }
+                        var transitionss = Object.keys(transitions)
+                        .map(function(key) {
+                        return transitions[key];
+                        }); 
+
+
+                        console.log(transitions);
+                        console.log(transitionss);
+                        
+
+                         array = {
+                            name:name,
+                            x:name,
+                            y:y,
+                            isInitialState:isInitialState,
+                            isTerminalState:isTerminalState,
+                            comments:comments,
+                            transitions: transitions
+                        };
+                    */
+                        
+                        console.log(array);
+ 
+                        
+                      /*  var arrayy = Object.keys(array)
+                        .map(function(key) {
+                        return array[key];
+                        });
+                        transitions ={
+                            name:name2,
+                            id:id
+                        }
+                       */
+                       
+                        array.push( {name,x,y,isInitialState,isTerminalState,comments,transitions});
+                      
                     }
                     this.data.states = array;
                     console.log(this.data.states);
