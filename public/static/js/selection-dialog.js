@@ -314,9 +314,19 @@ export default class SelectionDialog extends HTMLElement {
                     console.log("---------------")                          
                            var a = evt.target.result;
                            const parser = new DOMParser();
-                           
-                          
+                                                     
                            var b = "<automaton>" + a + "</automaton>";
+                           var cont = 0;
+                           for (let i = 0; i < a.length; i++) 
+                           {
+
+                           cont = cont++;
+                           if(cont>1)
+                           {
+
+                           }
+
+                           }
                            var c = formatXml(b);
                            console.log(c);
                            const doc = parser.parseFromString(c, "application/xml");
@@ -350,55 +360,23 @@ export default class SelectionDialog extends HTMLElement {
                         let id = doc.querySelector('id'+i).textContent;
                         console.log(id); 
 
-                        
-                  
-                        transitions.push({name:name2,id});
-                        
-                 
-                        
-                      /*  
-                              transitions ={
-                            id:id,
-                            name:name2,
-                        }
-                        var transitionss = Object.keys(transitions)
-                        .map(function(key) {
-                        return transitions[key];
-                        }); 
-
-
-                        console.log(transitions);
-                        console.log(transitionss);
-                        
-
-                         array = {
-                            name:name,
-                            x:name,
-                            y:y,
-                            isInitialState:isInitialState,
-                            isTerminalState:isTerminalState,
-                            comments:comments,
-                            transitions: transitions
-                        };
-                    */
-                        
-                        console.log(array);
- 
-                        
-                      /*  var arrayy = Object.keys(array)
-                        .map(function(key) {
-                        return array[key];
-                        });
-                        transitions ={
-                            name:name2,
-                            id:id
-                        }
-                       */
-                       
-                        array.push( {name,x,y,isInitialState,isTerminalState,comments,transitions});
-                      
-                    }
+                                   
+                    transitions.push({name:name2,id});
+                    array.push( {name,x,y,isInitialState,isTerminalState,comments,transitions});
+                    /*
+                    this.data.states.push(
+                        new StateElement(
+                          name,
+                          x,
+                          y,
+                          isInitialState,
+                          isTerminalState,
+                          ""
+                        )
+                    )*/
+                    } 
                     this.data.states = array;
+
                     console.log(this.data.states);
 
 

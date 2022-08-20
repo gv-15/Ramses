@@ -855,9 +855,9 @@ class StateEditor extends HTMLElement {
       case "selection_data":
         console.log({ data });
         data2 = { data };
+        console.log("holi" + data);
 
         if (data.states.length == 0) {
-          //console.log("holi");
           //si no tengo estados ni transic, me da igual cargar desde un archivo vacio que hacer un chart nuevo
           this.chart = new StateChart(data.type, data.sigma, "q");
           //this.inputDialog.setAttribute('alphabet', data.sigma);

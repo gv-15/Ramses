@@ -66,10 +66,11 @@ export default class StateElement {
         return (node);
     }
     toSave() { //el +this.xxxxx es para forzar la conversión a número 
+      
         return ({
             name: this.name,
-            x: +this.x.toFixed(2),
-            y: +this.y.toFixed(2),
+            x: +parseFloat(this.x).toFixed(2),
+            y: +parseFloat(this.y).toFixed(2),
             isInitialState: this.isInitialState,
             isTerminalState: this.isTerminalState,
             comments: this.comments,
