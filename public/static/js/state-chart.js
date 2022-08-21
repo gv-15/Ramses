@@ -133,19 +133,45 @@ export default class StateChart {
     let states = [];
     this.states.forEach((st) => states.push(st.toSave()));
     console.log(JSON.stringify(states));
-    return JSON.stringify([
-      { type: this.type, sigma: this.sigma, states: states },
-    ]);
+    if (this.type === 'AFD' || 'AFND') {
+      return JSON.stringify([
+        { type: this.type, sigma: this.sigma, states: states },
+      ]);    }
+    else {
+      return JSON.stringify([
+        { type: this.type, sigma: this.sigma, stack: this.stack, states: states },
+      ]);
+    }
+
     //return (JSON.stringify(states));
   }
   toDownload2() {
     //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
     let states = [];
     this.states.forEach((st) => states.push(st.toSave()));
-    var dat = [{ type: this.type, sigma: this.sigma, states: states }];
+    var dat;
+    if (this.type === 'AFD' || 'AFND') {
+      dat = { type: this.type, sigma: this.sigma , states: states };
+    }
+    else {
+      dat = { type: this.type, sigma: this.sigma, stack: this.stack , states: states };
+
+    }
+
+    if (this.type != 'AFD' || 'AFND') {
+      let mydata = this.fix(dat);
+      dat = mydata;
+    }
+
     return this.OBJtoXML2(dat);
     //return (JSON.stringify(states));
   }
+
+  fix(datos) {
+    let d = [{ type: this.type, sigma: this.sigma, stack: this.stack , states: datos.states}]
+    return d;
+  }
+
   toJSON() {
     //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
     let states = [];
@@ -223,13 +249,6 @@ export default class StateChart {
     // this._redraw();
   }
 
-    toDownload2() { //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
-        let states = [];
-        this.states.forEach(st => states.push(st.toSave()));
-        var dat = ([{ "type": this.type, "sigma": this.sigma, "states": states }]);
-        return this.OBJtoXML2(dat);
-        //return (JSON.stringify(states));
-    }
     obtainStates(){
         let states = [];
         this.states.forEach(st => states.push(st.toSave()));
@@ -535,6 +554,7 @@ export default class StateChart {
   }
 
   OBJtoXML2(obj) {
+  console.log(obj);
     var xml = "";
     for (var prop in obj) {
       xml += obj[prop] instanceof Array ? "" : "<" + prop + ">";
