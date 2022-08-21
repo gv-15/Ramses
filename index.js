@@ -66,6 +66,18 @@ app.get(`/home`, (request, response) => {
     response.sendFile('home.html', { root: `${__dirname}/public` });
 });
 
+app.get(`/bd`, (request, response) => {
+   
+    connection.query('INSERT INTO maquinas VALUES (1,2,3,0.5,1.5)', function(error, results, fields) {
+        if (results.length > 0) {
+          
+        } else {
+            response.send('Incorrect insertion');
+        }
+        
+    });
+    response.sendFile('home.html', { root: `${__dirname}/public` });
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get(`/`, (request, response) => {

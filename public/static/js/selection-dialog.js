@@ -407,6 +407,7 @@ export default class SelectionDialog extends HTMLElement {
                                 transitions = [];
                             }
                             else {
+                               
                                 let name2 = doc.querySelector('names'+i).textContent;
                                 //console.log(name2);
                                 let id = doc.querySelector('id'+i).textContent;

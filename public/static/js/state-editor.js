@@ -1047,42 +1047,12 @@ class StateEditor extends HTMLElement {
       case "based":
 
         alert(this.chart.obtainStates())
-
-        //const path = require("path");
-        const express = require('express');
-        //const bodyParser = require('body-parser');
-        var mysql = require('mysql');
-
-        const app = express();
-        const PORT = 3000;
-          app.listen(PORT, () => console.log(`Express server currently running on port ${PORT}`));
-          var connection2 = mysql.createConnection({
-          host: 'localhost',
-          database: 'todoapp',
-          user: 'root',
-          password: 'root',
-      });
-           
-            // INSERT INTO BD states, Q and type of automaton, M
-          
-            //console.log(this.index.a());
-         
-
-            var state = this.chart.obtainStates();
-            console.log ("the state is " + state);
-          
-            var aut = this.chart.getType();
-            console.log("the automaton type is: " + aut);
-
-
-            //let statename = document.querySelector(#states).getAttribute('name');
-       
-
-          if (this.chart.type === 'AFD' || this.chart.type === 'AFND') 
-          
+    
+          if (this.chart.type === 'AFD' || this.chart.type === 'AFND')     
           {
            
-           connection2.Query("INSERT INTO maquinas VALUES (1,2,3,0.5,1.5)");
+          
+           connection.Query("INSERT INTO maquinas VALUES (1,2,3,0.5,1.5)");
           }
           else if (this.chart.type === 'APN' || this.chart.type === 'APD' )
           {
