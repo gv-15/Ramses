@@ -286,22 +286,18 @@ export default class SelectionDialog extends HTMLElement {
                     this.data.type = stored[0].type;
                     this.data.sigma = stored[0].sigma;
                     this.data.states = stored[0].states;
-                    //console.log("los state son" + stored[0].states);
-                    //console.log("EL STACK ES" + stored[0].stack);
                     this.data.stack = stored[0].stack;
                     this.data.button = button;
                     let res = filename.split(".");
                     this.data.filename = res[0];
                     this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
-                    //---------
-                    
+
                 }
 
             } 
             else if(file2 && file==null)
             {
                 let filename2 = file2.name.toLowerCase();
-                console.log("aaa");
                     if (!filename2.endsWith('.xml')) {
                         alert('extensión de fichero no soportada');
                         return;
@@ -310,37 +306,19 @@ export default class SelectionDialog extends HTMLElement {
                 let reader2 = new FileReader();
                 reader2.readAsText(file2);
                 reader2.onloadend = (evt) => {
-                   // console.log(evt.target.result);
-                  //  console.log("---------------")
+
                            var a = evt.target.result;
                            console.log(a);
                            const parser = new DOMParser();
                                                      
                            var b = "<automaton>" + a + "</automaton>";
                            var cont = 0;
-                           for (let i = 0; i < a.length; i++) 
-                           {
 
-                           cont = cont++;
-                           if(cont>1)
-                           {
-
-                           }
-
-                           }
                            var c = formatXml(b);
-                           //console.log(c);
                            const doc = parser.parseFromString(c, "application/xml");
-                        // console.log(doc);
-                           var theJson = xmlToJson2(doc);
-                           
-                          
-                   //console.log("eyyy" + theJson);
-                    //console.log(doc.querySelector('type')?.textContent || 'default');
+
                     this.data.type = doc.querySelector('type')?.textContent || 'default';
-                    //console.log(doc.querySelector('sigma')?.textContent || 'default');
                     this.data.sigma = doc.querySelector('sigma')?.textContent || 'default';
-                    //console.log(doc.querySelector('states')?.textContent || 'default');
                     this.data.stack = doc.querySelector('stack')?.textContent;
                     let array = [];
                     let transitions = [];
@@ -349,32 +327,41 @@ export default class SelectionDialog extends HTMLElement {
                     console.log(this.data.type);
 
                     if (this.data.type === 'AFD') {
-                        console.log('vamos a importar automatas faciles');
                         while( f < 1 ) {
-                            console.log(i);
                             transitions = [];
                             let name = doc.querySelector('name'+i).textContent;
-                            //console.log(name);
                             let x = doc.querySelector('x'+i).textContent;
-                            //console.log(x);
                             let y = doc.querySelector('y'+i).textContent;
-                            //console.log(y);
                             let isInitialState = doc.querySelector('isInitialState'+i).textContent;
-                            //console.log(isInitialState);
                             let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
-                            //console.log(isTerminalState);
-                            //let comments = doc.querySelector('comments'+i).textContent;
-                            //console.log(comments);
+
                             if (doc.querySelector('names'+i) === null) {
                                 transitions = [];
                             }
                             else {
                                 let name2 = doc.querySelector('names'+i).textContent;
-                                //console.log(name2);
                                 let id = doc.querySelector('id'+i).textContent;
-                                //console.log(id);
 
                                 transitions.push({ name: name2, id : id });
+
+                                let u = 1;
+                                let x = 0;
+                                while ( x < 1) {
+                                    if (doc.querySelector('names'+i+u) != null)  {
+                                        let name2 = doc.querySelector('names'+i+u).textContent;
+                                        let id = doc.querySelector('id'+i+u).textContent;
+
+                                        transitions.push({ name: name2, name2: '', name3: '', id : id });
+                                        u++;
+                                        if (doc.querySelector('name'+i+u) === null) {
+                                            x++;
+                                        }
+                                    }
+                                    else {
+                                        x++;
+                                    }
+                                }
+
                             }
 
                             array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
@@ -387,34 +374,47 @@ export default class SelectionDialog extends HTMLElement {
                     }
 
                    else if (this.data.type === 'AFND') {
-                        console.log('vamos a importar automatas faciles');
                         while( f < 1 ) {
-                            console.log(i);
                             transitions = [];
                             let name = doc.querySelector('name'+i).textContent;
-                            //console.log(name);
                             let x = doc.querySelector('x'+i).textContent;
-                            //console.log(x);
                             let y = doc.querySelector('y'+i).textContent;
-                            //console.log(y);
                             let isInitialState = doc.querySelector('isInitialState'+i).textContent;
-                            //console.log(isInitialState);
                             let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
-                            //console.log(isTerminalState);
-                            //let comments = doc.querySelector('comments'+i).textContent;
-                            //console.log(comments);
+
                             if (doc.querySelector('names'+i) === null) {
                                 transitions = [];
                             }
                             else {
                                
                                 let name2 = doc.querySelector('names'+i).textContent;
-                                //console.log(name2);
                                 let id = doc.querySelector('id'+i).textContent;
-                                //console.log(id);
 
                                 transitions.push({ name: name2, id : id });
+
+                                let u = 1;
+                                let x = 0;
+                                while ( x < 1) {
+                                    if (doc.querySelector('names'+i+u) != null)  {
+                                        console.log('vamos que nos vamos');
+                                        let name2 = doc.querySelector('names'+i+u).textContent;
+                                        //console.log(name2);
+                                        let id = doc.querySelector('id'+i+u).textContent;
+                                        //console.log(id);
+
+                                        transitions.push({ name: name2, name2: '', name3: '', id : id });
+                                        u++;
+                                        if (doc.querySelector('name'+i+u) === null) {
+                                            x++;
+                                        }
+                                    }
+                                    else {
+                                        x++;
+                                    }
+                                }
+
                             }
+
                             array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
                             i++;
                             if (doc.querySelector('name'+i) === null) {
@@ -425,38 +425,46 @@ export default class SelectionDialog extends HTMLElement {
                     }
 
                    else {
-                        console.log('vamos a importar pilitas');
                         while( f < 1 ) {
-                            console.log(i);
                             transitions = [];
                             let name = doc.querySelector('name'+i).textContent;
-                            //console.log(name);
                             let x = doc.querySelector('x'+i).textContent;
-                            //console.log(x);
                             let y = doc.querySelector('y'+i).textContent;
-                            //console.log(y);
                             let isInitialState = doc.querySelector('isInitialState'+i).textContent;
-                            //console.log(isInitialState);
                             let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
-                            //console.log(isTerminalState);
-                            //let comments = doc.querySelector('comments'+i).textContent;
-                            //console.log(comments);
-
 
                             if (doc.querySelector('names'+i) === null) {
                                 transitions = [];
                             }
                             else {
                                 let name2 = doc.querySelector('names'+i).textContent;
-                                //console.log(name2);
                                 let name3 = doc.querySelector('namess'+i).textContent;
-                                console.log(name3);
                                 let name4 = doc.querySelector('namess'+i).textContent;
-                                console.log(name4);
                                 let id = doc.querySelector('id'+i).textContent;
-                                //console.log(id);
 
                                 transitions.push({ name: name2, name2: name3, name3: name4, id : id });
+
+                                let u = 1;
+                                let x = 0;
+                                while ( x < 1) {
+                                    if (doc.querySelector('names'+i+u) != null)  {
+                                        console.log('vamos que nos vamos');
+                                        let name2 = doc.querySelector('names'+i+u).textContent;
+                                        let name3 = doc.querySelector('namess'+i+u).textContent;
+                                        let name4 = doc.querySelector('namess'+i+u).textContent;
+
+                                        let id = doc.querySelector('id'+i+u).textContent;
+
+                                        transitions.push({ name: name2, name2: name3, name3: name4, id : id });
+                                        u++;
+                                        if (doc.querySelector('name'+i+u) === null) {
+                                            x++;
+                                        }
+                                    }
+                                    else {
+                                        x++;
+                                    }
+                                }
                             }
                             array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
                             i++;
@@ -468,7 +476,7 @@ export default class SelectionDialog extends HTMLElement {
                     }
 
                     this.data.states = array;
-
+                    console.log(this.data.states);
                     //console.log(this.data.states);
 
                     this.data.button = button;
