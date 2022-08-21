@@ -368,6 +368,7 @@ export default class SelectionDialog extends HTMLElement {
                     let f = 0;
                     let i = 0;
                     while( f < 1 ) {
+                        transitions = [];
                         let name = doc.querySelector('name'+i).textContent;
                         console.log(name);
                         let x = doc.querySelector('x'+i).textContent;
@@ -386,7 +387,7 @@ export default class SelectionDialog extends HTMLElement {
                         console.log(id);
 
 
-                        transitions.push({name:name2,id});
+                        transitions.push({ name: name2, id : id });
                         array.push( {name,x,y,isInitialState,isTerminalState,comments,transitions});
                         i++;
                         if (doc.querySelector('name'+i) === null) {
