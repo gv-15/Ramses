@@ -365,12 +365,18 @@ export default class SelectionDialog extends HTMLElement {
                             //console.log(isTerminalState);
                             //let comments = doc.querySelector('comments'+i).textContent;
                             //console.log(comments);
-                            let name2 = doc.querySelector('names'+i).textContent;
-                            //console.log(name2);
-                            let id = doc.querySelector('id'+i).textContent;
-                            //console.log(id);
+                            if (doc.querySelector('names'+i) === null) {
+                                transitions = [];
+                            }
+                            else {
+                                let name2 = doc.querySelector('names'+i).textContent;
+                                //console.log(name2);
+                                let id = doc.querySelector('id'+i).textContent;
+                                //console.log(id);
 
-                            transitions.push({ name: name2, id : id });
+                                transitions.push({ name: name2, id : id });
+                            }
+
                             array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
                             i++;
                             if (doc.querySelector('name'+i) === null) {
@@ -397,12 +403,17 @@ export default class SelectionDialog extends HTMLElement {
                             //console.log(isTerminalState);
                             //let comments = doc.querySelector('comments'+i).textContent;
                             //console.log(comments);
-                            let name2 = doc.querySelector('names'+i).textContent;
-                            //console.log(name2);
-                            let id = doc.querySelector('id'+i).textContent;
-                            //console.log(id);
+                            if (doc.querySelector('names'+i) === null) {
+                                transitions = [];
+                            }
+                            else {
+                                let name2 = doc.querySelector('names'+i).textContent;
+                                //console.log(name2);
+                                let id = doc.querySelector('id'+i).textContent;
+                                //console.log(id);
 
-                            transitions.push({ name: name2, id : id });
+                                transitions.push({ name: name2, id : id });
+                            }
                             array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
                             i++;
                             if (doc.querySelector('name'+i) === null) {
@@ -429,16 +440,23 @@ export default class SelectionDialog extends HTMLElement {
                             //console.log(isTerminalState);
                             //let comments = doc.querySelector('comments'+i).textContent;
                             //console.log(comments);
-                            let name2 = doc.querySelector('names'+i).textContent;
-                            //console.log(name2);
-                            let name3 = doc.querySelector('namess'+i).textContent;
-                            console.log(name3);
-                            let name4 = doc.querySelector('namess'+i).textContent;
-                            console.log(name4);
-                            let id = doc.querySelector('id'+i).textContent;
-                            //console.log(id);
 
-                            transitions.push({ name: name2, name2: name3, name3: name4, id : id });
+
+                            if (doc.querySelector('names'+i) === null) {
+                                transitions = [];
+                            }
+                            else {
+                                let name2 = doc.querySelector('names'+i).textContent;
+                                //console.log(name2);
+                                let name3 = doc.querySelector('namess'+i).textContent;
+                                console.log(name3);
+                                let name4 = doc.querySelector('namess'+i).textContent;
+                                console.log(name4);
+                                let id = doc.querySelector('id'+i).textContent;
+                                //console.log(id);
+
+                                transitions.push({ name: name2, name2: name3, name3: name4, id : id });
+                            }
                             array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
                             i++;
                             if (doc.querySelector('name'+i) === null) {
