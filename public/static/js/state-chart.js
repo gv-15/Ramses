@@ -168,6 +168,19 @@ export default class StateChart {
   }
 
   fix(datos) {
+
+    for (let i = 0; i < datos.states.length; i++) {
+      for (let j = 0; j < datos.states[i].transitions.length; j++) {
+        console.log(datos.states[i].transitions[j]);
+        let transi = this.getTransition(datos.states[i].transitions[j].id);
+        let name2 = transi.name2;
+        let name3 = transi.name3;
+        datos.states[i].transitions[j] = {name: datos.states[i].transitions[j].name, namess: name2, namesss: name3
+          , id: datos.states[i].transitions[j].id, comments: datos.states[i].transitions[j].comments}
+        console.log(datos.states[i].transitions[j]);
+      }
+    }
+
     let d = [{ type: this.type, sigma: this.sigma, stack: this.stack , states: datos.states}]
     return d;
   }

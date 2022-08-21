@@ -551,6 +551,7 @@ class StateEditor extends HTMLElement {
       //Las rutinas de dibujar NO saben lo que conectan, devuelven nodos de svg a los que habíamos puesto ids
       //Aquí sí sabemos qué info lleva porque se la ponemos nosotros en la rutina draw
       case "new_transition": //esto crea la raya y la entrada de datos
+        console.log(data);
         let trId = this.chart.insertTransition(data.from.id, data.to.id);
         //Aquí podríamos chequear si hubo problema en la creación.
         //Lanzo automáticamente el diálogo de editar la transición,
@@ -561,6 +562,7 @@ class StateEditor extends HTMLElement {
             this.chart.stackExtended
           );
         } else {
+          console.log(this.chart.getTransition(trId));
           this.transitionDialog.open(
             this.chart.getTransition(trId).toSave(),
             this.chart.sigmaExtended,
