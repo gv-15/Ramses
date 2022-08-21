@@ -346,7 +346,73 @@ export default class SelectionDialog extends HTMLElement {
                     let transitions = [];
                     let f = 0;
                     let i = 0;
-                    if (this.data.type != 'AFD' || 'AFND') {
+                    console.log(this.data.type);
+
+                    if (this.data.type === 'AFD') {
+                        console.log('vamos a importar automatas faciles');
+                        while( f < 1 ) {
+                            console.log(i);
+                            transitions = [];
+                            let name = doc.querySelector('name'+i).textContent;
+                            //console.log(name);
+                            let x = doc.querySelector('x'+i).textContent;
+                            //console.log(x);
+                            let y = doc.querySelector('y'+i).textContent;
+                            //console.log(y);
+                            let isInitialState = doc.querySelector('isInitialState'+i).textContent;
+                            //console.log(isInitialState);
+                            let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
+                            //console.log(isTerminalState);
+                            //let comments = doc.querySelector('comments'+i).textContent;
+                            //console.log(comments);
+                            let name2 = doc.querySelector('names'+i).textContent;
+                            //console.log(name2);
+                            let id = doc.querySelector('id'+i).textContent;
+                            //console.log(id);
+
+                            transitions.push({ name: name2, id : id });
+                            array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
+                            i++;
+                            if (doc.querySelector('name'+i) === null) {
+                                f++;
+                            }
+
+                        }
+                    }
+
+                   else if (this.data.type === 'AFND') {
+                        console.log('vamos a importar automatas faciles');
+                        while( f < 1 ) {
+                            console.log(i);
+                            transitions = [];
+                            let name = doc.querySelector('name'+i).textContent;
+                            //console.log(name);
+                            let x = doc.querySelector('x'+i).textContent;
+                            //console.log(x);
+                            let y = doc.querySelector('y'+i).textContent;
+                            //console.log(y);
+                            let isInitialState = doc.querySelector('isInitialState'+i).textContent;
+                            //console.log(isInitialState);
+                            let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
+                            //console.log(isTerminalState);
+                            //let comments = doc.querySelector('comments'+i).textContent;
+                            //console.log(comments);
+                            let name2 = doc.querySelector('names'+i).textContent;
+                            //console.log(name2);
+                            let id = doc.querySelector('id'+i).textContent;
+                            //console.log(id);
+
+                            transitions.push({ name: name2, id : id });
+                            array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
+                            i++;
+                            if (doc.querySelector('name'+i) === null) {
+                                f++;
+                            }
+
+                        }
+                    }
+
+                   else {
                         console.log('vamos a importar pilitas');
                         while( f < 1 ) {
                             console.log(i);
@@ -373,37 +439,6 @@ export default class SelectionDialog extends HTMLElement {
                             //console.log(id);
 
                             transitions.push({ name: name2, name2: name3, name3: name4, id : id });
-                            array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
-                            i++;
-                            if (doc.querySelector('name'+i) === null) {
-                                f++;
-                            }
-
-                        }
-                    }
-                    else {
-                        console.log('vamos a importar automatas faciles');
-                        while( f < 1 ) {
-                            console.log(i);
-                            transitions = [];
-                            let name = doc.querySelector('name'+i).textContent;
-                            //console.log(name);
-                            let x = doc.querySelector('x'+i).textContent;
-                            //console.log(x);
-                            let y = doc.querySelector('y'+i).textContent;
-                            //console.log(y);
-                            let isInitialState = doc.querySelector('isInitialState'+i).textContent;
-                            //console.log(isInitialState);
-                            let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
-                            //console.log(isTerminalState);
-                            //let comments = doc.querySelector('comments'+i).textContent;
-                            //console.log(comments);
-                            let name2 = doc.querySelector('names'+i).textContent;
-                            //console.log(name2);
-                            let id = doc.querySelector('id'+i).textContent;
-                            //console.log(id);
-
-                            transitions.push({ name: name2, id : id });
                             array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
                             i++;
                             if (doc.querySelector('name'+i) === null) {
