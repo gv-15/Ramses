@@ -195,11 +195,6 @@ export default class StateChart {
     let states = JSON.parse(data);
     this.init(states);
   }
-  fileToJSON(dataObject) {
-    var data = dataObject.data;
-    let newChart = JSON.parse(data);
-    this.initDiagram(newChart);
-  }
   fromModal(states) {
     this.init(states);
   }
@@ -270,83 +265,6 @@ export default class StateChart {
         
     }
 
-   
-    toJSON() { //el objeto puede tener cosas que no se salvan, por eso creamos otros con lo que hay que salvar
-        let states = [];
-        this.states.forEach(st => states.push(st.toSave()));
-        return (JSON.stringify(states));
-    }
-    fromJSON(data) {
-        let states = JSON.parse(data);
-        this.init(states);
-    }
-    fileToJSON(dataObject) {
-        var data = dataObject.data;
-        let newChart = JSON.parse(data);
-        this.initDiagram(newChart);
-    }
-    fromModal(states) {
-        this.init(states);
-    }
-    init(states = []) {
-      this.states = [];
-      //Primero creo los estados, sus transiciones se quedan vacías
-      states.forEach((st) => {
-        this.states.push(
-          new StateElement(
-            st.name,
-            st.x,
-            st.y,
-            st.isTerminalState,
-            st.isInitialState,
-            st.comments
-          )
-        );
-      });
-      if (this.states.length === 0){
-        this.stateIndex = 0;
-        this.transitionIndex = 0;
-        this.isTotal = false;
-  
-      } 
-      else {
-        let numbers = this.states.map((st) => parseInt(st.name.substring(1))); //quito la q y convierto a número
-        this.stateIndex = Math.max(...numbers) + 1;
-        this.transitionIndex = Math.max(...numbers) + 1;
-      }
-      //Ahora que están creados, les añado las transiciones
-      states.forEach((st) => {
-        let from_st = this.states.find((el) => el.name === st.name); //states es un objeto, necesito la clase que está en this.
-        if (st.transitions === undefined) {
-          return;
-        } else {
-          st.transitions.forEach((tr) => {
-            let to_st = this.states.find((el) => el.name == tr.id.split("_")[1]); //to state, viene codificado qa_qb
-  
-            let transitionNode = new TransitionElement(
-              tr.id,
-              from_st,
-              to_st,
-              tr.name,
-              tr.name2,
-              tr.name3,
-              this.type
-            ); // Aqui hay que averiguar cosas
-            if (!transitionNode.error) {
-              tr.node = transitionNode;
-              from_st.transitions.push(transitionNode);
-            } else
-              console.log(
-                "estado no encontrado en la conexion " +
-                  st.name +
-                  " to " +
-                  tr.id.split("_")[1]
-              ); //TODO mejorar si se quiere
-          });
-        }
-      });
-      // this._redraw();
-    }
   isValidInputStream(input) {
     return input.search(`[^${this.sigma}]`) === -1; //Si encuentro caracteres fuera del conjunto search devuelve !== -1,
   }

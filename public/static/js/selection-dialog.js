@@ -308,11 +308,9 @@ export default class SelectionDialog extends HTMLElement {
                 reader2.onloadend = (evt) => {
 
                            var a = evt.target.result;
-                           console.log(a);
                            const parser = new DOMParser();
                                                      
                            var b = "<automaton>" + a + "</automaton>";
-                           var cont = 0;
 
                            var c = formatXml(b);
                            const doc = parser.parseFromString(c, "application/xml");
@@ -424,6 +422,7 @@ export default class SelectionDialog extends HTMLElement {
                     }
 
                    else {
+                       console.log('pilitas');
                         while( f < 1 ) {
                             transitions = [];
                             let name = doc.querySelector('name'+i).textContent;
@@ -432,31 +431,32 @@ export default class SelectionDialog extends HTMLElement {
                             let isInitialState = doc.querySelector('isInitialState'+i).textContent;
                             let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
 
+                            console.log(i);
                             if (doc.querySelector('names'+i) === null) {
                                 transitions = [];
                             }
                             else {
                                 let name2 = doc.querySelector('names'+i).textContent;
                                 let name3 = doc.querySelector('namess'+i).textContent;
-                                let name4 = doc.querySelector('namess'+i).textContent;
+                                let name4 = doc.querySelector('namesss'+i).textContent;
                                 let id = doc.querySelector('id'+i).textContent;
 
                                 transitions.push({ name: name2, name2: name3, name3: name4, id : id });
 
                                 let u = 1;
                                 let x = 0;
+                                console.log('estamos casi');
                                 while ( x < 1) {
                                     if (doc.querySelector('names'+i+u) != null)  {
                                         console.log('vamos que nos vamos');
                                         let name2 = doc.querySelector('names'+i+u).textContent;
                                         let name3 = doc.querySelector('namess'+i+u).textContent;
-                                        let name4 = doc.querySelector('namess'+i+u).textContent;
-
+                                        let name4 = doc.querySelector('namesss'+i+u).textContent;
                                         let id = doc.querySelector('id'+i+u).textContent;
 
                                         transitions.push({ name: name2, name2: name3, name3: name4, id : id });
                                         u++;
-                                        if (doc.querySelector('name'+i+u) === null) {
+                                        if (doc.querySelector('names'+i+u) === null) {
                                             x++;
                                         }
                                     }
@@ -470,13 +470,11 @@ export default class SelectionDialog extends HTMLElement {
                             if (doc.querySelector('name'+i) === null) {
                                 f++;
                             }
-
                         }
                     }
 
                     this.data.states = array;
                     console.log(this.data.states);
-                    //console.log(this.data.states);
 
                     this.data.button = button;
                     let res = filename2.split(".");
