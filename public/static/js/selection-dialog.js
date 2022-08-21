@@ -342,7 +342,32 @@ export default class SelectionDialog extends HTMLElement {
                     //console.log(doc.querySelector('states')?.textContent || 'default');
                     let array = [];
                     let transitions = [];
-                    for(let i = 0; i < 2 ; i++ ) {
+                    // for(let i = 0; i < 2 ; i++ ) {
+                    //     let name = doc.querySelector('name'+i).textContent;
+                    //     console.log(name);
+                    //     let x = doc.querySelector('x'+i).textContent;
+                    //     console.log(x);
+                    //     let y = doc.querySelector('y'+i).textContent;
+                    //     console.log(y);
+                    //     let isInitialState = doc.querySelector('isInitialState'+i).textContent;
+                    //     console.log(isInitialState);
+                    //     let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
+                    //     console.log(isTerminalState);
+                    //     let comments = doc.querySelector('comments'+i).textContent;
+                    //     console.log(comments);
+                    //     let name2 = doc.querySelector('names'+i).textContent;
+                    //     console.log(name2);
+                    //     let id = doc.querySelector('id'+i).textContent;
+                    //     console.log(id);
+                    //
+                    //
+                    // transitions.push({name:name2,id});
+                    // array.push( {name,x,y,isInitialState,isTerminalState,comments,transitions});
+                    //
+                    // }
+                    let f = 0;
+                    let i = 0;
+                    while( f < 1 ) {
                         let name = doc.querySelector('name'+i).textContent;
                         console.log(name);
                         let x = doc.querySelector('x'+i).textContent;
@@ -358,23 +383,17 @@ export default class SelectionDialog extends HTMLElement {
                         let name2 = doc.querySelector('names'+i).textContent;
                         console.log(name2);
                         let id = doc.querySelector('id'+i).textContent;
-                        console.log(id); 
+                        console.log(id);
 
-                                   
-                    transitions.push({name:name2,id});
-                    array.push( {name,x,y,isInitialState,isTerminalState,comments,transitions});
-                    /*
-                    this.data.states.push(
-                        new StateElement(
-                          name,
-                          x,
-                          y,
-                          isInitialState,
-                          isTerminalState,
-                          ""
-                        )
-                    )*/
-                    } 
+
+                        transitions.push({name:name2,id});
+                        array.push( {name,x,y,isInitialState,isTerminalState,comments,transitions});
+                        i++;
+                        if (doc.querySelector('name'+i) === null) {
+                            f++;
+                        }
+
+                    }
                     this.data.states = array;
 
                     console.log(this.data.states);
