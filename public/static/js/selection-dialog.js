@@ -310,8 +310,8 @@ export default class SelectionDialog extends HTMLElement {
                 let reader2 = new FileReader();
                 reader2.readAsText(file2);
                 reader2.onloadend = (evt) => {
-                    console.log(evt.target.result);
-                    console.log("---------------")                          
+                   // console.log(evt.target.result);
+                  //  console.log("---------------")
                            var a = evt.target.result;
                            const parser = new DOMParser();
                                                      
@@ -328,9 +328,9 @@ export default class SelectionDialog extends HTMLElement {
 
                            }
                            var c = formatXml(b);
-                           console.log(c);
+                           //console.log(c);
                            const doc = parser.parseFromString(c, "application/xml");
-                           console.log(doc);     
+                        // console.log(doc);
                            var theJson = xmlToJson2(doc);
                            
                           
@@ -370,25 +370,24 @@ export default class SelectionDialog extends HTMLElement {
                     while( f < 1 ) {
                         transitions = [];
                         let name = doc.querySelector('name'+i).textContent;
-                        console.log(name);
+                        //console.log(name);
                         let x = doc.querySelector('x'+i).textContent;
-                        console.log(x);
+                        //console.log(x);
                         let y = doc.querySelector('y'+i).textContent;
-                        console.log(y);
+                        //console.log(y);
                         let isInitialState = doc.querySelector('isInitialState'+i).textContent;
                         console.log(isInitialState);
                         let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
-                        console.log(isTerminalState);
+                        //console.log(isTerminalState);
                         let comments = doc.querySelector('comments'+i).textContent;
-                        console.log(comments);
+                        //console.log(comments);
                         let name2 = doc.querySelector('names'+i).textContent;
-                        console.log(name2);
+                        //console.log(name2);
                         let id = doc.querySelector('id'+i).textContent;
-                        console.log(id);
-
+                        //console.log(id);
 
                         transitions.push({ name: name2, id : id });
-                        array.push( {name,x,y,isInitialState,isTerminalState,comments,transitions});
+                        array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: comments, transitions: transitions});
                         i++;
                         if (doc.querySelector('name'+i) === null) {
                             f++;
@@ -397,10 +396,10 @@ export default class SelectionDialog extends HTMLElement {
                     }
                     this.data.states = array;
 
-                    console.log(this.data.states);
+                    //console.log(this.data.states);
 
 
-                    console.log(doc.querySelector('stack')?.textContent  || 'default');
+                  //  console.log(doc.querySelector('stack')?.textContent  || 'default');
                     this.data.stack = doc.querySelector('stack')?.textContent;
                     this.data.button = button;
                     let res = filename2.split(".");

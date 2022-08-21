@@ -216,9 +216,25 @@ class StateEditor extends HTMLElement {
   //Por otra parte, mantener las dimensiones de circulos en zoom implica redibujar constantemente, así que separo a redraw
   //lo que es rendering propiamente dicho
   _redraw() {
+    for (let i = 0; i < this.chart.states.length; i++) {
+      if (this.chart.states[i].isInitialState === 'false') {
+        this.chart.states[i].isInitialState = false;
+      }
+      if (this.chart.states[i].isInitialState === 'true') {
+        this.chart.states[i].isInitialState = true;
+      }
+      if (this.chart.states[i].isTerminalState === 'false') {
+        this.chart.states[i].isTerminalState = false;
+      }
+      if (this.chart.states[i].isTerminalState === 'true') {
+        this.chart.states[i].isTerminalState = true;
+      }
+    }
+
     this.svg.querySelectorAll("g").forEach((n) => n.remove());
     let sc = this.svgHandler.svgExtents.matrix.a;
     //Hay que hacer primero los estados porque las transiciones luego usan sus nodos y deben estar creados previamente!!
+
     this.chart.states.forEach((st) => {
       st.node = st.toDOM(sc); //apunta de svg a la clase
       st.node.state = st; //pongo un enlace hacia atrás, desde el nodo svg al estado del modelo
@@ -853,9 +869,9 @@ class StateEditor extends HTMLElement {
         setTimeout(() => this.editButtons.click("reset"), 100);
         break;
       case "selection_data":
-        console.log({ data });
+       // console.log({ data });
         data2 = { data };
-        console.log("holi" + data);
+        //console.log("holi" + data);
 
         if (data.states.length == 0) {
           //si no tengo estados ni transic, me da igual cargar desde un archivo vacio que hacer un chart nuevo
@@ -883,7 +899,7 @@ class StateEditor extends HTMLElement {
         //this.inputDialog.setAttribute('alphabet', data.sigma);
         this.history = [];
         this.redo = [];
-        //console.log(data.states);
+        console.log(data.states);
         this.chart.fromModal(data.states);
         this._redraw();
         let machineInfo = document.querySelector("#machine-info");
