@@ -535,6 +535,8 @@ export default class SelectionDialog extends HTMLElement {
         }
         this.dialog.close()
     }
+ 
+
     open() {
         this.connectedCallback();
         this.dialog.showModal();

@@ -42,7 +42,7 @@ const storage = require('node-sessionstorage');
 app.post('/auth', function(request, response) {
     var username = request.body.username;
     var password = request.body.password;
-   
+   console.log("ay");
     storage.setItem('user', username)
 
     if (username && password) {
@@ -66,18 +66,22 @@ app.get(`/home`, (request, response) => {
     response.sendFile('home.html', { root: `${__dirname}/public` });
 });
 
-app.get(`/bd`, (request, response) => {
+/*app.get(`/afterbd`, (request, response) => {
    
-    connection.query('INSERT INTO maquinas VALUES (1,2,3,0.5,1.5)', function(error, results, fields) {
-        if (results.length > 0) {
-          
-        } else {
-            response.send('Incorrect insertion');
-        }
-        
-    });
-    response.sendFile('home.html', { root: `${__dirname}/public` });
-});
+    var sql = "INSERT INTO maquinas (id_state, id_automata, id_usuario, id_posicion_x, id_posicion_y) VALUES (1,3,4,0.5,1.5)";
+    console.log("pues va");
+    connection.query(sql);
+    connection.query(sql,function (err, result){
+    if (err) {
+        throw err;}
+   
+        console.log("1 record inserted");
+        alert("Recorded!!");
+    window.location.reload();
+  });
+     
+  //response.sendFile('home.html', { root: `${__dirname}/public` });
+}); */
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get(`/`, (request, response) => {

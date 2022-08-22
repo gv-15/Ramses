@@ -1046,23 +1046,33 @@ class StateEditor extends HTMLElement {
 
       case "based":
 
-        alert(this.chart.obtainStates())
-    
-          if (this.chart.type === 'AFD' || this.chart.type === 'AFND')     
-          {
-           
-          
-           connection.Query("INSERT INTO maquinas VALUES (1,2,3,0.5,1.5)");
+        let data = {
+          name:document.querySelector("#saved-name").getAttribute("value"),
+          type:  this.chart.type,
+          states: this.chart.obtainStates(),
+        
+          get fullData() {
+            return `${this.name} ${this.type} ${this.states}`;
+          },
+        
+          set fullData(value) {
+            [this.name, this.type, this.states] = value.split(" ");
           }
-          else if (this.chart.type === 'APN' || this.chart.type === 'APD' )
-          {
+        };
+        var a = data.fullData;
+        var b =a.split(" ");
+        var name= b[0];
+        var type= b[1];
+        var states= b[2];
 
-          }
-          else if (this.chart.type === 'MTR' || this.chart.type === 'MTC' )
-          {
-
-          } 
-       }
+        alert("Name is: " + name);
+        alert("Type is: " +  type);
+        alert("States are :" + states);
+        
+        var d = todata();
+        d.fullData;
+      
+      }
     
   }
   _showOutput() {
@@ -1162,6 +1172,7 @@ class StateEditor extends HTMLElement {
 
 //esto ta fuera de la clase
 customElements.define("state-editor", StateEditor);
+
 
 //------------
 function OBJtoXML(obj) {
