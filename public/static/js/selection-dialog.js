@@ -311,31 +311,33 @@ export default class SelectionDialog extends HTMLElement {
                            console.log(a.toString());
                            //----------------------------
                            var b = "<automaton>" + a.toString() + "</automaton>";
+
+                           //el b2 es para no estropear el b con las pruebas
                            var b2 = "<automaton>" + a.toString() + "</automaton>";
 
-                   
-                              /*  var mapObj = {states:"states" + i,name:"name" + i,x:"x" + i,y:"y" + i,isInitialState:"isInitialState" + i,isTerminalState:"isTerminalState" + i,comments:"comments" + i,transitions:"transition" + i,id:"id" + i};
-                                number=0;
-                                b2 = b2.replace(/\b(?:states|name|x|y|isInitialState|isTerminalState|comments|transitions|id)\b/gi, matched => mapObj[matched],function() {
-                                    return ++number;
-                                });
-                                console.log(b2);*/
                             
-                           
-                                var mapObj = {states:"states0",name:"name0",x:"x0",y:"y0",isInitialState:"isInitialState0",isTerminalState:"isTerminalState0",comments:"comments0",transitions:"transition0",id:"id0"};
-                                var number=0;
-                                b2 = b2.replace(/\b(?:states|name|x|y|isInitialState|isTerminalState|comments|transitions|id)\b/gi, matched => mapObj[matched]);
-                                console.log(b2);
+                                //esto saca cuantos estados hay
+                                var count =  b2.match(/\bstates\b/g); 
+                                count = count? count.length : 0;  //checking if there are matches or not.
+                                console.log("is" + count/2);
+                                var countf = count/2;
+                                console.log(countf);
 
-                               
+                                for (var j = 0; j< countf; j++)
+                                {
+                                    
+                                    var mapObj = {states:"states" + j,name:"name" + j,x:"x" + j,y:"y" + j,isInitialState:"isInitialState" + j,isTerminalState:"isTerminalState" + j,comments:"comments" + j,transitions:"transition" + j,id:"id" + j};
+                                    b2 = b2.replace(/states|x|y|isInitialState|isTerminalState|comments|transitions|id/gi, function(matched){
+                                        return mapObj[matched];
+                                      });
+                                    console.log(b2);
 
-                                b2 = b2.replace(/0/g, function() {
-                                    return ++number;
-                                });
-                                console.log(b2);
+                                    var number = 0;
 
-
-
+                                 /*  b2 = b2.replace(/states|x|y|isInitialState|isTerminalState|comments|transitions|id/g, function() {
+                                       return ++number;
+                                    });*/
+                                }
 //-------------------------------------------------------------------------------------------
                            const parser = new DOMParser();
                                                      
