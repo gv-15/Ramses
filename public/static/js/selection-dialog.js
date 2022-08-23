@@ -308,7 +308,35 @@ export default class SelectionDialog extends HTMLElement {
                 reader2.onloadend = (evt) => {
 
                            var a = evt.target.result;
-                           console.log(a);
+                           console.log(a.toString());
+                           //----------------------------
+                           var b = "<automaton>" + a.toString() + "</automaton>";
+                           var b2 = "<automaton>" + a.toString() + "</automaton>";
+
+                   
+                              /*  var mapObj = {states:"states" + i,name:"name" + i,x:"x" + i,y:"y" + i,isInitialState:"isInitialState" + i,isTerminalState:"isTerminalState" + i,comments:"comments" + i,transitions:"transition" + i,id:"id" + i};
+                                number=0;
+                                b2 = b2.replace(/\b(?:states|name|x|y|isInitialState|isTerminalState|comments|transitions|id)\b/gi, matched => mapObj[matched],function() {
+                                    return ++number;
+                                });
+                                console.log(b2);*/
+                            
+                           
+                                var mapObj = {states:"states0",name:"name0",x:"x0",y:"y0",isInitialState:"isInitialState0",isTerminalState:"isTerminalState0",comments:"comments0",transitions:"transition0",id:"id0"};
+                                var number=0;
+                                b2 = b2.replace(/\b(?:states|name|x|y|isInitialState|isTerminalState|comments|transitions|id)\b/gi, matched => mapObj[matched]);
+                                console.log(b2);
+
+                               
+
+                                b2 = b2.replace(/0/g, function() {
+                                    return ++number;
+                                });
+                                console.log(b2);
+
+
+
+//-------------------------------------------------------------------------------------------
                            const parser = new DOMParser();
                                                      
                            var b = "<automaton>" + a + "</automaton>";
