@@ -312,7 +312,7 @@ export default class SelectionDialog extends HTMLElement {
                            //----------------------------
                            var b = "<automaton>" + a.toString() + "</automaton>";
 
-                           //el b2 es para no estropear el b con las pruebas
+                           //el b2 es para no estropear el b con las pruebas, que si lo cambias no dibuja
                            var b2 = "<automaton>" + a.toString() + "</automaton>";
 
                             
@@ -338,8 +338,17 @@ export default class SelectionDialog extends HTMLElement {
                                        return ++number;
                                     });*/
                                 }
-//-------------------------------------------------------------------------------------------
-                           const parser = new DOMParser();
+                            //-------------------------------------------------------------------------------------------
+                          
+                        //esto pone a todos un cero
+                           /* var mapObj = {states:"states0",name:"name0",x:"x0",y:"y0",isInitialState:"isInitialState0",isTerminalState:"isTerminalState0",comments:"comments0",transitions:"transition0",id:"id0"};
+                            str = str.replace(/states|x|y|isInitialState|isTerminalState|comments|transitions|id/gi, function(matched){
+                                return mapObj[matched];
+                              });
+                          */
+                          
+                          
+                            const parser = new DOMParser();
                                                      
                            var b = "<automaton>" + a + "</automaton>";
                            var cont = 0;
