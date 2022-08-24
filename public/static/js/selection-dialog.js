@@ -329,7 +329,7 @@ export default class SelectionDialog extends HTMLElement {
                                 {
                                    
                                     var mapObj = {states:"states" + j,name:"name" + j,x:"x" + j,y:"y" + j,isInitialState:"isInitialState" + j,isTerminalState:"isTerminalState" + j,comments:"comments" + j,transitions:"transition" + j,id:"id" + j};
-                                    b2 = b2.replace(/(states|x|y|isInitialState|isTerminalState|comments|transitions|id)/gi, function(matched){
+                                    b2 = b2.replace(/(states|name |x|y|isInitialState|isTerminalState|comments|transitions|id)/gi, function(matched){
                                         return mapObj[matched] + ++number;
                                       });
                                     console.log(b2);
