@@ -317,30 +317,47 @@ export default class SelectionDialog extends HTMLElement {
 
                             
                                 //esto saca cuantos estados hay
-                                var count =  b2.match(/\bstates\b/g); 
+                                var count =  b2.match(/\bstates\b/g);
                                 count = count? count.length : 0;  //checking if there are matches or not.
-                                console.log("is" + count/2);
+                                console.log("is " + count/2);
                             
                                 var countf = count/2;
                                 console.log(countf);
                                 var number = 0;
-
-                                for (var j = 0; j< countf; j++)
+                                let state = 0;
+                                let state2 = 0;
+                                let state3 = 0;
+                                for (let j = 0; j < 1; j++)
                                 {
-                                   
-                                    var mapObj = {states:"states" + j,name:"name" + j,x:"x" + j,y:"y" + j,isInitialState:"isInitialState" + j,isTerminalState:"isTerminalState" + j,comments:"comments" + j,transitions:"transition" + j,id:"id" + j};
-                                    b2 = b2.replace(/(states|name |x|y|isInitialState|isTerminalState|comments|transitions|id)/gi, function(matched){
-                                        return mapObj[matched] + ++number;
+                                    var mapObj = {states:"states",name:"name" + j,x:"x" + j,y:"y" + j,isInitialState:"isInitialState" + j,isTerminalState:"isTerminalState" + j,comments:"comments" + j,transitions:"transition" + j,id:"id" + j};
+                                    b2 = b2.replace(/(states)/gi, function(matched){
+                                        if (state3 === 0 || ( state2 === 0 && state3%2 !== 0)) {
+                                            console.log('estoy aqui jefe');
+                                            state2++;
+                                            state3++;
+                                            return mapObj[matched] + state;
+                                        }
+                                        else if (state2 === 1 ) {
+                                            console.log('la mano de dios esto ya funciona :)');
+                                            state2 = 0;
+                                            state3++;
+                                            return mapObj[matched] + state;
+                                        }
+                                        else if (state2 === 0 && state3%2 === 0) {
+                                            console.log('vikingos la puta mejor serie');
+                                            state2++;
+                                            state3++;
+                                            return mapObj[matched] + ++state;
+                                        }
                                       });
-                                    console.log(b2);
-
-                              
-
                                  /*  b2 = b2.replace(/states|x|y|isInitialState|isTerminalState|comments|transitions|id/g, function() {
                                        return ++number;
                                     });*/
                                 }
-                            //-------------------------------------------------------------------------------------------
+
+                    console.log(b2);
+
+                    //-------------------------------------------------------------------------------------------
                           
                         //esto pone a todos un cero
                            /* var mapObj = {states:"states0",name:"name0",x:"x0",y:"y0",isInitialState:"isInitialState0",isTerminalState:"isTerminalState0",comments:"comments0",transitions:"transition0",id:"id0"};
