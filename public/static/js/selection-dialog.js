@@ -310,7 +310,7 @@ export default class SelectionDialog extends HTMLElement {
                            var a = evt.target.result;
                            console.log(a.toString());
                            //----------------------------
-                           var b = "<automaton>" + a.toString() + "</automaton>";
+                           
 
                            //el b2 es para no estropear el b con las pruebas, que si lo cambias no dibuja
                            var b2 = "<automaton>" + a.toString() + "</automaton>";
@@ -324,12 +324,28 @@ export default class SelectionDialog extends HTMLElement {
                                 var countf = count/2;
                                 console.log(countf);
                                 var number = 0;
+
+                                var b3 = b2.split("</stack>");
+                                b3[0] = b3[0] + "</stack>";
+                                console.log(b3[0]);
+
+
+                                b2=b3[1];
+                                var mapObj = {type:"type",states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};                        
+                                b2 = b2.replace(/(type)/gi, function(matched){
+                                    console.log("es" + mapObj[matched]);
+                                    return mapObj[matched];
+
+                                });
+                          
+                                //----------------------------------
                                 let state = 0;
                                 let state2 = 0;
                                 let state3 = 0;
                                 for (let j = 0; j < 1; j++)
                                 {
-                                    var mapObj = {states:"states",name:"name" + j,x:"x" + j,y:"y" + j,isInitialState:"isInitialState" + j,isTerminalState:"isTerminalState" + j,comments:"comments" + j,transitions:"transition" + j,id:"id" + j};
+                                    var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+  
                                     b2 = b2.replace(/(states)/gi, function(matched){
                                         if (state3 === 0 || ( state2 === 0 && state3%2 !== 0)) {
                                             console.log('estoy aqui jefe');
@@ -350,26 +366,288 @@ export default class SelectionDialog extends HTMLElement {
                                             return mapObj[matched] + ++state;
                                         }
                                       });
-                                 /*  b2 = b2.replace(/states|x|y|isInitialState|isTerminalState|comments|transitions|id/g, function() {
-                                       return ++number;
-                                    });*/
                                 }
+                                //----------------------------------
+                                let nam = 0;
+                                let nam2 = 0;
+                                let nam3 = 0;
+                                var b4 = b2.split("</name>");
+                                
+                                console.log(b4);
+                                for (let j = 0; j < 1; j++)
+                                {
+                                    console.log(b4);
+                                    for ( var z=0; z<b4.length ; z++){
 
-                    console.log(b2);
+                                        var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                        b4[z] = b4[z] + "</name>";
+                                        b4[z] = b4[z].replace(/(name)/gi, function(matched){                                          
+                                                return mapObj[matched] + z;                                                                                
+                                          });
+                                    }
+                                    
+                                }
+                                //------------------------------------------------
+                                let x_ = 0;
+                                let x_2 = 0;
+                                let x_3 = 0;
+                                for (let j = 0; j < 1; j++)
+                                {
+                                    var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                    b2 = b2.replace(/(x)/gi, function(matched){
+                                        if (x_3 === 0 || ( x_2 === 0 && x_3%2 !== 0)) {
+                                            console.log('estoy aqui jefe');
+                                            x_2++;
+                                            x_3++;
+                                            return mapObj[matched] + x_;
+                                        }
+                                        else if (x_2 === 1 ) {
+                                            console.log('la mano de dios esto ya funciona :)');
+                                            x_2 = 0;
+                                            x_3++;
+                                            return mapObj[matched] + x_;
+                                        }
+                                        else if (x_2 === 0 && x_3%2 === 0) {
+                                            console.log('vikingos la puta mejor serie');
+                                            x_2++;
+                                            x_3++;
+                                            return mapObj[matched] + ++x_;
+                                        }
+                                      });
+                                }
+                                //-----------------------------------------------------------------
+                                
+                                let y_ = 0;
+                                let y_2 = 0;
+                                let y_3 = 0;                            
+                                for (let j = 0; j < 1; j++)
+                                {
+                                    var mapObj = {type:"type",states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                    
+                                    
+                                    b2 = b2.replace(/y/gi, function(matched){
+                                        if (y_3 === 0 || ( y_2 === 0 && y_3%2 !== 0)) {
+                                            console.log('estoy aqui jefe');
+                                            y_2++;
+                                            y_3++;
+                                            console.log(mapObj[matched] + y_ + '');
+                                            return mapObj[matched] + y_;
+                                        }
+                                        else if (y_2 === 1 ) {
+                                            console.log('la mano de dios esto ya funciona :)');
+                                            y_2 = 0;
+                                            y_3++;
+                                            
+                                            console.log(mapObj[matched] + y_ + '');
+                                            return mapObj[matched] + y_;
+                                        }
+                                        else if (y_2 === 0 && y_3%2 === 0) {
+                                            console.log('vikingos la puta mejor serie');
+                                            y_2++;
+                                            y_3++;
+                                            console.log(mapObj[matched] + y_ + '');
+                                            return mapObj[matched] + ++y_;
+                                        }
+                                      });
+                                }
+                                //------------------------------------------
+                                                                                  
+                                let isInitialState = 0;
+                                let isInitialState2 = 0;
+                                let isInitialState3 = 0;
+                                for (let j = 0; j < 1; j++)
+                                {
+                                    var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                    b2 = b2.replace(/(isInitialState)/gi, function(matched){
+                                        if (isInitialState3 === 0 || ( isInitialState2 === 0 && isInitialState3%2 !== 0)) {
+                                            console.log('estoy aqui jefe');
+                                            isInitialState2++;
+                                            isInitialState3++;
+                                            return mapObj[matched] + isInitialState;
+                                        }
+                                        else if (isInitialState2 === 1 ) {
+                                            console.log('la mano de dios esto ya funciona :)');
+                                            isInitialState2 = 0;
+                                            isInitialState3++;
+                                            return mapObj[matched] + isInitialState;
+                                        }
+                                        else if (isInitialState2 === 0 && isInitialState3%2 === 0) {
+                                            console.log('vikingos la puta mejor serie');
+                                            isInitialState2++;
+                                            isInitialState3++;
+                                            return mapObj[matched] + ++isInitialState;
+                                        }
+                                      });
+                                }
+                                //------------------------------------------
+                                let isTerminalState = 0;
+                                let isTerminalState2 = 0;
+                                let isTerminalState3 = 0;
+                                for (let j = 0; j < 1; j++)
+                                {
+                                    var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                    b2 = b2.replace(/(isTerminalState)/gi, function(matched){
+                                        if (isTerminalState3 === 0 || ( isTerminalState2 === 0 && isTerminalState3%2 !== 0)) {
+                                            console.log('estoy aqui jefe');
+                                            isTerminalState2++;
+                                            isTerminalState3++;
+                                            return mapObj[matched] + isTerminalState;
+                                        }
+                                        else if (isTerminalState2 === 1 ) {
+                                            console.log('la mano de dios esto ya funciona :)');
+                                            isTerminalState2 = 0;
+                                            isTerminalState3++;
+                                            return mapObj[matched] + isTerminalState;
+                                        }
+                                        else if (isTerminalState2 === 0 && isTerminalState3%2 === 0) {
+                                            console.log('vikingos la puta mejor serie');
+                                            isTerminalState2++;
+                                            isTerminalState3++;
+                                            return mapObj[matched] + ++isTerminalState;
+                                        }
+                                      });
+                                }
+                                //--------------------------------------------
+                                let com = 0;
+                                let com2 = 0;
+                                let com3 = 0;
+                                for (let j = 0; j < 1; j++)
+                                {
+                                    var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                    b2 = b2.replace(/(comments)/gi, function(matched){
+                                        if (com3 === 0 || ( com2 === 0 && com3%2 !== 0)) {
+                                            console.log('estoy aqui jefe');
+                                            com2++;
+                                            com3++;
+                                            return mapObj[matched] + com;
+                                        }
+                                        else if (com2 === 1 ) {
+                                            console.log('la mano de dios esto ya funciona :)');
+                                            com2 = 0;
+                                            com3++;
+                                            return mapObj[matched] + com;
+                                        }
+                                        else if (com2 === 0 && com3%2 === 0) {
+                                            console.log('vikingos la puta mejor serie');
+                                            com2++;
+                                            com3++;
+                                            return mapObj[matched] + ++com;
+                                        }
+                                      });
+                                }
+                                //---------------------------------------------------------------------
+                                let trans = 0;
+                                let trans2 = 0;
+                                let trans3 = 0;
 
+                                var b5 = b2.split("</transitions>");
+
+                                for (let j = 0; j < 1; j++)
+                                {
+                                    var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                    b5[j] = b5[j] + j;
+                                    b5[j] = b5[j].replace(/(transitions)/gi, function(matched){
+                                        
+                                            return mapObj[matched] + j;
+                                        
+                                      });
+                                }
+                                //-----------------------------
+                                let id_ = 0;
+                                let id2 = 0;
+                                let id3 = 0;
+                                for (let j = 0; j < 1; j++)
+                                {
+                                    var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                    b2 = b2.replace(/(id)/gi, function(matched){
+                                        if (id3 === 0 || ( id2 === 0 && id3%2 !== 0)) {
+                                            console.log('estoy aqui jefe');
+                                            id2++;
+                                            id3++;
+                                            return mapObj[matched] + id_;
+                                        }
+                                        else if (id2 === 1 ) {
+                                            console.log('la mano de dios esto ya funciona :)');
+                                            id2 = 0;
+                                            id3++;
+                                            return mapObj[matched] + id_;
+                                        }
+                                        else if (id2 === 0 && id3%2 === 0) {
+                                            console.log('vikingos la puta mejor serie');
+                                            id2++;
+                                            id3++;
+                                            return mapObj[matched] + ++id_;
+                                        }
+                                      });
+                                }
+                                //------------------------------------------
+                                let names_ = 0;
+                                let names2 = 0;
+                                let names3 = 0;
+                                for (let j = 0; j < 1; j++)
+                                {
+                                    var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                    b2 = b2.replace(/(names)/gi, function(matched){
+                                        if (names3 === 0 || ( names2 === 0 && names3%2 !== 0)) {
+                                            console.log('estoy aqui jefe');
+                                            names2++;
+                                            names3++;
+                                            return mapObj[matched] + names_;
+                                        }
+                                        else if (names2 === 1 ) {
+                                            console.log('la mano de dios esto ya funciona :)');
+                                            names2 = 0;
+                                            names3++;
+                                            return mapObj[matched] + names_;
+                                        }
+                                        else if (names2 === 0 && names3%2 === 0) {
+                                            console.log('vikingos la puta mejor serie');
+                                            names2++;
+                                            names3++;
+                                            return mapObj[matched] + ++names_;
+                                        }
+                                      });
+                                }
+                                //------------------------------------------------
+                                let namess_ = 0;
+                                let namess2 = 0;
+                                let namess3 = 0;
+                                for (let j = 0; j < 1; j++)
+                                {
+                                    var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                    b2 = b2.replace(/(namess)/gi, function(matched){
+                                        if (namess3 === 0 || ( namess2 === 0 && namess3%2 !== 0)) {
+                                            console.log('estoy aqui jefe');
+                                            namess2++;
+                                            namess3++;
+                                            console.log(mapObj[matched] + namess_);
+                                            return mapObj[matched] + namess_;
+                                        }
+                                        else if (namess2 === 1 ) {
+                                            console.log('la mano de dios esto ya funciona :)');
+                                            namess2 = 0;
+                                            namess3++;
+                                            return mapObj[matched] + namess_;
+                                        }
+                                        else if (namess2 === 0 && namess3%2 === 0) {
+                                            console.log('vikingos la puta mejor serie');
+                                            namess2++;
+                                            namess3++;
+                                            return mapObj[matched] + ++namess_;
+                                        }
+                                      });
+                                }
+                                console.log("me quiero morir b4 es " + b4);
+                                //----------------------------------------------------
+                   
+                    //var b = "<automaton>" + a.toString() + "</automaton>";
                     //-------------------------------------------------------------------------------------------
+                          var b = b3[0] + b2;
                           
-                        //esto pone a todos un cero
-                           /* var mapObj = {states:"states0",name:"name0",x:"x0",y:"y0",isInitialState:"isInitialState0",isTerminalState:"isTerminalState0",comments:"comments0",transitions:"transition0",id:"id0"};
-                            str = str.replace(/states|x|y|isInitialState|isTerminalState|comments|transitions|id/gi, function(matched){
-                                return mapObj[matched];
-                              });
-                          */
-                          
-                          
-                            const parser = new DOMParser();
+                        const parser = new DOMParser();
                                                      
-                           var b = "<automaton>" + a + "</automaton>";
+                          // var b = "<automaton>" + b2 + "</automaton>";
+                           console.log(b); 
                            var cont = 0;
 
                            var c = formatXml(b);
@@ -387,31 +665,31 @@ export default class SelectionDialog extends HTMLElement {
                     if (this.data.type === 'AFD') {
                         while( f < 1 ) {
                             transitions = [];
-                            let name = doc.querySelector('name'+i).textContent;
-                            let x = doc.querySelector('x'+i).textContent;
-                            let y = doc.querySelector('y'+i).textContent;
-                            let isInitialState = doc.querySelector('isInitialState'+i).textContent;
-                            let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
+                            let name = doc.querySelector('name0'+i).textContent;
+                            let x = doc.querySelector('x0'+i).textContent;
+                            let y = doc.querySelector('y0'+i).textContent;
+                            let isInitialState = doc.querySelector('isInitialState0'+i).textContent;
+                            let isTerminalState = doc.querySelector('isTerminalState0'+i).textContent;
 
-                            if (doc.querySelector('names'+i) === null) {
+                            if (doc.querySelector('names0'+i) === null) {
                                 transitions = [];
                             }
                             else {
-                                let name2 = doc.querySelector('names'+i).textContent;
-                                let id = doc.querySelector('id'+i).textContent;
+                                let name2 = doc.querySelector('names0'+i).textContent;
+                                let id = doc.querySelector('id0'+i).textContent;
 
                                 transitions.push({ name: name2, id : id });
 
                                 let u = 1;
                                 let x = 0;
                                 while ( x < 1) {
-                                    if (doc.querySelector('names'+i+u) != null)  {
-                                        let name2 = doc.querySelector('names'+i+u).textContent;
-                                        let id = doc.querySelector('id'+i+u).textContent;
+                                    if (doc.querySelector('names0'+i+u) != null)  {
+                                        let name2 = doc.querySelector('names0'+i+u).textContent;
+                                        let id = doc.querySelector('id0'+i+u).textContent;
 
                                         transitions.push({ name: name2, name2: '', name3: '', id : id });
                                         u++;
-                                        if (doc.querySelector('name'+i+u) === null) {
+                                        if (doc.querySelector('name0'+i+u) === null) {
                                             x++;
                                         }
                                     }
@@ -424,7 +702,7 @@ export default class SelectionDialog extends HTMLElement {
 
                             array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
                             i++;
-                            if (doc.querySelector('name'+i) === null) {
+                            if (doc.querySelector('name0'+i) === null) {
                                 f++;
                             }
 
@@ -434,35 +712,35 @@ export default class SelectionDialog extends HTMLElement {
                    else if (this.data.type === 'AFND') {
                         while( f < 1 ) {
                             transitions = [];
-                            let name = doc.querySelector('name'+i).textContent;
-                            let x = doc.querySelector('x'+i).textContent;
-                            let y = doc.querySelector('y'+i).textContent;
-                            let isInitialState = doc.querySelector('isInitialState'+i).textContent;
-                            let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
+                            let name = doc.querySelector('name0'+i).textContent;
+                            let x = doc.querySelector('x0'+i).textContent;
+                            let y = doc.querySelector('y0'+i).textContent;
+                            let isInitialState = doc.querySelector('isInitialState0'+i).textContent;
+                            let isTerminalState = doc.querySelector('isTerminalState0'+i).textContent;
 
-                            if (doc.querySelector('names'+i) === null) {
+                            if (doc.querySelector('names0'+i) === null) {
                                 transitions = [];
                             }
                             else {
                                
-                                let name2 = doc.querySelector('names'+i).textContent;
-                                let id = doc.querySelector('id'+i).textContent;
+                                let name2 = doc.querySelector('names0'+i).textContent;
+                                let id = doc.querySelector('id0'+i).textContent;
 
                                 transitions.push({ name: name2, id : id });
 
                                 let u = 1;
                                 let x = 0;
                                 while ( x < 1) {
-                                    if (doc.querySelector('names'+i+u) != null)  {
+                                    if (doc.querySelector('names0'+i+u) != null)  {
                                         console.log('vamos que nos vamos');
-                                        let name2 = doc.querySelector('names'+i+u).textContent;
+                                        let name2 = doc.querySelector('names0'+i+u).textContent;
                                         //console.log(name2);
-                                        let id = doc.querySelector('id'+i+u).textContent;
+                                        let id = doc.querySelector('id0'+i+u).textContent;
                                         //console.log(id);
 
                                         transitions.push({ name: name2, name2: '', name3: '', id : id });
                                         u++;
-                                        if (doc.querySelector('name'+i+u) === null) {
+                                        if (doc.querySelector('name0'+i+u) === null) {
                                             x++;
                                         }
                                     }
@@ -475,7 +753,7 @@ export default class SelectionDialog extends HTMLElement {
 
                             array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
                             i++;
-                            if (doc.querySelector('name'+i) === null) {
+                            if (doc.querySelector('name0'+i) === null) {
                                 f++;
                             }
 
@@ -485,37 +763,37 @@ export default class SelectionDialog extends HTMLElement {
                    else {
                         while( f < 1 ) {
                             transitions = [];
-                            let name = doc.querySelector('name'+i).textContent;
-                            let x = doc.querySelector('x'+i).textContent;
-                            let y = doc.querySelector('y'+i).textContent;
-                            let isInitialState = doc.querySelector('isInitialState'+i).textContent;
-                            let isTerminalState = doc.querySelector('isTerminalState'+i).textContent;
+                            let name = doc.querySelector('name0'+i).textContent;
+                            let x = doc.querySelector('x0'+i).textContent;
+                            let y = doc.querySelector('y0'+i).textContent;
+                            let isInitialState = doc.querySelector('isInitialState0'+i).textContent;
+                            let isTerminalState = doc.querySelector('isTerminalState0'+i).textContent;
 
                             if (doc.querySelector('names'+i) === null) {
                                 transitions = [];
                             }
                             else {
-                                let name2 = doc.querySelector('names'+i).textContent;
-                                let name3 = doc.querySelector('namess'+i).textContent;
-                                let name4 = doc.querySelector('namess'+i).textContent;
-                                let id = doc.querySelector('id'+i).textContent;
+                                let name2 = doc.querySelector('names0'+i).textContent;
+                                let name3 = doc.querySelector('namess0'+i).textContent;
+                                let name4 = doc.querySelector('namess0'+i).textContent;
+                                let id = doc.querySelector('id0'+i).textContent;
 
                                 transitions.push({ name: name2, name2: name3, name3: name4, id : id });
 
                                 let u = 1;
                                 let x = 0;
                                 while ( x < 1) {
-                                    if (doc.querySelector('names'+i+u) != null)  {
+                                    if (doc.querySelector('names0'+i+u) != null)  {
                                         console.log('vamos que nos vamos');
-                                        let name2 = doc.querySelector('names'+i+u).textContent;
-                                        let name3 = doc.querySelector('namess'+i+u).textContent;
-                                        let name4 = doc.querySelector('namess'+i+u).textContent;
+                                        let name2 = doc.querySelector('names0'+i+u).textContent;
+                                        let name3 = doc.querySelector('namess0'+i+u).textContent;
+                                        let name4 = doc.querySelector('namess0'+i+u).textContent;
 
-                                        let id = doc.querySelector('id'+i+u).textContent;
+                                        let id = doc.querySelector('i0'+i+u).textContent;
 
                                         transitions.push({ name: name2, name2: name3, name3: name4, id : id });
                                         u++;
-                                        if (doc.querySelector('name'+i+u) === null) {
+                                        if (doc.querySelector('name0'+i+u) === null) {
                                             x++;
                                         }
                                     }
@@ -526,7 +804,7 @@ export default class SelectionDialog extends HTMLElement {
                             }
                             array.push({ name: name, x: x, y: y, isTerminalState: isTerminalState, isInitialState: isInitialState, comments: '', transitions: transitions});
                             i++;
-                            if (doc.querySelector('name'+i) === null) {
+                            if (doc.querySelector('name0'+i) === null) {
                                 f++;
                             }
 
