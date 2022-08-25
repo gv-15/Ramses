@@ -279,10 +279,8 @@ export default class SelectionDialog extends HTMLElement {
                 let reader = new FileReader();
                 reader.readAsText(file);
                 reader.onloadend = (evt) => {
-                    console.log("lo de evt" + evt.target.result);
                     let stored = JSON.parse(evt.target.result);
                     console.log("stored es" + stored);
-                    console.log(stored[0].type);
                     this.data.type = stored[0].type;
                     this.data.sigma = stored[0].sigma;
                     this.data.states = stored[0].states;
@@ -320,7 +318,7 @@ export default class SelectionDialog extends HTMLElement {
                                 var count =  b2.match(/\bstates\b/g);
                                 count = count? count.length : 0;  //checking if there are matches or not.
                                 //console.log("is " + count/2);
-                            
+
                                 var countf = count/2;
                                 //console.log(countf);
                                 var number = 0;
