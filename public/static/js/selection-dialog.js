@@ -279,10 +279,8 @@ export default class SelectionDialog extends HTMLElement {
                 let reader = new FileReader();
                 reader.readAsText(file);
                 reader.onloadend = (evt) => {
-                    console.log("lo de evt" + evt.target.result);
                     let stored = JSON.parse(evt.target.result);
-                    console.log("stored es" + stored);
-                    console.log(stored[0].type);
+                    console.log("stored es" + stored);               
                     this.data.type = stored[0].type;
                     this.data.sigma = stored[0].sigma;
                     this.data.states = stored[0].states;
@@ -317,19 +315,14 @@ export default class SelectionDialog extends HTMLElement {
 
                             
                                 //esto saca cuantos estados hay
-                                var count =  b2.match(/\bstates\b/g);
-                                count = count? count.length : 0;  //checking if there are matches or not.
-                                console.log("is " + count/2);
-                            
-                                var countf = count/2;
-                                console.log(countf);
+                                //var count =  b2.match(/\bstates\b/g);
+                                //count = count? count.length : 0;  //checking if there are matches or not.
+                                //console.log("is " + count/2);
+
                                 var number = 0;
 
                                 var b3 = b2.split("</stack>");
                                 b3[0] = b3[0] + "</stack>";
-                                console.log(b3[0]);
-
-
                                 b2=b3[1];
                                 var mapObj = {type:"type",states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};                        
                                 b2 = b2.replace(/(type)/gi, function(matched){
@@ -347,20 +340,17 @@ export default class SelectionDialog extends HTMLElement {
                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
   
                                     b2 = b2.replace(/(states)/gi, function(matched){
-                                        if (state3 === 0 || ( state2 === 0 && state3%2 !== 0)) {
-                                            console.log('estoy aqui jefe');
+                                        if (state3 === 0 || ( state2 === 0 && state3%2 !== 0)) {                                          
                                             state2++;
                                             state3++;
                                             return mapObj[matched] + state;
                                         }
                                         else if (state2 === 1 ) {
-                                            console.log('la mano de dios esto ya funciona :)');
                                             state2 = 0;
                                             state3++;
                                             return mapObj[matched] + state;
                                         }
                                         else if (state2 === 0 && state3%2 === 0) {
-                                            console.log('vikingos la puta mejor serie');
                                             state2++;
                                             state3++;
                                             return mapObj[matched] + ++state;
@@ -368,12 +358,8 @@ export default class SelectionDialog extends HTMLElement {
                                       });
                                 }
                                 //----------------------------------
-                                let nam = 0;
-                                let nam2 = 0;
-                                let nam3 = 0;
                                 var b4 = b2.split("</name>");
-                                
-                                console.log(b4);
+
                                 for (let j = 0; j < 1; j++)
                                 {
                                     console.log(b4);
@@ -395,20 +381,17 @@ export default class SelectionDialog extends HTMLElement {
                                 {
                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
                                     b2 = b2.replace(/(x)/gi, function(matched){
-                                        if (x_3 === 0 || ( x_2 === 0 && x_3%2 !== 0)) {
-                                            console.log('estoy aqui jefe');
+                                        if (x_3 === 0 || ( x_2 === 0 && x_3%2 !== 0)) {                                         
                                             x_2++;
                                             x_3++;
                                             return mapObj[matched] + x_;
                                         }
-                                        else if (x_2 === 1 ) {
-                                            console.log('la mano de dios esto ya funciona :)');
+                                        else if (x_2 === 1 ) {                                           
                                             x_2 = 0;
                                             x_3++;
                                             return mapObj[matched] + x_;
                                         }
                                         else if (x_2 === 0 && x_3%2 === 0) {
-                                            console.log('vikingos la puta mejor serie');
                                             x_2++;
                                             x_3++;
                                             return mapObj[matched] + ++x_;
@@ -427,25 +410,18 @@ export default class SelectionDialog extends HTMLElement {
                                     
                                     b2 = b2.replace(/y/gi, function(matched){
                                         if (y_3 === 0 || ( y_2 === 0 && y_3%2 !== 0)) {
-                                            console.log('estoy aqui jefe');
                                             y_2++;
                                             y_3++;
-                                            console.log(mapObj[matched] + y_ + '');
                                             return mapObj[matched] + y_;
                                         }
-                                        else if (y_2 === 1 ) {
-                                            console.log('la mano de dios esto ya funciona :)');
+                                        else if (y_2 === 1 ) {                                         
                                             y_2 = 0;
                                             y_3++;
-                                            
-                                            console.log(mapObj[matched] + y_ + '');
                                             return mapObj[matched] + y_;
                                         }
-                                        else if (y_2 === 0 && y_3%2 === 0) {
-                                            console.log('vikingos la puta mejor serie');
+                                        else if (y_2 === 0 && y_3%2 === 0) {                                           
                                             y_2++;
                                             y_3++;
-                                            console.log(mapObj[matched] + y_ + '');
                                             return mapObj[matched] + ++y_;
                                         }
                                       });
@@ -459,20 +435,17 @@ export default class SelectionDialog extends HTMLElement {
                                 {
                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
                                     b2 = b2.replace(/(isInitialState)/gi, function(matched){
-                                        if (isInitialState3 === 0 || ( isInitialState2 === 0 && isInitialState3%2 !== 0)) {
-                                            console.log('estoy aqui jefe');
+                                        if (isInitialState3 === 0 || ( isInitialState2 === 0 && isInitialState3%2 !== 0)) {                                         
                                             isInitialState2++;
                                             isInitialState3++;
                                             return mapObj[matched] + isInitialState;
                                         }
                                         else if (isInitialState2 === 1 ) {
-                                            console.log('la mano de dios esto ya funciona :)');
                                             isInitialState2 = 0;
                                             isInitialState3++;
                                             return mapObj[matched] + isInitialState;
                                         }
                                         else if (isInitialState2 === 0 && isInitialState3%2 === 0) {
-                                            console.log('vikingos la puta mejor serie');
                                             isInitialState2++;
                                             isInitialState3++;
                                             return mapObj[matched] + ++isInitialState;
@@ -488,19 +461,16 @@ export default class SelectionDialog extends HTMLElement {
                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
                                     b2 = b2.replace(/(isTerminalState)/gi, function(matched){
                                         if (isTerminalState3 === 0 || ( isTerminalState2 === 0 && isTerminalState3%2 !== 0)) {
-                                            console.log('estoy aqui jefe');
                                             isTerminalState2++;
                                             isTerminalState3++;
                                             return mapObj[matched] + isTerminalState;
                                         }
                                         else if (isTerminalState2 === 1 ) {
-                                            console.log('la mano de dios esto ya funciona :)');
                                             isTerminalState2 = 0;
                                             isTerminalState3++;
                                             return mapObj[matched] + isTerminalState;
                                         }
                                         else if (isTerminalState2 === 0 && isTerminalState3%2 === 0) {
-                                            console.log('vikingos la puta mejor serie');
                                             isTerminalState2++;
                                             isTerminalState3++;
                                             return mapObj[matched] + ++isTerminalState;
@@ -516,19 +486,16 @@ export default class SelectionDialog extends HTMLElement {
                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
                                     b2 = b2.replace(/(comments)/gi, function(matched){
                                         if (com3 === 0 || ( com2 === 0 && com3%2 !== 0)) {
-                                            console.log('estoy aqui jefe');
                                             com2++;
                                             com3++;
                                             return mapObj[matched] + com;
                                         }
                                         else if (com2 === 1 ) {
-                                            console.log('la mano de dios esto ya funciona :)');
                                             com2 = 0;
                                             com3++;
                                             return mapObj[matched] + com;
                                         }
                                         else if (com2 === 0 && com3%2 === 0) {
-                                            console.log('vikingos la puta mejor serie');
                                             com2++;
                                             com3++;
                                             return mapObj[matched] + ++com;
@@ -536,10 +503,6 @@ export default class SelectionDialog extends HTMLElement {
                                       });
                                 }
                                 //---------------------------------------------------------------------
-                                let trans = 0;
-                                let trans2 = 0;
-                                let trans3 = 0;
-
                                 var b5 = b2.split("</transitions>");
 
                                 for (let j = 0; j < 1; j++)
@@ -561,19 +524,16 @@ export default class SelectionDialog extends HTMLElement {
                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
                                     b2 = b2.replace(/(id)/gi, function(matched){
                                         if (id3 === 0 || ( id2 === 0 && id3%2 !== 0)) {
-                                            console.log('estoy aqui jefe');
                                             id2++;
                                             id3++;
                                             return mapObj[matched] + id_;
                                         }
                                         else if (id2 === 1 ) {
-                                            console.log('la mano de dios esto ya funciona :)');
                                             id2 = 0;
                                             id3++;
                                             return mapObj[matched] + id_;
                                         }
                                         else if (id2 === 0 && id3%2 === 0) {
-                                            console.log('vikingos la puta mejor serie');
                                             id2++;
                                             id3++;
                                             return mapObj[matched] + ++id_;
@@ -589,19 +549,16 @@ export default class SelectionDialog extends HTMLElement {
                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
                                     b2 = b2.replace(/(names)/gi, function(matched){
                                         if (names3 === 0 || ( names2 === 0 && names3%2 !== 0)) {
-                                            console.log('estoy aqui jefe');
                                             names2++;
                                             names3++;
                                             return mapObj[matched] + names_;
                                         }
                                         else if (names2 === 1 ) {
-                                            console.log('la mano de dios esto ya funciona :)');
                                             names2 = 0;
                                             names3++;
                                             return mapObj[matched] + names_;
                                         }
                                         else if (names2 === 0 && names3%2 === 0) {
-                                            console.log('vikingos la puta mejor serie');
                                             names2++;
                                             names3++;
                                             return mapObj[matched] + ++names_;
@@ -617,27 +574,22 @@ export default class SelectionDialog extends HTMLElement {
                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
                                     b2 = b2.replace(/(namess)/gi, function(matched){
                                         if (namess3 === 0 || ( namess2 === 0 && namess3%2 !== 0)) {
-                                            console.log('estoy aqui jefe');
                                             namess2++;
                                             namess3++;
-                                            console.log(mapObj[matched] + namess_);
                                             return mapObj[matched] + namess_;
                                         }
                                         else if (namess2 === 1 ) {
-                                            console.log('la mano de dios esto ya funciona :)');
                                             namess2 = 0;
                                             namess3++;
                                             return mapObj[matched] + namess_;
                                         }
                                         else if (namess2 === 0 && namess3%2 === 0) {
-                                            console.log('vikingos la puta mejor serie');
                                             namess2++;
                                             namess3++;
                                             return mapObj[matched] + ++namess_;
                                         }
                                       });
                                 }
-                                console.log("me quiero morir b4 es " + b4);
                                 //----------------------------------------------------
                    
                     //var b = "<automaton>" + a.toString() + "</automaton>";
