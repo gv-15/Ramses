@@ -319,15 +319,15 @@ export default class SelectionDialog extends HTMLElement {
                                 //esto saca cuantos estados hay
                                 var count =  b2.match(/\bstates\b/g);
                                 count = count? count.length : 0;  //checking if there are matches or not.
-                                console.log("is " + count/2);
+                                //console.log("is " + count/2);
                             
                                 var countf = count/2;
-                                console.log(countf);
+                                //console.log(countf);
                                 var number = 0;
 
                                 var b3 = b2.split("</stack>");
                                 b3[0] = b3[0] + "</stack>";
-                                console.log(b3[0]);
+                                //console.log(b3[0]);
 
 
                                 b2=b3[1];
@@ -348,19 +348,16 @@ export default class SelectionDialog extends HTMLElement {
   
                                     b2 = b2.replace(/(states)/gi, function(matched){
                                         if (state3 === 0 || ( state2 === 0 && state3%2 !== 0)) {
-                                            console.log('estoy aqui jefe');
                                             state2++;
                                             state3++;
                                             return mapObj[matched] + state;
                                         }
                                         else if (state2 === 1 ) {
-                                            console.log('la mano de dios esto ya funciona :)');
                                             state2 = 0;
                                             state3++;
                                             return mapObj[matched] + state;
                                         }
                                         else if (state2 === 0 && state3%2 === 0) {
-                                            console.log('vikingos la puta mejor serie');
                                             state2++;
                                             state3++;
                                             return mapObj[matched] + ++state;
@@ -500,68 +497,9 @@ export default class SelectionDialog extends HTMLElement {
                                       });
                                 }
                                 //---------------------------------------------------------------------
-                                let trans = 0;
-                                let trans2 = 0;
-                                let trans3 = 0;
-
-                                var b5 = b2.split("</transitions>");
-
-                                for (let j = 0; j < 1; j++)
-                                {
-                                    var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
-                                    b5[j] = b5[j] + j;
-                                    b5[j] = b5[j].replace(/(transitions)/gi, function(matched){
-                                        
-                                            return mapObj[matched] + j;
-                                        
-                                      });
-                                }
-                    var b4 = b2.split("</name>");
-
-                    console.log(b4);
-                    for (let j = 0; j < 1; j++)
-                    {
-                        console.log(b4);
-                        for ( var z=0; z<b4.length ; z++){
-
-                            var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
-                            b4[z] = b4[z] + "</name>";
-                            b4[z] = b4[z].replace(/(name)/gi, function(matched){
-                                return mapObj[matched] + z;
-                            });
-                        }
-
-                    }
-                                //-----------------------------
-
-                                // let id_ = 0;
-                                // let id2 = 0;
-                                // let id3 = 0;
-                                // for (let j = 0; j < 1; j++)
-                                // {
-                                //     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
-                                //     b2 = b2.replace(/(id)/gi, function(matched){
-                                //         if (id3 === 0 || ( id2 === 0 && id3%2 !== 0)) {
-                                //             id2++;
-                                //             id3++;
-                                //             return mapObj[matched] + id_;
-                                //         }
-                                //         else if (id2 === 1 ) {
-                                //             id2 = 0;
-                                //             id3++;
-                                //             return mapObj[matched] + id_;
-                                //         }
-                                //         else if (id2 === 0 && id3%2 === 0) {
-                                //             id2++;
-                                //             id3++;
-                                //             return mapObj[matched] + ++id_;
-                                //         }
-                                //       });
-                                // }
 
 
-                                //----------------------------------------------------
-                   
+
                     //var b = "<automaton>" + a.toString() + "</automaton>";
                     //-------------------------------------------------------------------------------------------
                           var b = b3[0] + b2;
