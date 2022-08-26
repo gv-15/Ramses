@@ -312,12 +312,12 @@ export default class SelectionDialog extends HTMLElement {
 
                            //el b2 es para no estropear el b con las pruebas, que si lo cambias no dibuja
                            var b2 = "<automaton>" + a.toString() + "</automaton>";
-
+                           var b_array = "<automaton>" + a.toString() + "</automaton>";
                             
                                 //esto saca cuantos estados hay
                                 var count =  b2.match(/\bstates\b/g);
                                 count = count? count.length : 0;  //checking if there are matches or not.
-                                //console.log("is " + count/2);
+                                console.log("is " + count/2);
 
                                 var countf = count/2;
                                 //console.log(countf);
@@ -340,6 +340,40 @@ export default class SelectionDialog extends HTMLElement {
                                 let state = 0;
                                 let state2 = 0;
                                 let state3 = 0;
+
+                                var pre = b_array.split("</stack>");
+                                 pre[0] = pre[0] + "</stack>";
+
+                                 var post = pre[1].split("</automaton>");
+                                 post[1] = post[1] + "</automaton>";
+
+                                 var states_array = post[0].split("</states>");
+                                 for ( var k=0; k < countf; k++)
+                                 {
+                                    states_array[k]= states_array[k] + "</states>"
+                                    console.log(states_array[k]);
+                                    var states_array2 = states_array[k].split("<transitions>") + "";
+                                    
+                                   
+                                    //esto saca cuantas trans hay
+                                    var counttrans =  b2.match(/\btransitions\b/g);
+                                    counttrans = counttrans? counttrans.length : 0;  //checking if there are matches or not.;
+                                    for(var m=0; m < counttrans/2; m++)
+                                    {   var states_array3 = states_array2[m].split("</transitions>");
+                                        states_array3 = "<transitions>" + states_array3[k] + "</transitions>";
+                                    }                          
+
+                                 }
+                                
+                                 console.log(states_array);
+                                 console.log(states_array3);
+                              
+
+
+
+
+
+
                                 for (let j = 0; j < 1; j++)
                                 {
                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transition",id:"id",names: "names", namess: "namess", namesss: "namesss"};
