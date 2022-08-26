@@ -353,6 +353,7 @@ export default class SelectionDialog extends HTMLElement {
                                     states_array[k]= states_array[k] + "</states>"
                                     var states_array2 = states_array[k].split("<transitions>");
 
+                                    let contadorEstados = 0;
                                     for (let l = 1 ; l < states_array2.length; l++) {
                                         states_array2[l] =  "<transitions>" + states_array2[l];
                                         var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
@@ -360,6 +361,20 @@ export default class SelectionDialog extends HTMLElement {
                                             return  mapObj[matched] +k;
                                         });
 
+                                        var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                        states_array2[l] = states_array2[l].replace(/(name)/gi, function(matched){
+                                            return  mapObj[matched] + k;
+                                        });
+
+                                        var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                        states_array2[l] = states_array2[l].replace(/(id)/gi, function(matched){
+                                            return  mapObj[matched] + k;
+                                        });
+
+                                        var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                        states_array2[l] = states_array2[l].replace(/(comments)/gi, function(matched){
+                                            return  mapObj[matched] + k;
+                                        });
 
                                     }
 
