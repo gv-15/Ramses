@@ -317,7 +317,7 @@ export default class SelectionDialog extends HTMLElement {
                                 //esto saca cuantos estados hay
                                 var count =  b2.match(/\bstates\b/g);
                                 count = count? count.length : 0;  //checking if there are matches or not.
-                                console.log("is " + count/2);
+                                //console.log("is " + count/2);
 
                                 var countf = count/2;
                                 //console.log(countf);
@@ -351,22 +351,90 @@ export default class SelectionDialog extends HTMLElement {
                                  for ( var k=0; k < countf; k++)
                                  {
                                     states_array[k]= states_array[k] + "</states>"
-                                    console.log(states_array[k]);
-                                    var states_array2 = states_array[k].split("<transitions>") + "";
-                                    
-                                   
-                                    //esto saca cuantas trans hay
-                                    var counttrans =  b2.match(/\btransitions\b/g);
-                                    counttrans = counttrans? counttrans.length : 0;  //checking if there are matches or not.;
-                                    for(var m=0; m < counttrans/2; m++)
-                                    {   var states_array3 = states_array2[m].split("</transitions>");
-                                        states_array3 = "<transitions>" + states_array3[k] + "</transitions>";
-                                    }                          
+                                    var states_array2 = states_array[k].split("<transitions>");
 
+                                    for (let l = 1 ; l < states_array2.length; l++) {
+                                        states_array2[l] =  "<transitions>" + states_array2[l];
+                                        var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                        states_array2[l] = states_array2[l].replace(/(states)/gi, function(matched){
+                                            return  mapObj[matched] +k;
+                                        });
+
+
+                                    }
+
+                                     //console.log(states_array2);
+
+                                     //console.log('EMPIEZA ESTA VAINA PONEMOS STATES');
+
+                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                     states_array2[0] = states_array2[0].replace(/(states)/gi, function(matched){
+                                         return mapObj[matched] + k;
+                                     });
+
+                                     // console.log('OTROOO MOSCOW MULEEE PONEMOS NAME');
+
+                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                     states_array2[0] = states_array2[0].replace(/(name)/gi, function(matched){
+                                         return mapObj[matched] + k;
+                                     });
+
+                                     // console.log('VAMOS A FORMENTERAA PONEMOS X');
+
+                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                     states_array2[0] = states_array2[0].replace(/(x)/gi, function(matched){
+                                         return mapObj[matched] + k;
+                                     });
+
+                                     //console.log('EL VALSSS DEL OBREROO VIVA LA REVOLUCION PONEMOS Y');
+
+                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                     states_array2[0] = states_array2[0].replace(/(Y)/gi, function(matched){
+                                         return mapObj[matched] + k;
+                                     });
+
+                                     //console.log('LA CASAA POR EL TEJADO PONEMOS ISINITIALSTATE');
+
+                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                     states_array2[0] = states_array2[0].replace(/(IsInitialState)/gi, function(matched){
+                                         return mapObj[matched] + k;
+                                     });
+
+                                     //console.log('COMOOO CAMARONN PONEMOS ISTERMINALSTATE');
+
+                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                     states_array2[0] = states_array2[0].replace(/(isTerminalState)/gi, function(matched){
+                                         return mapObj[matched] + k;
+                                     });
+
+                                     //console.log('NOOO ES VIDA DE RICOOOO PONEMOS COMMENTS');
+
+                                     var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                     states_array2[0] = states_array2[0].replace(/(comments)/gi, function(matched){
+                                         return mapObj[matched] + k;
+                                     });
+
+                                     console.log('Hasta aqui ponemos la primera parte de un state y funciona perfecto, OKEYYY LETS GO '
+                                         + states_array2);
+
+
+                                    /* states_array2 = states_array2.replace(/(transitions)/gi, function(matched){
+
+                                         return mapObj[matched] + k;
+                                     });
+*/
+                                  /*      //esto saca cuantas trans hay
+                                        var counttrans =  states_array2.match(/\btransitions\b/g);
+                                        counttrans = counttrans? counttrans.length : 0;  //checking if there are matches or not.;
+                                        for(var m=0; m < counttrans/2; m++)
+                                        {
+                                            var states_array3 = states_array2[m].split("</transitions>");
+                                            states_array3 = "<transitions>" + states_array3[k] + "</transitions>";
+                                        }*/
                                  }
-                                
-                                 console.log(states_array);
-                                 console.log(states_array3);
+
+                    // console.log('states ' + states_array);
+
                               
 
 
@@ -400,7 +468,7 @@ export default class SelectionDialog extends HTMLElement {
 
 
                                 //------------------------------------------------
-                                let x_ = 0;
+                               /* let x_ = 0;
                                 let x_2 = 0;
                                 let x_3 = 0;
                                 for (let j = 0; j < 1; j++)
@@ -502,7 +570,7 @@ export default class SelectionDialog extends HTMLElement {
                                             return mapObj[matched] + ++isTerminalState;
                                         }
                                       });
-                                }
+                                }*/
                                 //--------------------------------------------
                                 let com = 0;
                                 let com2 = 0;
@@ -539,7 +607,7 @@ export default class SelectionDialog extends HTMLElement {
                         const parser = new DOMParser();
                                                      
                           // var b = "<automaton>" + b2 + "</automaton>";
-                           console.log(b); 
+                           //console.log(b);
                            var cont = 0;
 
                            var c = formatXml(b);
@@ -552,7 +620,6 @@ export default class SelectionDialog extends HTMLElement {
                     let transitions = [];
                     let f = 0;
                     let i = 0;
-                    console.log(this.data.type);
 
                     if (this.data.type === 'AFD') {
                         while( f < 1 ) {

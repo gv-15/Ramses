@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5e819725-b484-43e9-acd5-b1ff2b38f1f5" name="Changes" comment="feat: importa todo bien en xml">
+    <list default="true" id="28476841-29b0-4b60-95e5-e4f7f18a8b4d" name="Changes" comment="feat: limpieza">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/static/js/selection-dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/selection-dialog.js" afterDir="false" />
     </list>
@@ -11,17 +11,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="maider-final-verdadero" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2DXUCccsOAeUk5hzE5JrU0Zse33" />
+  <component name="ProjectId" id="2DtgTEdDfJC2ACYowKIr0IH7eT0" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -33,106 +28,29 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
-    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="start" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="npm.start" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="5e819725-b484-43e9-acd5-b1ff2b38f1f5" name="Changes" comment="" />
-      <created>1660844804846</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1660844804846</updated>
-      <workItem from="1660844822001" duration="78000" />
-      <workItem from="1660844902454" duration="3442000" />
-      <workItem from="1661076380073" duration="5586000" />
-      <workItem from="1661085557731" duration="9449000" />
-      <workItem from="1661095537874" duration="329000" />
-      <workItem from="1661096775155" duration="2854000" />
-    </task>
-    <task id="LOCAL-00001" summary="feat: empìeza a pintar">
-      <created>1660848340272</created>
+    <task id="LOCAL-00001" summary="feat: limpieza">
+      <created>1661463780402</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1660848340272</updated>
+      <updated>1661463780402</updated>
     </task>
-    <task id="LOCAL-00002" summary="feat: ya puedes importar con todos los state que quieras">
-      <created>1661078509227</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1661078509227</updated>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="28476841-29b0-4b60-95e5-e4f7f18a8b4d" name="Changes" comment="feat: limpieza" />
+      <created>1661523812854</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1661523812854</updated>
+      <workItem from="1661523832755" duration="64000" />
+      <workItem from="1661526836159" duration="225000" />
+      <workItem from="1661530294552" duration="4356000" />
     </task>
-    <task id="LOCAL-00003" summary="feat: ya puedes importar con todos los state que quieras">
-      <created>1661078599567</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1661078599567</updated>
-    </task>
-    <task id="LOCAL-00004" summary="feat: funciona al importar de xml final y inicial">
-      <created>1661081542904</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1661081542904</updated>
-    </task>
-    <task id="LOCAL-00005" summary="feat: funciona al importar de xml final y inicial">
-      <created>1661081949577</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1661081949577</updated>
-    </task>
-    <task id="LOCAL-00006" summary="feat: xml descarga el stack falta que lea bien los con pila">
-      <created>1661090019835</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1661090019835</updated>
-    </task>
-    <task id="LOCAL-00007" summary="feat: xml importa los de pila">
-      <created>1661093264030</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1661093264030</updated>
-    </task>
-    <task id="LOCAL-00008" summary="fix: leer tipo sde automatas al importar">
-      <created>1661093987884</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1661093987884</updated>
-    </task>
-    <task id="LOCAL-00009" summary="fix: ya importa cuando uno no tiene transicion">
-      <created>1661094902449</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1661094902449</updated>
-    </task>
-    <option name="localTasksCounter" value="10" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,18 +68,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: empìeza a pintar" />
-    <MESSAGE value="feat: ya puedes importar con todos los state que quieras" />
-    <MESSAGE value="feat: funciona al importar de xml final y inicial" />
-    <MESSAGE value="feat: xml descarga el stack falta que lea bien los con pila" />
-    <MESSAGE value="feat: xml descarga los que tienen pila con todo en las transiciones" />
-    <MESSAGE value="feat: xml importa los de pila" />
-    <MESSAGE value="fix: leer tipo sde automatas al importar" />
-    <MESSAGE value="fix: ya importa cuando uno no tiene transicion" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: ya importa cuando uno no tiene transicion" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
+    <MESSAGE value="feat: limpieza" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: limpieza" />
   </component>
 </project>
