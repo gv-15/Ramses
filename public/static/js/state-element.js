@@ -21,6 +21,7 @@ export default class StateElement {
     getRadius() {
         return this.r;  //esto hace falta para calcular los puntos de corte con la recta que une dos estados, para diubujar la conexión
     }
+
     //Obtengo un svg textual primero y así sirve para exportarlo si quiero
     //Simplificación porque con el sistema de pintado por menú vale con pinchar en cualquier sitio
     //Haremos hover sobre el círculo completo
@@ -31,10 +32,10 @@ export default class StateElement {
         //Circulo básico exterior, fill del fondo y el borde es transparente hasta que el hover lo hace visible, incluye el nombre del estado
         //el vector-efffecto lo dejo para el css mejor
         out += `<circle class="state-circle" r="${this.r / scale}" id="border_${this.name}"  cx="0" cy="0" ></circle>
-            <text class='state-text' style='pointer-events: none;font-size:${this.tsize/scale}px;'>${this.name}</text>`;
+            <text class='state-text' style='pointer-events: none;font-size:${this.tsize / scale}px;'>${this.name}</text>`;
         //Añadimos un triángulo para indicar que es de tipo inicial, si lo es...
         if (this.isInitialState)
-            out += `<path class="state-initial" d="M ${-r} 0 l${-r*0.866} ${0.5*r} v${-r} z" ></path>`;
+            out += `<path class="state-initial" d="M ${-r} 0 l${-r * 0.866} ${0.5 * r} v${-r} z" ></path>`;
         //Añadimos un círculo para indicar que es de tipo terminal, si lo es...
         if (this.isTerminalState)
             out += `<circle class="state-terminal" r="${this.rterm * r}" cx="0" cy="0" ></circle>`;
@@ -44,7 +45,7 @@ export default class StateElement {
         return (out);
     }
 
-    setIsTerminal(){
+    setIsTerminal() {
         this.isTerminalState = true;
         this.isInitialState = false;
     }
@@ -65,8 +66,9 @@ export default class StateElement {
             console.log(evt.currentTarget), false);
         return (node);
     }
-    toSave() { //el +this.xxxxx es para forzar la conversión a número 
-      
+
+    toSave() { //el +this.xxxxx es para forzar la conversión a número
+
         return ({
             name: this.name,
             x: +parseFloat(this.x).toFixed(2),
@@ -74,7 +76,7 @@ export default class StateElement {
             isInitialState: this.isInitialState,
             isTerminalState: this.isTerminalState,
             comments: this.comments,
-            transitions: this.transitions.map(el=>el.toSave())  //la transición no debe devolver el toSave de un eestado porque habría bucles..
+            transitions: this.transitions.map(el => el.toSave())  //la transición no debe devolver el toSave de un eestado porque habría bucles..
         });
     }
 }

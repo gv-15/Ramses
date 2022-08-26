@@ -22,10 +22,10 @@ export default class FgSvgHandler {
             this.pi = this.svg.createSVGPoint();
             this.pf = this.svg.createSVGPoint();
             this.zoom = 1.0;
-            let ws = { x: 0, y: 0, w: 300, h: 100 };
+            let ws = {x: 0, y: 0, w: 300, h: 100};
             this.initialExtents = Object.assign({}, ws); //copia
             this.actualExtents = Object.assign({}, ws);
-            this.midPoint = { x: ws.x + ws.w / 2, y: ws.y + ws.h / 2 };
+            this.midPoint = {x: ws.x + ws.w / 2, y: ws.y + ws.h / 2};
 
             this.view('fgZoomHome');
 
@@ -41,7 +41,9 @@ export default class FgSvgHandler {
                     this.z = undefined;
                 }
             },
-            leftDblclick: (pi, evt) => { console.log('dblclick'); }, //debug
+            leftDblclick: (pi, evt) => {
+                console.log('dblclick');
+            }, //debug
             leftClickStart: (point) => {
                 let r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                 r.setAttribute('class', 'zoom');
@@ -62,8 +64,8 @@ export default class FgSvgHandler {
                 }
             },
             leftClickUp: (pi, pf) => {
-                let m = Object.assign({}, { x: (pi.x + pf.x) / 2, y: (pi.y + pf.y) / 2 });
-                let e = Object.assign({}, { w: Math.abs(pf.x - pi.x), h: Math.abs(pf.y - pi.y) });
+                let m = Object.assign({}, {x: (pi.x + pf.x) / 2, y: (pi.y + pf.y) / 2});
+                let e = Object.assign({}, {w: Math.abs(pf.x - pi.x), h: Math.abs(pf.y - pi.y)});
                 this.view('fgZoomInDrag', m, e);
                 this.svg.removeChild(this.z);
                 this.z = undefined;
@@ -77,7 +79,12 @@ export default class FgSvgHandler {
             },
             rightClickStart: (point) => {
                 this.svg.classList.add("paneClickCursor");
-                this.originalViewBox = Object.assign({}, { x: this.svg.viewBox.baseVal.x, y: this.svg.viewBox.baseVal.y, w: this.svg.viewBox.baseVal.width, h: this.svg.viewBox.baseVal.height });
+                this.originalViewBox = Object.assign({}, {
+                    x: this.svg.viewBox.baseVal.x,
+                    y: this.svg.viewBox.baseVal.y,
+                    w: this.svg.viewBox.baseVal.width,
+                    h: this.svg.viewBox.baseVal.height
+                });
             },
             rightClickMove: (pi, pf) => {
                 let dx = pf.x - pi.x;
@@ -89,15 +96,17 @@ export default class FgSvgHandler {
                 let dx = pf.x - pi.x;
                 let dy = pf.y - pi.y;
 
-                this.view('fgPane', { x: dx, y: dy });
+                this.view('fgPane', {x: dx, y: dy});
             },
-            rightClickLeave: () => {},
+            rightClickLeave: () => {
+            },
             wheelHandler: (evt) => {
                 this.view(evt.deltaY > 0 ? 'fgZoomOut' : 'fgZoomIn');
             }
         };
         this.setZoomMode();
     }
+
     app(application) {
         ['leftClick', 'leftDblclick', 'leftClickStart', 'leftClickMove', 'leftClickUp', 'leftClickLeave',
             'rightClick', 'rightClickStart', 'rightClickMove', 'rightClickUp', 'rightClickLeave', 'wheelHandler'
@@ -107,60 +116,70 @@ export default class FgSvgHandler {
             }
         });
     }
+
     setOrigin() {
         this.ctm_inv = this.svg.getScreenCTM().inverse();
     }
+
     setExtents(x, y, w, h) {
-        this.initialExtents = Object.assign({}, { x: x, y: y, w: w, h: h });
+        this.initialExtents = Object.assign({}, {x: x, y: y, w: w, h: h});
 
         this.initialExtents.w = this.initialExtents.w ? this.initialExtents.w : 0.0001; // Avoid 0 value in width
         this.initialExtents.h = this.initialExtents.h ? this.initialExtents.h : 0.0001; // Avoid 0 value in height
 
         this.view('fgZoomHome');
     }
+
     getInitialExtents() {
         return this.initialExtents;
     }
+
     setInitialExtents(extents) {
         this.initialExtents = extents;
         this.zoom = 1.0;
     }
+
     getZoom() {
-        return { zoom: this.zoom, midPoint: this.midPoint };
+        return {zoom: this.zoom, midPoint: this.midPoint};
     }
+
     setZoom(config) {
         this.zoom = config.zoom;
         this.midPoint = config.midPoint;
     }
+
     getExtentsAndSetMatrix() { //esta rutina ya no se llama desde fuera
-            let matrix = this.svg.getScreenCTM();
-            this.ctm_inv = matrix.inverse();
-            let p0 = this.svg.createSVGPoint(),
-                p1 = this.svg.createSVGPoint();
-            let r = this.svg.getBoundingClientRect();
-            p0.x = r.left, p0.y = r.bottom, p1.x = r.right, p1.y = r.top;
-            p0 = p0.matrixTransform(this.ctm_inv);
-            p1 = p1.matrixTransform(this.ctm_inv);
-            this.svgExtents.setMatrix(matrix);
-            this.svgExtents.setExtents({ xi: p0.x, yi: p0.y, xf: p1.x, yf: p1.y });
-        }
-        //código copiado
+        let matrix = this.svg.getScreenCTM();
+        this.ctm_inv = matrix.inverse();
+        let p0 = this.svg.createSVGPoint(),
+            p1 = this.svg.createSVGPoint();
+        let r = this.svg.getBoundingClientRect();
+        p0.x = r.left, p0.y = r.bottom, p1.x = r.right, p1.y = r.top;
+        p0 = p0.matrixTransform(this.ctm_inv);
+        p1 = p1.matrixTransform(this.ctm_inv);
+        this.svgExtents.setMatrix(matrix);
+        this.svgExtents.setExtents({xi: p0.x, yi: p0.y, xf: p1.x, yf: p1.y});
+    }
+
+    //código copiado
     handleEvent(evt) {
-            let handler = evt.type;
-            if (typeof this[handler] === "function") {
-                evt.preventDefault(); //así no hay que hacerlo en cada una?
-                return this[handler](evt);
-            }
+        let handler = evt.type;
+        if (typeof this[handler] === "function") {
+            evt.preventDefault(); //así no hay que hacerlo en cada una?
+            return this[handler](evt);
         }
-        //Falta meter el return en las funciones handler
+    }
+
+    //Falta meter el return en las funciones handler
     contextmenu(evt) {
-            evt.preventDefault();
-        } //redundante
+        evt.preventDefault();
+    } //redundante
     dblclick(evt) {
         this.leftDblclick(this.pi, evt);
     }
+
     mousedown(evt) {
-        Object.assign(this.initialPoint, { x: evt.clientX, y: evt.clientY }); //pixels
+        Object.assign(this.initialPoint, {x: evt.clientX, y: evt.clientY}); //pixels
         this.pi = this.initialPoint.matrixTransform(this.ctm_inv);
         //aquí llamamos a la función que nos hayan inyectado
         if (evt.which === 1) { //left button pressed
@@ -169,19 +188,21 @@ export default class FgSvgHandler {
             this.rightClickStart(this.pi, evt);
         }
     }
+
     mousemove(evt) {
-        Object.assign(this.finalPoint, { x: evt.clientX, y: evt.clientY }); //pixels
+        Object.assign(this.finalPoint, {x: evt.clientX, y: evt.clientY}); //pixels
         this.pf = this.finalPoint.matrixTransform(this.ctm_inv);
         if (evt.which === 1) { //left button pressed
             this.leftClickMove(this.pi, this.pf);
         } else if (evt.which === 3) { //right button pressed
             this.rightClickMove(this.pi, this.pf);
         }
-        let event = new CustomEvent("fgMouseChanged", { detail: this.pf });
+        let event = new CustomEvent("fgMouseChanged", {detail: this.pf});
         this.svg.dispatchEvent(event, true); //bubbling
     }
+
     mouseup(evt) {
-        Object.assign(this.finalPoint, { x: evt.clientX, y: evt.clientY }); //pixels
+        Object.assign(this.finalPoint, {x: evt.clientX, y: evt.clientY}); //pixels
         this.pf = this.finalPoint.matrixTransform(this.ctm_inv);
         let isShortStroke = ((Math.abs(this.finalPoint.x - this.initialPoint.x) < 25) && (Math.abs(this.finalPoint.y - this.initialPoint.y) < 25));
         if (evt.which === 1) { //left button pressed
@@ -200,8 +221,9 @@ export default class FgSvgHandler {
             }
         }
     }
+
     mouseleave(evt) {
-        Object.assign(this.finalPoint, { x: evt.clientX, y: evt.clientY }); //pixels
+        Object.assign(this.finalPoint, {x: evt.clientX, y: evt.clientY}); //pixels
         this.pf = this.finalPoint.matrixTransform(this.ctm_inv);
         if (evt.which === 1) { //left button pressed
             this.leftClickLeave(this.pi, this.pf);
@@ -209,12 +231,14 @@ export default class FgSvgHandler {
             this.rightClickUp(this.pi, this.pf);
         }
     }
+
     wheel(evt) {
-            this.wheelHandler(evt);
-        }
-        //El zoom es la relación entre InitialExtents y ActualExtents
-        //InitialExtents solo se toca en el setHome y en el inicio 
-        //Pane NO modifica el zoom pero sí el centro    
+        this.wheelHandler(evt);
+    }
+
+    //El zoom es la relación entre InitialExtents y ActualExtents
+    //InitialExtents solo se toca en el setHome y en el inicio
+    //Pane NO modifica el zoom pero sí el centro
     view(cmd, m, e) {
         switch (cmd) { //teclas, el 0.9 es obviamente opcional
             case 'fgPane': //aquí me paso {dx,dy}
@@ -240,7 +264,12 @@ export default class FgSvgHandler {
                 let ex = this.initialExtents;
                 ex.w *= this.zoom;
                 ex.h *= this.zoom;
-                this.initialExtents = Object.assign({}, { x: this.midPoint.x - ex.w / 2, y: this.midPoint.y - ex.h / 2, w: ex.w, h: ex.h });
+                this.initialExtents = Object.assign({}, {
+                    x: this.midPoint.x - ex.w / 2,
+                    y: this.midPoint.y - ex.h / 2,
+                    w: ex.w,
+                    h: ex.h
+                });
                 this.zoom = 1.0;
                 this.hist = [];
                 break;
@@ -276,6 +305,7 @@ export default class FgSvgHandler {
 
         this.svg.dispatchEvent(new CustomEvent('zoom_end')); //redraw
     }
+
     setZoomMode() {
         this.app(this.application); //Instala los servicios
     }

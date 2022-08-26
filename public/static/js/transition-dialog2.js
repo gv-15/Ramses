@@ -12,8 +12,9 @@ export default class TransitionDialog2 extends HTMLElement {
             mode: 'open'
         });
     }
+
     style() {
-        return (String.raw `
+        return (String.raw`
       <style>
         :host {
           display: block;
@@ -52,10 +53,11 @@ export default class TransitionDialog2 extends HTMLElement {
       </style>
       `);
     }
+
     template() {
-       
+
         return (
-        `<dialog id="transition-dialog2">
+            `<dialog id="transition-dialog2">
         <select id='select-transition'></select>
         <input type="button" id="add" value=" Añadir "/>
         <input type="button" id="del" value=" Borrar "/></br></br>
@@ -66,9 +68,10 @@ export default class TransitionDialog2 extends HTMLElement {
          <input type="button" id="end" value="Enviar"/>
         </div>
         </dialog>`
-        ); 
+        );
 
     }
+
     template2() {
 
         return (
@@ -86,6 +89,7 @@ export default class TransitionDialog2 extends HTMLElement {
         );
 
     }
+
     template3() {
 
         return (
@@ -103,60 +107,60 @@ export default class TransitionDialog2 extends HTMLElement {
         );
 
     }
-        //Aquí se llama cuando se conectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
+
+    //Aquí se llama cuando se conectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
     connectedCallback() {
 
-        if(getLang() === 'es') {
+        if (getLang() === 'es') {
             this.dom.innerHTML = this.style() + this.template();
-        }
-        else if(getLang() === 'en') {
+        } else if (getLang() === 'en') {
             this.dom.innerHTML = this.style() + this.template2();
-        }
-        else {
+        } else {
             this.dom.innerHTML = this.style() + this.template3();
         }
 
-            this.dialog = this.dom.querySelector('#transition-dialog2'),
+        this.dialog = this.dom.querySelector('#transition-dialog2'),
             this.nameNode = this.dom.querySelector('#name');
-            this.selNode = this.dom.querySelector('#select-transition');
-            this.data = { name: '' };
-            
-    
-            this.type = 'DFA';
+        this.selNode = this.dom.querySelector('#select-transition');
+        this.data = {name: ''};
 
-            this.dom.querySelector('#add').addEventListener('click', () => {
-                if (this.type === 'DFA'){
+
+        this.type = 'DFA';
+
+        this.dom.querySelector('#add').addEventListener('click', () => {
+            if (this.type === 'DFA') {
+
+                this.nameNode.innerText = this.selNode.value;
+
+            } else {
+                if ((this.nameNode.innerText.length === 0) ||
+                    (this.nameNode.innerText === '\u03F5') ||
+                    (this.selNode.value === '\u03F5')) {
 
                     this.nameNode.innerText = this.selNode.value;
 
-                }
+                } //El epsilon va solo, borra lo que haya antes o se borra al poner otra cosa
 
-                else {
-                    if ((this.nameNode.innerText.length === 0) ||
-                        (this.nameNode.innerText === '\u03F5') ||
-                        (this.selNode.value === '\u03F5')){
 
-                            this.nameNode.innerText = this.selNode.value;
-    
-                        } //El epsilon va solo, borra lo que haya antes o se borra al poner otra cosa
-                      
-                        
-                    else if (this.nameNode.innerText.indexOf(this.selNode.value)){
+                else if (this.nameNode.innerText.indexOf(this.selNode.value)) {
 
-                        this.nameNode.innerText = this.nameNode.innerText + ',' + this.selNode.value;
-                
-                    } //evito repes
-                        
-                }
-            });
-           
-            this.dom.querySelector('#del').addEventListener('click', () => { this.nameNode.innerText = '' });
-           
-            this.dom.querySelector('#end').addEventListener('click', () => this.sendData('OK'));
-            this.dom.querySelector('#esc').addEventListener('click', () => this.sendData('ESC'));
-        }
-        //oldData es un clon de lo que se me pasa (esto por precaución)
-        //new Data TIENE que ser un clon, porque si hacemos new = old, como copia por referencia, se machaca el old al tocar el new
+                    this.nameNode.innerText = this.nameNode.innerText + ',' + this.selNode.value;
+
+                } //evito repes
+
+            }
+        });
+
+        this.dom.querySelector('#del').addEventListener('click', () => {
+            this.nameNode.innerText = ''
+        });
+
+        this.dom.querySelector('#end').addEventListener('click', () => this.sendData('OK'));
+        this.dom.querySelector('#esc').addEventListener('click', () => this.sendData('ESC'));
+    }
+
+    //oldData es un clon de lo que se me pasa (esto por precaución)
+    //new Data TIENE que ser un clon, porque si hacemos new = old, como copia por referencia, se machaca el old al tocar el new
     sendData(button) {
         this.data = this.oldData;
         if (button === 'OK') { //modifico campos
@@ -164,28 +168,32 @@ export default class TransitionDialog2 extends HTMLElement {
         }
         this.data.button = button;
         this.dialog.close()
-        this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'transition_data', data: this.data } }));
+        this.parent.dispatchEvent(new CustomEvent('dialog', {detail: {action: 'transition_data', data: this.data}}));
     }
+
     open(data, alphabet, stack) {
-            //copia de los datos del estado
-            this.connectedCallback();
-            this.oldData = JSON.parse(JSON.stringify(data)); //por si hay que recuperar? esto hace un clone sencillo
-            this.type = (alphabet.indexOf('\u03f5') !== -1) ? 'NFA' : 'DFA';
-            this.nameNode.innerText = data.name;
-            this.dom.querySelector('#optional-text').innerText = data.text || ''; //Aquí vendría texto de error
-            this.selNode.innerHTML = alphabet.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), ""); //de donde sale este alphabet
+        //copia de los datos del estado
+        this.connectedCallback();
+        this.oldData = JSON.parse(JSON.stringify(data)); //por si hay que recuperar? esto hace un clone sencillo
+        this.type = (alphabet.indexOf('\u03f5') !== -1) ? 'NFA' : 'DFA';
+        this.nameNode.innerText = data.name;
+        this.dom.querySelector('#optional-text').innerText = data.text || ''; //Aquí vendría texto de error
+        this.selNode.innerHTML = alphabet.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), ""); //de donde sale este alphabet
 
         this.dialog.showModal();
-            
-            
-                }
-        //Se supone que aquí se llama al desconectar la página, pero en las aplicaciones no parece que pase
+
+
+    }
+
+    //Se supone que aquí se llama al desconectar la página, pero en las aplicaciones no parece que pase
     disconnectedCallback() {
         //hay que quitar los listeners...
     }
+
     static get observedAttributes() {
         return ['parent']; //a dónde hay que echar los eventos
     }
+
     attributeChangedCallback(name, oldVal, newVal) {
         switch (name) {
             case 'parent':

@@ -15,282 +15,285 @@ var data2;
 
 //Esto podría ser JSNO, fichero aparte...
 const fileButtonsData = {
-  appName: "file", //gestiono en el mismo switch
-  type: "once",
-  buttons: [
-    {
-      value: "Descargar json",
-      action: "json",
-      id: "b-json",
-    },
-    {
-      value: "Capturar",
-      action: "screenshot",
-      id: "b-screenshot",
-    },
-    {
-      value: "Descargar xml",
-      action: "xml",
-      id: "b-xml",
-    },
-    {
-      value: "Guardar en BD",
-      action: "based",
-      id: "b-based",
-    },
-  ],
+    appName: "file", //gestiono en el mismo switch
+    type: "once",
+    buttons: [
+        {
+            value: "Descargar json",
+            action: "json",
+            id: "b-json",
+        },
+        {
+            value: "Capturar",
+            action: "screenshot",
+            id: "b-screenshot",
+        },
+        {
+            value: "Descargar xml",
+            action: "xml",
+            id: "b-xml",
+        },
+        {
+            value: "Guardar en BD",
+            action: "based",
+            id: "b-based",
+        },
+    ],
 };
 const zoomButtonsData = {
-  appName: "zoom",
-  type: "once",
-  buttons: [
-    {
-      value: "Zoom+",
-      action: "fgZoomIn",
-      id: "b-zoomin",
-    },
-    {
-      value: "Zoom-",
-      action: "fgZoomOut",
-      id: "b-zoomout",
-    },
-    {
-      value: "Home",
-      action: "fgZoomHome",
-      id: "b-home",
-    },
-    {
-      value: "SetHome",
-      action: "fgSetHome",
-      id: "b-sethome",
-    },
-    {
-      value: "Expandir",
-      action: "fit",
-      id: "b-fit",
-    },
-  ],
+    appName: "zoom",
+    type: "once",
+    buttons: [
+        {
+            value: "Zoom+",
+            action: "fgZoomIn",
+            id: "b-zoomin",
+        },
+        {
+            value: "Zoom-",
+            action: "fgZoomOut",
+            id: "b-zoomout",
+        },
+        {
+            value: "Home",
+            action: "fgZoomHome",
+            id: "b-home",
+        },
+        {
+            value: "SetHome",
+            action: "fgSetHome",
+            id: "b-sethome",
+        },
+        {
+            value: "Expandir",
+            action: "fit",
+            id: "b-fit",
+        },
+    ],
 };
 const editButtonsData = {
-  appName: "edit",
-  type: "radio",
-  buttons: [
-    {
-      value: "Nuevo nodo",
-      action: "start_insert_state",
-      class: "insert",
-      id: "b-state",
-    },
-    {
-      value: "Nueva transición",
-      action: "start_insert_transition",
-      class: "insert",
-      id: "b-trans",
-    },
-    {
-      value: "Mover",
-      action: "start_drag",
-      class: "drag",
-      id: "b-drag",
-    },
-    {
-      value: "Borrar",
-      action: "start_delete_mode",
-      class: "delete",
-      id: "b-delete",
-    },
-    {
-      value: "Modificar",
-      action: "start_edit_node",
-      class: "edit",
-      id: "b-edit",
-    },
-  ],
+    appName: "edit",
+    type: "radio",
+    buttons: [
+        {
+            value: "Nuevo nodo",
+            action: "start_insert_state",
+            class: "insert",
+            id: "b-state",
+        },
+        {
+            value: "Nueva transición",
+            action: "start_insert_transition",
+            class: "insert",
+            id: "b-trans",
+        },
+        {
+            value: "Mover",
+            action: "start_drag",
+            class: "drag",
+            id: "b-drag",
+        },
+        {
+            value: "Borrar",
+            action: "start_delete_mode",
+            class: "delete",
+            id: "b-delete",
+        },
+        {
+            value: "Modificar",
+            action: "start_edit_node",
+            class: "edit",
+            id: "b-edit",
+        },
+    ],
 };
 const undoButtonsData = {
-  appName: "edit", //gestiono en el mismo switch
-  type: "once",
-  buttons: [
-    {
-      value: "Deshacer",
-      action: "undo",
-      id: "b-undo",
-    },
-    {
-      value: "Rehacer",
-      action: "redo",
-      id: "b-redo",
-    },
-    {
-      value: "Nuevo automata", //Esta creado el boton pero falta toda la implementacion
-      action: "nuevo_mode",
-      id: "b-nuevo",
-    },
-    {
-      value: "Hacer Total", 
-      action: "total_mode",
-      id: "b-total",
-    },
-    {
-      value: "Hacer Determinista", //Esta creado el boton pero falta toda la implementacion
-      action: "determinista_mode",
-      id: "b-determinista",
-    },
-    {
-      value: "Complementar", 
-      action: "complementar_mode",
-      id: "b-complementar",
-    },
-    {
-      value: "Complementar Total", 
-      action: "complementarTotal_mode",
-      id: "b-complementarTotal",
-    },
-    {
-      value: "Invertir AF", 
-      action: "invertir_mode",
-      id: "b-invertir",
-    },
-  ],
+    appName: "edit", //gestiono en el mismo switch
+    type: "once",
+    buttons: [
+        {
+            value: "Deshacer",
+            action: "undo",
+            id: "b-undo",
+        },
+        {
+            value: "Rehacer",
+            action: "redo",
+            id: "b-redo",
+        },
+        {
+            value: "Nuevo automata", //Esta creado el boton pero falta toda la implementacion
+            action: "nuevo_mode",
+            id: "b-nuevo",
+        },
+        {
+            value: "Hacer Total",
+            action: "total_mode",
+            id: "b-total",
+        },
+        {
+            value: "Hacer Determinista", //Esta creado el boton pero falta toda la implementacion
+            action: "determinista_mode",
+            id: "b-determinista",
+        },
+        {
+            value: "Complementar",
+            action: "complementar_mode",
+            id: "b-complementar",
+        },
+        {
+            value: "Complementar Total",
+            action: "complementarTotal_mode",
+            id: "b-complementarTotal",
+        },
+        {
+            value: "Invertir AF",
+            action: "invertir_mode",
+            id: "b-invertir",
+        },
+    ],
 };
 
 const modeButtonsData = {
-  appName: "mode",
-  type: "radio",
-  buttons: [
-    {
-      value: 'Modo dibujar',
-      action: "draw",
-      class: "selected",
-      id: "b-drawmode",
-    },
-    {
-      value: "Modo ejecutar",
-      action: "test",
-      id: "b-testmode",
-    },
-  ],
+    appName: "mode",
+    type: "radio",
+    buttons: [
+        {
+            value: 'Modo dibujar',
+            action: "draw",
+            class: "selected",
+            id: "b-drawmode",
+        },
+        {
+            value: "Modo ejecutar",
+            action: "test",
+            id: "b-testmode",
+        },
+    ],
 };
 const testButtonsData = {
-  appName: "test",
-  type: "radio",
-  buttons: [
-    {
-      value: "<<",
-      action: "reset",
-      class: "selected",
-      id: "b-fback",
-    },
-    {
-      value: "<",
-      action: "back",
-      id: "b-back",
-    },
-    {
-      value: "||",
-      action: "stop",
-      id: "b-stop",
-    },
-    {
-      value: ">",
-      action: "step",
-      id: "b-play",
-    },
-    {
-      value: ">>",
-      action: "run",
-      id: "b-fforward",
-    },
-  ],
+    appName: "test",
+    type: "radio",
+    buttons: [
+        {
+            value: "<<",
+            action: "reset",
+            class: "selected",
+            id: "b-fback",
+        },
+        {
+            value: "<",
+            action: "back",
+            id: "b-back",
+        },
+        {
+            value: "||",
+            action: "stop",
+            id: "b-stop",
+        },
+        {
+            value: ">",
+            action: "step",
+            id: "b-play",
+        },
+        {
+            value: ">>",
+            action: "run",
+            id: "b-fforward",
+        },
+    ],
 };
 
 class StateEditor extends HTMLElement {
-  constructor() {
-    super();
-    //el statechart completo decido hacerle shadow dom porque sí,
-    this.dom = this.attachShadow({
-      mode: "open",
-    });
-  }
-  //Cuando leemos un chart de un fichero debe venir aquí, se crean los estados y las conexiones como clases
-  //Por otra parte, mantener las dimensiones de circulos en zoom implica redibujar constantemente, así que separo a redraw
-  //lo que es rendering propiamente dicho
-  _redraw() {
-    for (let i = 0; i < this.chart.states.length; i++) {
-      if (this.chart.states[i].isInitialState === 'false') {
-        this.chart.states[i].isInitialState = false;
-      }
-      if (this.chart.states[i].isInitialState === 'true') {
-        this.chart.states[i].isInitialState = true;
-      }
-      if (this.chart.states[i].isTerminalState === 'false') {
-        this.chart.states[i].isTerminalState = false;
-      }
-      if (this.chart.states[i].isTerminalState === 'true') {
-        this.chart.states[i].isTerminalState = true;
-      }
+    constructor() {
+        super();
+        //el statechart completo decido hacerle shadow dom porque sí,
+        this.dom = this.attachShadow({
+            mode: "open",
+        });
     }
 
-    this.svg.querySelectorAll("g").forEach((n) => n.remove());
-    let sc = this.svgHandler.svgExtents.matrix.a;
-    //Hay que hacer primero los estados porque las transiciones luego usan sus nodos y deben estar creados previamente!!
+    //Cuando leemos un chart de un fichero debe venir aquí, se crean los estados y las conexiones como clases
+    //Por otra parte, mantener las dimensiones de circulos en zoom implica redibujar constantemente, así que separo a redraw
+    //lo que es rendering propiamente dicho
+    _redraw() {
+        for (let i = 0; i < this.chart.states.length; i++) {
+            if (this.chart.states[i].isInitialState === 'false') {
+                this.chart.states[i].isInitialState = false;
+            }
+            if (this.chart.states[i].isInitialState === 'true') {
+                this.chart.states[i].isInitialState = true;
+            }
+            if (this.chart.states[i].isTerminalState === 'false') {
+                this.chart.states[i].isTerminalState = false;
+            }
+            if (this.chart.states[i].isTerminalState === 'true') {
+                this.chart.states[i].isTerminalState = true;
+            }
+        }
 
-    this.chart.states.forEach((st) => {
-      st.node = st.toDOM(sc); //apunta de svg a la clase
-      st.node.state = st; //pongo un enlace hacia atrás, desde el nodo svg al estado del modelo
-      this.svg.appendChild(st.node);
-    });
-    this.chart.states.forEach((st) => {
-      let index = 0;
-      st.transitions.forEach((tr) => {
-        tr.node = tr.toDOM(sc, index);
-        index++;
-        tr.node.transition = tr;
-        this.svg.appendChild(tr.node);
-      });
-    });
-  }
-  //Al igual que redraw, esta rutina save que hay estados y transiciones... a mejorar
-  _showStates(activeStates, activeTransitions) {
-    if (activeStates !== undefined) {
-      this.chart.states.forEach((st) =>
-        st.node.classList.remove("selected", "selected-end")
-      );
-      activeStates.forEach((st) =>
-        st.node.classList.add(st.isTerminalState ? "selected-end" : "selected")
-      );
+        this.svg.querySelectorAll("g").forEach((n) => n.remove());
+        let sc = this.svgHandler.svgExtents.matrix.a;
+        //Hay que hacer primero los estados porque las transiciones luego usan sus nodos y deben estar creados previamente!!
+
+        this.chart.states.forEach((st) => {
+            st.node = st.toDOM(sc); //apunta de svg a la clase
+            st.node.state = st; //pongo un enlace hacia atrás, desde el nodo svg al estado del modelo
+            this.svg.appendChild(st.node);
+        });
+        this.chart.states.forEach((st) => {
+            let index = 0;
+            st.transitions.forEach((tr) => {
+                tr.node = tr.toDOM(sc, index);
+                index++;
+                tr.node.transition = tr;
+                this.svg.appendChild(tr.node);
+            });
+        });
     }
-    if (activeTransitions !== undefined) {
-      let trNodes = Array.from(this.dom.querySelectorAll(".transition"));
-      trNodes.forEach((node) => node.classList.remove("selected"));
-      //el node apunta al grupo pero el css lo tenemos en la transición
-      activeTransitions.forEach((tr) =>
-        tr.node.firstElementChild.classList.add("selected")
-      );
+
+    //Al igual que redraw, esta rutina save que hay estados y transiciones... a mejorar
+    _showStates(activeStates, activeTransitions) {
+        if (activeStates !== undefined) {
+            this.chart.states.forEach((st) =>
+                st.node.classList.remove("selected", "selected-end")
+            );
+            activeStates.forEach((st) =>
+                st.node.classList.add(st.isTerminalState ? "selected-end" : "selected")
+            );
+        }
+        if (activeTransitions !== undefined) {
+            let trNodes = Array.from(this.dom.querySelectorAll(".transition"));
+            trNodes.forEach((node) => node.classList.remove("selected"));
+            //el node apunta al grupo pero el css lo tenemos en la transición
+            activeTransitions.forEach((tr) =>
+                tr.node.firstElementChild.classList.add("selected")
+            );
+        }
+        this._showOutput();
     }
-    this._showOutput();
-  }
 
-  _saveStateChart() {
-    this.history.push(this.chart.toJSON());
-    this.redo = [];
-    if (this.history.length > 99) this.history.slice(-1); //por ejemplo, para no saturar, solo si hace falta
-  }
+    _saveStateChart() {
+        this.history.push(this.chart.toJSON());
+        this.redo = [];
+        if (this.history.length > 99) this.history.slice(-1); //por ejemplo, para no saturar, solo si hace falta
+    }
 
-  //Este es el html del web component
-  //El tamaño del svg se ajusta al 100% del div que lo encierra, hace falta que le padre sea de tipo block, el tamaño , etc... podría ir variable, claro
-  //Lo divido en dos (quito el </svg> final) para que el toSVG quede más modular
-  templateHeader() {
-    return `<svg id = 'svg-view' xmlns="http://www.w3.org/2000/svg" version="1.2" xmlns:xlink="http://www.w3.org/1999/xlink" >
+    //Este es el html del web component
+    //El tamaño del svg se ajusta al 100% del div que lo encierra, hace falta que le padre sea de tipo block, el tamaño , etc... podría ir variable, claro
+    //Lo divido en dos (quito el </svg> final) para que el toSVG quede más modular
+    templateHeader() {
+        return `<svg id = 'svg-view' xmlns="http://www.w3.org/2000/svg" version="1.2" xmlns:xlink="http://www.w3.org/1999/xlink" >
           <defs>  
             <marker id="markerArrow" markerWidth="5" markerHeight="5" refX="6" refY="2.5" orient="auto">
               <path d="M0,0 l5,2.5 L0,5 z" style="fill: #6495ed; stroke:none" />
             </marker>
           </defs>
       `;
-  }
-  templateFooter() {
-    return `
+    }
+
+    templateFooter() {
+        return `
       </svg>
       <transition-dialog id='transition-input' ></transition-dialog>
       <transition-dialog2 id='transition-input2' ></transition-dialog2>
@@ -302,9 +305,10 @@ class StateEditor extends HTMLElement {
         <div id='config-data-output'></div>
       </div>
       `;
-  }
-  style() {
-    return `
+    }
+
+    style() {
+        return `
       <style>
         :host { /*este es el estilo del div que contiene todo*/
           display: block;
@@ -432,742 +436,743 @@ class StateEditor extends HTMLElement {
         }
       </style>
       `;
-  }
-  //El componente editor es la aplicación propiamente dicha y la que controla las acciones de los demás componentes
-  //Así que se centraliza aquí la inicialización de las partes que componen la aplicación
-  //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
-  connectedCallback() {
-    this.dom.innerHTML =
-      this.style() + this.templateHeader() + this.templateFooter();
-    this.svg = this.dom.querySelector("svg");
-
-    this.svgHandler = new FgSvgHandler(this.svg);
-    //unidades arbitrarias, podría venir de leer el dibujo, las inicializo a pixels
-    this.svgHandler.setExtents(
-      0,
-      0,
-      this.svg.clientWidth,
-      this.svg.clientHeight
-    );
-    //busca los gestores de botones y los inicializa. Se pdoría hacer try-catch en vez de log
-    //Y sería más elegante que los nombres se pasen como atributos
-    this.fileButtons = document.querySelector("#fileButtons");
-    this.zoomButtons = document.querySelector("#zoomButtons");
-    this.editButtons = document.querySelector("#editButtons");
-    this.undoButtons = document.querySelector("#undoButtons");
-    this.modeButtons = document.querySelector("#modeButtons");
-    //Inicializamos los botones y le decimos al componente a dónde debe dirigir los eventos
-    this.fileButtons.setButtons(this, fileButtonsData);
-    this.zoomButtons.setButtons(this, zoomButtonsData);
-    //Preparamos las funciones que deben atender a los eventos. Lo hago en modo funcional porque el switch queda un poco largo si no...
-    //pero a elegir.
-    //las de edición necesitan pinchar, así que el mensaje estart pone un modo, es un radio button, solo uno
-    this.editButtons.setButtons(this, editButtonsData);
-    this.undoButtons.setButtons(this, undoButtonsData);
-    this.modeButtons.setButtons(this, modeButtonsData);
-
-    //Apunto a los diálogos y les digo a quién deben echar los eventos (aquí) para que sean autónomos más o menos
-    //Lo hago mediante un atributo, podría ponerse en el HTML incluso
-    this.stateDialog = this.dom.querySelector("#state-input");
-    this.stateDialog.setAttribute("parent", this.id);
-    this.transitionDialog2 = this.dom.querySelector("#transition-input2");
-    this.transitionDialog2.setAttribute("parent", this.id);
-    this.transitionDialog = this.dom.querySelector("#transition-input");
-    this.transitionDialog.setAttribute("parent", this.id);
-    this.selectionDialog = this.dom.querySelector("#selection-input");
-    this.selectionDialog.setAttribute("parent", this.id);
-
-    //La entrada-salida la pongo permanente en sitio fijo en vez de modal para que se actualice continuamente
-
-    this.inputText = this.dom.querySelector("#input-text");
-    this.outputText = this.dom.querySelector("#data-output");
-    this.configOutputText = this.dom.querySelector("#config-data-output");
-
-    //aplicación de estado, solo hace click...
-    this.drawApp = new DrawStateChart(this.svgHandler, this);
-    this.selectionDialog.open();
-    //console.log(this.chart);
-
-    //PRUEBAS
-    /*this.alphabet = 'ab';
-            const machineType = 'NFA';
-            if (this.alphabet.search(/[^a-z]/) !== -1)
-                console.log('el alfabeto pasado no es válido, no debería pasar');
-            this.inputText.pattern = new RegExp('[' + this.alphabet + ']');
-            this.chart = new StateChart(machineType, this.alphabet, 'q');
-            this.chart.fromJSON(`
-      [{"name":"q0","x":236.85,"y":440.85,"isInitialState":true,"isTerminalState":false,"comments":"","transitions":[{"name":"b","id":"q0_q1"}]},{"name":"q1","x":366.92,"y":226.74,"isInitialState":false,"isTerminalState":false,"comments":"","transitions":[{"name":"b","id":"q1_q2"},{"name":"a","id":"q1_q3"}]},{"name":"q2","x":716.11,"y":238.74,"isInitialState":false,"isTerminalState":false,"comments":"","transitions":[{"name":"b","id":"q2_q2"},{"name":"a","id":"q2_q4"}]},{"name":"q3","x":546.02,"y":452.86,"isInitialState":false,"isTerminalState":false,"comments":"","transitions":[{"name":"ϵ","id":"q3_q6"},{"name":"a","id":"q3_q5"}]},{"name":"q4","x":726.12,"y":445.86,"isInitialState":false,"isTerminalState":true,"comments":"","transitions":[]},{"name":"q5","x":671.09,"y":594.94,"isInitialState":false,"isTerminalState":true,"comments":"","transitions":[]},{"name":"q6","x":603.05,"y":315.79,"isInitialState":false,"isTerminalState":false,"comments":"","transitions":[{"name":"b","id":"q6_q4"}]}]
-      `);
-            this.history = [];
-            this.redo = [];*/
-    //fin pruebas
-    //Estos serían eventos para dibujar líneas y estados y tal
-    ["edit", "draw", "state-editor", "zoom", "dialog", "mode", "file"].forEach(
-      (ev) => this.addEventListener(ev, this, false)
-    );
-    //Del dialogo, hasta decidir cómo pasarle al diálogo el destino, así funciona
-    //document.addEventListener('dialog', this, false);
-    //El gestor de ratón llama aquí cuando ha hecho zoom, y manda el evento al svg, así que hay que escuchar allí
-    this.svg.addEventListener("zoom_end", this, false);
-    this._redraw();
-  }
-  //Aquí recibiríamos eventos de otras aplicaciones, por ejemplo de botones de home, etc...
-  zoom_end() {
-    this._redraw(); //al terminar una operación como pane, zoom, etc... se manda este evento
-  }
-  zoom(command, data) {
-    console.log(command, data);
-    switch (command) {
-      case "set_zoom_mode": //restauramos modo zoom
-        this.svgHandler.app(this.svgHandler.application);
-        break;
-      default:
-        this.svgHandler.view(command);
-        break;
     }
-  }
-  //separo las acciones en dos switch sucesivos por sencillez.
-  //Un switch hace la acción y el otro mira si redibuja o toca la historia
-  edit(command, data) {
-    switch (command) {
-      //Las que ponen modo de edición con ratón, vienen de un botón
-      case "start_insert_state":
-      case "start_insert_transition":
-      case "start_drag":
-      case "start_delete_mode":
-      case "start_edit_node":
-        this.svg.classList.remove(
-          ...this.editButtons.buttons.map((b) => b.class)
-        ); //quito la clase del svg que dice lo que estoy haceindo (para el cursor o fondo...)
-        this.svg.classList.add(
-          this.editButtons.buttons[data.pressed].class || ""
-        ); //gestión de radiobutton para el cursor
-        this.drawApp.init(command); //Esto se podría tal vez mandar directamente al componente
-        break;
-      //Aquí los mensajes que provienen de las acciones de dibujo (insertar, drag, editar, borrar)
-      case "new_state": //cuando le dé al click debería venir aquí con la posición puesta
-        this.chart.insertState(data.pos.x, data.pos.y); //no le paso terminal, inicial ni comentarios
-        break;
-      //Las rutinas de dibujar NO saben lo que conectan, devuelven nodos de svg a los que habíamos puesto ids
-      //Aquí sí sabemos qué info lleva porque se la ponemos nosotros en la rutina draw
-      case "new_transition": //esto crea la raya y la entrada de datos
-        console.log(data);
-        let trId = this.chart.insertTransition(data.from.id, data.to.id);
-        //Aquí podríamos chequear si hubo problema en la creación.
-        //Lanzo automáticamente el diálogo de editar la transición,
-        if (this.chart.type === "AFD" || this.chart.type === "AFND") {
-          this.transitionDialog2.open(
-            this.chart.getTransition(trId).toSave(),
-            this.chart.sigmaExtended,
-            this.chart.stackExtended
-          );
-        } else {
-          console.log(this.chart.getTransition(trId));
-          this.transitionDialog.open(
-            this.chart.getTransition(trId).toSave(),
-            this.chart.sigmaExtended,
-            this.chart.stackExtended
-          );
-        }
-        break;
-      case "delete_state":
-        this.chart.deleteState(data.stateId);
-        this._saveStateChart();
-        break;
-      case "delete_transition":
-        this.chart.deleteTransition(data.transitionId);
-        break;
-      case "nuevo_mode":
-        {
-          const statesName = [];
-          let contador = 0;
-          this.chart.states.forEach((st) => {
-            statesName.push(st.name);
-            contador++;
-          });
-          for(let i = 0; i <= contador ; i++) {
-            this.chart.clearAll(statesName[i]);
-            this._saveStateChart();
-            this._redraw()
-          }
+
+    //El componente editor es la aplicación propiamente dicha y la que controla las acciones de los demás componentes
+    //Así que se centraliza aquí la inicialización de las partes que componen la aplicación
+    //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
+    connectedCallback() {
+        this.dom.innerHTML =
+            this.style() + this.templateHeader() + this.templateFooter();
+        this.svg = this.dom.querySelector("svg");
+
+        this.svgHandler = new FgSvgHandler(this.svg);
+        //unidades arbitrarias, podría venir de leer el dibujo, las inicializo a pixels
+        this.svgHandler.setExtents(
+            0,
+            0,
+            this.svg.clientWidth,
+            this.svg.clientHeight
+        );
+        //busca los gestores de botones y los inicializa. Se pdoría hacer try-catch en vez de log
+        //Y sería más elegante que los nombres se pasen como atributos
+        this.fileButtons = document.querySelector("#fileButtons");
+        this.zoomButtons = document.querySelector("#zoomButtons");
+        this.editButtons = document.querySelector("#editButtons");
+        this.undoButtons = document.querySelector("#undoButtons");
+        this.modeButtons = document.querySelector("#modeButtons");
+        //Inicializamos los botones y le decimos al componente a dónde debe dirigir los eventos
+        this.fileButtons.setButtons(this, fileButtonsData);
+        this.zoomButtons.setButtons(this, zoomButtonsData);
+        //Preparamos las funciones que deben atender a los eventos. Lo hago en modo funcional porque el switch queda un poco largo si no...
+        //pero a elegir.
+        //las de edición necesitan pinchar, así que el mensaje estart pone un modo, es un radio button, solo uno
+        this.editButtons.setButtons(this, editButtonsData);
+        this.undoButtons.setButtons(this, undoButtonsData);
+        this.modeButtons.setButtons(this, modeButtonsData);
+
+        //Apunto a los diálogos y les digo a quién deben echar los eventos (aquí) para que sean autónomos más o menos
+        //Lo hago mediante un atributo, podría ponerse en el HTML incluso
+        this.stateDialog = this.dom.querySelector("#state-input");
+        this.stateDialog.setAttribute("parent", this.id);
+        this.transitionDialog2 = this.dom.querySelector("#transition-input2");
+        this.transitionDialog2.setAttribute("parent", this.id);
+        this.transitionDialog = this.dom.querySelector("#transition-input");
+        this.transitionDialog.setAttribute("parent", this.id);
+        this.selectionDialog = this.dom.querySelector("#selection-input");
+        this.selectionDialog.setAttribute("parent", this.id);
+
+        //La entrada-salida la pongo permanente en sitio fijo en vez de modal para que se actualice continuamente
+
+        this.inputText = this.dom.querySelector("#input-text");
+        this.outputText = this.dom.querySelector("#data-output");
+        this.configOutputText = this.dom.querySelector("#config-data-output");
+
+        //aplicación de estado, solo hace click...
+        this.drawApp = new DrawStateChart(this.svgHandler, this);
         this.selectionDialog.open();
+        //console.log(this.chart);
+
+        //PRUEBAS
+        /*this.alphabet = 'ab';
+                const machineType = 'NFA';
+                if (this.alphabet.search(/[^a-z]/) !== -1)
+                    console.log('el alfabeto pasado no es válido, no debería pasar');
+                this.inputText.pattern = new RegExp('[' + this.alphabet + ']');
+                this.chart = new StateChart(machineType, this.alphabet, 'q');
+                this.chart.fromJSON(`
+          [{"name":"q0","x":236.85,"y":440.85,"isInitialState":true,"isTerminalState":false,"comments":"","transitions":[{"name":"b","id":"q0_q1"}]},{"name":"q1","x":366.92,"y":226.74,"isInitialState":false,"isTerminalState":false,"comments":"","transitions":[{"name":"b","id":"q1_q2"},{"name":"a","id":"q1_q3"}]},{"name":"q2","x":716.11,"y":238.74,"isInitialState":false,"isTerminalState":false,"comments":"","transitions":[{"name":"b","id":"q2_q2"},{"name":"a","id":"q2_q4"}]},{"name":"q3","x":546.02,"y":452.86,"isInitialState":false,"isTerminalState":false,"comments":"","transitions":[{"name":"ϵ","id":"q3_q6"},{"name":"a","id":"q3_q5"}]},{"name":"q4","x":726.12,"y":445.86,"isInitialState":false,"isTerminalState":true,"comments":"","transitions":[]},{"name":"q5","x":671.09,"y":594.94,"isInitialState":false,"isTerminalState":true,"comments":"","transitions":[]},{"name":"q6","x":603.05,"y":315.79,"isInitialState":false,"isTerminalState":false,"comments":"","transitions":[{"name":"b","id":"q6_q4"}]}]
+          `);
+                this.history = [];
+                this.redo = [];*/
+        //fin pruebas
+        //Estos serían eventos para dibujar líneas y estados y tal
+        ["edit", "draw", "state-editor", "zoom", "dialog", "mode", "file"].forEach(
+            (ev) => this.addEventListener(ev, this, false)
+        );
+        //Del dialogo, hasta decidir cómo pasarle al diálogo el destino, así funciona
+        //document.addEventListener('dialog', this, false);
+        //El gestor de ratón llama aquí cuando ha hecho zoom, y manda el evento al svg, así que hay que escuchar allí
+        this.svg.addEventListener("zoom_end", this, false);
+        this._redraw();
+    }
+
+    //Aquí recibiríamos eventos de otras aplicaciones, por ejemplo de botones de home, etc...
+    zoom_end() {
+        this._redraw(); //al terminar una operación como pane, zoom, etc... se manda este evento
+    }
+
+    zoom(command, data) {
+        console.log(command, data);
+        switch (command) {
+            case "set_zoom_mode": //restauramos modo zoom
+                this.svgHandler.app(this.svgHandler.application);
+                break;
+            default:
+                this.svgHandler.view(command);
+                break;
         }
-        break;
-      case "total_mode":
-        {
-          if (this.chart.type != "AFD") {
-            alert("Solo se puede hacer total un AFD");
-          } else {
-            let sigmaIndex = this.chart.sigma.length;
-            let index = this.chart.states.length;
-            this.chart.totalAutomaton();
-             //console.log(this.chart.states[index]);
-             for (var i = 0; i <= index; i++) { // Aqui miro en todos los states 
-              //console.log(this.chart.states[g].transitions[0].name);
-              //console.log("El numero de transiciones es:" + this.chart.states[i].transitions.length);
-              let transitionIndex = this.chart.states[i].transitions.length;
-              for (var j = 0; j < sigmaIndex; j++) {//Aqui miro todas las letras de la gramatica
-                var compr = 0;
-                for (var z = 0; z < transitionIndex ; z++) {
-                  //console.log(this.chart.sigma[j]);
-                    if (this.chart.sigma[j] === this.chart.states[i].transitions[z].name) { 
-                      compr++;
+    }
+
+    //separo las acciones en dos switch sucesivos por sencillez.
+    //Un switch hace la acción y el otro mira si redibuja o toca la historia
+    edit(command, data) {
+        switch (command) {
+            //Las que ponen modo de edición con ratón, vienen de un botón
+            case "start_insert_state":
+            case "start_insert_transition":
+            case "start_drag":
+            case "start_delete_mode":
+            case "start_edit_node":
+                this.svg.classList.remove(
+                    ...this.editButtons.buttons.map((b) => b.class)
+                ); //quito la clase del svg que dice lo que estoy haceindo (para el cursor o fondo...)
+                this.svg.classList.add(
+                    this.editButtons.buttons[data.pressed].class || ""
+                ); //gestión de radiobutton para el cursor
+                this.drawApp.init(command); //Esto se podría tal vez mandar directamente al componente
+                break;
+            //Aquí los mensajes que provienen de las acciones de dibujo (insertar, drag, editar, borrar)
+            case "new_state": //cuando le dé al click debería venir aquí con la posición puesta
+                this.chart.insertState(data.pos.x, data.pos.y); //no le paso terminal, inicial ni comentarios
+                break;
+            //Las rutinas de dibujar NO saben lo que conectan, devuelven nodos de svg a los que habíamos puesto ids
+            //Aquí sí sabemos qué info lleva porque se la ponemos nosotros en la rutina draw
+            case "new_transition": //esto crea la raya y la entrada de datos
+                console.log(data);
+                let trId = this.chart.insertTransition(data.from.id, data.to.id);
+                //Aquí podríamos chequear si hubo problema en la creación.
+                //Lanzo automáticamente el diálogo de editar la transición,
+                if (this.chart.type === "AFD" || this.chart.type === "AFND") {
+                    this.transitionDialog2.open(
+                        this.chart.getTransition(trId).toSave(),
+                        this.chart.sigmaExtended,
+                        this.chart.stackExtended
+                    );
+                } else {
+                    console.log(this.chart.getTransition(trId));
+                    this.transitionDialog.open(
+                        this.chart.getTransition(trId).toSave(),
+                        this.chart.sigmaExtended,
+                        this.chart.stackExtended
+                    );
+                }
+                break;
+            case "delete_state":
+                this.chart.deleteState(data.stateId);
+                this._saveStateChart();
+                break;
+            case "delete_transition":
+                this.chart.deleteTransition(data.transitionId);
+                break;
+            case "nuevo_mode": {
+                const statesName = [];
+                let contador = 0;
+                this.chart.states.forEach((st) => {
+                    statesName.push(st.name);
+                    contador++;
+                });
+                for (let i = 0; i <= contador; i++) {
+                    this.chart.clearAll(statesName[i]);
+                    this._saveStateChart();
+                    this._redraw()
+                }
+                this.selectionDialog.open();
+            }
+                break;
+            case "total_mode": {
+                if (this.chart.type != "AFD") {
+                    alert("Solo se puede hacer total un AFD");
+                } else {
+                    let sigmaIndex = this.chart.sigma.length;
+                    let index = this.chart.states.length;
+                    this.chart.totalAutomaton();
+                    //console.log(this.chart.states[index]);
+                    for (var i = 0; i <= index; i++) { // Aqui miro en todos los states
+                        //console.log(this.chart.states[g].transitions[0].name);
+                        //console.log("El numero de transiciones es:" + this.chart.states[i].transitions.length);
+                        let transitionIndex = this.chart.states[i].transitions.length;
+                        for (var j = 0; j < sigmaIndex; j++) {//Aqui miro todas las letras de la gramatica
+                            var compr = 0;
+                            for (var z = 0; z < transitionIndex; z++) {
+                                //console.log(this.chart.sigma[j]);
+                                if (this.chart.sigma[j] === this.chart.states[i].transitions[z].name) {
+                                    compr++;
+                                }
+                            }
+                            //console.log("En " + this.chart.states[i] + " Coincidencias de la letra en transiciones "+ this.chart.sigma[j] + " " + compr);
+                            if (compr == "0") { //Si no tiene ninguna coindencia en ese state añado una transicion al trampa con la letra
+                                //console.log("En " + this.chart.states[i] + " NO HAY Coincidencias de la letra en transiciones "+ this.chart.sigma[j] +  " " + compr);
+                                //this.chart.insertTransition2(this.chart.states[i].name, this.chart.states[index].name, this.chart.sigma[j]);
+                                //console.log("estamos aqui");
+                                this.chart.insertTransition2(this.chart.states[i].name, this.chart.getState('Trap').name, this.chart.sigma[j]);
+                                this._redraw();
+                            }
+                        }
+                        //console.log("siguiente");
                     }
                 }
-                //console.log("En " + this.chart.states[i] + " Coincidencias de la letra en transiciones "+ this.chart.sigma[j] + " " + compr);
-                if (compr == "0") { //Si no tiene ninguna coindencia en ese state añado una transicion al trampa con la letra 
-                  //console.log("En " + this.chart.states[i] + " NO HAY Coincidencias de la letra en transiciones "+ this.chart.sigma[j] +  " " + compr);
-                    //this.chart.insertTransition2(this.chart.states[i].name, this.chart.states[index].name, this.chart.sigma[j]);
-                    //console.log("estamos aqui");
-                    this.chart.insertTransition2(this.chart.states[i].name, this.chart.getState('Trap').name, this.chart.sigma[j]);
-                    this._redraw();
-                }
-              }
-              //console.log("siguiente");
-            } 
-          }
-          this._redraw();
-          this._redraw();
-        }
-      break;
-      case "determinista_mode":
-          {
-            if (this.chart.type != "AFND") {
-              alert("Solo se puede hacer determinista un AFND");
+                this._redraw();
+                this._redraw();
+            }
+                break;
+            case "determinista_mode": {
+                if (this.chart.type != "AFND") {
+                    alert("Solo se puede hacer determinista un AFND");
 
-              //TODO: esra funcionalidad este sin implementar deberia tocar ahora
-            } else {
-            
-            }
-          }
-      break;
-      case "complementarTotal_mode":
-            {
-              let esTotal = true;
-              let sigmaIndex = this.chart.sigma.length;
-              let index = this.chart.states.length;
-              var compr = 0;
-              for (var i = 0; i < index; i++) {
-                let transitionIndex = this.chart.states[i].transitions.length;
-                for (var j = 0; j < sigmaIndex; j++) {
-                  var compr = 0;
-                  for (var z = 0; z < transitionIndex ; z++) {
-                      if (this.chart.sigma[j] === this.chart.states[i].transitions[z].name) { 
-                        compr++;
-                      }
-                  }
-                  if (compr == "0") { 
-                    esTotal = false;
-                  }
+                    //TODO: esra funcionalidad este sin implementar deberia tocar ahora
+                } else {
+
                 }
-              }
-              //console.log(esTotal);
-              if (this.chart.type != "AFD" || !esTotal) {
-                alert("Solo se puede complementar un AF");
-              } else {
-                this.chart.states.forEach((st) => {
-                  if(st.isTerminalState){
-                  st.setIsInicial();
-                  }
-                  else if(st.isInitialState){
-                  st.setIsTerminal();
-                  }
-                });
-              }
             }
-      break;
-      case "complementar_mode": 
-      {        
-        if (this.chart.type != "AFD" ) {
-          alert("Solo se puede complementar un AFD total");
-        } else {
-          this.chart.states.forEach((st) => {
-            if(st.isTerminalState){
-            st.setIsInicial();
-            //console.log("ahora es inicial" + st.isInitialState);
+                break;
+            case "complementarTotal_mode": {
+                let esTotal = true;
+                let sigmaIndex = this.chart.sigma.length;
+                let index = this.chart.states.length;
+                var compr = 0;
+                for (var i = 0; i < index; i++) {
+                    let transitionIndex = this.chart.states[i].transitions.length;
+                    for (var j = 0; j < sigmaIndex; j++) {
+                        var compr = 0;
+                        for (var z = 0; z < transitionIndex; z++) {
+                            if (this.chart.sigma[j] === this.chart.states[i].transitions[z].name) {
+                                compr++;
+                            }
+                        }
+                        if (compr == "0") {
+                            esTotal = false;
+                        }
+                    }
+                }
+                //console.log(esTotal);
+                if (this.chart.type != "AFD" || !esTotal) {
+                    alert("Solo se puede complementar un AF");
+                } else {
+                    this.chart.states.forEach((st) => {
+                        if (st.isTerminalState) {
+                            st.setIsInicial();
+                        } else if (st.isInitialState) {
+                            st.setIsTerminal();
+                        }
+                    });
+                }
             }
-            else if(st.isInitialState){
-            st.setIsTerminal();
-            //console.log("ahora es final" + st.isfinalState);
+                break;
+            case "complementar_mode": {
+                if (this.chart.type != "AFD") {
+                    alert("Solo se puede complementar un AFD total");
+                } else {
+                    this.chart.states.forEach((st) => {
+                        if (st.isTerminalState) {
+                            st.setIsInicial();
+                            //console.log("ahora es inicial" + st.isInitialState);
+                        } else if (st.isInitialState) {
+                            st.setIsTerminal();
+                            //console.log("ahora es final" + st.isfinalState);
+                        }
+                    });
+                }
             }
-          });
-        }
-      }
-      break;
-      case "invertir_mode":
-        {
+                break;
+            case "invertir_mode": {
                 if (this.chart.type === "AFND" || this.chart.type === "AFD") {
                     //Aqui hago las operaciones con los state para invertir
-                  const transitionIdArray = [];
-                  const transitionLetterArray = [];  
-                  let contador = 0;
-                  this.chart.states.forEach((st) => {
-                      st.transitions.forEach((tr) => {
-                      transitionIdArray.push(tr.id);
-                      transitionLetterArray.push(tr.name);
-                      contador++;
+                    const transitionIdArray = [];
+                    const transitionLetterArray = [];
+                    let contador = 0;
+                    this.chart.states.forEach((st) => {
+                        st.transitions.forEach((tr) => {
+                            transitionIdArray.push(tr.id);
+                            transitionLetterArray.push(tr.name);
+                            contador++;
+                        });
                     });
-                  });
-                for(let i = 0; i < contador ; i++) {
-                  this.chart.deleteTransition(transitionIdArray[i]);
-                  this._saveStateChart();
-                  this._redraw()
-                }
-                for(let i = 0; i < contador; i++) {
-                  let transitionPhases = transitionIdArray[i].split("_");  
-                  this.chart.insertTransition2(this.chart.getState(transitionPhases[1]).name, this.chart.getState(transitionPhases[0]).name, transitionLetterArray[i]);
-                  this._saveStateChart();
-                  this._redraw();
-                } 
-                let contadorFinales = 0;
-                this.chart.states.forEach((st) => {
-                  if(st.isTerminalState){
-                  st.setIsInicial();
-                  }
-                  else if(st.isInitialState){
-                  st.setIsTerminal();
-                  }
-                });
-                  this._saveStateChart();
-                    this._redraw();
-                  this.chart.states.forEach((st) => {
-                    if(st.isTerminalState){
-                    contadorFinales++;
+                    for (let i = 0; i < contador; i++) {
+                        this.chart.deleteTransition(transitionIdArray[i]);
+                        this._saveStateChart();
+                        this._redraw()
                     }
-                  });
-                  console.log(contadorFinales);
-                  if(contadorFinales === 0) {
-                    this.chart.addFinalState();
+                    for (let i = 0; i < contador; i++) {
+                        let transitionPhases = transitionIdArray[i].split("_");
+                        this.chart.insertTransition2(this.chart.getState(transitionPhases[1]).name, this.chart.getState(transitionPhases[0]).name, transitionLetterArray[i]);
+                        this._saveStateChart();
+                        this._redraw();
+                    }
+                    let contadorFinales = 0;
+                    this.chart.states.forEach((st) => {
+                        if (st.isTerminalState) {
+                            st.setIsInicial();
+                        } else if (st.isInitialState) {
+                            st.setIsTerminal();
+                        }
+                    });
                     this._saveStateChart();
                     this._redraw();
-                  }
-              }
-              else {
-                alert("Solo se puede invertir AF");
-              }
+                    this.chart.states.forEach((st) => {
+                        if (st.isTerminalState) {
+                            contadorFinales++;
+                        }
+                    });
+                    console.log(contadorFinales);
+                    if (contadorFinales === 0) {
+                        this.chart.addFinalState();
+                        this._saveStateChart();
+                        this._redraw();
+                    }
+                } else {
+                    alert("Solo se puede invertir AF");
+                }
+            }
+                break;
+            case "undo": {
+                //tanto al crear uno nuevo como al cargar, el history siempre va a estar vacío.
+                if (this.history.length !== 0) this.redo.push(this.history.pop());
+                if (this.history.length !== 0) {
+                    this.chart.fromJSON(this.history[this.history.length - 1]);
+                    this._redraw();
+                } else {
+                    //si el history está vacío
+                    this.chart.init();
+                    this._redraw();
+                }
+            }
+                break;
+            case "redo": {
+                if (this.redo.length !== 0) {
+                    let states = this.redo.pop();
+                    this.chart.fromJSON(states);
+                    this.history.push(states);
+                    this._redraw();
+                }
+            }
+                break;
+            case "edit_state": //aquí viene si, en modo edit, pincha en estado, sacamos un dialogo, pongo los mismos nombres en el objeto de ida y vuelta,
+                this.stateDialog.open(data.state.toSave());
+                break;
+            case "edit_transition": //aquí viene si, en modo edit, pincha en conexión
+                if (this.chart.type === "AFD" || this.chart.type === "AFND") {
+                    this.transitionDialog2.open(
+                        data.transition.toSave(),
+                        this.chart.sigmaExtended
+                    );
+                } else {
+                    this.transitionDialog.open(
+                        data.transition.toSave(),
+                        this.chart.sigmaExtended,
+                        this.chart.stackExtended
+                    );
+                }
+                /*   this.transitionDialog.open(data.transition.toSave(), this.chart.sigmaExtended, this.chart.stackExtended); */
+                break;
+            default:
+                break;
         }
-      break;
-      case "undo":
-        {
-          //tanto al crear uno nuevo como al cargar, el history siempre va a estar vacío.
-          if (this.history.length !== 0) this.redo.push(this.history.pop());
-          if (this.history.length !== 0) {
-            this.chart.fromJSON(this.history[this.history.length - 1]);
-            this._redraw();
-          } else {
-            //si el history está vacío
-            this.chart.init();
-            this._redraw();
-          }
+        //Miro si debo guardar en la historia, en ve de andar con flags todo el rato
+        //Y lo mismo redibujar, que coincide casi siempre pero no siempre
+        switch (
+            command //tratamiento de undo-redo
+            ) {
+            case "new_state":
+            case "new_transition":
+            case "state_moved_end":
+            case "delete_state":
+            case "determinista_mode":
+            case "complementar_mode":
+            case "complementarTotal_mode":
+            case "invertir_mode":
+            case "minimize_mode":
+            case "delete_transition":
+                this._saveStateChart();
+                this._redraw();
+                break;
+            case "state_moved":
+                this._redraw(); //este redibuja pero no guarda por donde pasa.
+                break;
+            default:
+                break; //no se guarda
         }
-        break;
-      case "redo":
-        {
-          if (this.redo.length !== 0) {
-            let states = this.redo.pop();
-            this.chart.fromJSON(states);
-            this.history.push(states);
-            this._redraw();
-          }
-        }
-        break;
-      case "edit_state": //aquí viene si, en modo edit, pincha en estado, sacamos un dialogo, pongo los mismos nombres en el objeto de ida y vuelta,
-        this.stateDialog.open(data.state.toSave());
-        break;
-      case "edit_transition": //aquí viene si, en modo edit, pincha en conexión
-        if (this.chart.type === "AFD" || this.chart.type === "AFND") {
-          this.transitionDialog2.open(
-            data.transition.toSave(),
-            this.chart.sigmaExtended
-          );
-        } else {
-          this.transitionDialog.open(
-            data.transition.toSave(),
-            this.chart.sigmaExtended,
-            this.chart.stackExtended
-          );
-        }
-        /*   this.transitionDialog.open(data.transition.toSave(), this.chart.sigmaExtended, this.chart.stackExtended); */
-        break;
-      default:
-        break;
     }
-    //Miro si debo guardar en la historia, en ve de andar con flags todo el rato
-    //Y lo mismo redibujar, que coincide casi siempre pero no siempre
-    switch (
-      command //tratamiento de undo-redo
-    ) {
-      case "new_state":
-      case "new_transition":
-      case "state_moved_end":
-      case "delete_state":
-      case "determinista_mode":
-      case "complementar_mode":
-      case "complementarTotal_mode":
-      case "invertir_mode":
-      case "minimize_mode":
-      case "delete_transition":
-        this._saveStateChart();
-        this._redraw();
-        break;
-      case "state_moved":
-        this._redraw(); //este redibuja pero no guarda por donde pasa.
-        break;
-      default:
-        break; //no se guarda
-    }
-  }
-  dialog(command, datos) {
-    //se redibuja en ambos casos, al final
-    //pero si la acción no era OK no guardamos estado ni hacemos nada, por optimizar
-    //Por otra parte, los estados NO pueden cambiar de nombre ni las transiciones de estados, eso se hace gráficamente
-    //Pasamos la info al chart que es quién conoce la estructura
-    let err = "";
-    let data = datos.data;
-    if (data.button !== "OK")
-      //Hay dos acciones, esc y OK, ESC no hace nada, aunque debe devolver todo lo que había
-      return;
-    switch (command) {
-      case "state_data": //El estado se crea aparte, cuando llega aquí es que ya existía
-        err = this.chart.modifyStateData(data.name, data);
-        if (err !== "") {
-          let stData = this.chart.getState(data.name).toSave();
-          stData.text = err;
-          this.stateDialog.open(stData);
-        }
-        break;
-      case "transition_data": //meto testeo de validez. Si no es válido vuelvo a sacar el diálogo
-        let trId = data.id;
-        err = this.chart.modifyTransitionData(trId, data);
-        if (err !== "") {
-          let trData = this.chart.getTransition(trId).toSave();
-          trData.text = err;
-          if (this.chart.type === "AFD" || this.chart.type === "AFND") {
-            this.transitionDialog2.open(
-              this.chart.getTransition(trId).toSave(),
-              this.chart.sigmaExtended,
-              this.chart.stackExtended
-            );
-          } else {
-            this.transitionDialog.open(
-              this.chart.getTransition(trId).toSave(),
-              this.chart.sigmaExtended,
-              this.chart.stackExtended
-            );
-          }
 
-          /* this.transitionDialog.open(trData, this.chart.sigmaExtended, this.chart.stackExtended); */
-        }
-        break;
-      case "input_data": //Aquí se podría chequear la entrada antes de cambiar de botones
-        if (!this.chart.isValidInputStream(data.input)) {
-          alert("algún carácter no pertenece al alfabeto ");
-          return;
-        }
-        this.input = data.input;
-        this.editButtons.setButtons(this, testButtonsData);
-        this.addEventListener("test", this, false);
-        //Si llamamos al click directamente no manda el evento sino que ejecuta la acción y luego el redraw se machaca el reset
-        setTimeout(() => this.editButtons.click("reset"), 100);
-        break;
-      case "selection_data":
-       // console.log({ data });
-        data2 = { data };
-        //console.log("holi" + data);
+    dialog(command, datos) {
+        //se redibuja en ambos casos, al final
+        //pero si la acción no era OK no guardamos estado ni hacemos nada, por optimizar
+        //Por otra parte, los estados NO pueden cambiar de nombre ni las transiciones de estados, eso se hace gráficamente
+        //Pasamos la info al chart que es quién conoce la estructura
+        let err = "";
+        let data = datos.data;
+        if (data.button !== "OK")
+            //Hay dos acciones, esc y OK, ESC no hace nada, aunque debe devolver todo lo que había
+            return;
+        switch (command) {
+            case "state_data": //El estado se crea aparte, cuando llega aquí es que ya existía
+                err = this.chart.modifyStateData(data.name, data);
+                if (err !== "") {
+                    let stData = this.chart.getState(data.name).toSave();
+                    stData.text = err;
+                    this.stateDialog.open(stData);
+                }
+                break;
+            case "transition_data": //meto testeo de validez. Si no es válido vuelvo a sacar el diálogo
+                let trId = data.id;
+                err = this.chart.modifyTransitionData(trId, data);
+                if (err !== "") {
+                    let trData = this.chart.getTransition(trId).toSave();
+                    trData.text = err;
+                    if (this.chart.type === "AFD" || this.chart.type === "AFND") {
+                        this.transitionDialog2.open(
+                            this.chart.getTransition(trId).toSave(),
+                            this.chart.sigmaExtended,
+                            this.chart.stackExtended
+                        );
+                    } else {
+                        this.transitionDialog.open(
+                            this.chart.getTransition(trId).toSave(),
+                            this.chart.sigmaExtended,
+                            this.chart.stackExtended
+                        );
+                    }
 
-        if (data.states.length == 0) {
-          //si no tengo estados ni transic, me da igual cargar desde un archivo vacio que hacer un chart nuevo
-          this.chart = new StateChart(data.type, data.sigma, "q");
-          //this.inputDialog.setAttribute('alphabet', data.sigma);
-          this.history = [];
-          this.redo = [];
-          this._redraw();
-          //rellenamos el span de info
-          let machineInfo = document.querySelector("#machine-info");
-          if (data.type == "AFND" || data.type == "AFD") {
-            machineInfo.innerHTML = `
+                    /* this.transitionDialog.open(trData, this.chart.sigmaExtended, this.chart.stackExtended); */
+                }
+                break;
+            case "input_data": //Aquí se podría chequear la entrada antes de cambiar de botones
+                if (!this.chart.isValidInputStream(data.input)) {
+                    alert("algún carácter no pertenece al alfabeto ");
+                    return;
+                }
+                this.input = data.input;
+                this.editButtons.setButtons(this, testButtonsData);
+                this.addEventListener("test", this, false);
+                //Si llamamos al click directamente no manda el evento sino que ejecuta la acción y luego el redraw se machaca el reset
+                setTimeout(() => this.editButtons.click("reset"), 100);
+                break;
+            case "selection_data":
+                // console.log({ data });
+                data2 = {data};
+                //console.log("holi" + data);
+
+                if (data.states.length == 0) {
+                    //si no tengo estados ni transic, me da igual cargar desde un archivo vacio que hacer un chart nuevo
+                    this.chart = new StateChart(data.type, data.sigma, "q");
+                    //this.inputDialog.setAttribute('alphabet', data.sigma);
+                    this.history = [];
+                    this.redo = [];
+                    this._redraw();
+                    //rellenamos el span de info
+                    let machineInfo = document.querySelector("#machine-info");
+                    if (data.type == "AFND" || data.type == "AFD") {
+                        machineInfo.innerHTML = `
                         <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
                         <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>`;
-          } else {
-            machineInfo.innerHTML = `
+                    } else {
+                        machineInfo.innerHTML = `
                         <span id="saved-name" value="${data.filename}"> Nombre: ${data.filename} </span>
                         <span id="type" value = "${data.type}" > Tipo: ${data.type} </span>
                         <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>
                         <span id="stack" value = "${data.stack}"> &#931 Pila: ${data.stack} </span>`;
-          }
-        }
-        //console.log("pintar lo que me han mandao");
-        this.chart = new StateChart(data.type, data.sigma, data.stack, "q");
-        //this.inputDialog.setAttribute('alphabet', data.sigma);
-        this.history = [];
-        this.redo = [];
-        console.log(data.states);
-        this.chart.fromModal(data.states);
-        this._redraw();
-        let machineInfo = document.querySelector("#machine-info");
-        if (data.type == "AFND" || data.type == "AFD") {
-          machineInfo.innerHTML = `
+                    }
+                }
+                //console.log("pintar lo que me han mandao");
+                this.chart = new StateChart(data.type, data.sigma, data.stack, "q");
+                //this.inputDialog.setAttribute('alphabet', data.sigma);
+                this.history = [];
+                this.redo = [];
+                console.log(data.states);
+                this.chart.fromModal(data.states);
+                this._redraw();
+                let machineInfo = document.querySelector("#machine-info");
+                if (data.type == "AFND" || data.type == "AFD") {
+                    machineInfo.innerHTML = `
                         <span id="saved-name" value="${data.filename}"><span href="#nombre" data-translate="nombre">Nombre:</span>${data.filename}</span>
                         <span id="type" value = "${data.type}" ><span href="#tipo" data-translate="tipo">Tipo:</span>${data.type} </span>
                         <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>`;
-        } else {
-          machineInfo.innerHTML = `
+                } else {
+                    machineInfo.innerHTML = `
                         <span id="saved-name" value="${data.filename}"><span href="#nombre" data-translate="nombre">Nombre:</span>${data.filename}</span>
                         <span id="type" value = "${data.type}" ><span href="#tipo" data-translate="tipo">Tipo:</span>${data.type} </span>
                         <span id="sigma" value = "${data.sigma}"> &#931: ${data.sigma} </span>;
                          <span id="sigma" value = "${data.stack}"> &#931 <span href="#pila" data-translate="pila">Pila:</span> ${data.stack} </span>`
+                }
+                break;
+            default:
+                break;
         }
-        break;
-      default:
-        break;
+        //this._saveStateChart();
+        this._redraw();
     }
-    //this._saveStateChart();
-    this._redraw();
-  }
-  //Es un poco lío mandar y recibir los mensajes entre ejecución y pintada, que está aquí...
-  //Incluyo lo de ejecución para simplificar y quitar líneas
-  mode(command, datos) {
-    let err = ""; //texto de error o ''
-    switch (command) {
-      case "test":
-        //console.log (this.chart.toJSON()); //para pruebas, cutypaste
-        //PONER el div de input output de la vista!
-        let configPlacement = this.dom.querySelector("#data-in-out");
-        // let undoButt = document.querySelector('#undoButtons');
-        //console.log(configPlacement);
-        configPlacement.classList.remove("hide");
-        // undoButt.classList.add('hide');
-        this.inputText.focus();
-        this.inputText.addEventListener("keydown", (evt) => {
-          if (evt.key === "Enter")
-            this.dispatchEvent(
-              new CustomEvent("dialog", {
-                detail: {
-                  action: "input_data",
-                  data: { button: "OK", input: this.inputText.value },
-                },
-              })
-            );
-        });
-        break;
-      case "draw":
-        //Aquí se puede quitar el foco al input o deshabilitarlo o borrarlo o...
-        let configPlace = this.dom.querySelector("#data-in-out");
-        //let undoButts = document.querySelector('#undoButtons');
 
-        configPlace.classList.add("hide");
-        //undoButts.classList.remove('hide');
-        this.outputText.innerHTML = "";
-        this.editButtons.setButtons(this, editButtonsData);
-        this.history = [];
-        this.chart.states.forEach((st) => st.node.classList.remove("selected"));
-        break;
-      default:
-        break;
+    //Es un poco lío mandar y recibir los mensajes entre ejecución y pintada, que está aquí...
+    //Incluyo lo de ejecución para simplificar y quitar líneas
+    mode(command, datos) {
+        let err = ""; //texto de error o ''
+        switch (command) {
+            case "test":
+                //console.log (this.chart.toJSON()); //para pruebas, cutypaste
+                //PONER el div de input output de la vista!
+                let configPlacement = this.dom.querySelector("#data-in-out");
+                // let undoButt = document.querySelector('#undoButtons');
+                //console.log(configPlacement);
+                configPlacement.classList.remove("hide");
+                // undoButt.classList.add('hide');
+                this.inputText.focus();
+                this.inputText.addEventListener("keydown", (evt) => {
+                    if (evt.key === "Enter")
+                        this.dispatchEvent(
+                            new CustomEvent("dialog", {
+                                detail: {
+                                    action: "input_data",
+                                    data: {button: "OK", input: this.inputText.value},
+                                },
+                            })
+                        );
+                });
+                break;
+            case "draw":
+                //Aquí se puede quitar el foco al input o deshabilitarlo o borrarlo o...
+                let configPlace = this.dom.querySelector("#data-in-out");
+                //let undoButts = document.querySelector('#undoButtons');
+
+                configPlace.classList.add("hide");
+                //undoButts.classList.remove('hide');
+                this.outputText.innerHTML = "";
+                this.editButtons.setButtons(this, editButtonsData);
+                this.history = [];
+                this.chart.states.forEach((st) => st.node.classList.remove("selected"));
+                break;
+            default:
+                break;
+        }
     }
-  }
-  file(command, datos, data) {
-    let err = ""; //texto de error o ''
 
-    switch (command) {
-      case "json":
-        //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
-        let filename = document
-          .querySelector("#saved-name")
-          .getAttribute("value");
-        //descarga automática de un fichero json
-        var dataStr =
-          "data:text/json;charset=utf-8," +
-          encodeURIComponent(this.chart.toDownload());
-        var downloadAnchorNode = document.createElement("a");
-        downloadAnchorNode.setAttribute("href", dataStr);
-        downloadAnchorNode.setAttribute("download", filename.concat(".json"));
-        document.body.appendChild(downloadAnchorNode);
-        downloadAnchorNode.click();
-        downloadAnchorNode.remove();
-        break;
-      case "xml":
-        
-      //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
+    file(command, datos, data) {
+        let err = ""; //texto de error o ''
 
-        let filename2 = document
-            .querySelector("#saved-name")
-            .getAttribute("value")
-        // Aqui ya se descarga
-        //la conversion a json la hace directamente en toDownload2
-        var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload2());
-        var downloadAnchorNode = document.createElement('a');
-        downloadAnchorNode.setAttribute("href", dataStr);
-        downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
-        document.body.appendChild(downloadAnchorNode);
-        downloadAnchorNode.click();
-        downloadAnchorNode.remove();
-        break;
+        switch (command) {
+            case "json":
+                //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
+                let filename = document
+                    .querySelector("#saved-name")
+                    .getAttribute("value");
+                //descarga automática de un fichero json
+                var dataStr =
+                    "data:text/json;charset=utf-8," +
+                    encodeURIComponent(this.chart.toDownload());
+                var downloadAnchorNode = document.createElement("a");
+                downloadAnchorNode.setAttribute("href", dataStr);
+                downloadAnchorNode.setAttribute("download", filename.concat(".json"));
+                document.body.appendChild(downloadAnchorNode);
+                downloadAnchorNode.click();
+                downloadAnchorNode.remove();
+                break;
+            case "xml":
 
-      case "screenshot":
-        console.log("screenshot");
-        let svg = this.shadowRoot.getElementById("svg-view");
-        let pngname = document
-          .querySelector("#saved-name")
-          .getAttribute("value");
-        let width = svg.viewBox.baseVal.width;
-        let height = svg.viewBox.baseVal.height;
-        let clonedSvgElement = svg.cloneNode(true);
-        let outerHTML = clonedSvgElement.outerHTML,
-          blob = new Blob([outerHTML], { type: "image/svg+xml;charset=utf-8" });
-        let URL = window.URL || window.webkitURL || window;
-        let blobURL = URL.createObjectURL(blob);
-        let image = new Image();
-        image.onload = () => {
-          let canvas = document.createElement("canvas");
-          canvas.width = width;
-          canvas.height = height;
-          console.log({ width, height });
-          let context = canvas.getContext("2d");
-          // draw image in canvas starting left-0 , top - 0
-          context.drawImage(image, 0, 0, width, height);
-          let png = canvas.toDataURL(); // default png
-          var download = function (href, name) {
-            var link = document.createElement("a");
-            link.download = name;
-            link.style.opacity = "0";
-            link.href = href;
-            link.click();
-            link.remove();
-          };
-          download(png, pngname.concat(".png"));
-        };
-        image.src = blobURL;
-        console.log(image.src);
+                //console.log(this.chart.toDownload()); //abrir el modal del sistema para guardarlo
 
-        break;
-      default:
-        break;
+                let filename2 = document
+                    .querySelector("#saved-name")
+                    .getAttribute("value")
+                // Aqui ya se descarga
+                //la conversion a json la hace directamente en toDownload2
+                var dataStr = "data:text/xml;charset=utf-8," + encodeURIComponent(this.chart.toDownload2());
+                var downloadAnchorNode = document.createElement('a');
+                downloadAnchorNode.setAttribute("href", dataStr);
+                downloadAnchorNode.setAttribute("download", filename2.concat(".xml"));
+                document.body.appendChild(downloadAnchorNode);
+                downloadAnchorNode.click();
+                downloadAnchorNode.remove();
+                break;
 
-      case "based":
+            case "screenshot":
+                console.log("screenshot");
+                let svg = this.shadowRoot.getElementById("svg-view");
+                let pngname = document
+                    .querySelector("#saved-name")
+                    .getAttribute("value");
+                let width = svg.viewBox.baseVal.width;
+                let height = svg.viewBox.baseVal.height;
+                let clonedSvgElement = svg.cloneNode(true);
+                let outerHTML = clonedSvgElement.outerHTML,
+                    blob = new Blob([outerHTML], {type: "image/svg+xml;charset=utf-8"});
+                let URL = window.URL || window.webkitURL || window;
+                let blobURL = URL.createObjectURL(blob);
+                let image = new Image();
+                image.onload = () => {
+                    let canvas = document.createElement("canvas");
+                    canvas.width = width;
+                    canvas.height = height;
+                    console.log({width, height});
+                    let context = canvas.getContext("2d");
+                    // draw image in canvas starting left-0 , top - 0
+                    context.drawImage(image, 0, 0, width, height);
+                    let png = canvas.toDataURL(); // default png
+                    var download = function (href, name) {
+                        var link = document.createElement("a");
+                        link.download = name;
+                        link.style.opacity = "0";
+                        link.href = href;
+                        link.click();
+                        link.remove();
+                    };
+                    download(png, pngname.concat(".png"));
+                };
+                image.src = blobURL;
+                console.log(image.src);
 
-        let data = {
-          name:document.querySelector("#saved-name").getAttribute("value"),
-          type:  this.chart.type,
-          states: this.chart.obtainStates(),
-        
-          get fullData() {
-            return `${this.name} ${this.type} ${this.states}`;
-          },
-        
-          set fullData(value) {
-            [this.name, this.type, this.states] = value.split(" ");
-          }
-        };
-        var a = data.fullData;
-        var b =a.split(" ");
-        var name= b[0];
-        var type= b[1];
-        var states= b[2];
+                break;
+            default:
+                break;
 
-        alert("Name is: " + name);
-        alert("Type is: " +  type);
-        alert("States are :" + states);
-        
-        var d = todata();
-        d.fullData;
-      
-      }
-    
-  }
-  _showOutput() {
-    this.outputText.innerHTML = `<span style="color:green">${this.input.substring(
-      0,
-      this.index
-    )}</span>
+            case "based":
+
+                let data = {
+                    name: document.querySelector("#saved-name").getAttribute("value"),
+                    type: this.chart.type,
+                    states: this.chart.obtainStates(),
+
+                    get fullData() {
+                        return `${this.name} ${this.type} ${this.states}`;
+                    },
+
+                    set fullData(value) {
+                        [this.name, this.type, this.states] = value.split(" ");
+                    }
+                };
+                var a = data.fullData;
+                var b = a.split(" ");
+                var name = b[0];
+                var type = b[1];
+                var states = b[2];
+
+                alert("Name is: " + name);
+                alert("Type is: " + type);
+                alert("States are :" + states);
+
+                var d = todata();
+                d.fullData;
+
+        }
+
+    }
+
+    _showOutput() {
+        this.outputText.innerHTML = `<span style="color:green">${this.input.substring(
+            0,
+            this.index
+        )}</span>
       <span style="color:red">${this.input.substring(
-        this.index,
-        this.index + 1
-      )}</span>
+            this.index,
+            this.index + 1
+        )}</span>
       <span style="color:grey">${this.input.substring(this.index + 1)}</span>`;
-    //console.log(this.activeStates[0].name);
-    this.configOutputText.innerHTML = `<span>${this.activeStates[0].name}</span>`;
-  }
-  test(command, datos) {
-    switch (command) {
-        case 'reset':
-            this.activeStates = this.chart.executionReset();
-            console.log(this.activeStates);
-            //console.log(this.chart);
-            //console.log(this.activeStates.length);
-            if (this.activeStates.length !== 1) {
-                alert('Debe haber un estado inicial y solo uno');
-                return;
-            }
-            this.index = 0;
-            this.pause = true;
-            //Info para deshacer:
-            this.history = []; //aprovechamos el mismo array de edición 
-            this._showStates(this.activeStates, []);
-            break;
-        case 'back':
-            if (this.history.length > 0) {
-                let state = this.history.pop();
-                this.activeStates = state.states;
-                this.index = state.index;
-                this._showStates(this.activeStates, undefined);
-            }
-            break;
-        case 'stop':
-            clearInterval(this.timer);
-            this.pause = true;
-            break;
-        case 'step':
-            this.pause = true; //el resto es igual
-        case 'runstep':
-            clearInterval(this.timer);
-            this.history.push({ states: this.activeStates, index: this.index });
-            this.activeTransitions = this.chart._getActiveTransitions(this.activeStates, this.input.charAt(this.index));
-            if (this.activeTransitions.length !== 0) {
-                this.activeStates = this.chart.executionStep(this.activeTransitions);
-                this.index++
+        //console.log(this.activeStates[0].name);
+        this.configOutputText.innerHTML = `<span>${this.activeStates[0].name}</span>`;
+    }
+
+    test(command, datos) {
+        switch (command) {
+            case 'reset':
+                this.activeStates = this.chart.executionReset();
+                console.log(this.activeStates);
+                //console.log(this.chart);
+                //console.log(this.activeStates.length);
+                if (this.activeStates.length !== 1) {
+                    alert('Debe haber un estado inicial y solo uno');
+                    return;
+                }
+                this.index = 0;
+                this.pause = true;
+                //Info para deshacer:
+                this.history = []; //aprovechamos el mismo array de edición
+                this._showStates(this.activeStates, []);
+                break;
+            case 'back':
+                if (this.history.length > 0) {
+                    let state = this.history.pop();
+                    this.activeStates = state.states;
+                    this.index = state.index;
+                    this._showStates(this.activeStates, undefined);
+                }
+                break;
+            case 'stop':
+                clearInterval(this.timer);
+                this.pause = true;
+                break;
+            case 'step':
+                this.pause = true; //el resto es igual
+            case 'runstep':
+                clearInterval(this.timer);
+                this.history.push({states: this.activeStates, index: this.index});
+                this.activeTransitions = this.chart._getActiveTransitions(this.activeStates, this.input.charAt(this.index));
+                if (this.activeTransitions.length !== 0) {
+                    this.activeStates = this.chart.executionStep(this.activeTransitions);
+                    this.index++
                     setTimeout(() => this._showStates(undefined, this.activeTransitions), 100);
-                setTimeout(() => this._showStates(this.activeStates, []), 500);
-                //Nueva especificación, actualizar la ventanilla de salida
-                //si modo run, nos autolanzamos un evento dentro de un tiempo...si no es terminal, claro
-                if (this.activeStates.some(st => st.isTerminalState)) {
-                    //Puede llegar a un terminal sin agotar la entrada
-                    setTimeout(() => alert(`entrada correcta ${this.index===this.input.length?'':'pero no agotada'}, alcanzado estado terminal`), 550);
-                } else if (this.index >= this.input.length) { //caracteres acabados y no he llegado a un terminal
-                    setTimeout(() => alert(`entrada correcta pero agotada sin haber alcanzado estado terminal`), 550);
-                } else if (!this.pause)
-                    this.timer = setTimeout(() => this.dispatchEvent(new CustomEvent('test', { detail: { action: 'runstep' } })), 1000);
-            } else { //Si Entrada incorrecta o estado final, volvemos a sacar el diálogo
-                alert(`entrada incorrecta: ${this.input.charAt(this.index)}`)
-            }
-            break;
-        case 'run':
-            this.pause = false;
-            this.timer = setTimeout(() => this.dispatchEvent(new CustomEvent('test', { detail: { action: 'runstep' } })), 1000);
-            //this.timer = setTimeout(()=>this._runstep(),1000);  //Un rollo la sintaxis del timeout
-            break;
-        default:
-            break;
+                    setTimeout(() => this._showStates(this.activeStates, []), 500);
+                    //Nueva especificación, actualizar la ventanilla de salida
+                    //si modo run, nos autolanzamos un evento dentro de un tiempo...si no es terminal, claro
+                    if (this.activeStates.some(st => st.isTerminalState)) {
+                        //Puede llegar a un terminal sin agotar la entrada
+                        setTimeout(() => alert(`entrada correcta ${this.index === this.input.length ? '' : 'pero no agotada'}, alcanzado estado terminal`), 550);
+                    } else if (this.index >= this.input.length) { //caracteres acabados y no he llegado a un terminal
+                        setTimeout(() => alert(`entrada correcta pero agotada sin haber alcanzado estado terminal`), 550);
+                    } else if (!this.pause)
+                        this.timer = setTimeout(() => this.dispatchEvent(new CustomEvent('test', {detail: {action: 'runstep'}})), 1000);
+                } else { //Si Entrada incorrecta o estado final, volvemos a sacar el diálogo
+                    alert(`entrada incorrecta: ${this.input.charAt(this.index)}`)
+                }
+                break;
+            case 'run':
+                this.pause = false;
+                this.timer = setTimeout(() => this.dispatchEvent(new CustomEvent('test', {detail: {action: 'runstep'}})), 1000);
+                //this.timer = setTimeout(()=>this._runstep(),1000);  //Un rollo la sintaxis del timeout
+                break;
+            default:
+                break;
+        }
     }
-  }
-  handleEvent(evt) {
-    let appName = evt.type; //zoom_end, zoom, edit y dialog de momento
-    if (evt.detail) this[appName](evt.detail.action, evt.detail);
-    else this[appName]();
-  }
-  //Se supone que aquí se llama al desconectar la página, pero en laa aplicaciones no parece que pase
-  disconnectedCallback() {
-    //hay que quitar los listeners... pero no se dejan?!
-  }
-  static get observedAttributes() {
-    return [];
-  }
-  attributeChangedCallback(name, oldVal, newVal) {
-    switch (name) {
-      default:
-        break;
+
+    handleEvent(evt) {
+        let appName = evt.type; //zoom_end, zoom, edit y dialog de momento
+        if (evt.detail) this[appName](evt.detail.action, evt.detail);
+        else this[appName]();
     }
-  }
+
+    //Se supone que aquí se llama al desconectar la página, pero en laa aplicaciones no parece que pase
+    disconnectedCallback() {
+        //hay que quitar los listeners... pero no se dejan?!
+    }
+
+    static get observedAttributes() {
+        return [];
+    }
+
+    attributeChangedCallback(name, oldVal, newVal) {
+        switch (name) {
+            default:
+                break;
+        }
+    }
 }
 
 //esto ta fuera de la clase
@@ -1176,61 +1181,61 @@ customElements.define("state-editor", StateEditor);
 
 //------------
 function OBJtoXML(obj) {
-  var xml = "";
-  for (var prop in obj) {
-    xml += obj[prop] instanceof Array ? "" : "<" + prop + ">";
-    if (obj[prop] instanceof Array) {
-      for (var array in obj[prop]) {
-        xml += "<" + prop + ">";
-        xml += OBJtoXML(new Object(obj[prop][array]));
-        xml += "</" + prop + ">";
-      }
-    } else if (typeof obj[prop] == "object") {
-      xml += OBJtoXML(new Object(obj[prop]));
-    } else {
-      xml += obj[prop];
-    }
+    var xml = "";
+    for (var prop in obj) {
+        xml += obj[prop] instanceof Array ? "" : "<" + prop + ">";
+        if (obj[prop] instanceof Array) {
+            for (var array in obj[prop]) {
+                xml += "<" + prop + ">";
+                xml += OBJtoXML(new Object(obj[prop][array]));
+                xml += "</" + prop + ">";
+            }
+        } else if (typeof obj[prop] == "object") {
+            xml += OBJtoXML(new Object(obj[prop]));
+        } else {
+            xml += obj[prop];
+        }
 
-    xml += obj[prop] instanceof Array ? "" : "</" + prop + ">";
-  }
-  var xml = xml.replace(/<\/?[0-9]{1,}>/g, "");
-  return xml;
+        xml += obj[prop] instanceof Array ? "" : "</" + prop + ">";
+    }
+    var xml = xml.replace(/<\/?[0-9]{1,}>/g, "");
+    return xml;
 }
 
 function xmlToJson(xml) {
-  var obj = {};
-  if (xml.nodeType == 1) {
-    if (xml.attributes.length > 0) {
-      obj["@attributes"] = {};
+    var obj = {};
+    if (xml.nodeType == 1) {
+        if (xml.attributes.length > 0) {
+            obj["@attributes"] = {};
 
-      for (var j = 0; j < xml.attributes.length; j++) {
-        var attribute = xml.attributes.item(j);
-        obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-      }
-    }
-  } else if (xml.nodeType == 4) {
-    obj = xml.nodeValue;
-  }
-  if (xml.hasChildNodes()) {
-    for (var i = 0; i < xml.childNodes.length; i++) {
-      var item = xml.childNodes.item(i);
-      var nodeName = item.nodeName;
-
-      if (typeof obj[nodeName] == "undefined") {
-        obj[nodeName] = xmlToJson(item);
-      } else {
-        if (typeof obj[nodeName].length == "undefined") {
-          var old = obj[nodeName];
-          obj[nodeName] = [];
-          obj[nodeName].push(old);
+            for (var j = 0; j < xml.attributes.length; j++) {
+                var attribute = xml.attributes.item(j);
+                obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+            }
         }
-
-        if (typeof obj[nodeName] === "object") {
-          obj[nodeName].push(xmlToJson(item));
-        }
-      }
+    } else if (xml.nodeType == 4) {
+        obj = xml.nodeValue;
     }
-  }
+    if (xml.hasChildNodes()) {
+        for (var i = 0; i < xml.childNodes.length; i++) {
+            var item = xml.childNodes.item(i);
+            var nodeName = item.nodeName;
 
-  return obj;
+            if (typeof obj[nodeName] == "undefined") {
+                obj[nodeName] = xmlToJson(item);
+            } else {
+                if (typeof obj[nodeName].length == "undefined") {
+                    var old = obj[nodeName];
+                    obj[nodeName] = [];
+                    obj[nodeName].push(old);
+                }
+
+                if (typeof obj[nodeName] === "object") {
+                    obj[nodeName].push(xmlToJson(item));
+                }
+            }
+        }
+    }
+
+    return obj;
 }

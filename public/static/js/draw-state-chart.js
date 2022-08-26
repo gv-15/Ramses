@@ -9,6 +9,7 @@ export default class DrawStateChart {
 
         this.init('none'); //no habilitamos ninguna acción
     }
+
     init(mode) {
         //Creo una línea para dibujar conexiones, la creo una vez y luego la conecto o desconecto del svg
         this.provisionalTransition = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -27,12 +28,15 @@ export default class DrawStateChart {
                         }
                     }));
                 }
-                this.leftClickStart = ()=>{}; //para que no intente arrancar el zoom con cuadrado
+                this.leftClickStart = () => {
+                }; //para que no intente arrancar el zoom con cuadrado
                 this.mouse.app(this); //el DRAW instala la gestión de ratón solo con el click
                 break;
             case 'start_drag': {
-                this.leftClick = () => {}; //si no, sigue haciendo lo que estaba, o sea, estados
-                this.leftClickMove = ()=>{};    //Si drag, NO zoom
+                this.leftClick = () => {
+                }; //si no, sigue haciendo lo que estaba, o sea, estados
+                this.leftClickMove = () => {
+                };    //Si drag, NO zoom
                 //this.rightClickUp = ()=>{};
                 this.leftClickStart = (pi, evt) => {
                     if (evt.target.nodeName === 'circle') { // } if(clicked === 'border'){ //queremos hacer una conexión
@@ -49,7 +53,7 @@ export default class DrawStateChart {
                             let x = this.trx + pf.x - this.pi.x;
                             let y = this.try + pf.y - this.pi.y;
                             this.stateNode.state.x = x;
-                            this.stateNode.state.y = y;                  
+                            this.stateNode.state.y = y;
                             this.app.dispatchEvent(new CustomEvent('edit', {
                                 detail: {
                                     action: 'state_moved',
@@ -57,8 +61,10 @@ export default class DrawStateChart {
                             }));
                         }
                         this.leftClickUp = (pi, pf) => {
-                            this.leftClickMove = ()=>{};
-                            this.leftClickUp = ()=>{};
+                            this.leftClickMove = () => {
+                            };
+                            this.leftClickUp = () => {
+                            };
                             this.mouse.app(this); //el DRAW instala la gestión de ratón solo con el click
                             this.app.dispatchEvent(new CustomEvent('edit', {
                                 detail: {
@@ -73,11 +79,14 @@ export default class DrawStateChart {
                 }
                 this.mouse.app(this);
             }
-            break;
+                break;
             case 'start_insert_transition': {
-                this.leftClick = () => {};
-                this.leftClickMove = ()=>{};
-                this.leftClickUp = ()=>{};
+                this.leftClick = () => {
+                };
+                this.leftClickMove = () => {
+                };
+                this.leftClickUp = () => {
+                };
                 this.leftClickStart = (pi, evt) => {
                     if (evt.target.nodeName === 'circle') { // } if(clicked === 'border'){ //queremos hacer una conexión
                         this.stateNode = evt.target.parentNode;
@@ -101,8 +110,10 @@ export default class DrawStateChart {
                             }
                             this.stateNode = undefined;
                             this.provisionalTransition.setAttribute('d', '');
-                            this.leftClickMove = ()=>{};
-                            this.leftClickUp = ()=>{};
+                            this.leftClickMove = () => {
+                            };
+                            this.leftClickUp = () => {
+                            };
                             this.mouse.app(this);
                         }
                         this.mouse.app(this);
@@ -110,22 +121,34 @@ export default class DrawStateChart {
                 }
                 this.mouse.app(this); //el DRAW instala la gestión de ratón solo con el click
             }
-            break;
+                break;
             case 'start_delete_mode': {
-                this.leftClickStart = () => {};
+                this.leftClickStart = () => {
+                };
                 this.leftClick = (pi, evt) => {
                     if (evt.target.nodeName === 'circle') {
-                        this.app.dispatchEvent(new CustomEvent('edit', {detail: {action: 'delete_state', stateId: evt.target.parentNode.id } }));
+                        this.app.dispatchEvent(new CustomEvent('edit', {
+                            detail: {
+                                action: 'delete_state',
+                                stateId: evt.target.parentNode.id
+                            }
+                        }));
                     } else if ((evt.target.nodeName === 'path') || (evt.target.nodeName === 'textPath')) { //pincho en transición
                         let theTransition = evt.target.nodeName === 'path' ? evt.target.parentNode : evt.target.parentNode.parentNode;
-                        this.app.dispatchEvent(new CustomEvent('edit', { detail: { action: 'delete_transition', transitionId: theTransition.id}}));
+                        this.app.dispatchEvent(new CustomEvent('edit', {
+                            detail: {
+                                action: 'delete_transition',
+                                transitionId: theTransition.id
+                            }
+                        }));
                     }
                 }
                 this.mouse.app(this);
             }
-            break;
+                break;
             case 'start_edit_node': {
-                this.leftClickStart = () => {};
+                this.leftClickStart = () => {
+                };
                 this.leftClick = (pi, evt) => {
                     if (evt.target.nodeName === 'circle') {
                         this.app.dispatchEvent(new CustomEvent('edit', {
@@ -146,42 +169,53 @@ export default class DrawStateChart {
                 }
                 this.mouse.app(this);
             }
-            break;
+                break;
             case 'start_minimize_node': { // Por hacer completamente solo esta puesto por ahora
-              /*   this.leftClickStart = () => {};
+                /*   this.leftClickStart = () => {};
+                  this.leftClick = (pi, evt) => {
+                      if (evt.target.nodeName === 'circle') {
+                          this.app.dispatchEvent(new CustomEvent('minimize', {
+                              detail: {
+                                  action: 'minimize_automaton',
+                                  state: evt.target.parentNode.state
+                              }
+                          }));
+                      } else if ((evt.target.nodeName === 'path') || (evt.target.nodeName === 'textPath')) { //pincho en transición
+                          let theTransition = evt.target.nodeName === 'path' ? evt.target.parentNode : evt.target.parentNode.parentNode;
+                          this.app.dispatchEvent(new CustomEvent('minimize', {
+                              detail: {
+                                  action: 'minimize_transition',
+                                  transition: theTransition.transition
+                              }
+                          }));
+                      }
+                  }
+                  this.mouse.app(this); */
+                this.leftClickStart = () => {
+                };
                 this.leftClick = (pi, evt) => {
                     if (evt.target.nodeName === 'circle') {
-                        this.app.dispatchEvent(new CustomEvent('minimize', {
+                        this.app.dispatchEvent(new CustomEvent('edit', {
                             detail: {
-                                action: 'minimize_automaton',
-                                state: evt.target.parentNode.state
+                                action: 'delete_state',
+                                stateId: evt.target.parentNode.id
                             }
                         }));
                     } else if ((evt.target.nodeName === 'path') || (evt.target.nodeName === 'textPath')) { //pincho en transición
                         let theTransition = evt.target.nodeName === 'path' ? evt.target.parentNode : evt.target.parentNode.parentNode;
-                        this.app.dispatchEvent(new CustomEvent('minimize', {
+                        this.app.dispatchEvent(new CustomEvent('edit', {
                             detail: {
-                                action: 'minimize_transition',
-                                transition: theTransition.transition
+                                action: 'delete_transition',
+                                transitionId: theTransition.id
                             }
                         }));
-                    }
-                }
-                this.mouse.app(this); */
-                this.leftClickStart = () => {};
-                this.leftClick = (pi, evt) => {
-                    if (evt.target.nodeName === 'circle') {
-                        this.app.dispatchEvent(new CustomEvent('edit', {detail: {action: 'delete_state', stateId: evt.target.parentNode.id } }));
-                    } else if ((evt.target.nodeName === 'path') || (evt.target.nodeName === 'textPath')) { //pincho en transición
-                        let theTransition = evt.target.nodeName === 'path' ? evt.target.parentNode : evt.target.parentNode.parentNode;
-                        this.app.dispatchEvent(new CustomEvent('edit', { detail: { action: 'delete_transition', transitionId: theTransition.id}}));
                     }
                 }
                 this.mouse.app(this);
             }
-            break;
+                break;
             default:
-            break;
+                break;
         }
     }
 }

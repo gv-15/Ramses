@@ -78,6 +78,7 @@ svg {
     flex-direction: column;
     justify-content: stretch;
 }
+
 #all-menu2 {
     color: white;
     width: 100%;
@@ -172,6 +173,7 @@ svg {
     background-image: url(/static/images/sign-out-white.svg);
     cursor: pointer;
 }
+
 #b-based {
     background-repeat: no-repeat;
     background-position: center;
@@ -190,47 +192,66 @@ svg {
     padding: 10px;
 }
 
-*{
-	margin: 0;
-	padding: 0;
+* {
+    margin: 0;
+    padding: 0;
 }
-#contenedor{
-height: 100%;
-width: 30%;
-display: flex;
-justify-content: right;
-}
-#contenedor2{
+
+#contenedor {
     height: 100%;
     width: 30%;
     display: flex;
     justify-content: right;
-    }
-.reloj{
-	float: left;
-	font-size: 40px;
-	font-family: Courier,sans-serif;
-	color: #363431;
+}
+
+#contenedor2 {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: right;
+}
+
+.reloj {
+    float: left;
+    font-size: 40px;
+    font-family: Courier, sans-serif;
+    color: #363431;
     display: flex;
     flex-direction: row;
 }
-.boton{
-	outline: none;
-	border: 1px solid #363431;
-	color: white;
-	width: 64px;
-	height: 30px;
-	text-shadow: 0px -1px 1px black;
-	font-size: 20px;
-	border-radius: 5px;
-	font-family: Helvetica;
-	cursor: pointer;
-	background-image: linear-gradient(#3aad02,#2c6f05);
-    
+
+.reloj2 {
+    float: left;
+    font-family: Courier, sans-serif;
+    color: #363431;
+    display: flex;
+    flex-direction: row;
+    margin-top: 6px;
+    margin-left: 15px;
 }
-.boton:active{
-	background-image: linear-gradient(#2c6f05,#3aad02);
+
+.boton {
+    outline: none;
+    border: 1px solid #363431;
+    color: white;
+    width: 64px;
+    height: 30px;
+    text-shadow: 0px -1px 1px black;
+    font-size: 20px;
+    border-radius: 5px;
+    font-family: Helvetica;
+    cursor: pointer;
+    background-image: linear-gradient(#3aad02, #2c6f05);
 }
-.boton:hover{
-	box-shadow: 0px 0px 14px #3aad02;
+
+.boton:active {
+    background-image: linear-gradient(#2c6f05, #3aad02);
+}
+
+.boton:hover {
+    box-shadow: 0px 0px 14px #3aad02;
+}
+
+.language {
+    margin-top: 15px;
 }
