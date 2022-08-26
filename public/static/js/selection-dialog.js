@@ -362,20 +362,42 @@ export default class SelectionDialog extends HTMLElement {
                                         });
 
                                         var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
-                                        states_array2[l] = states_array2[l].replace(/(name)/gi, function(matched){
-                                            return  mapObj[matched] + k;
+                                        states_array2[l] = states_array2[l].replace(/(names)/gi, function(matched){
+                                            if (contadorEstados > 0) {
+                                                return  mapObj[matched] + k + contadorEstados;
+                                            }
+                                            else {
+                                                return  mapObj[matched] + k;
+                                            }
                                         });
 
                                         var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
                                         states_array2[l] = states_array2[l].replace(/(id)/gi, function(matched){
-                                            return  mapObj[matched] + k;
-                                        });
+                                            if (contadorEstados > 0) {
+                                                return  mapObj[matched] + k + contadorEstados;
+                                            }
+                                            else {
+                                                return  mapObj[matched] + k;
+                                            }                                        });
 
                                         var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
                                         states_array2[l] = states_array2[l].replace(/(comments)/gi, function(matched){
-                                            return  mapObj[matched] + k;
-                                        });
+                                            if (contadorEstados > 0) {
+                                                return  mapObj[matched] + k + contadorEstados;
+                                            }
+                                            else {
+                                                return  mapObj[matched] + k;
+                                            }                                        });
 
+                                        var mapObj = {states:"states",name:"name",x:"x",y:"y",isInitialState:"isInitialState",isTerminalState:"isTerminalState",comments:"comments",transitions:"transitions",id:"id",names: "names", namess: "namess", namesss: "namesss"};
+                                        states_array2[l] = states_array2[l].replace(/(transitions)/gi, function(matched){
+                                            if (contadorEstados > 0) {
+                                                return  mapObj[matched] + k + contadorEstados;
+                                            }
+                                            else {
+                                                return  mapObj[matched] + k;
+                                            }                                        });
+                                        contadorEstados++;
                                     }
 
                                      //console.log(states_array2);

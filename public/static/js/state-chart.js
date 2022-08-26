@@ -175,7 +175,7 @@ export default class StateChart {
         let transi = this.getTransition(datos.states[i].transitions[j].id);
         let name2 = transi.name2;
         let name3 = transi.name3;
-        datos.states[i].transitions[j] = {name: datos.states[i].transitions[j].name, namess: name2, namesss: name3
+        datos.states[i].transitions[j] = {names: datos.states[i].transitions[j].name, namess: name2, namesss: name3
           , id: datos.states[i].transitions[j].id, comments: datos.states[i].transitions[j].comments}
         console.log(datos.states[i].transitions[j]);
       }
