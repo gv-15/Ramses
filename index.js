@@ -69,7 +69,6 @@ app.get(`/home`, (request, response) => {
 /*app.get(`/afterbd`, (request, response) => {
    
     var sql = "INSERT INTO maquinas (id_state, id_automata, id_usuario, id_posicion_x, id_posicion_y) VALUES (1,3,4,0.5,1.5)";
-    console.log("pues va");
     connection.query(sql);
     connection.query(sql,function (err, result){
     if (err) {
