@@ -520,10 +520,6 @@ export default class SelectionDialog extends HTMLElement {
                             contadorEstados++;
                         }
 
-                        //console.log(states_array2);
-
-                        //console.log('EMPIEZA ESTA VAINA PONEMOS STATES');
-
                         var mapObj = {
                             states: "states",
                             name: "name",
@@ -542,7 +538,6 @@ export default class SelectionDialog extends HTMLElement {
                             return mapObj[matched] + k;
                         });
 
-                        // console.log('OTROOO MOSCOW MULEEE PONEMOS NAME');
 
                         var mapObj = {
                             states: "states",
@@ -562,7 +557,6 @@ export default class SelectionDialog extends HTMLElement {
                             return mapObj[matched] + k;
                         });
 
-                        // console.log('VAMOS A FORMENTERAA PONEMOS X');
 
                         var mapObj = {
                             states: "states",
@@ -582,7 +576,6 @@ export default class SelectionDialog extends HTMLElement {
                             return mapObj[matched] + k;
                         });
 
-                        //console.log('EL VALSSS DEL OBREROO VIVA LA REVOLUCION PONEMOS Y');
 
                         var mapObj = {
                             states: "states",
@@ -602,8 +595,6 @@ export default class SelectionDialog extends HTMLElement {
                             return mapObj[matched] + k;
                         });
 
-                        //console.log('LA CASAA POR EL TEJADO PONEMOS ISINITIALSTATE');
-
                         var mapObj = {
                             states: "states",
                             name: "name",
@@ -621,8 +612,6 @@ export default class SelectionDialog extends HTMLElement {
                         states_array2[0] = states_array2[0].replace(/(IsInitialState)/gi, function (matched) {
                             return mapObj[matched] + k;
                         });
-
-                        //console.log('COMOOO CAMARONN PONEMOS ISTERMINALSTATE');
 
                         var mapObj = {
                             states: "states",
@@ -642,7 +631,6 @@ export default class SelectionDialog extends HTMLElement {
                             return mapObj[matched] + k;
                         });
 
-                        //console.log('NOOO ES VIDA DE RICOOOO PONEMOS COMMENTS');
 
                         var mapObj = {
                             states: "states",
@@ -661,9 +649,6 @@ export default class SelectionDialog extends HTMLElement {
                         states_array2[0] = states_array2[0].replace(/(comments)/gi, function (matched) {
                             return mapObj[matched] + k;
                         });
-
-                        console.log('Hasta aqui ponemos la primera parte de un state y funciona perfecto, OKEYYY LETS GO '
-                            + states_array2);
 
                         statesCopy.push(states_array2);
                     }
@@ -950,7 +935,6 @@ export default class SelectionDialog extends HTMLElement {
 
 }
 
-//esto ta fuera de la clase
 customElements.define('selection-dialog', SelectionDialog);
 
 function formatXml(xml, tab) { // tab = optional indent value, default is tab (\t)
