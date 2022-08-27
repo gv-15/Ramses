@@ -169,6 +169,7 @@ export default class ButtonArray extends HTMLElement {
     `;
         return style;
     }
+
     createButtons() {
         let n = this.buttons.length; //los haremos iguales, si puede ser
         this.buttonWidth = Math.trunc(100 / n); //los hace ligeramente más pequeños para que el redondeo no sume más de 100
@@ -195,6 +196,7 @@ export default class ButtonArray extends HTMLElement {
             })
         );
     }
+
     setButtons(app, data) {
         this.app = app;
         this.appName = data.appName;
@@ -209,35 +211,43 @@ export default class ButtonArray extends HTMLElement {
         this.buttonClasses = data.buttons.map(b => b.class).filter(b => b !== '').concat(['selected']); //lista de strings, igual hay vacíos o repetidos, pero da un poc igual
         this.createButtons();
     }
+
     click(button) {
         let ix = this.buttons.findIndex(el => el.msg === button);
         this.nodes[ix].click();
     }
+
     connectedCallback() {
-            //Los ids deben ser únicos...
-            this.app = document.querySelector('#' + this.appName) || this; //los atributos se ponen muy pronto, en la creación, pero igual el elemento no está...?
-            //Si no existe el id ese, pues los eventos vienen aquí y daremos error o algo?
-        }
-        //Aquí recibiríamos eventos que son para nosotros o aquellos cuya app no se ha puesto bien
+        //Los ids deben ser únicos...
+        this.app = document.querySelector('#' + this.appName) || this; //los atributos se ponen muy pronto, en la creación, pero igual el elemento no está...?
+        //Si no existe el id ese, pues los eventos vienen aquí y daremos error o algo?
+    }
+
+    //Aquí recibiríamos eventos que son para nosotros o aquellos cuya app no se ha puesto bien
     handleEvent(evt) {
-            if (evt.type === this.app) {
-                let command = evt.detail.action;
-                switch (command) {
-                    default: console.log('unhandled event: ' + command + 'or unknown app ' + this.appName);
+        if (evt.type === this.app) {
+            let command = evt.detail.action;
+            switch (command) {
+                default:
+                    console.log('unhandled event: ' + command + 'or unknown app ' + this.appName);
                     break;
-                }
             }
         }
-        //Se supone que aquí se llama al desconectar la página, pero en laa aplicaciones no parece que pase
+    }
+
+    //Se supone que aquí se llama al desconectar la página, pero en laa aplicaciones no parece que pase
     disconnectedCallback() {
         //hay que quitar los listeners... pero no se dejan?!
     }
+
     static get observedAttributes() {
         return [];
     }
+
     attributeChangedCallback(name, oldVal, newVal) {
         switch (name) {
-            default: break;
+            default:
+                break;
         }
     }
 }

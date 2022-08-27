@@ -3,7 +3,6 @@
 import StateChart from './state-chart.js';
 
 
-
 export default class SelectionDialog extends HTMLElement {
     constructor() {
         super();
@@ -11,8 +10,9 @@ export default class SelectionDialog extends HTMLElement {
             mode: 'open'
         });
     }
+
     style() {
-        return (String.raw `
+        return (String.raw`
     <style>
         :host {
         display: block;
@@ -108,9 +108,10 @@ export default class SelectionDialog extends HTMLElement {
     </style>
     `);
     }
-        template() {
-            return (
-                `<dialog id="selection-dialog">
+
+    template() {
+        return (
+            `<dialog id="selection-dialog">
                 <div id="sections-container">
                     <div class="section">
                         <span>Nueva máquina</span></br>
@@ -139,15 +140,15 @@ export default class SelectionDialog extends HTMLElement {
                         <input type="file"  name="machine" id="file-input" /></br>
                     </div>
                     <div>
-                    <span> Importar desde JFLAP</span></br>
+                    <span>Importar desde JFLAP</span></br>
                     <input type="file"  name="machine2" id="file-input2" /></br>
                 </div>
                 </div>
                 <input type="button" id="end" value="Empezar"/>
 
         </dialog>`
-            );
-        }
+        );
+    }
 
     template2() {
         return (
@@ -231,46 +232,48 @@ export default class SelectionDialog extends HTMLElement {
         );
     }
 
-        //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
+    //Aquí se llama cuando se conectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
     connectedCallback() {
-        if(getLang() === 'es') {
+        if (getLang() === 'es') {
             this.dom.innerHTML = this.style() + this.template();
-        }
-        else if(getLang() === 'en') {
+        } else if (getLang() === 'en') {
             this.dom.innerHTML = this.style() + this.template2();
-        }
-        else {
+        } else {
             this.dom.innerHTML = this.style() + this.template3();
         }
         this.dialog = this.dom.querySelector('#selection-dialog');
-        this.data = { type: '', sigma: '', stack: '', states: [] };
+        this.data = {type: '', sigma: '', stack: '', states: []};
         this.dom.querySelector('#end').addEventListener('click', () => this.sendData('OK'));
     }
+
     setSigma(sigma) {
         this.sigma = sigma;
         if (sigma.search(/[^A-Z,a-z]/) !== -1) //o un try-catch que permita a y b...
             console.log('el alfabeto pasado no es válido, no debería pasar');
         this.pattern = new RegExp('[' + this.sigma + ']');
     }
+
     setStack(stack) { //Misma idea que arriba, tengo que ver si funciona
         this.stack = stack;
         if (stack.search(/[^A-Z,a-z]/) !== -1) //o un try-catch que permita a y b...
             console.log('el alfabeto de la pila pasado no es válido, no debería pasar');
         this.pattern = new RegExp('[' + this.stack + ']');
     }
+
     setType(type) {
         this.type = type;
     }
+
     sendData(button) {
         this.data = {};
         if (button === 'OK') { //modifico campos
 
-            let file = this.dom.querySelector("#file-input").files[0];          
+            let file = this.dom.querySelector("#file-input").files[0];
             let file2 = this.dom.querySelector("#file-input2").files[0];
-            
-            if (file && file2==null) {
+
+            if (file && file2 == null) {
                 let filename = file.name.toLowerCase();
-               // let filename2 = file2.name.toLowerCase();
+                // let filename2 = file2.name.toLowerCase();
                 if (!filename.endsWith('.json')) {
                     alert('extensión de fichero no soportada');
                     return;
@@ -279,7 +282,6 @@ export default class SelectionDialog extends HTMLElement {
                 let reader = new FileReader();
                 reader.readAsText(file);
                 reader.onloadend = (evt) => {
-                    console.log("lo de evt" + evt.target.result);
                     let stored = JSON.parse(evt.target.result);
                     console.log("stored es" + stored);
                     this.data.type = stored[0].type;
@@ -289,123 +291,644 @@ export default class SelectionDialog extends HTMLElement {
                     this.data.button = button;
                     let res = filename.split(".");
                     this.data.filename = res[0];
-                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
-                    //---------
-                    
+                    this.parent.dispatchEvent(new CustomEvent('dialog', {
+                        detail: {
+                            action: 'selection_data',
+                            data: this.data
+                        }
+                    }));
+
                 }
 
-            } 
-            else if(file2 && file==null)
-            {
+            } else if (file2 && file == null) {
                 let filename2 = file2.name.toLowerCase();
-                console.log("aaa");
-                    if (!filename2.endsWith('.xml')) {
-                        alert('extensión de fichero no soportada');
-                        return;
-                    }  
-                    
+                if (!filename2.endsWith('.xml')) {
+                    alert('extensión de fichero no soportada');
+                    return;
+                }
+
                 let reader2 = new FileReader();
                 reader2.readAsText(file2);
                 reader2.onloadend = (evt) => {
-                    console.log(evt.target.result);
-                    console.log("---------------")
 
-                           var parseXml;
-                           var a = evt.target.result;
+                    var a = evt.target.result;
+                    console.log(a.toString());
+                    //----------------------------
 
-                           if (window.DOMParser) {
-                              parseXml = function(a) {
-                                 return ( new window.DOMParser() ).parseFromString(a, "text/xml");
-                              };
-                           } else if (typeof window.ActiveXObject != "undefined" && new window.ActiveXObject("Microsoft.XMLDOM")) {
-                              parseXml = function(a) {
-                                 var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
-                                 xmlDoc.async = "false";
-                                 xmlDoc.loadXML(a);
-                                 return xmlDoc;
-                              };
-                           } else {
-                              parseXml = function() { return null; }
-                           }
-                           var xmlDoc = parseXml(a);
-                           console.log("---------------")
-                           var theJson = xmlToJson2(xmlDoc);
-                           console.log(JSON.stringify(theJson));                          
+                    //el b2 es para no estropear el b con las pruebas, que si lo cambias no dibuja
+                    var b2 = "<automaton>" + a.toString() + "</automaton>";
+                    var b_array = "<automaton>" + a.toString() + "</automaton>";
 
-                  console.log("eyyy" + theJson);
-                    this.data.type = theJson[0].type;
-                    this.data.sigma = theJson[0].sigma;
-                    this.data.states = theJson[0].states;
-                    this.data.stack = theJson[0].stack;
+                    //esto saca cuantos estados hay
+                    var count = b2.match(/\bstates\b/g);
+                    count = count ? count.length : 0;  //checking if there are matches or not.
+
+                    var countf = count / 2;
+                    var number = 0;
+
+                    var b3 = b2.split("</stack>");
+                    b3[0] = b3[0] + "</stack>";
+
+                    b2 = b3[1];
+                    var mapObj = {
+                        type: "type",
+                        states: "states",
+                        name: "name",
+                        x: "x",
+                        y: "y",
+                        isInitialState: "isInitialState",
+                        isTerminalState: "isTerminalState",
+                        comments: "comments",
+                        transitions: "transition",
+                        id: "id",
+                        names: "names",
+                        namess: "namess",
+                        namesss: "namesss"
+                    };
+                    b2 = b2.replace(/(type)/gi, function (matched) {
+                        return mapObj[matched];
+
+                    });
+
+
+                    var pre = b_array.split("</stack>");
+                    pre[0] = pre[0] + "</stack>";
+
+                    var post = pre[1].split("</automaton>");
+                    post[1] = post[1] + "</automaton>";
+
+                    var states_array = post[0].split("</states>");
+
+                    var statesCopy = [];
+
+                    for (var k = 0; k < countf; k++) {
+                        states_array[k] = states_array[k] + "</states>"
+                        var states_array2 = states_array[k].split("<transitions>");
+
+                        let contadorEstados = 0;
+                        for (let l = 1; l < states_array2.length; l++) {
+                            states_array2[l] = "<transitions>" + states_array2[l];
+                            var mapObj = {
+                                states: "states",
+                                name: "name",
+                                x: "x",
+                                y: "y",
+                                isInitialState: "isInitialState",
+                                isTerminalState: "isTerminalState",
+                                comments: "comments",
+                                transitions: "transitions",
+                                id: "id",
+                                tname: "tname",
+                                snames: "snames",
+                                pnames: "pnames"
+                            };
+                            states_array2[l] = states_array2[l].replace(/(states)/gi, function (matched) {
+                                return mapObj[matched] + k;
+                            });
+
+                            var mapObj = {
+                                states: "states",
+                                name: "name",
+                                x: "x",
+                                y: "y",
+                                isInitialState: "isInitialState",
+                                isTerminalState: "isTerminalState",
+                                comments: "comments",
+                                transitions: "transitions",
+                                id: "id",
+                                tname: "tname",
+                                sname: "sname",
+                                pname: "pname"
+                            };
+                            states_array2[l] = states_array2[l].replace(/(tname)/gi, function (matched) {
+                                if (contadorEstados > 0) {
+                                    return mapObj[matched] + k + contadorEstados;
+                                } else {
+                                    return mapObj[matched] + k;
+                                }
+                            });
+
+                            var mapObj = {
+                                states: "states",
+                                name: "name",
+                                x: "x",
+                                y: "y",
+                                isInitialState: "isInitialState",
+                                isTerminalState: "isTerminalState",
+                                comments: "comments",
+                                transitions: "transitions",
+                                id: "id",
+                                tname: "tname",
+                                sname: "sname",
+                                pname: "pname"
+                            };
+                            states_array2[l] = states_array2[l].replace(/(sname)/gi, function (matched) {
+                                if (contadorEstados > 0) {
+                                    return mapObj[matched] + k + contadorEstados;
+                                } else {
+                                    return mapObj[matched] + k;
+                                }
+                            });
+
+                            var mapObj = {
+                                states: "states",
+                                name: "name",
+                                x: "x",
+                                y: "y",
+                                isInitialState: "isInitialState",
+                                isTerminalState: "isTerminalState",
+                                comments: "comments",
+                                transitions: "transitions",
+                                id: "id",
+                                tname: "tname",
+                                sname: "sname",
+                                pname: "pname"
+                            };
+                            states_array2[l] = states_array2[l].replace(/(pname)/gi, function (matched) {
+                                if (contadorEstados > 0) {
+                                    return mapObj[matched] + k + contadorEstados;
+                                } else {
+                                    return mapObj[matched] + k;
+                                }
+                            });
+
+                            var mapObj = {
+                                states: "states",
+                                name: "name",
+                                x: "x",
+                                y: "y",
+                                isInitialState: "isInitialState",
+                                isTerminalState: "isTerminalState",
+                                comments: "comments",
+                                transitions: "transitions",
+                                id: "id",
+                                tname: "tname",
+                                sname: "sname",
+                                pname: "pname"
+                            };
+                            states_array2[l] = states_array2[l].replace(/(id)/gi, function (matched) {
+                                if (contadorEstados > 0) {
+                                    return mapObj[matched] + k + contadorEstados;
+                                } else {
+                                    return mapObj[matched] + k;
+                                }
+                            });
+
+                            var mapObj = {
+                                states: "states",
+                                name: "name",
+                                x: "x",
+                                y: "y",
+                                isInitialState: "isInitialState",
+                                isTerminalState: "isTerminalState",
+                                comments: "comments",
+                                transitions: "transitions",
+                                id: "id",
+                                tname: "tname",
+                                sname: "sname",
+                                pname: "pname"
+                            };
+                            states_array2[l] = states_array2[l].replace(/(comments)/gi, function (matched) {
+                                if (contadorEstados > 0) {
+                                    return mapObj[matched] + k + contadorEstados;
+                                } else {
+                                    return mapObj[matched] + k;
+                                }
+                            });
+
+                            var mapObj = {
+                                states: "states",
+                                name: "name",
+                                x: "x",
+                                y: "y",
+                                isInitialState: "isInitialState",
+                                isTerminalState: "isTerminalState",
+                                comments: "comments",
+                                transitions: "transitions",
+                                id: "id",
+                                tname: "tname",
+                                sname: "sname",
+                                pname: "pname"
+                            };
+                            states_array2[l] = states_array2[l].replace(/(transitions)/gi, function (matched) {
+                                if (contadorEstados > 0) {
+                                    return mapObj[matched] + k + contadorEstados;
+                                } else {
+                                    return mapObj[matched] + k;
+                                }
+                            });
+                            contadorEstados++;
+                        }
+
+                        //console.log(states_array2);
+
+                        //console.log('EMPIEZA ESTA VAINA PONEMOS STATES');
+
+                        var mapObj = {
+                            states: "states",
+                            name: "name",
+                            x: "x",
+                            y: "y",
+                            isInitialState: "isInitialState",
+                            isTerminalState: "isTerminalState",
+                            comments: "comments",
+                            transitions: "transitions",
+                            id: "id",
+                            tname: "tname",
+                            sname: "sname",
+                            pname: "pname"
+                        };
+                        states_array2[0] = states_array2[0].replace(/(states)/gi, function (matched) {
+                            return mapObj[matched] + k;
+                        });
+
+                        // console.log('OTROOO MOSCOW MULEEE PONEMOS NAME');
+
+                        var mapObj = {
+                            states: "states",
+                            name: "name",
+                            x: "x",
+                            y: "y",
+                            isInitialState: "isInitialState",
+                            isTerminalState: "isTerminalState",
+                            comments: "comments",
+                            transitions: "transitions",
+                            id: "id",
+                            tname: "tname",
+                            sname: "sname",
+                            pname: "pname"
+                        };
+                        states_array2[0] = states_array2[0].replace(/(name)/gi, function (matched) {
+                            return mapObj[matched] + k;
+                        });
+
+                        // console.log('VAMOS A FORMENTERAA PONEMOS X');
+
+                        var mapObj = {
+                            states: "states",
+                            name: "name",
+                            x: "x",
+                            y: "y",
+                            isInitialState: "isInitialState",
+                            isTerminalState: "isTerminalState",
+                            comments: "comments",
+                            transitions: "transitions",
+                            id: "id",
+                            tname: "tname",
+                            sname: "sname",
+                            pname: "pname"
+                        };
+                        states_array2[0] = states_array2[0].replace(/(x)/gi, function (matched) {
+                            return mapObj[matched] + k;
+                        });
+
+                        //console.log('EL VALSSS DEL OBREROO VIVA LA REVOLUCION PONEMOS Y');
+
+                        var mapObj = {
+                            states: "states",
+                            name: "name",
+                            x: "x",
+                            y: "y",
+                            isInitialState: "isInitialState",
+                            isTerminalState: "isTerminalState",
+                            comments: "comments",
+                            transitions: "transitions",
+                            id: "id",
+                            tname: "tname",
+                            sname: "sname",
+                            pname: "pname"
+                        };
+                        states_array2[0] = states_array2[0].replace(/(Y)/gi, function (matched) {
+                            return mapObj[matched] + k;
+                        });
+
+                        //console.log('LA CASAA POR EL TEJADO PONEMOS ISINITIALSTATE');
+
+                        var mapObj = {
+                            states: "states",
+                            name: "name",
+                            x: "x",
+                            y: "y",
+                            isInitialState: "isInitialState",
+                            isTerminalState: "isTerminalState",
+                            comments: "comments",
+                            transitions: "transitions",
+                            id: "id",
+                            tname: "tname",
+                            sname: "sname",
+                            pname: "pname"
+                        };
+                        states_array2[0] = states_array2[0].replace(/(IsInitialState)/gi, function (matched) {
+                            return mapObj[matched] + k;
+                        });
+
+                        //console.log('COMOOO CAMARONN PONEMOS ISTERMINALSTATE');
+
+                        var mapObj = {
+                            states: "states",
+                            name: "name",
+                            x: "x",
+                            y: "y",
+                            isInitialState: "isInitialState",
+                            isTerminalState: "isTerminalState",
+                            comments: "comments",
+                            transitions: "transitions",
+                            id: "id",
+                            tname: "tname",
+                            sname: "sname",
+                            pname: "pname"
+                        };
+                        states_array2[0] = states_array2[0].replace(/(isTerminalState)/gi, function (matched) {
+                            return mapObj[matched] + k;
+                        });
+
+                        //console.log('NOOO ES VIDA DE RICOOOO PONEMOS COMMENTS');
+
+                        var mapObj = {
+                            states: "states",
+                            name: "name",
+                            x: "x",
+                            y: "y",
+                            isInitialState: "isInitialState",
+                            isTerminalState: "isTerminalState",
+                            comments: "comments",
+                            transitions: "transitions",
+                            id: "id",
+                            tname: "tname",
+                            sname: "sname",
+                            pname: "pname"
+                        };
+                        states_array2[0] = states_array2[0].replace(/(comments)/gi, function (matched) {
+                            return mapObj[matched] + k;
+                        });
+
+                        console.log('Hasta aqui ponemos la primera parte de un state y funciona perfecto, OKEYYY LETS GO '
+                            + states_array2);
+
+                        statesCopy.push(states_array2);
+                    }
+
+                    var Automaton = pre[0];
+
+                    for (let j = 0; j < statesCopy.length; j++) {
+                        Automaton += statesCopy[j];
+                    }
+                    Automaton += post[1];
+
+                    var automata = Automaton.replaceAll(',', '');
+
+                    console.log('Automata estandar importado: ' + automata);
+
+                    //-------------------------------------------------------------------------------------------
+
+                    const parser = new DOMParser();
+
+                    var c = formatXml(automata);
+                    const doc = parser.parseFromString(c, "application/xml");
+
+                    this.data.type = doc.querySelector('type')?.textContent || 'default';
+                    this.data.sigma = doc.querySelector('sigma')?.textContent || 'default';
+                    this.data.stack = doc.querySelector('stack')?.textContent;
+                    let array = [];
+                    let transitions = [];
+                    let f = 0;
+                    let i = 0;
+
+                    if (this.data.type === 'AFD') {
+                        while (f < 1) {
+                            transitions = [];
+                            let name = doc.querySelector('name' + i).textContent;
+                            let x = doc.querySelector('x' + i).textContent;
+                            let y = doc.querySelector('y' + i).textContent;
+                            let isInitialState = doc.querySelector('isInitialState' + i).textContent;
+                            let isTerminalState = doc.querySelector('isTerminalState' + i).textContent;
+
+                            if (doc.querySelector('tname' + i) === null) {
+                                transitions = [];
+                            } else {
+                                let name2 = doc.querySelector('tname' + i).textContent;
+                                let id = doc.querySelector('id' + i).textContent;
+
+                                transitions.push({name: name2, id: id});
+
+                                let u = 1;
+                                let x = 0;
+                                while (x < 1) {
+                                    if (doc.querySelector('tname' + i + u) != null) {
+                                        let name2 = doc.querySelector('tname' + i + u).textContent;
+                                        let id = doc.querySelector('id' + i + u).textContent;
+
+                                        transitions.push({name: name2, name2: '', name3: '', id: id});
+                                        u++;
+                                        if (doc.querySelector('name' + i + u) === null) {
+                                            x++;
+                                        }
+                                    } else {
+                                        x++;
+                                    }
+                                }
+
+                            }
+
+                            array.push({
+                                name: name,
+                                x: x,
+                                y: y,
+                                isTerminalState: isTerminalState,
+                                isInitialState: isInitialState,
+                                comments: '',
+                                transitions: transitions
+                            });
+                            i++;
+                            if (doc.querySelector('name' + i) === null) {
+                                f++;
+                            }
+
+                        }
+                    } else if (this.data.type === 'AFND') {
+                        while (f < 1) {
+                            transitions = [];
+                            let name = doc.querySelector('name' + i).textContent;
+                            let x = doc.querySelector('x' + i).textContent;
+                            let y = doc.querySelector('y' + i).textContent;
+                            let isInitialState = doc.querySelector('isInitialState' + i).textContent;
+                            let isTerminalState = doc.querySelector('isTerminalState' + i).textContent;
+
+                            if (doc.querySelector('tname' + i) === null) {
+                                transitions = [];
+                            } else {
+                                let name2 = doc.querySelector('tname' + i).textContent;
+                                let id = doc.querySelector('id' + i).textContent;
+
+                                transitions.push({name: name2, id: id});
+
+                                let u = 1;
+                                let x = 0;
+                                while (x < 1) {
+                                    if (doc.querySelector('tname' + i + u) != null) {
+                                        let name2 = doc.querySelector('tname' + i + u).textContent;
+                                        let id = doc.querySelector('id' + i + u).textContent;
+
+                                        transitions.push({name: name2, name2: '', name3: '', id: id});
+                                        u++;
+                                        if (doc.querySelector('name' + i + u) === null) {
+                                            x++;
+                                        }
+                                    } else {
+                                        x++;
+                                    }
+                                }
+
+                            }
+
+                            array.push({
+                                name: name,
+                                x: x,
+                                y: y,
+                                isTerminalState: isTerminalState,
+                                isInitialState: isInitialState,
+                                comments: '',
+                                transitions: transitions
+                            });
+                            i++;
+                            if (doc.querySelector('name' + i) === null) {
+                                f++;
+                            }
+
+                        }
+                    } else {
+                        while (f < 1) {
+                            transitions = [];
+                            let name = doc.querySelector('name' + i).textContent;
+                            let x = doc.querySelector('x' + i).textContent;
+                            let y = doc.querySelector('y' + i).textContent;
+                            let isInitialState = doc.querySelector('isInitialState' + i).textContent;
+                            let isTerminalState = doc.querySelector('isTerminalState' + i).textContent;
+
+                            if (doc.querySelector('tname' + i) === null) {
+                                transitions = [];
+                            } else {
+                                let name2 = doc.querySelector('tname' + i).textContent;
+                                let name3 = doc.querySelector('sname' + i).textContent;
+                                let name4 = doc.querySelector('pname' + i).textContent;
+                                let id = doc.querySelector('id' + i).textContent;
+
+                                transitions.push({name: name2, name2: name3, name3: name4, id: id});
+
+                                let u = 1;
+                                let x = 0;
+                                while (x < 1) {
+                                    if (doc.querySelector('tname' + i + u) != null) {
+                                        let name2 = doc.querySelector('tname' + i).textContent;
+                                        let name3 = doc.querySelector('sname' + i).textContent;
+                                        let name4 = doc.querySelector('pname' + i).textContent;
+
+                                        let id = doc.querySelector('id' + i + u).textContent;
+
+                                        transitions.push({name: name2, name2: name3, name3: name4, id: id});
+                                        u++;
+                                        if (doc.querySelector('name' + i + u) === null) {
+                                            x++;
+                                        }
+                                    } else {
+                                        x++;
+                                    }
+                                }
+                            }
+                            array.push({
+                                name: name,
+                                x: x,
+                                y: y,
+                                isTerminalState: isTerminalState,
+                                isInitialState: isInitialState,
+                                comments: '',
+                                transitions: transitions
+                            });
+                            i++;
+                            if (doc.querySelector('name' + i) === null) {
+                                f++;
+                            }
+                        }
+                    }
+
+                    this.data.states = array;
+                    console.log(this.data.states);
+
                     this.data.button = button;
                     let res = filename2.split(".");
-                    this.data.filename2 = res[0];
-                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
-                    //---------
-                    
-                } 
-            }
-            else {
+                    this.data.filename = res[0];
+                    this.parent.dispatchEvent(new CustomEvent('dialog', {
+                        detail: {
+                            action: 'selection_data',
+                            data: this.data
+                        }
+                    }));
 
-   
-                    this.data.type = this.dom.querySelector("input[name=machine]:checked").value;
-                    this.data.sigma = this.dom.querySelector("#alphabet-input").value;
-                    this.data.stack = this.dom.querySelector("#stack-alphabet-input").value;
-                    this.data.filename = this.dom.querySelector("#filename-input").value;
-
-        
-                
-             if(this.data.type == "AFND" || this.data.type == "AFD")
-             {
-                if (this.data.type && this.data.sigma && this.data.filename ) {
-                    //console.log("hay datos suficientes");
-                    this.data.states = [];
-                    this.data.button = button;
-                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
-                } 
-                else if (this.data.type && this.data.sigma && this.data.filename2)
-                {
-
-                    this.data.states = [];
-                    this.data.button = button;
-                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
                 }
-                
-                
-                else {
-                    //console.log("no hay datos suficintes");
-                    alert("Rellena todos los campos para continuar");
-                    return;
-                }
-             }
-             else{
+            } else {
+                this.data.type = this.dom.querySelector("input[name=machine]:checked").value;
+                this.data.sigma = this.dom.querySelector("#alphabet-input").value;
+                this.data.stack = this.dom.querySelector("#stack-alphabet-input").value;
+                this.data.filename = this.dom.querySelector("#filename-input").value;
 
-                if (this.data.type && this.data.sigma && this.data.filename && this.data.stack) {
-                    //console.log("hay datos suficientes");
-                    this.data.states = [];
-                    this.data.button = button;
-                    this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'selection_data', data: this.data } }));
+                if (this.data.type == "AFND" || this.data.type == "AFD") {
+                    if (this.data.type && this.data.sigma && this.data.filename) {
+                        this.data.states = [];
+                        this.data.button = button;
+                        this.parent.dispatchEvent(new CustomEvent('dialog', {
+                            detail: {
+                                action: 'selection_data',
+                                data: this.data
+                            }
+                        }));
+                    } else if (this.data.type && this.data.sigma && this.data.filename2) {
+
+                        this.data.states = [];
+                        this.data.button = button;
+                        this.parent.dispatchEvent(new CustomEvent('dialog', {
+                            detail: {
+                                action: 'selection_data',
+                                data: this.data
+                            }
+                        }));
+                    } else {
+                        alert("Rellena todos los campos para continuar");
+                        return;
+                    }
                 } else {
-                    //console.log("no hay datos suficintes");
-                    alert("Rellena todos los campos para continuar");
-                    return;
+
+                    if (this.data.type && this.data.sigma && this.data.filename && this.data.stack) {
+                        this.data.states = [];
+                        this.data.button = button;
+                        this.parent.dispatchEvent(new CustomEvent('dialog', {
+                            detail: {
+                                action: 'selection_data',
+                                data: this.data
+                            }
+                        }));
+                    } else {
+                        alert("Rellena todos los campos para continuar");
+                        return;
+                    }
                 }
-             }
-                //this.data.type = this.dom.querySelector("input[name=machine]:checked").value;
-                //this.data.sigma = this.dom.querySelector("#alphabet-input").value;
             }
         }
         this.dialog.close()
     }
+
+
     open() {
         this.connectedCallback();
         this.dialog.showModal();
     }
-    disconnectedCallback() {}
+
+    disconnectedCallback() {
+    }
 
     static get observedAttributes() {
         return ['parent', 'sigma', 'type', 'stack']; //a dónde hay que echar los eventos
     }
+
     attributeChangedCallback(name, oldVal, newVal) {
         switch (name) {
             case 'parent':
@@ -430,46 +953,13 @@ export default class SelectionDialog extends HTMLElement {
 //esto ta fuera de la clase
 customElements.define('selection-dialog', SelectionDialog);
 
-function xmlToJson2(xml) {
-   // Create the return object
-   var obj = {};
-
-   // console.log(xml.nodeType, xml.nodeName );
-
-   if (xml.nodeType == 1) { // element
-       // do attributes
-       if (xml.attributes.length > 0) {
-       obj["@attributes"] = {};
-           for (var j = 0; j < xml.attributes.length; j++) {
-               var attribute = xml.attributes.item(j);
-               obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-           }
-       }
-   } 
-   else if (xml.nodeType == 3 || 
-            xml.nodeType == 4) { // text and cdata section
-       obj = xml.nodeValue
-   }
-
-   // do children
-   if (xml.hasChildNodes()) {
-       for(var i = 0; i < xml.childNodes.length; i++) {
-           var item = xml.childNodes.item(i);
-           var nodeName = item.nodeName;
-           if (typeof(obj[nodeName]) == "undefined") {
-               obj[nodeName] = xmlToJson2(item);
-           } else {
-               if (typeof(obj[nodeName].length) == "undefined") {
-                   var old = obj[nodeName];
-                   obj[nodeName] = [];
-                   obj[nodeName].push(old);
-               }
-               if (typeof(obj[nodeName]) === 'object') {
-                   obj[nodeName].push(xmlToJson2(item));
-               }
-           }
-       }
-   }
-   return obj;
+function formatXml(xml, tab) { // tab = optional indent value, default is tab (\t)
+    var formatted = '', indent = '';
+    tab = tab || '\t';
+    xml.split(/>\s*</).forEach(function (node) {
+        if (node.match(/^\/\w/)) indent = indent.substring(tab.length); // decrease indent by one 'tab'
+        formatted += indent + '<' + node + '>\r\n';
+        if (node.match(/^<?\w[^>]*[^\/]$/)) indent += tab;              // increase indent
+    });
+    return formatted.substring(1, formatted.length - 3);
 }
-

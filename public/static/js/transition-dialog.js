@@ -10,8 +10,9 @@ export default class TransitionDialog extends HTMLElement {
             mode: 'open'
         });
     }
+
     style() {
-        return (String.raw `
+        return (String.raw`
     <style>
         :host {
         display: block;
@@ -49,9 +50,10 @@ export default class TransitionDialog extends HTMLElement {
     </style>
     `);
     }
+
     template() {
         return (
-        `<dialog id="transition-dialog">
+            `<dialog id="transition-dialog">
         <select id='select-transition'></select>
         <input type="button" id="add" value=" Añadir "/>
         <input type="button" id="del" value=" Borrar "/></br></br>
@@ -68,8 +70,9 @@ export default class TransitionDialog extends HTMLElement {
         <input type="button" id="end" value="Enviar"/>
         </div>
         </dialog>`
-        ); 
+        );
     }
+
     template2() {
         return (
             `<dialog id="transition-dialog">
@@ -91,6 +94,7 @@ export default class TransitionDialog extends HTMLElement {
         </dialog>`
         );
     }
+
     template3() {
         return (
             `<dialog id="transition-dialog">
@@ -112,80 +116,84 @@ export default class TransitionDialog extends HTMLElement {
         </dialog>`
         );
     }
-        //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
+
+    //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
     connectedCallback() {
-        if(getLang() === 'es') {
+        if (getLang() === 'es') {
             this.dom.innerHTML = this.style() + this.template();
-        }
-        else if(getLang() === 'en') {
+        } else if (getLang() === 'en') {
             this.dom.innerHTML = this.style() + this.template2();
-        }
-        else {
+        } else {
             this.dom.innerHTML = this.style() + this.template3();
-        }            this.dialog = this.dom.querySelector('#transition-dialog'),
-            this.nameNode = this.dom.querySelector('#name');
-            this.nameNode2 = this.dom.querySelector('#name2');
-            this.nameNode3 = this.dom.querySelector('#name3');
-            this.selNode = this.dom.querySelector('#select-transition');
-            this.selNode2 = this.dom.querySelector('#select-stack-transition');
-            this.selNode3 = this.dom.querySelector('#select-stack-transition2');
-            this.data = { name: '' };   
-            this.type = 'DFA';
-            this.dom.querySelector('#add').addEventListener('click', () => {
-                if (this.type === 'DFA'){
-                    this.nameNode.innerText = this.selNode.value;
-                }
-                else {
-                    if ((this.nameNode.innerText.length === 0) ||
-                        (this.nameNode.innerText === '\u03F5') ||
-                        (this.selNode.value === '\u03F5')){
-                            this.nameNode.innerText = this.selNode.value;
-                        } //El epsilon va solo, borra lo que haya antes o se borra al poner otra cosa
-                        
-                    else if (this.nameNode.innerText.indexOf(this.selNode.value)){
-                        this.nameNode.innerText = this.nameNode.innerText + ',' + this.selNode.value;
-                    } //evito repes    
-                }
-            });
-            this.dom.querySelector('#add2').addEventListener('click', () => {
-                if (this.type === 'DFA'){
-                    this.nameNode2.innerText = this.selNode2.value;
-                }
-                else {
-                    if ((this.nameNode2.innerText.length === 0) ||
-                        (this.nameNode2.innerText === '\u03F5') ||
-                        (this.selNode2.value === '\u03F5')){
-                            this.nameNode2.innerText = this.selNode2.value;
-                        } //El epsilon va solo, borra lo que haya antes o se borra al poner otra cosa
-                    else if (this.nameNode2.innerText.indexOf(this.selNode2.value)){
-                        this.nameNode2.innerText = this.nameNode2.innerText + ',' + this.selNode2.value;
-                    } //evito repes
-                }
-            });
-            this.dom.querySelector('#add3').addEventListener('click', () => {
-                if (this.type === 'DFA'){
-                    this.nameNode3.innerText = this.selNode3.value;
-                }
-                else {
-                    if ((this.nameNode3.innerText.length === 0) ||
-                        (this.nameNode3.innerText === '\u03F5') ||
-                        (this.selNode3.value === '\u03F5')){
-                            this.nameNode3.innerText = this.selNode3.value;
-                        } //El epsilon va solo, borra lo que haya antes o se borra al poner otra cosa
-                        
-                    else if (this.nameNode3.innerText.indexOf(this.selNode3.value)){
-                        this.nameNode3.innerText = this.nameNode3.innerText + ',' + this.selNode3.value;
-                    } //evito repes
-                }
-            });
-            this.dom.querySelector('#del').addEventListener('click', () => { this.nameNode.innerText = '' });
-            this.dom.querySelector('#del2').addEventListener('click', () => { this.nameNode2.innerText = '' });
-            this.dom.querySelector('#del3').addEventListener('click', () => { this.nameNode3.innerText = '' });
-            this.dom.querySelector('#end').addEventListener('click', () => this.sendData('OK'));
-            this.dom.querySelector('#esc').addEventListener('click', () => this.sendData('ESC'));
         }
-        //oldData es un clon de lo que se me pasa (esto por precaución)
-        //new Data TIENE que ser un clon, porque si hacemos new = old, como copia por referencia, se machaca el old al tocar el new
+        this.dialog = this.dom.querySelector('#transition-dialog'),
+            this.nameNode = this.dom.querySelector('#name');
+        this.nameNode2 = this.dom.querySelector('#name2');
+        this.nameNode3 = this.dom.querySelector('#name3');
+        this.selNode = this.dom.querySelector('#select-transition');
+        this.selNode2 = this.dom.querySelector('#select-stack-transition');
+        this.selNode3 = this.dom.querySelector('#select-stack-transition2');
+        this.data = {name: ''};
+        this.type = 'DFA';
+        this.dom.querySelector('#add').addEventListener('click', () => {
+            if (this.type === 'DFA') {
+                this.nameNode.innerText = this.selNode.value;
+            } else {
+                if ((this.nameNode.innerText.length === 0) ||
+                    (this.nameNode.innerText === '\u03F5') ||
+                    (this.selNode.value === '\u03F5')) {
+                    this.nameNode.innerText = this.selNode.value;
+                } //El epsilon va solo, borra lo que haya antes o se borra al poner otra cosa
+
+                else if (this.nameNode.innerText.indexOf(this.selNode.value)) {
+                    this.nameNode.innerText = this.nameNode.innerText + ',' + this.selNode.value;
+                } //evito repes
+            }
+        });
+        this.dom.querySelector('#add2').addEventListener('click', () => {
+            if (this.type === 'DFA') {
+                this.nameNode2.innerText = this.selNode2.value;
+            } else {
+                if ((this.nameNode2.innerText.length === 0) ||
+                    (this.nameNode2.innerText === '\u03F5') ||
+                    (this.selNode2.value === '\u03F5')) {
+                    this.nameNode2.innerText = this.selNode2.value;
+                } //El epsilon va solo, borra lo que haya antes o se borra al poner otra cosa
+                else if (this.nameNode2.innerText.indexOf(this.selNode2.value)) {
+                    this.nameNode2.innerText = this.nameNode2.innerText + ',' + this.selNode2.value;
+                } //evito repes
+            }
+        });
+        this.dom.querySelector('#add3').addEventListener('click', () => {
+            if (this.type === 'DFA') {
+                this.nameNode3.innerText = this.selNode3.value;
+            } else {
+                if ((this.nameNode3.innerText.length === 0) ||
+                    (this.nameNode3.innerText === '\u03F5') ||
+                    (this.selNode3.value === '\u03F5')) {
+                    this.nameNode3.innerText = this.selNode3.value;
+                } //El epsilon va solo, borra lo que haya antes o se borra al poner otra cosa
+
+                else if (this.nameNode3.innerText.indexOf(this.selNode3.value)) {
+                    this.nameNode3.innerText = this.nameNode3.innerText + ',' + this.selNode3.value;
+                } //evito repes
+            }
+        });
+        this.dom.querySelector('#del').addEventListener('click', () => {
+            this.nameNode.innerText = ''
+        });
+        this.dom.querySelector('#del2').addEventListener('click', () => {
+            this.nameNode2.innerText = ''
+        });
+        this.dom.querySelector('#del3').addEventListener('click', () => {
+            this.nameNode3.innerText = ''
+        });
+        this.dom.querySelector('#end').addEventListener('click', () => this.sendData('OK'));
+        this.dom.querySelector('#esc').addEventListener('click', () => this.sendData('ESC'));
+    }
+
+    //oldData es un clon de lo que se me pasa (esto por precaución)
+    //new Data TIENE que ser un clon, porque si hacemos new = old, como copia por referencia, se machaca el old al tocar el new
     sendData(button) {
         this.data = this.oldData;
         if (button === 'OK') { //modifico campos
@@ -195,27 +203,31 @@ export default class TransitionDialog extends HTMLElement {
         }
         this.data.button = button;
         this.dialog.close()
-        this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'transition_data', data: this.data } }));
+        this.parent.dispatchEvent(new CustomEvent('dialog', {detail: {action: 'transition_data', data: this.data}}));
     }
+
     open(data, alphabet, stack) {
-            //copia de los datos del estado
-            this.connectedCallback();
-            this.oldData = JSON.parse(JSON.stringify(data)); //por si hay que recuperar? esto hace un clone sencillo
-            this.type = (alphabet.indexOf('\u03f5') !== -1) ? 'NFA' : 'DFA';
-            this.nameNode.innerText = data.name;
-            this.dom.querySelector('#optional-text').innerText = data.text || ''; //Aquí vendría texto de error
-            this.selNode.innerHTML = alphabet.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), ""); //de donde sale este alphabet
-            this.selNode2.innerHTML =  stack.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), "");
-            this.selNode3.innerHTML =  stack.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), "");
-            this.dialog.showModal();
-                }
-        //Se supone que aquí se llama al desconectar la página, pero en las aplicaciones no parece que pase
+        //copia de los datos del estado
+        this.connectedCallback();
+        this.oldData = JSON.parse(JSON.stringify(data)); //por si hay que recuperar? esto hace un clone sencillo
+        this.type = (alphabet.indexOf('\u03f5') !== -1) ? 'NFA' : 'DFA';
+        this.nameNode.innerText = data.name;
+        this.dom.querySelector('#optional-text').innerText = data.text || ''; //Aquí vendría texto de error
+        this.selNode.innerHTML = alphabet.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), ""); //de donde sale este alphabet
+        this.selNode2.innerHTML = stack.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), "");
+        this.selNode3.innerHTML = stack.split('').reduce((out, el, ix) => (out += `<option value='${el}'>${el}</option>`), "");
+        this.dialog.showModal();
+    }
+
+    //Se supone que aquí se llama al desconectar la página, pero en las aplicaciones no parece que pase
     disconnectedCallback() {
         //hay que quitar los listeners...
     }
+
     static get observedAttributes() {
         return ['parent']; //a dónde hay que echar los eventos
     }
+
     attributeChangedCallback(name, oldVal, newVal) {
         switch (name) {
             case 'parent':

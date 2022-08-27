@@ -1,6 +1,5 @@
 ﻿<!doctype html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <title>RAMSES</title>
@@ -8,58 +7,59 @@
     <script type="module" src="static/js/button-array.js"></script>
     <script type="module" src="static/js/state-editor.js"></script>
     <script src="static/js/counter.js"></script>
-    <link rel="stylesheet" href="static/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="static/css/styles.css" type="text/css"/>
     <link rel="shortcut icon" href="static/images/FAVICON.png">
-
     <style>
-
     </style>
-
 </head>
 
 <body>
-    <div id="full-screen">
-        <!--fg-dxf-dialogs  id="menu" app='state-editor'></fg-dxf-dialogs-->
-        <div id="all-menus">
-            <div id="top-menus">
-
-                <button-array id='modeButtons'></button-array>
-
-                <a data-lang="es" href="javascript:translate(es)">ES</a>
-                <a data-lang="en" href="javascript:translate(en)">EN</a>
-                <a data-lang="fr" href="javascript:translate(fr)">FR</a>
-
-                <div id="machine-info"></div>
-                <button id="b-logout" type="click" onclick="window.location='/logout';">Logout</button>
-                
-            </div>
-            <div id="menus">
-                
-                <button-array id='executeButtons'></button-array>
-                <button-array id='zoomButtons'></button-array>
-                <button-array id='editButtons'></button-array>
-                <button-array id='undoButtons'></button-array>
-                <button-array id='fileButtons'></button-array>
-
-            </div>
+<div id="full-screen">
+    <!--fg-dxf-dialogs  id="menu" app='state-editor'></fg-dxf-dialogs-->
+    <div id="all-menus">
+        <div id="top-menus">
+            <button-array id='modeButtons'></button-array>
             <br>
-            <!--<div id="contenedor">
+            <br>
+            <a data-lang="es" class="language" href="javascript:translate(es)">ES</a>
+            <a data-lang="en" class="language" href="javascript:translate(en)">EN</a>
+            <a data-lang="fr" class="language" href="javascript:translate(fr)">FR</a>
+            <div id="machine-info"></div>
+            <button id="b-logout" type="click" onclick="window.location='/logout';">Logout</button>
+            <!--<button id="b-based" type="click" onclick="window.location='/afterbd';">BD</button> -->
+
+        </div>
+        <div id="menus">
+            <button-array id='executeButtons'></button-array>
+            <button-array id='zoomButtons'></button-array>
+            <button-array id='editButtons'></button-array>
+            <button-array id='undoButtons'></button-array>
+            <button-array id='fileButtons'></button-array>
+        </div>
+        <div>
+            <div id="all-menu2">
                 <div class="reloj" id="Horas">00</div>
                 <div class="reloj" id="Minutos">:00</div>
                 <div class="reloj" id="Segundos">:00</div>
                 <div class="reloj" id="Centesimas">:00</div>
-                <br><br>
-                <input type="button" class="boton" id="inicio" value="Start &#9658;" onclick="inicio();">
-                <input type="button" class="boton" id="parar" value="Stop &#8718;" onclick="parar();" disabled>
-            </div> -->
-        </div>
-        <state-editor id='state-editor'></state-editor>
-    </div>
-    <div style="margin-top: 1000000px; display: none">-->
-         translate(getLang()) {
-        <script src="main.js"></script>
-        }
-    </div>
-</body>
+                &nbsp;
 
+                <div class="reloj2">
+                    <input type="button" class="boton" id="inicio" value="Start &#9658;" onclick="inicio();"><br>
+                    &nbsp;
+                    <input type="button" class="boton" id="parar" value="Stop &#8718;" onclick="parar();" disabled>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <state-editor id='state-editor'></state-editor>
+</div>
+
+<div style="margin-top: 1000000px; display: none">-->
+    translate(getLang()) {
+    <script src="main.js"></script>
+    }
+</div>
 </html>
