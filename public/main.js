@@ -1,6 +1,8 @@
 var dictionary = { // props in alphabetical order ok? promise?
 // prop   : {fr, en, es}
   contra  : {fr:"Mot de passe", en:"Password", es:"Contraseña"},
+  json  : {fr:"Importation en JSON", en:"Import in JSON", es:"Importar en JSON"},
+  jflap  : {fr:"Importation en JFLAP", en:"Import in JFLAP", es:"Importar en JFLAP"},
   login  : {fr:"Connexion", en:"Login", es:"Iniciar sesión"},
   nombre : {fr:"Nom:", en:"Name:", es:"Nombre:"},
   tipo  : {fr:"Type:", en:"Type:", es:"Tipo:"},

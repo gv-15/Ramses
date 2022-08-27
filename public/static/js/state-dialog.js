@@ -9,8 +9,9 @@ export default class StateDialog extends HTMLElement {
             mode: 'open'
         });
     }
+
     style() {
-        return (String.raw `
+        return (String.raw`
       <style>
         :host {
           display: block;
@@ -48,9 +49,10 @@ export default class StateDialog extends HTMLElement {
       </style>
       `);
     }
+
     template() {
-            return (
-                `<dialog id="state-dialog">
+        return (
+            `<dialog id="state-dialog">
         </br><span id='optional-text'></span></br>
               <div>
                 <label for='is-initial' >Inicial</label><input type="checkbox" id="is-initial-state" value="Initial"/><br/>
@@ -62,17 +64,19 @@ export default class StateDialog extends HTMLElement {
               </div>
 
       </dialog>`
-            );
-        }
-        //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
+        );
+    }
+
+    //Aquí se llama cuando se comectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
     connectedCallback() {
-            this.dom.innerHTML = this.style() + this.template();
-            this.dialog = this.dom.querySelector('#state-dialog');
-            this.dom.querySelector('#end').addEventListener('click', () => this.sendData('OK'));
-            this.dom.querySelector('#esc').addEventListener('click', () => this.sendData('ESC')); //Por ortogonalidad, se podría cerrar el diálogo aquí, creo
-        }
-        //oldData es un clon de lo que se me pasa (esto por precaución)
-        //Los campos se actualizan de 1 en uno y no como estructura completa 
+        this.dom.innerHTML = this.style() + this.template();
+        this.dialog = this.dom.querySelector('#state-dialog');
+        this.dom.querySelector('#end').addEventListener('click', () => this.sendData('OK'));
+        this.dom.querySelector('#esc').addEventListener('click', () => this.sendData('ESC')); //Por ortogonalidad, se podría cerrar el diálogo aquí, creo
+    }
+
+    //oldData es un clon de lo que se me pasa (esto por precaución)
+    //Los campos se actualizan de 1 en uno y no como estructura completa
     sendData(button) {
         this.data = JSON.parse(JSON.stringify(this.oldData)); //Esto lo trata luego e que recibe, pero por si acaso lo dejo como estaba
         if (button === 'OK') { //modifico campos
@@ -82,25 +86,29 @@ export default class StateDialog extends HTMLElement {
         }
         this.data.button = button;
         this.dialog.close()
-        this.parent.dispatchEvent(new CustomEvent('dialog', { detail: { action: 'state_data', data: this.data } }));
+        this.parent.dispatchEvent(new CustomEvent('dialog', {detail: {action: 'state_data', data: this.data}}));
     }
+
     open(data) {
-            //copia de los datos del estado
-            this.oldData = JSON.parse(JSON.stringify(data)); //por si hay que recuperar? esto hace un clone sencillo
-            //lo que sale en el dialog box, no es fácil de tratar en array porque usan value, checked... y se hace engorroso, demasiado listo
-            this.dom.querySelector('#optional-text').innerText = data.text || '';
-            this.dom.querySelector('#is-initial-state').checked = data.isInitialState;
-            this.dom.querySelector('#is-terminal-state').checked = data.isTerminalState;
-            this.dom.querySelector('#comments').value = data.comments;
-            this.dialog.showModal();
-        }
-        //Se supone que aquí se llama al desconectar la página, pero en laa aplicaciones no parece que pase
+        //copia de los datos del estado
+        this.oldData = JSON.parse(JSON.stringify(data)); //por si hay que recuperar? esto hace un clone sencillo
+        //lo que sale en el dialog box, no es fácil de tratar en array porque usan value, checked... y se hace engorroso, demasiado listo
+        this.dom.querySelector('#optional-text').innerText = data.text || '';
+        this.dom.querySelector('#is-initial-state').checked = data.isInitialState;
+        this.dom.querySelector('#is-terminal-state').checked = data.isTerminalState;
+        this.dom.querySelector('#comments').value = data.comments;
+        this.dialog.showModal();
+    }
+
+    //Se supone que aquí se llama al desconectar la página, pero en laa aplicaciones no parece que pase
     disconnectedCallback() {
         //hay que quitar los listeners... pero no se dejan?!
     }
+
     static get observedAttributes() {
         return ['parent']; //a dónde hay que echar los eventos
     }
+
     attributeChangedCallback(name, oldVal, newVal) {
         switch (name) {
             case 'parent':
