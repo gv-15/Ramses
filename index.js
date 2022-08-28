@@ -65,8 +65,8 @@ app.post('/auth', function(request, response) {
 app.get(`/home`, (request, response) => {
     response.sendFile('home.html', { root: `${__dirname}/public` });
 });
-
-/*app.get(`/afterbd`, (request, response) => {
+/*
+app.get(`/afterbd`, (request, response) => {
    
     var sql = "INSERT INTO maquinas (id_state, id_automata, id_usuario, id_posicion_x, id_posicion_y) VALUES (1,3,4,0.5,1.5)";
     connection.query(sql);
@@ -81,6 +81,7 @@ app.get(`/home`, (request, response) => {
      
   //response.sendFile('home.html', { root: `${__dirname}/public` });
 }); */
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get(`/`, (request, response) => {
