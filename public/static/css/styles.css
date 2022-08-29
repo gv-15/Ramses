@@ -171,7 +171,7 @@ svg {
     background-color: transparent;
     border: none;
     color: transparent;
-    background-image: url(/static/images/sign-out-white.svg);
+    background-image: url(/ramses/static/images/sign-out-white.svg);
     cursor: pointer;
 }
 
@@ -181,7 +181,7 @@ svg {
     background-color: transparent;
     border: none;
     color: white;
-    background-image: url(/static/images/bd.svg);
+    background-image: url(/ramses/static/images/bd.svg);
     cursor: pointer;
 }
 
