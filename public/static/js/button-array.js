@@ -71,8 +71,8 @@ export default class ButtonArray extends HTMLElement {
             display: none;
         }
 
-        #b-testmode {background-image: url(/static/images/lightning.svg);}
-        #b-testmode.selected {background-image: url(/static/images/lightning-blue.svg);}
+        #b-testmode {background-image: url(/ramses/static/images/lightning.svg);}
+        #b-testmode.selected {background-image: url(/ramses/static/images/lightning-blue.svg);}
 
         #b-testmode.selected, #b-drawmode.selected {
              background-repeat: no-repeat;
@@ -80,8 +80,8 @@ export default class ButtonArray extends HTMLElement {
              background-position: center;
         }
 
-        #b-drawmode {background-image: url(/static/images/edit.svg);}
-        #b-drawmode.selected {background-image: url(/static/images/edit-blue.svg);}
+        #b-drawmode {background-image: url(/ramses/static/images/edit.svg);}
+        #b-drawmode.selected {background-image: url(/ramses/static/images/edit-blue.svg);}
 
         #b-download, #b-screenshot, #b-based , #b-json, #b-xml, #b-based,
         #b-zoomin, #b-zoomout, #b-home, #b-sethome, #b-fit, #b-setzoom,
@@ -91,55 +91,55 @@ export default class ButtonArray extends HTMLElement {
             background-repeat: no-repeat;
             background-position: center;
         }
-        #b-play {background-image: url(/static/images/play.svg);}
-        #b-play.selected {background-image: url(/static/images/play-blue.svg);}
-        #b-stop {background-image: url(/static/images/pause.svg);}
-        #b-stop.selected {background-image: url(/static/images/pause-blue.svg);}
-        #b-back {background-image: url(/static/images/back.svg);}
-        #b-back.selected {background-image: url(/static/images/back-blue.svg);}
-        #b-fback {background-image: url(/static/images/fback.svg);}
-        #b-fback.selected {background-image: url(/static/images/fback-blue.svg);}
-        #b-fforward {background-image: url(/static/images/fforward.svg);}
-        #b-fforward.selected {background-image: url(/static/images/fforward-blue.svg);}
+        #b-play {background-image: url(/ramses/static/images/play.svg);}
+        #b-play.selected {background-image: url(/ramses/static/images/play-blue.svg);}
+        #b-stop {background-image: url(/ramses/static/images/pause.svg);}
+        #b-stop.selected {background-image: url(/ramses/static/images/pause-blue.svg);}
+        #b-back {background-image: url(/ramses/static/images/back.svg);}
+        #b-back.selected {background-image: url(/ramses/static/images/back-blue.svg);}
+        #b-fback {background-image: url(/ramses/static/images/fback.svg);}
+        #b-fback.selected {background-image: url(/ramses/static/images/fback-blue.svg);}
+        #b-fforward {background-image: url(/ramses/static/images/fforward.svg);}
+        #b-fforward.selected {background-image: url(/ramses/static/images/fforward-blue.svg);}
 
-        #b-based {background-image: url(/static/images/bd.svg);}
-        #b-based.selected {background-image: url(/static/images/bd.svg);}
-        #b-xml {background-image: url(/static/images/xml.svg);}
-        #b-xml.selected {background-image: url(/static/images/xml.svg);}
-        #b-json {background-image: url(/static/images/json.svg);}
-        #b-json.selected {background-image: url(/static/images/json.svg);}
-        #b-screenshot {background-image: url(/static/images/camera.svg);}
-        #b-screenshot.selected {background-image: url(/static/images/camera.svg);}
-        #b-zoomin {background-image: url(/static/images/zoom-in.svg);}
-        #b-zoomin.selected {background-image: url(/static/images/zoom-in-blue.svg);}
-        #b-zoomout {background-image: url(/static/images/zoom-out.svg);}
-        #b-zoomout.selected {background-image: url(/static/images/zoom-out-blue.svg);}
-        #b-home {background-image: url(/static/images/home.svg);}
-        #b-home.selected {background-image: url(/static/images/home-blue.svg);}
-        #b-sethome {background-image: url(/static/images/lock.svg);}
-        #b-sethome.selected {background-image: url(/static/images/lock-blue.svg);}
-        #b-fit {background-image: url(/static/images/maximize-size.svg);}
-        #b-fit.selected {background-image: url(/static/images/maximize-size-blue.svg);}
-        #b-state {background-image: url(/static/images/new-circle.svg);}
-        #b-state.selected {background-image: url(/static/images/new-circle-blue.svg);}
-        #b-trans {background-image: url(/static/images/trans.svg);}
-        #b-trans.selected {background-image: url(/static/images/trans-blue.svg);}
-        #b-drag {background-image: url(/static/images/move.svg);}
-        #b-drag.selected {background-image: url(/static/images/move-blue.svg);}
-        #b-delete {background-image: url(/static/images/delete.svg);}
-        #b-delete.selected {background-image: url(/static/images/delete-blue.svg);}
-        #b-edit {background-image: url(/static/images/edit-nuevo.svg);}
-        #b-nuevo {background-image: url(/static/images/nuevo.svg);}
-        #b-determinista {background-image: url(/static/images/determinista.svg);}
-        #b-complementar {background-image: url(/static/images/complementary.svg);}
-        #b-complementarTotal {background-image: url(/static/images/complementarTotal.svg);}
-        #b-invertir {background-image: url(/static/images/invertir.svg);}  
-        #b-total {background-image: url(/static/images/total.svg);}  
-        #b-edit.selected {background-image: url(/static/images/edit-blue-nuevo.svg);}
-        #b-undo {background-image: url(/static/images/rotate-left.svg);}
-        #b-undo.selected {background-image: url(/static/images/rotate-left-blue.svg);}
-        #b-redo {background-image: url(/static/images/rotate-right.svg);}
-        #b-redo.selected {background-image: url(/static/images/rotate-right-blue.svg);}
+        #b-based {background-image: url(/ramses/static/images/bd.svg);}
+        #b-based.selected {background-image: url(/ramses/static/images/bd.svg);}
+        #b-xml {background-image: url(/ramses/static/images/xml.svg);}
+        #b-xml.selected {background-image: url(/ramses/static/images/xml.svg);}
+        #b-json {background-image: url(/ramses/static/images/json.svg);}
+        #b-json.selected {background-image: url(/ramses/static/images/json.svg);}
+        #b-screenshot {background-image: url(/ramses/static/images/camera.svg);}
+        #b-screenshot.selected {background-image: url(/ramses/static/images/camera.svg);}
+        #b-zoomin {background-image: url(/ramses/static/images/zoom-in.svg);}
+        #b-zoomin.selected {background-image: url(/ramses/static/images/zoom-in-blue.svg);}
+        #b-zoomout {background-image: url(/ramses/static/images/zoom-out.svg);}
+        #b-zoomout.selected {background-image: url(/ramses/static/images/zoom-out-blue.svg);}
+        #b-home {background-image: url(/ramses/static/images/home.svg);}
+        #b-home.selected {background-image: url(/ramses/static/images/home-blue.svg);}
+        #b-sethome {background-image: url(/ramses/static/images/lock.svg);}
+        #b-sethome.selected {background-image: url(/ramses/static/images/lock-blue.svg);}
+        #b-fit {background-image: url(/ramses/static/images/maximize-size.svg);}
+        #b-fit.selected {background-image: url(/ramses/static/images/maximize-size-blue.svg);}
+        #b-state {background-image: url(/ramses/static/images/new-circle.svg);}
+        #b-state.selected {background-image: url(/ramses/static/images/new-circle-blue.svg);}
+        #b-trans {background-image: url(/ramses/static/images/trans.svg);}
+        #b-trans.selected {background-image: url(/ramses/static/images/trans-blue.svg);}
+        #b-drag {background-image: url(/ramses/static/images/move.svg);}
+        #b-drag.selected {background-image: url(/ramses/static/images/move-blue.svg);}
+        #b-delete {background-image: url(/ramses/static/images/delete.svg);}
+        #b-delete.selected {background-image: url(/ramses/static/images/delete-blue.svg);}
+        #b-edit {background-image: url(/ramses/static/images/edit-nuevo.svg);}
+        #b-nuevo {background-image: url(/ramses/static/images/nuevo.svg);}
+        #b-determinista {background-image: url(/ramses/static/images/determinista.svg);}
+        #b-complementar {background-image: url(/ramses/static/images/complementary.svg);}
+        #b-complementarTotal {background-image: url(/ramses/static/images/complementarTotal.svg);}
+        #b-invertir {background-image: url(/ramses/static/images/invertir.svg);}  
+        #b-total {background-image: url(/ramses/static/images/total.svg);}  
+        #b-edit.selected {background-image: url(/ramses/static/images/edit-blue-nuevo.svg);}
+        #b-undo {background-image: url(/ramses/static/images/rotate-left.svg);}
+        #b-undo.selected {background-image: url(/ramses/static/images/rotate-left-blue.svg);}
+        #b-redo {background-image: url(/ramses/static/images/rotate-right.svg);}
+        #b-redo.selected {background-image: url(/ramses/static/images/rotate-right-blue.svg);}
 
         .tooltiptext {
             visibility: hidden;
