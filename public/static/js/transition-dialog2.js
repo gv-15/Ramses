@@ -71,8 +71,25 @@ export default class TransitionDialog2 extends HTMLElement {
         );
 
     }
-
     template2() {
+
+        return (
+            `<dialog id="transition-dialog2">
+        <select id='select-transition'></select>
+        <input type="button" id="add" value=" Gehitu "/>
+        <input type="button" id="del" value=" Ezabatu "/></br></br>
+        <span id='name' ></span></span></br>
+        <span id='optional-text'></span></br>
+        <div id="buttons">
+         <input type="button" id="esc" value="Irten"/>
+         <input type="button" id="end" value="Bidali"/>
+        </div>
+        </dialog>`
+        );
+
+    }
+
+    template3() {
 
         return (
             `<dialog id="transition-dialog2">
@@ -90,7 +107,7 @@ export default class TransitionDialog2 extends HTMLElement {
 
     }
 
-    template3() {
+    template4() {
 
         return (
             `<dialog id="transition-dialog2">
@@ -110,13 +127,17 @@ export default class TransitionDialog2 extends HTMLElement {
 
     //Aquí se llama cuando se conectan los custom elements, se supone, o sea, donde se deberían crear los event handlers y tal
     connectedCallback() {
-
         if (getLang() === 'es') {
             this.dom.innerHTML = this.style() + this.template();
-        } else if (getLang() === 'en') {
+        }
+        if (getLang() === 'eu') {
             this.dom.innerHTML = this.style() + this.template2();
-        } else {
+        }
+        if (getLang() === 'en') {
             this.dom.innerHTML = this.style() + this.template3();
+        }
+        if (getLang() === 'fr') {
+            this.dom.innerHTML = this.style() + this.template4();
         }
 
         this.dialog = this.dom.querySelector('#transition-dialog2'),
