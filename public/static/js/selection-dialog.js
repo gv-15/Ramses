@@ -171,7 +171,7 @@ export default class SelectionDialog extends HTMLElement {
             
                             <label id="sigma-label">&#931<input type="text"  name="machine" id="alphabet-input" placeholder="p.ej: ab, 01"/></label></br>
                             <label id="stack-label">&#931 Pila<input type="text"  name="stack-machine" id="stack-alphabet-input" placeholder="p.ej: gv, 15"/></label></br>
-                            <label id="filename-label">Nombre<input type="text"  name="filename" id="filename-input" placeholder="afd-01"/></label>
+                            <label id="filename-label">Izena<input type="text"  name="filename" id="filename-input" placeholder="afd-01"/></label>
                         </div>
                     </div>
                     <div class="headerDivider"></div>
