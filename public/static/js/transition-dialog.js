@@ -77,6 +77,28 @@ export default class TransitionDialog extends HTMLElement {
         return (
             `<dialog id="transition-dialog">
         <select id='select-transition'></select>
+        <input type="button" id="add" value=" Gehitu "/>
+        <input type="button" id="del" value=" Ezabatu "/></br></br>
+        <select id='select-stack-transition'></select>
+        <input type="button" id="add2" value=" Gehitu "/>
+        <input type="button" id="del2" value=" Ezabatu "/></br></br>
+        <select id='select-stack-transition2'></select>
+        <input type="button" id="add3" value=" Gehitu "/>
+        <input type="button" id="del3" value=" Ezabatu "/></br></br>
+        <span id='name' ></span>,<span id='name2' ></span>;<span id='name3' ></span></br>
+        <span id='optional-text'></span></br>
+        <div id="buttons">
+        <input type="button" id="esc" value="Irten"/>
+        <input type="button" id="end" value="Bidali"/>
+        </div>
+        </dialog>`
+        );
+    }
+
+    template3() {
+        return (
+            `<dialog id="transition-dialog">
+        <select id='select-transition'></select>
         <input type="button" id="add" value=" Add "/>
         <input type="button" id="del" value=" Delete "/></br></br>
         <select id='select-stack-transition'></select>
@@ -95,7 +117,7 @@ export default class TransitionDialog extends HTMLElement {
         );
     }
 
-    template3() {
+    template4() {
         return (
             `<dialog id="transition-dialog">
         <select id='select-transition'></select>
@@ -121,10 +143,15 @@ export default class TransitionDialog extends HTMLElement {
     connectedCallback() {
         if (getLang() === 'es') {
             this.dom.innerHTML = this.style() + this.template();
-        } else if (getLang() === 'en') {
+        }
+        if (getLang() === 'eu') {
             this.dom.innerHTML = this.style() + this.template2();
-        } else {
+        }
+        if (getLang() === 'en') {
             this.dom.innerHTML = this.style() + this.template3();
+        }
+        if (getLang() === 'fr') {
+            this.dom.innerHTML = this.style() + this.template4();
         }
         this.dialog = this.dom.querySelector('#transition-dialog'),
             this.nameNode = this.dom.querySelector('#name');
